@@ -20,14 +20,11 @@ namespace PatchTool
             }
 
             CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
-            //Console.Write("[DEBUG] archive: ");
-            //Console.WriteLine(d.ContainsKey("archive"));
-
+            Archiver a = new Archiver();
             string src_dir;
             string patch_id;
             string extract_dir;
             string product_version;
-            Archiver a = new Archiver();
 
             if (d.ContainsKey("archive"))
             {

@@ -1,15 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Test.CommandLineParsing;
 
-namespace Updater
+namespace PatchTool
 {
     class Clyde
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("two main methods in the same project?");
+            if (args.Length < 1)
+            {
+                Console.WriteLine("Required:\tClyde -appdir=<app-dir>");
+                //Console.WriteLine();
+                //Console.WriteLine("Optional:\t[-patchID=<patchID>]");
+                //Console.WriteLine("\t\t[-productVersion=<productVersion>]");
+                //Console.WriteLine("\t\t[-extractDir=<extractDir>]");
+                //Console.WriteLine("\t\t[-?]");
+                return;
+            }
+
+            CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
+            Archiver a = new Archiver();
+            string src_dir;
+            string patch_id;
+            string extract_dir;
+            string product_version;
+
+            if (d.ContainsKey("archive"))
+            {
+                d.TryGetValue("archive", out src_dir);
+                a.SourceDir = src_dir;
+            }
+            else
+            {
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken!");
+            }
+
+            if (d.ContainsKey("patchID"))
+            {
+                //Console.WriteLine("setting patchID");
+                d.TryGetValue("patchID", out patch_id);
+                a.PatchID = patch_id;
+            }
+            if (d.ContainsKey("extractDir"))
+            {
+                //Console.WriteLine("setting extractDir");
+                d.TryGetValue("extractDir", out extract_dir);
+                a.ExtractDir = extract_dir;
+            }
+            if (d.ContainsKey("productVersion"))
+            {
+                //Console.WriteLine("setting productVersion");
+                d.TryGetValue("productVersion", out product_version);
+                a.ProductVersion = product_version;
+            }
+            a.run();
         }
     }
 }
