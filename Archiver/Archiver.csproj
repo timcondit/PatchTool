@@ -8,7 +8,7 @@
     <ProjectGuid>{6C133800-08FF-4634-8847-7A3483C7C048}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Updater</RootNamespace>
+    <RootNamespace>PatchTool</RootNamespace>
     <AssemblyName>PacMan</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -49,8 +49,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\References\Release\Ionic.Zip.dll</HintPath>
+    <Reference Include="PatchLib">
+      <HintPath>..\PatchLib\bin\Release\PatchLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,11 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PacMan.cs" />
-    <Compile Include="PacManLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

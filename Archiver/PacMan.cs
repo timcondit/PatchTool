@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Test.CommandLineParsing;
 
-namespace Updater
+namespace PatchTool
 {
     public class PacMan
     {

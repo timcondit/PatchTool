@@ -19,9 +19,9 @@ using System.Collections.Generic;
 //  the Updater (or PatchTool) to do their bidness.
 
 
-namespace Updater
+namespace PatchTool
 {
-    class Archiver
+    public class Archiver
     {
         private string _sourceDir;
         public string SourceDir
@@ -98,10 +98,10 @@ namespace Updater
     }
 
 
-    class Extractor
+    public class Extractor
     {
         public Extractor() { }
-        public Extractor(string _appeDir)
+        public Extractor(string _appDir)
         {
             AppDir = _appDir;
         }
