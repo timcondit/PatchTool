@@ -8,8 +8,8 @@
     <ProjectGuid>{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Extractor</RootNamespace>
-    <AssemblyName>Extractor</AssemblyName>
+    <RootNamespace>PatchTool</RootNamespace>
+    <AssemblyName>Clyde</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

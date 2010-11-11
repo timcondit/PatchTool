@@ -1,5 +1,4 @@
 ﻿using Ionic.Zip;
-using Microsoft.Test.CommandLineParsing;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -8,15 +7,10 @@ using System.Collections.Generic;
 // http://dotnetzip.codeplex.com/
 // http://cheeso.members.winisp.net/DotNetZipHelp/html/d4648875-d41a-783b-d5f4-638df39ee413.htm
 //
-// using TestAPI
-// http://testapi.codeplex.com/
-
 // TODO
-// 1) DotNetZip: look at ExtractExistingFileAction OverwriteSilently
+// 1) look at ExtractExistingFileAction OverwriteSilently
 //  http://cheeso.members.winisp.net/DotNetZipHelp/html/5443c4c0-6f74-9ae1-37fd-9a4ae936832d.htm
-// 2) The Archiver and Extractor classes should be combined into a DLL in a new namespace, maybe
-//  called Updater or PatchTool or something.  Then PacMan and Clyde can be entry points that use
-//  the Updater (or PatchTool) to do their bidness.
+// 2) 
 
 
 namespace PatchTool
@@ -44,8 +38,7 @@ namespace PatchTool
             set { _productVersion = value; }
         }
 
-        // TC: this should probably be in the Extractor only
-        private string _extractDir = @".";
+        private string _extractDir = ".";
         public string ExtractDir
         {
             get { return _extractDir; }
@@ -67,33 +60,30 @@ namespace PatchTool
                     System.Environment.Exit(1);
                 }
 
+                // TC: well this is ugly.  I've added a reference to Extractor.exe into the
+                // Archiver project, but it seems like this belongs in Archiver as well, since
+                // that's what's looking for the file.
+                zip.AddFile("Clyde.exe");
+                zip.AddFile("PatchLib.dll");
+
                 zip.Comment = "Where will this show up?";
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
+                // TC: I'd like to also use options.FileVersion here.  Maybe sort it out later.
                 options.ProductVersion = ProductVersion;
                 options.DefaultExtractDirectory = ExtractDir;
+                // TC: debug
+                Console.WriteLine("options.DefaultExtractDirectory: {0}", options.DefaultExtractDirectory);
 
-                // TC: I don't need these yet, but it's so cool that they're available.
-                //options.PostExtractCommandLine = "ExeToRunAfterExtract";
-                //options.RemoveUnpackedFilesAfterExecute = true;
+                options.Copyright = "Copyright 2010 Envision Telephony";
+                options.PostExtractCommandLine = "Clyde.exe";
+                // TC: false for dev, true (maybe) for production
+                options.RemoveUnpackedFilesAfterExecute = false;
 
-                // TC: delete PatchID before reusing!
+                // TC: delete other patches before reusing file name!
                 zip.SaveSelfExtractor(PatchID, options);
             }
-
-            //string DirectoryPath = ".";
-            //using (ZipFile zip = new ZipFile())
-            //{
-            //    zip.AddDirectory(DirectoryPath, System.IO.Path.GetFileName(DirectoryPath));
-            //    zip.Comment = "This will be embedded into a self-extracting console-based exe";
-            //    SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
-            //    options.Flavor = SelfExtractorFlavor.ConsoleApplication;
-            //    options.DefaultExtractDirectory = "%USERPROFILE%\\ExtractHere";
-            //    options.PostExtractCommandLine = "ExeToRunAfterExtract";
-            //    options.RemoveUnpackedFilesAfterExecute = true;
-            //    zip.SaveSelfExtractor("archive.exe", options);
-            //}
         }
 
         // TC: given name of ExistingZipFile (param), list the file's contents.  This

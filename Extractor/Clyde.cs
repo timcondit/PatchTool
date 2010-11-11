@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Test.CommandLineParsing;
+﻿using Microsoft.Win32;
+using System;
 
 namespace PatchTool
 {
@@ -7,54 +7,19 @@ namespace PatchTool
     {
         static void Main(string[] args)
         {
-            if (args.Length < 1)
-            {
-                Console.WriteLine("Required:\tClyde -appdir=<app-dir>");
-                //Console.WriteLine();
-                //Console.WriteLine("Optional:\t[-patchID=<patchID>]");
-                //Console.WriteLine("\t\t[-productVersion=<productVersion>]");
-                //Console.WriteLine("\t\t[-extractDir=<extractDir>]");
-                //Console.WriteLine("\t\t[-?]");
-                return;
-            }
+            // TC: Clyde needs no arguments.  The APPDIR is read from the registry; the
+            //  productVersion is set when the patch is created; and the extractDir is composed
+            //  from all three.
 
-            CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
-            Archiver a = new Archiver();
-            string src_dir;
-            string patch_id;
-            string extract_dir;
-            string product_version;
+            // TC: read the APPDIR from the registry
+            RegistryKey hklm = Registry.LocalMachine;
+            hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\Server");
+            Extractor e = new Extractor();
+            e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
+            // TC: debug
+            Console.WriteLine("e.appDir: {0}", e.AppDir);
 
-            if (d.ContainsKey("archive"))
-            {
-                d.TryGetValue("archive", out src_dir);
-                a.SourceDir = src_dir;
-            }
-            else
-            {
-                // "pretty it up" and exit
-                throw new ArgumentException("something's broken!");
-            }
-
-            if (d.ContainsKey("patchID"))
-            {
-                //Console.WriteLine("setting patchID");
-                d.TryGetValue("patchID", out patch_id);
-                a.PatchID = patch_id;
-            }
-            if (d.ContainsKey("extractDir"))
-            {
-                //Console.WriteLine("setting extractDir");
-                d.TryGetValue("extractDir", out extract_dir);
-                a.ExtractDir = extract_dir;
-            }
-            if (d.ContainsKey("productVersion"))
-            {
-                //Console.WriteLine("setting productVersion");
-                d.TryGetValue("productVersion", out product_version);
-                a.ProductVersion = product_version;
-            }
-            a.run();
+            // TC: it's time to ...
         }
     }
 }

@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archiver", "Archiver\Archiver.csproj", "{6C133800-08FF-4634-8847-7A3483C7C048}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E24A0395-B54E-4944-92D1-ADD70F9E5ADB} = {E24A0395-B54E-4944-92D1-ADD70F9E5ADB}
+		{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53} = {F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchLib", "PatchLib\PatchLib.csproj", "{E24A0395-B54E-4944-92D1-ADD70F9E5ADB}"
