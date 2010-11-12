@@ -2,8 +2,7 @@
 using System;
 using System.IO;
 
-// using command-line parser from TestAPI
-// http://testapi.codeplex.com/
+// using command-line parser from TestAPI - http://testapi.codeplex.com/
 
 namespace PatchTool
 {
@@ -20,7 +19,6 @@ namespace PatchTool
                 usage += "Optional arguments:\n";
                 usage += "\t-patchID=<patchID>\n";
                 usage += "\t-productVersion=<productVersion>\n";
-                //usage += "\t-extractDir=<extractDir>\n";
                 // TC: this doesn't do anything yet
                 usage += "\t-?\n";
 
@@ -32,7 +30,6 @@ namespace PatchTool
             Archiver a = new Archiver();
             string src_dir;
             string patch_id;
-            //string extract_dir;
             string product_version;
 
             if (d.ContainsKey("archive"))
@@ -48,7 +45,6 @@ namespace PatchTool
 
             if (d.ContainsKey("patchID"))
             {
-                //Console.WriteLine("setting patchID");
                 d.TryGetValue("patchID", out patch_id);
                 a.PatchID = patch_id;
             }
@@ -56,15 +52,8 @@ namespace PatchTool
             {
                 Console.WriteLine("Warning: using default patch ID: {0}", a.PatchID);
             }
-            //if (d.ContainsKey("extractDir"))
-            //{
-            //    //Console.WriteLine("setting extractDir");
-            //    d.TryGetValue("extractDir", out extract_dir);
-            //    a.ExtractDir = extract_dir;
-            //}
             if (d.ContainsKey("productVersion"))
             {
-                //Console.WriteLine("setting productVersion");
                 d.TryGetValue("productVersion", out product_version);
                 a.ProductVersion = product_version;
             }
@@ -73,7 +62,14 @@ namespace PatchTool
                 Console.WriteLine("Warning: using default product version: {0}", a.ProductVersion);
             }
 
-            a.ExtractDir = Path.Combine(a.SourceDir, "patches", a.ProductVersion, "tmp");
+            // TC: there's no way to know the "real" extract dir ahead of time, since we get the
+            // customer's APPDIR from their registry.  Maybe I can add a relocate method to Clyde.
+
+            // TC: ugly workaround
+            Guid g = Guid.NewGuid();
+            // TC: debug
+            //Console.WriteLine(g.ToString());
+            a.ExtractDir = Path.Combine(@"C:\patches", g.ToString());
             a.run();
         }
     }

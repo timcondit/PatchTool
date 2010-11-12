@@ -1,6 +1,7 @@
 ﻿using Ionic.Zip;
 using System;
 using System.IO;
+using System.Text;
 using System.Collections.Generic;
 
 // using DotNetZip library
@@ -74,7 +75,7 @@ namespace PatchTool
                 options.ProductVersion = ProductVersion;
                 options.DefaultExtractDirectory = ExtractDir;
                 // TC: debug
-                Console.WriteLine("options.DefaultExtractDirectory: {0}", options.DefaultExtractDirectory);
+                //Console.WriteLine("options.DefaultExtractDirectory: {0}", options.DefaultExtractDirectory);
 
                 options.Copyright = "Copyright 2010 Envision Telephony";
                 options.PostExtractCommandLine = "Clyde.exe";
@@ -117,6 +118,12 @@ namespace PatchTool
         //}
     }
 
+    // The Extractor needs a few paths:
+    //  - ExtractDir is where the files are extracted when the user double clicks the SFX.  This path should be logged.
+    //  - APPDIR/patches/<version>/old is where the files to replace are stored for posterity.  This info should be logged.
+    //  - APPDIR/patches/<version>/new is where the new files are stored for posterity.  This info should be logged.
+    //  - APPDIR is where the patch files are eventually delivered to, if all goes well.
+
     public class Extractor
     {
         public Extractor() { }
@@ -132,9 +139,90 @@ namespace PatchTool
             set { _appDir = value; }
         }
 
+        // This should be equivalent to ExtractDir in Archiver.  I should probably find a better
+        // solution.
+        private string _extractDir = Directory.GetCurrentDirectory();
+        public string ExtractDir
+        {
+            get { return _extractDir; }
+            // this should really be const, but I don't know how to do that with dynamic data
+            //set { _extractDir = Directory.GetCurrentDirectory(); }
+        }
+
+        // 0: Get APPDIR, or not.  Maybe create a method that accepts APPDIR, and start with 1:
+        // 1: Assemble path dictionaries.  Starting with relative paths in ROOT, verify every file
+        //    in the same relative location under APPDIR.  Do NOT touch anything yet.
+        // 2: Create APPDIR/patches/<version>/{old|new}
+        // 3: ?? Create a mirror directory structure in old/ & new/?
+        // 4: Start copying files to old/.
+        // 5: Next?
+
+        // Are all files in srcDir also present in dstDir (extractDir and appDir, respectively)?
+        public bool rollCall(string _srcDir, string _dstDir)
+        {
+            DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
+            DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
+            FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
+
+            // the base paths are the heads
+            string tail;
+
+            foreach (FileInfo f in srcFiles)
+            {
+                tail = RelativePath(srcDir.ToString(), f.FullName);
+                Console.WriteLine("tail: {0}", tail);
+                Console.WriteLine("srcPath: {0}", Path.GetFullPath(Path.Combine(srcDir.ToString(), tail)));
+                Console.WriteLine("dstPath: {0}", Path.GetFullPath(Path.Combine(dstDir.ToString(), tail)));
+                Console.WriteLine();
+            }
+
+            return true;
+        }
+
         public void run()
         {
             return;
+        }
+
+        // http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
+        // Don't forget to use System.Text;
+        private string RelativePath(string absolutePath, string relativeTo)
+        {
+            string[] absoluteDirectories = absolutePath.Split('\\');
+            string[] relativeDirectories = relativeTo.Split('\\');
+
+            //Get the shortest of the two paths
+            int length = absoluteDirectories.Length < relativeDirectories.Length ? absoluteDirectories.Length : relativeDirectories.Length;
+
+            //Use to determine where in the loop we exited
+            int lastCommonRoot = -1;
+            int index;
+
+            //Find common root
+            for (index = 0; index < length; index++)
+                if (absoluteDirectories[index] == relativeDirectories[index])
+                    lastCommonRoot = index;
+                else
+                    break;
+
+            //If we didn't find a common prefix then throw
+            if (lastCommonRoot == -1)
+                throw new ArgumentException("Paths do not have a common base");
+
+            //Build up the relative path
+            StringBuilder relativePath = new StringBuilder();
+
+            //Add on the ..
+            for (index = lastCommonRoot + 1; index < absoluteDirectories.Length; index++)
+                if (absoluteDirectories[index].Length > 0)
+                    relativePath.Append("..\\");
+
+            //Add on the folders
+            for (index = lastCommonRoot + 1; index < relativeDirectories.Length - 1; index++)
+                relativePath.Append(relativeDirectories[index] + "\\");
+            relativePath.Append(relativeDirectories[relativeDirectories.Length - 1]);
+
+            return relativePath.ToString();
         }
     }
 }

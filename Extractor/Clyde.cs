@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 
 namespace PatchTool
 {
@@ -17,9 +18,27 @@ namespace PatchTool
             Extractor e = new Extractor();
             e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
             // TC: debug
-            Console.WriteLine("e.appDir: {0}", e.AppDir);
+            Console.WriteLine("e.AppDir: {0}", e.AppDir);
+            Console.WriteLine("e.ExtractDir: {0}", e.ExtractDir);
 
-            // TC: it's time to ...
+            // beware System.IO.DirectoryNotFoundException
+            e.rollCall(Path.Combine(e.ExtractDir, "ROOT"), e.AppDir);
+
+            // TC: next steps
+            // 0. Got folder with app name in APPDIR. Example: patches/10.1.0001.0/ServerSuite.
+            //    Also Clyde.exe and PatchLib.dll in 10.1.0001.0.  [verify]
+            //
+            // 1. cp ServerSuite/ to ../new. If ../new already exists exit immediately
+            //
+            // 2. For each file and folder in ServerSuite/, copy from the original location to
+            //    patches/10.1.0001.0/old. This could be some work. How to stub out for today?
+            //
+            // 3. Repeat no. 2, but this time overwrite files in APPDIR with files in new/. If file
+            //    not overwritten roll back and exit or warn?
+            //
+            // 4. Find a way to streamline nos. 2&3
+            //
+            // 5. ... ?
         }
     }
 }
