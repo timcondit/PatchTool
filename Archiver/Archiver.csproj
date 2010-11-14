@@ -11,7 +11,8 @@
     <RootNamespace>PatchTool</RootNamespace>
     <AssemblyName>PacMan</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -48,11 +49,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PatchTool.PacMan</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Clyde">
+    <Reference Include="Clyde, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
       <HintPath>..\Extractor\bin\Release\Clyde.exe</HintPath>
     </Reference>
-    <Reference Include="PatchLib">
+    <Reference Include="PatchLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\PatchLib\bin\Release\PatchLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -60,7 +67,6 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TestApiCore">

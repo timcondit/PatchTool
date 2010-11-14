@@ -1,18 +1,27 @@
 ﻿using Ionic.Zip;
+using log4net;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
+using System.Windows.Forms;
 
 // using DotNetZip library
 // http://dotnetzip.codeplex.com/
 // http://cheeso.members.winisp.net/DotNetZipHelp/html/d4648875-d41a-783b-d5f4-638df39ee413.htm
 //
 // TODO
-// 1) look at ExtractExistingFileAction OverwriteSilently
+// 1: look at ExtractExistingFileAction OverwriteSilently
 //  http://cheeso.members.winisp.net/DotNetZipHelp/html/5443c4c0-6f74-9ae1-37fd-9a4ae936832d.htm
-// 2) 
+// 2: 
 
+// using RelativePath method from http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
+// Don't forget to use System.Text;
+
+// NOTES
+// 1: Extractor will have to maintain the list of registry keys for each application that is
+//    patched.  But Archiver will need to pass a hint to let Extractor know which registry key to
+//    query.
 
 namespace PatchTool
 {
@@ -126,10 +135,16 @@ namespace PatchTool
 
     public class Extractor
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
+        string logmsg;
+
         public Extractor() { }
         public Extractor(string _appDir)
         {
             AppDir = _appDir;
+            //logmsg = System.String.Format("APPDIR: {0}", AppDir);
+            //log.Info(logmsg);
+            log.Info(System.String.Format("APPDIR: {0}", AppDir));
         }
 
         private string _appDir;
@@ -145,8 +160,6 @@ namespace PatchTool
         public string ExtractDir
         {
             get { return _extractDir; }
-            // this should really be const, but I don't know how to do that with dynamic data
-            //set { _extractDir = Directory.GetCurrentDirectory(); }
         }
 
         // 0: Get APPDIR, or not.  Maybe create a method that accepts APPDIR, and start with 1:
@@ -158,25 +171,116 @@ namespace PatchTool
         // 5: Next?
 
         // Are all files in srcDir also present in dstDir (extractDir and appDir, respectively)?
+        //
+        // TC: void or bool?
+        //
+        // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
         public bool rollCall(string _srcDir, string _dstDir)
         {
             DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
             FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
 
-            // the base paths are the heads
+            // the file name stripped from the full path; base paths are the heads
             string tail;
+            // the files of the patch and installation
+            string srcFile;
+            string dstFile;
+            // the files of the new and old directories
+            string newFile;
+            string oldFile;
+
+            // create backup folders: Clyde needs the patchID; fake it for now
+            string[] newParts = { srcDir.ToString(), "patches", @"1.2.3.4" };
+            DirectoryInfo newDir = new DirectoryInfo(Path.Combine(newParts));
+            if (!Directory.Exists(newDir.ToString()))
+            {
+                try
+                {
+                    Directory.CreateDirectory(newDir.ToString());
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
+                    throw;
+                }
+            }
+            //
+            string[] oldParts = { dstDir.ToString(), "patches", @"1.2.3.4" };
+            DirectoryInfo oldDir = new DirectoryInfo(Path.Combine(oldParts));
+            if (!Directory.Exists(oldDir.ToString()))
+            {
+                try
+                {
+                Directory.CreateDirectory(oldDir.ToString());
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
+                    throw;
+                }
+            }
+            
+            // flag to decide whether to patch system
+            //bool soFarSoGood = true;
 
             foreach (FileInfo f in srcFiles)
             {
                 tail = RelativePath(srcDir.ToString(), f.FullName);
-                Console.WriteLine("tail: {0}", tail);
-                Console.WriteLine("srcPath: {0}", Path.GetFullPath(Path.Combine(srcDir.ToString(), tail)));
-                Console.WriteLine("dstPath: {0}", Path.GetFullPath(Path.Combine(dstDir.ToString(), tail)));
+                // get and check original locations
+                srcFile = Path.GetFullPath(Path.Combine(srcDir.ToString(), tail));
+                dstFile = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
+                statFile(srcFile);
+                statFile(dstFile);
+
+                // backup locations
+                newFile = Path.GetFullPath(Path.Combine(newDir.ToString(), tail));
+                oldFile = Path.GetFullPath(Path.Combine(oldDir.ToString(), tail));
+                statFile(newFile);
+                statFile(oldFile);
+
+                // TC: TODO check state before changing anything, and log any discrepancies.  That
+                // will probably mean I loop over the files of the patch in two passes, so this
+                // stuff will be moved out (above).
+                //if (!(statFile(srcFile) && statFile(dstFile)))
+                //{
+                //    soFarSoGood = false;
+
+                //    // copy newFile to APPDIR/patches/<version>/new/
+                //    // copy oldFile to APPDIR/patches/<version>/old/
+                //}
+                //statFile(srcFile);
+                //statFile(dstFile);
+                //statFile(newFile);
+                //statFile(oldFile);
                 Console.WriteLine();
+
+                // if directory exists:
+                //   if file not exists:
+                //     copy
+                //   else:
+                //     exit
+                // NO.  This should already be done. 
             }
 
+            // return soFarSoGood?
             return true;
+        }
+
+        private bool statFile(string f)
+        {
+            FileInfo ff = new FileInfo(f);
+            if (ff.Exists)
+            {
+                Console.WriteLine("exists:\t\t{0}", ff);
+
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("does not exist:\t{0}", ff);
+                return false;
+            }
         }
 
         public void run()
@@ -184,8 +288,6 @@ namespace PatchTool
             return;
         }
 
-        // http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
-        // Don't forget to use System.Text;
         private string RelativePath(string absolutePath, string relativeTo)
         {
             string[] absoluteDirectories = absolutePath.Split('\\');

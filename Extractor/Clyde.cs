@@ -22,7 +22,16 @@ namespace PatchTool
             Console.WriteLine("e.ExtractDir: {0}", e.ExtractDir);
 
             // beware System.IO.DirectoryNotFoundException
-            e.rollCall(Path.Combine(e.ExtractDir, "ROOT"), e.AppDir);
+            //
+            // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
+            try
+            {
+                e.rollCall(Path.Combine(e.ExtractDir, "ROOT"), e.AppDir);
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                System.Environment.Exit(1);
+            }
 
             // TC: next steps
             // 0. Got folder with app name in APPDIR. Example: patches/10.1.0001.0/ServerSuite.
@@ -39,6 +48,10 @@ namespace PatchTool
             // 4. Find a way to streamline nos. 2&3
             //
             // 5. ... ?
+
+            //FileInfo f = new FileInfo(@"C:\source\git\PatchTool\Archiver\obj\x86\Release\Archiver.csproj.FileListAbsolute.txt");
+            //f.CopyTo(@"C:\create\this\dir");
+
         }
     }
 }

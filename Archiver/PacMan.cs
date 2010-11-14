@@ -1,6 +1,7 @@
 ﻿using Microsoft.Test.CommandLineParsing;
 using System;
 using System.IO;
+using System.Windows.Forms;
 
 // using command-line parser from TestAPI - http://testapi.codeplex.com/
 
@@ -13,8 +14,9 @@ namespace PatchTool
             if (args.Length < 1)
             {
                 string usage = "PacMan.exe\n\n";
-                usage += "Required argument:\n";
-                usage += "\t-archive=<src-dir>";
+                usage += "Required arguments:\n";
+                usage += "\t-sourceDir=<sourceDir>";
+                usage += "\t-appName=<appName>";
                 usage += "\n\n";
                 usage += "Optional arguments:\n";
                 usage += "\t-patchID=<patchID>\n";
@@ -22,19 +24,24 @@ namespace PatchTool
                 // TC: this doesn't do anything yet
                 usage += "\t-?\n";
 
-                System.Windows.Forms.MessageBox.Show(usage, "PacMan needs more info");
+                MessageBox.Show(usage, "PacMan needs more info");
                 return;
             }
 
             CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
             Archiver a = new Archiver();
+
+            // path to the affected files (in other words, the patch contents)
             string src_dir;
+            // application identifier: ServerSuite now, then ChannelManager, then others (LATER)
+            //string app_id;
+            // name of the published file (SFX)
             string patch_id;
             string product_version;
 
-            if (d.ContainsKey("archive"))
+            if (d.ContainsKey("sourceDir"))
             {
-                d.TryGetValue("archive", out src_dir);
+                d.TryGetValue("sourceDir", out src_dir);
                 a.SourceDir = src_dir;
             }
             else

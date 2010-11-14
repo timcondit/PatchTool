@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchLib", "PatchLib\PatchLib.csproj", "{E24A0395-B54E-4944-92D1-ADD70F9E5ADB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extractor", "Extractor\Extractor.csproj", "{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E24A0395-B54E-4944-92D1-ADD70F9E5ADB} = {E24A0395-B54E-4944-92D1-ADD70F9E5ADB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
