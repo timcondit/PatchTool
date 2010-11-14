@@ -18,14 +18,17 @@ namespace PatchTool
             Extractor e = new Extractor();
             e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
             // TC: debug
-            Console.WriteLine("e.AppDir: {0}", e.AppDir);
-            Console.WriteLine("e.ExtractDir: {0}", e.ExtractDir);
+            //Console.WriteLine("e.AppDir: {0}", e.AppDir);
+            //Console.WriteLine("e.ExtractDir: {0}", e.ExtractDir);
 
             // beware System.IO.DirectoryNotFoundException
             //
             // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
             try
             {
+                // TC: add a Console title (somewhere, maybe not here)
+                // TC: tell the user what we're doing here (pre-file-move check)
+                // TC: add simple continue or cancel here?
                 e.rollCall(Path.Combine(e.ExtractDir, "ROOT"), e.AppDir);
             }
             catch (System.UnauthorizedAccessException)
@@ -52,6 +55,9 @@ namespace PatchTool
             //FileInfo f = new FileInfo(@"C:\source\git\PatchTool\Archiver\obj\x86\Release\Archiver.csproj.FileListAbsolute.txt");
             //f.CopyTo(@"C:\create\this\dir");
 
+            // TC: for testing
+            Console.Write("Press any key to continue");
+            Console.ReadLine();
         }
     }
 }

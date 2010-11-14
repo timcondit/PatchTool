@@ -138,9 +138,19 @@ namespace PatchTool
         private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
         string logmsg;
 
-        public Extractor() { }
+        private void init()
+        {
+            Console.SetWindowSize(120, 50);
+        }
+
+        public Extractor()
+        {
+            init();
+        }
+
         public Extractor(string _appDir)
         {
+            init();
             AppDir = _appDir;
             //logmsg = System.String.Format("APPDIR: {0}", AppDir);
             //log.Info(logmsg);
@@ -226,6 +236,8 @@ namespace PatchTool
 
             foreach (FileInfo f in srcFiles)
             {
+                // TC: add a Console title (in Clyde, not here)
+                // TC: tell the user what we're doing (in Clyde, not here)
                 tail = RelativePath(srcDir.ToString(), f.FullName);
                 // get and check original locations
                 srcFile = Path.GetFullPath(Path.Combine(srcDir.ToString(), tail));
@@ -272,14 +284,21 @@ namespace PatchTool
             FileInfo ff = new FileInfo(f);
             if (ff.Exists)
             {
-                Console.WriteLine("exists:\t\t{0}", ff);
-
+                Console.Write("{0, -110}", ff, Console.WindowWidth, Console.WindowHeight);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                //Console.Write("found:\t\t{0}", ff, Console.WindowWidth, Console.WindowHeight);
+                Console.WriteLine(String.Format("{0, 9}", "[present]"), Console.WindowWidth, Console.WindowHeight);
+                Console.ResetColor();
                 return true;
             }
             else
             {
-                Console.WriteLine("does not exist:\t{0}", ff);
-                return false;
+                Console.Write("{0, -110}", ff, Console.WindowWidth, Console.WindowHeight);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                //Console.Write("found:\t\t{0}", ff, Console.WindowWidth, Console.WindowHeight);
+                Console.WriteLine(String.Format("{0, 9}", "[missing]"), Console.WindowWidth, Console.WindowHeight);
+                Console.ResetColor();
+                return true;
             }
         }
 
