@@ -1,10 +1,9 @@
-﻿using Ionic.Zip;
-using log4net;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Ionic.Zip;
 
 // using DotNetZip library
 // http://dotnetzip.codeplex.com/
@@ -14,9 +13,6 @@ using System.Windows.Forms;
 // 1: look at ExtractExistingFileAction OverwriteSilently
 //  http://cheeso.members.winisp.net/DotNetZipHelp/html/5443c4c0-6f74-9ae1-37fd-9a4ae936832d.htm
 // 2: 
-
-// using RelativePath method from http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
-// Don't forget to use System.Text;
 
 // NOTES
 // 1: Extractor will have to maintain the list of registry keys for each application that is
@@ -136,11 +132,12 @@ namespace PatchTool
     public class Extractor
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
-        string logmsg;
+        // TC: not yet
+        //string logmsg;
 
         private void init()
         {
-            Console.SetWindowSize(120, 50);
+            Console.SetWindowSize(140, 50);
         }
 
         public Extractor()
@@ -172,42 +169,23 @@ namespace PatchTool
             get { return _extractDir; }
         }
 
-        // 0: Get APPDIR, or not.  Maybe create a method that accepts APPDIR, and start with 1:
-        // 1: Assemble path dictionaries.  Starting with relative paths in ROOT, verify every file
-        //    in the same relative location under APPDIR.  Do NOT touch anything yet.
-        // 2: Create APPDIR/patches/<version>/{old|new}
-        // 3: ?? Create a mirror directory structure in old/ & new/?
-        // 4: Start copying files to old/.
-        // 5: Next?
-
         // Are all files in srcDir also present in dstDir (extractDir and appDir, respectively)?
-        //
-        // TC: void or bool?
+        // Should it return void or bool?
         //
         // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
-        public bool rollCall(string _srcDir, string _dstDir)
+        public void run(string _srcDir, string _dstDir)
         {
+            // patch directory and local target
             DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
-            FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
-
-            // the file name stripped from the full path; base paths are the heads
-            string tail;
-            // the files of the patch and installation
-            string srcFile;
-            string dstFile;
-            // the files of the new and old directories
-            string newFile;
-            string oldFile;
 
             // create backup folders: Clyde needs the patchID; fake it for now
-            string[] newParts = { srcDir.ToString(), "patches", @"1.2.3.4" };
-            DirectoryInfo newDir = new DirectoryInfo(Path.Combine(newParts));
-            if (!Directory.Exists(newDir.ToString()))
+            DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), "patches", @"1.2.3.4", "new"));
+            if (!Directory.Exists(backupDirNew.ToString()))
             {
                 try
                 {
-                    Directory.CreateDirectory(newDir.ToString());
+                    Directory.CreateDirectory(backupDirNew.ToString());
                 }
                 catch (System.UnauthorizedAccessException)
                 {
@@ -216,13 +194,12 @@ namespace PatchTool
                 }
             }
             //
-            string[] oldParts = { dstDir.ToString(), "patches", @"1.2.3.4" };
-            DirectoryInfo oldDir = new DirectoryInfo(Path.Combine(oldParts));
-            if (!Directory.Exists(oldDir.ToString()))
+            DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), "patches", @"1.2.3.4", "old"));
+            if (!Directory.Exists(backupDirOld.ToString()))
             {
                 try
                 {
-                Directory.CreateDirectory(oldDir.ToString());
+                Directory.CreateDirectory(backupDirOld.ToString());
                 }
                 catch (System.UnauthorizedAccessException)
                 {
@@ -230,83 +207,236 @@ namespace PatchTool
                     throw;
                 }
             }
-            
-            // flag to decide whether to patch system
-            //bool soFarSoGood = true;
 
+            FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
+
+            // each file in the patch, with relative directories; base paths are the heads
+            string tail;
+            // each file to patch, full path
+            string fileToPatch;
+            // each file bound for the old/ directory
+            string bakFileOld;
+
+            // TC: three steps
+            // 1: copy srcDir to backupDirNew
+            //    (e.g. C:/patches/GUID/ -> APPDIR/patches/10.1.0001.0/new/)
+            // 2: copy the same files from dstDir to backupDirOld;
+            //    (e.g., APPDIR/ -> APPDIR/patches/10.1.0001.0/old/)
+            // 3: apply the patch.
+
+            // 1: copy srcDir to backupDirNew
+            CopyFolder(srcDir.ToString(), backupDirNew.ToString());
+            Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
+            Console.WriteLine("      should match the files in the extract dir [2]:");
+            Console.WriteLine("\t[1] {0}", ExtractDir);
+            Console.WriteLine("\t[2] {0}", backupDirNew);
             foreach (FileInfo f in srcFiles)
             {
-                // TC: add a Console title (in Clyde, not here)
-                // TC: tell the user what we're doing (in Clyde, not here)
                 tail = RelativePath(srcDir.ToString(), f.FullName);
-                // get and check original locations
-                srcFile = Path.GetFullPath(Path.Combine(srcDir.ToString(), tail));
-                dstFile = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
-                statFile(srcFile);
-                statFile(dstFile);
+                string orig = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail), f.ToString());
+                string copied = Path.Combine(backupDirNew.ToString(), Path.GetDirectoryName(tail), f.ToString());
+                FileCompare(orig, copied, tail);
+            }
+            Console.WriteLine();
 
-                // backup locations
-                newFile = Path.GetFullPath(Path.Combine(newDir.ToString(), tail));
-                oldFile = Path.GetFullPath(Path.Combine(oldDir.ToString(), tail));
-                statFile(newFile);
-                statFile(oldFile);
+            //
+            // 2: copy the same files from dstDir to backupDirOld
+            foreach (FileInfo f in srcFiles)
+            {
+                tail = RelativePath(srcDir.ToString(), f.FullName);
+                bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
 
-                // TC: TODO check state before changing anything, and log any discrepancies.  That
-                // will probably mean I loop over the files of the patch in two passes, so this
-                // stuff will be moved out (above).
-                //if (!(statFile(srcFile) && statFile(dstFile)))
-                //{
-                //    soFarSoGood = false;
+                // get and check original location; eventually this will be a milestone: if the
+                // file is missing, user may want to cancel
+                fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
+                FileStat(fileToPatch);
 
-                //    // copy newFile to APPDIR/patches/<version>/new/
-                //    // copy oldFile to APPDIR/patches/<version>/old/
-                //}
-                //statFile(srcFile);
-                //statFile(dstFile);
-                //statFile(newFile);
-                //statFile(oldFile);
+                // Create any nested subdirectories included in the patch.  Note, this will loop
+                // over the same location multiple times; it's a little big ugly
+                DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
+                if (!Directory.Exists(backupSubdirOld.ToString()))
+                {
+                    Directory.CreateDirectory(backupSubdirOld.ToString());
+                }
+
+                File.Copy(fileToPatch, bakFileOld, true);
+                // TC: explain this
+                FileStat(bakFileOld);
                 Console.WriteLine();
-
-                // if directory exists:
-                //   if file not exists:
-                //     copy
-                //   else:
-                //     exit
-                // NO.  This should already be done. 
             }
 
-            // return soFarSoGood?
-            return true;
+            Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");
+            Console.WriteLine("      should match the files in the old backup location [2]:");
+            Console.WriteLine("\t[1] {0}", dstDir);
+            Console.WriteLine("\t[2] {0}", backupDirOld);
+            foreach (FileInfo f in srcFiles)
+            {
+                tail = RelativePath(srcDir.ToString(), f.FullName);
+                bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
+                fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
+
+                // Compare each file in old/ with the original in APPDIR.
+                string orig = fileToPatch;
+                string copied = bakFileOld;
+                // TC: explain this
+                FileCompare(orig, copied, tail);
+            }
+            Console.WriteLine();
+
+            //
+            // 3: apply the patch.
+            Console.WriteLine("INFO: patching {0}", dstDir.ToString());
+            CopyFolder(srcDir.ToString(), dstDir.ToString());
+
+            Console.WriteLine("INFO: Did the patch succeed?  The files in the new backup location [1]");
+            Console.WriteLine("      should match the files in APPDIR [2]:");
+            Console.WriteLine("\t[1] {0}", dstDir);
+            Console.WriteLine("\t[2] {0}", backupDirNew);
+            foreach (FileInfo f in srcFiles)
+            {
+                tail = RelativePath(srcDir.ToString(), f.FullName);
+                string orig = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail), f.ToString());
+                string copied = Path.Combine(dstDir.ToString(), Path.GetDirectoryName(tail), f.ToString());
+                // TC: explain this
+                FileCompare(orig, copied, tail);
+            }
+            Console.WriteLine();
         }
 
-        private bool statFile(string f)
+        // TC: probably want to return bool and not write to STDOUT
+        private void FileCompare(string fileName1, string fileName2, string fileName3)
         {
-            FileInfo ff = new FileInfo(f);
-            if (ff.Exists)
+            if (FileEquals(fileName1, fileName2))
             {
-                Console.Write("{0, -110}", ff, Console.WindowWidth, Console.WindowHeight);
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                //Console.Write("found:\t\t{0}", ff, Console.WindowWidth, Console.WindowHeight);
-                Console.WriteLine(String.Format("{0, 9}", "[present]"), Console.WindowWidth, Console.WindowHeight);
+                Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(String.Format("{0, 9}", "[matches]"), Console.WindowWidth, Console.WindowHeight);
                 Console.ResetColor();
-                return true;
             }
             else
             {
-                Console.Write("{0, -110}", ff, Console.WindowWidth, Console.WindowHeight);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                //Console.Write("found:\t\t{0}", ff, Console.WindowWidth, Console.WindowHeight);
-                Console.WriteLine(String.Format("{0, 9}", "[missing]"), Console.WindowWidth, Console.WindowHeight);
+                Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(String.Format("{0, 9}", "[nomatch]"), Console.WindowWidth, Console.WindowHeight);
                 Console.ResetColor();
-                return true;
             }
         }
 
-        public void run()
+        private void FileStat(string fileName)
         {
-            return;
+            FileInfo fileInfo = new FileInfo(fileName);
+            if (fileInfo.Exists)
+            {
+                Console.Write("{0, -130}", fileInfo, Console.WindowWidth, Console.WindowHeight);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(String.Format("{0, 9}", "[present]"), Console.WindowWidth, Console.WindowHeight);
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.Write("{0, -130}", fileInfo, Console.WindowWidth, Console.WindowHeight);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(String.Format("{0, 9}", "[missing]"), Console.WindowWidth, Console.WindowHeight);
+                Console.ResetColor();
+            }
         }
 
+        // http://stackoverflow.com/questions/968935/c-binary-file-compare
+        static bool FileEquals(string fileName1, string fileName2)
+        {
+            // Check the file size and CRC equality here.. if they are equal...    
+            using (var file1 = new FileStream(fileName1, FileMode.Open))
+            using (var file2 = new FileStream(fileName2, FileMode.Open))
+                return StreamsContentsAreEqual(file1, file2);
+        }
+
+        private static bool StreamsContentsAreEqual(Stream stream1, Stream stream2)
+        {
+            const int bufferSize = 2048 * 2;
+            var buffer1 = new byte[bufferSize];
+            var buffer2 = new byte[bufferSize];
+
+            while (true)
+            {
+                int count1 = stream1.Read(buffer1, 0, bufferSize);
+                int count2 = stream2.Read(buffer2, 0, bufferSize);
+
+                if (count1 != count2)
+                {
+                    return false;
+                }
+
+                if (count1 == 0)
+                {
+                    return true;
+                }
+
+                int iterations = (int)Math.Ceiling((double)count1 / sizeof(Int64));
+                for (int i = 0; i < iterations; i++)
+                {
+                    if (BitConverter.ToInt64(buffer1, i * sizeof(Int64)) != BitConverter.ToInt64(buffer2, i * sizeof(Int64)))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // http://stackoverflow.com/questions/968935/c-binary-file-compare
+        //static bool FileEquals(string fileName1, string fileName2)
+        //{
+        //    // Check the file size and CRC equality here.. if they are equal...    
+        //    using (var file1 = new FileStream(fileName1, FileMode.Open))
+        //    using (var file2 = new FileStream(fileName2, FileMode.Open))
+        //        return StreamEquals(file1, file2);
+        //}
+
+        //static bool StreamEquals(Stream stream1, Stream stream2)
+        //{
+        //    const int bufferSize = 2048;
+        //    byte[] buffer1 = new byte[bufferSize]; //buffer size
+        //    byte[] buffer2 = new byte[bufferSize];
+        //    while (true)
+        //    {
+        //        int count1 = stream1.Read(buffer1, 0, bufferSize);
+        //        int count2 = stream2.Read(buffer2, 0, bufferSize);
+
+        //        if (count1 != count2)
+        //            return false;
+
+        //        if (count1 == 0)
+        //            return true;
+
+        //        // You might replace the following with an efficient "memcmp"
+        //        if (!buffer1.Take(count1).SequenceEqual(buffer2.Take(count2)))
+        //            return false;
+        //    }
+        //}
+
+        // http://www.csharp411.com/c-copy-folder-recursively/
+        public static void CopyFolder(string sourceFolder, string destFolder)
+        {
+            if (!Directory.Exists(destFolder))
+            {
+                Directory.CreateDirectory(destFolder);
+            }
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files)
+            {
+                string name = Path.GetFileName(file);
+                string dest = Path.Combine(destFolder, name);
+                File.Copy(file, dest, true);
+            }
+            string[] folders = Directory.GetDirectories(sourceFolder);
+            foreach (string folder in folders)
+            {
+                string name = Path.GetFileName(folder);
+                string dest = Path.Combine(destFolder, name);
+                CopyFolder(folder, dest);
+            }
+        }
+
+        // http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
         private string RelativePath(string absolutePath, string relativeTo)
         {
             string[] absoluteDirectories = absolutePath.Split('\\');

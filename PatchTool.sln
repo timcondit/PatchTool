@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extractor", "Extractor\Extr
 		{E24A0395-B54E-4944-92D1-ADD70F9E5ADB} = {E24A0395-B54E-4944-92D1-ADD70F9E5ADB}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleColors", "ConsoleColors\ConsoleColors.csproj", "{4DAA547C-6082-4D23-8500-DD9160A0E7CD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -34,10 +32,6 @@ Global
 		{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}.Debug|x86.Build.0 = Debug|x86
 		{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}.Release|x86.ActiveCfg = Release|x86
 		{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}.Release|x86.Build.0 = Release|x86
-		{4DAA547C-6082-4D23-8500-DD9160A0E7CD}.Debug|x86.ActiveCfg = Debug|x86
-		{4DAA547C-6082-4D23-8500-DD9160A0E7CD}.Debug|x86.Build.0 = Debug|x86
-		{4DAA547C-6082-4D23-8500-DD9160A0E7CD}.Release|x86.ActiveCfg = Release|x86
-		{4DAA547C-6082-4D23-8500-DD9160A0E7CD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

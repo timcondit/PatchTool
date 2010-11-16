@@ -29,7 +29,7 @@ namespace PatchTool
                 // TC: add a Console title (somewhere, maybe not here)
                 // TC: tell the user what we're doing here (pre-file-move check)
                 // TC: add simple continue or cancel here?
-                e.rollCall(Path.Combine(e.ExtractDir, "ROOT"), e.AppDir);
+                e.run(Path.Combine(e.ExtractDir, "ROOT"), e.AppDir);
             }
             catch (System.UnauthorizedAccessException)
             {

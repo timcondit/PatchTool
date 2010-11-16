@@ -49,7 +49,16 @@ namespace PatchTool
                 // "pretty it up" and exit
                 throw new ArgumentException("something's broken!");
             }
-
+            //if (d.ContainsKey("appName"))
+            //{
+            //    d.TryGetValue("appName", out app_id);
+            //    a.SourceDir = app_id;
+            //}
+            //else
+            //{
+            //    // "pretty it up" and exit
+            //    throw new ArgumentException("something's broken!");
+            //}
             if (d.ContainsKey("patchID"))
             {
                 d.TryGetValue("patchID", out patch_id);
