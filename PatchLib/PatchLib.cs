@@ -30,18 +30,18 @@ namespace PatchTool
             set { _sourceDir = value; }
         }
 
-        private string _patchId = "GenericArchive.exe";
-        public string PatchID
+        private string _appName = "EnvisionWidget";
+        public string AppName
         {
-            get { return _patchId; }
-            set { _patchId = value; }
+            get { return _appName; }
+            set { _appName = value; }
         }
 
-        private string _productVersion = "1.0.0.0";
-        public string ProductVersion
+        private string _patchVersion = "16.32.64.128";
+        public string PatchVersion
         {
-            get { return _productVersion; }
-            set { _productVersion = value; }
+            get { return _patchVersion; }
+            set { _patchVersion = value; }
         }
 
         private string _extractDir = ".";
@@ -66,29 +66,27 @@ namespace PatchTool
                     System.Environment.Exit(1);
                 }
 
-                // TC: well this is ugly.  I've added a reference to Extractor.exe into the
-                // Archiver project, but it seems like this belongs in Archiver as well, since
-                // that's what's looking for the file.
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
-
                 zip.Comment = "Where will this show up?";
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
-                // TC: I'd like to also use options.FileVersion here.  Maybe sort it out later.
-                options.ProductVersion = ProductVersion;
+                options.ProductVersion = PatchVersion;
                 options.DefaultExtractDirectory = ExtractDir;
-                // TC: debug
-                //Console.WriteLine("options.DefaultExtractDirectory: {0}", options.DefaultExtractDirectory);
-
                 options.Copyright = "Copyright 2010 Envision Telephony";
-                options.PostExtractCommandLine = "Clyde.exe";
-                // TC: false for dev, true (maybe) for production
+                //string cmdline = (@"Clyde.exe -patchID={0}", patchVers
+                string commandLine = @"Clyde.exe -patchVersion=" + PatchVersion;
+                options.PostExtractCommandLine = commandLine;
+                // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
 
                 // TC: delete other patches before reusing file name!
-                zip.SaveSelfExtractor(PatchID, options);
+                string patchName = AppName + @"-" + PatchVersion + @".exe";
+                // debug
+                Console.WriteLine("patchName: {0}", patchName);
+
+                zip.SaveSelfExtractor(patchName, options);
             }
         }
 
@@ -123,12 +121,6 @@ namespace PatchTool
         //}
     }
 
-    // The Extractor needs a few paths:
-    //  - ExtractDir is where the files are extracted when the user double clicks the SFX.  This path should be logged.
-    //  - APPDIR/patches/<version>/old is where the files to replace are stored for posterity.  This info should be logged.
-    //  - APPDIR/patches/<version>/new is where the new files are stored for posterity.  This info should be logged.
-    //  - APPDIR is where the patch files are eventually delivered to, if all goes well.
-
     public class Extractor
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
@@ -149,8 +141,6 @@ namespace PatchTool
         {
             init();
             AppDir = _appDir;
-            //logmsg = System.String.Format("APPDIR: {0}", AppDir);
-            //log.Info(logmsg);
             log.Info(System.String.Format("APPDIR: {0}", AppDir));
         }
 
