@@ -54,6 +54,7 @@ namespace PatchTool
         {
             using (ZipFile zip = new ZipFile())
             {
+                // TC: watch out for unwanted appending to an existing archive (TEST)
                 if (Directory.Exists(SourceDir))
                 {
                     zip.AddDirectory(SourceDir, Path.GetFileName(SourceDir));
@@ -68,22 +69,20 @@ namespace PatchTool
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
                 zip.AddFile("CommandLine.dll");
-                zip.Comment = "Where will this show up?";
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
                 options.ProductVersion = PatchVersion;
                 options.DefaultExtractDirectory = ExtractDir;
                 options.Copyright = "Copyright 2010 Envision Telephony";
-                //string cmdline = (@"Clyde.exe -patchID={0}", patchVers
                 string commandLine = @"Clyde.exe --patchVersion=" + PatchVersion;
-                //string commandLine = @"Clyde.exe";
                 options.PostExtractCommandLine = commandLine;
                 // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
 
                 // TC: delete other patches before reusing file name!
                 string patchName = AppName + @"-" + PatchVersion + @".exe";
+                //string patchName = String.Concat(AppName, @"-", PatchVersion, @".exe");
                 // debug
                 Console.WriteLine("patchName: {0}", patchName);
 
@@ -130,7 +129,8 @@ namespace PatchTool
 
         private void init()
         {
-            Console.SetWindowSize(140, 50);
+            Console.SetWindowSize(100, 50);
+            //Console.SetWindowSize(140, 50);
         }
 
         public Extractor()
@@ -160,6 +160,8 @@ namespace PatchTool
 
         // This should be equivalent to ExtractDir in Archiver.  I should probably find a better
         // solution.
+        //
+        // TC: constructor param?
         private string _extractDir = Directory.GetCurrentDirectory();
         public string ExtractDir
         {
@@ -176,10 +178,8 @@ namespace PatchTool
             DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
 
-            // create backup folders: Clyde needs the patchID; fake it for now
-            //string newPathStr = Path.Combine("patches", @"1.2.3.4");
-            string newPathStr = Path.Combine("patches", PatchVersion);
-            newPathStr = Path.Combine(newPathStr, "new");
+            // create backup folders
+            string newPathStr = CombinePaths("patches", PatchVersion, "new");
             DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr));
             if (!Directory.Exists(backupDirNew.ToString()))
             {
@@ -194,9 +194,7 @@ namespace PatchTool
                 }
             }
             //
-            //string oldPathStr = Path.Combine("patches", @"1.2.3.4");
-            string oldPathStr = Path.Combine("patches", PatchVersion);
-            oldPathStr = Path.Combine(oldPathStr, "new");
+            string oldPathStr = CombinePaths("patches", PatchVersion, "old");
             DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr));
             if (!Directory.Exists(backupDirOld.ToString()))
             {
@@ -222,7 +220,7 @@ namespace PatchTool
 
             // TC: three steps
             // 1: copy srcDir to backupDirNew
-            //    (e.g. C:/patches/GUID/ -> APPDIR/patches/10.1.0001.0/new/)
+            //    (e.g. C:/patches/APPNAME/PATCHVER -> APPDIR/patches/10.1.0001.0/new/)
             // 2: copy the same files from dstDir to backupDirOld;
             //    (e.g., APPDIR/ -> APPDIR/patches/10.1.0001.0/old/)
             // 3: apply the patch.
@@ -246,6 +244,12 @@ namespace PatchTool
 
             //
             // 2: copy the same files from dstDir to backupDirOld
+            //
+            // TC: want an INFO message here, describing what's going on
+            // (verifying that all files to be replaced are found on the system).
+            //Console.WriteLine("INFO: Are all files to be replaced present on the system?  The files in APPDIR");
+            //Console.WriteLine("      should match the files in the patch");
+
             foreach (FileInfo f in srcFiles)
             {
                 tail = RelativePath(srcDir.ToString(), f.FullName);
@@ -254,7 +258,8 @@ namespace PatchTool
                 // get and check original location; eventually this will be a milestone: if the
                 // file is missing, user may want to cancel
                 fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
-                FileStat(fileToPatch);
+                // TC: commented out for now -- too noisy
+                //FileStat(fileToPatch);
 
                 // Create any nested subdirectories included in the patch.  Note, this will loop
                 // over the same location multiple times; it's a little big ugly
@@ -265,9 +270,9 @@ namespace PatchTool
                 }
 
                 File.Copy(fileToPatch, bakFileOld, true);
-                // TC: explain this
-                FileStat(bakFileOld);
-                Console.WriteLine();
+                // TC: commented out for now -- too noisy
+                //FileStat(bakFileOld);
+                //Console.WriteLine();
             }
 
             Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");
@@ -291,6 +296,8 @@ namespace PatchTool
             //
             // 3: apply the patch.
             Console.WriteLine("INFO: patching {0}", dstDir.ToString());
+            Console.WriteLine();
+
             CopyFolder(srcDir.ToString(), dstDir.ToString());
 
             Console.WriteLine("INFO: Did the patch succeed?  The files in the new backup location [1]");
@@ -315,14 +322,16 @@ namespace PatchTool
         {
             if (FileEquals(fileName1, fileName2))
             {
-                Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
+                Console.Write("{0, -90}", "* " + fileName3, Console.WindowWidth, Console.WindowHeight);
+                //Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(String.Format("{0, 9}", "[matches]"), Console.WindowWidth, Console.WindowHeight);
                 Console.ResetColor();
             }
             else
             {
-                Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
+                Console.Write("{0, -90}", "* " + fileName3, Console.WindowWidth, Console.WindowHeight);
+                //Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(String.Format("{0, 9}", "[nomatch]"), Console.WindowWidth, Console.WindowHeight);
                 Console.ResetColor();
@@ -389,37 +398,6 @@ namespace PatchTool
             }
         }
 
-        // http://stackoverflow.com/questions/968935/c-binary-file-compare
-        //static bool FileEquals(string fileName1, string fileName2)
-        //{
-        //    // Check the file size and CRC equality here.. if they are equal...    
-        //    using (var file1 = new FileStream(fileName1, FileMode.Open))
-        //    using (var file2 = new FileStream(fileName2, FileMode.Open))
-        //        return StreamEquals(file1, file2);
-        //}
-
-        //static bool StreamEquals(Stream stream1, Stream stream2)
-        //{
-        //    const int bufferSize = 2048;
-        //    byte[] buffer1 = new byte[bufferSize]; //buffer size
-        //    byte[] buffer2 = new byte[bufferSize];
-        //    while (true)
-        //    {
-        //        int count1 = stream1.Read(buffer1, 0, bufferSize);
-        //        int count2 = stream2.Read(buffer2, 0, bufferSize);
-
-        //        if (count1 != count2)
-        //            return false;
-
-        //        if (count1 == 0)
-        //            return true;
-
-        //        // You might replace the following with an efficient "memcmp"
-        //        if (!buffer1.Take(count1).SequenceEqual(buffer2.Take(count2)))
-        //            return false;
-        //    }
-        //}
-
         // http://www.csharp411.com/c-copy-folder-recursively/
         public static void CopyFolder(string sourceFolder, string destFolder)
         {
@@ -481,6 +459,17 @@ namespace PatchTool
             relativePath.Append(relativeDirectories[relativeDirectories.Length - 1]);
 
             return relativePath.ToString();
+        }
+
+        // http://stackoverflow.com/questions/144439/building-a-directory-string-from-component-parts-in-c
+        string CombinePaths(params string[] parts)
+        {
+            string result = String.Empty;
+            foreach (string s in parts)
+            {
+                result = Path.Combine(result, s);
+            }
+            return result;
         }
     }
 }
