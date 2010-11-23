@@ -75,7 +75,8 @@ namespace PatchTool
                 options.DefaultExtractDirectory = ExtractDir;
                 options.Copyright = "Copyright 2010 Envision Telephony";
                 //string cmdline = (@"Clyde.exe -patchID={0}", patchVers
-                string commandLine = @"Clyde.exe -patchVersion=" + PatchVersion;
+                //string commandLine = @"Clyde.exe -patchVersion=" + PatchVersion;
+                string commandLine = @"Clyde.exe";
                 options.PostExtractCommandLine = commandLine;
                 // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
@@ -122,7 +123,7 @@ namespace PatchTool
 
     public class Extractor
     {
-        private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
+        //private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
         // TC: not yet
         //string logmsg;
 
@@ -140,7 +141,7 @@ namespace PatchTool
         {
             init();
             AppDir = _appDir;
-            log.Info(System.String.Format("APPDIR: {0}", AppDir));
+            //log.Info(System.String.Format("APPDIR: {0}", AppDir));
         }
 
         private string _appDir;
@@ -169,7 +170,8 @@ namespace PatchTool
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
 
             // create backup folders: Clyde needs the patchID; fake it for now
-            string newPathStr = "patches" + @"1.2.3.4" + "new";
+            string newPathStr = Path.Combine("patches", @"1.2.3.4");
+            newPathStr = Path.Combine(newPathStr, "new");
             DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr));
             if (!Directory.Exists(backupDirNew.ToString()))
             {
@@ -184,7 +186,8 @@ namespace PatchTool
                 }
             }
             //
-            string oldPathStr = "patches" + @"1.2.3.4" + "new";
+            string oldPathStr = Path.Combine("patches", @"1.2.3.4");
+            oldPathStr = Path.Combine(oldPathStr, "new");
             DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr));
             if (!Directory.Exists(backupDirOld.ToString()))
             {

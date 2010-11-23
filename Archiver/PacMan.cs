@@ -47,6 +47,7 @@ namespace PatchTool
                 help.AdditionalNewLineAfterOption = true;
                 help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2010);
                 help.AddPreOptionsLine("Usage: PacMan -s<sourceDir> -a<appName> -r<patchVersion>");
+                help.AddPreOptionsLine("       PacMan -?");
                 help.AddOptions(this);
 
                 return help;
@@ -56,12 +57,13 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
+            // TC: this will do for now until I can use the new help text
             if (args.Length < 3)
             {
                 string usage = "PacMan.exe\n\n";
                 usage += "Required:\n";
-                usage += "\t-appName\tthe name of the target app, e.g., ServerSuite\n";
                 usage += "\t-sourceDir\t\tthe path to the patch contents\n";
+                usage += "\t-appName\tthe name of the target app, e.g., ServerSuite\n";
                 usage += "\t-patchVersion\tthe version number for this patch\n";
                 usage += "Optional:\n";
                 usage += "\t-?\t\tthis doesn't do anything yet";
@@ -69,13 +71,11 @@ namespace PatchTool
                 return;
             }
 
-            //CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
+            Archiver a = new Archiver();
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
             if (!parser.ParseArguments(args, options))
                 Environment.Exit(1);
-
-            Archiver a = new Archiver();
 
             // where's the patch contents?
             if (options.sourceDir == String.Empty)
