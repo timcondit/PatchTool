@@ -67,6 +67,7 @@ namespace PatchTool
 
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
+                zip.AddFile("CommandLine.dll");
                 zip.Comment = "Where will this show up?";
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
@@ -75,8 +76,8 @@ namespace PatchTool
                 options.DefaultExtractDirectory = ExtractDir;
                 options.Copyright = "Copyright 2010 Envision Telephony";
                 //string cmdline = (@"Clyde.exe -patchID={0}", patchVers
-                //string commandLine = @"Clyde.exe -patchVersion=" + PatchVersion;
-                string commandLine = @"Clyde.exe";
+                string commandLine = @"Clyde.exe --patchVersion=" + PatchVersion;
+                //string commandLine = @"Clyde.exe";
                 options.PostExtractCommandLine = commandLine;
                 // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
@@ -137,11 +138,10 @@ namespace PatchTool
             init();
         }
 
-        public Extractor(string _appDir)
+        public Extractor(string _patchVersion)
         {
             init();
-            AppDir = _appDir;
-            //log.Info(System.String.Format("APPDIR: {0}", AppDir));
+            PatchVersion = _patchVersion;
         }
 
         private string _appDir;
@@ -149,6 +149,13 @@ namespace PatchTool
         {
             get { return _appDir; }
             set { _appDir = value; }
+        }
+
+        private string _patchVersion;
+        public string PatchVersion
+        {
+            get { return _patchVersion; }
+            set { _patchVersion = value; }
         }
 
         // This should be equivalent to ExtractDir in Archiver.  I should probably find a better
@@ -170,7 +177,8 @@ namespace PatchTool
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
 
             // create backup folders: Clyde needs the patchID; fake it for now
-            string newPathStr = Path.Combine("patches", @"1.2.3.4");
+            //string newPathStr = Path.Combine("patches", @"1.2.3.4");
+            string newPathStr = Path.Combine("patches", PatchVersion);
             newPathStr = Path.Combine(newPathStr, "new");
             DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr));
             if (!Directory.Exists(backupDirNew.ToString()))
@@ -186,7 +194,8 @@ namespace PatchTool
                 }
             }
             //
-            string oldPathStr = Path.Combine("patches", @"1.2.3.4");
+            //string oldPathStr = Path.Combine("patches", @"1.2.3.4");
+            string oldPathStr = Path.Combine("patches", PatchVersion);
             oldPathStr = Path.Combine(oldPathStr, "new");
             DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr));
             if (!Directory.Exists(backupDirOld.ToString()))

@@ -8,6 +8,31 @@ namespace PatchTool
 {
     class Clyde
     {
+        private sealed class Options
+        {
+            #region Standard Option Attribute
+            [Option("r", "patchVersion",
+                    Required = true,
+                    HelpText = "The version number for this patch.")]
+            public string patchVersion = String.Empty;
+
+            [HelpOption(
+                    HelpText = "Display this help screen.")]
+
+            public string GetUsage()
+            {
+                var help = new HelpText("Envision Package Manager");
+                help.AdditionalNewLineAfterOption = true;
+                help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2010);
+                help.AddPreOptionsLine("Usage: Clyde -r<patchVersion>");
+                help.AddPreOptionsLine("       Clyde -?");
+                help.AddOptions(this);
+
+                return help;
+            }
+            #endregion
+        }
+
         static void Main(string[] args)
         {
             // TC: read the APPDIR from the registry
@@ -21,6 +46,21 @@ namespace PatchTool
             // APPNAME-PATCHVER.exe).
             Extractor e = new Extractor();
             e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
+
+            Options options = new Options();
+            ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
+            if (!parser.ParseArguments(args, options))
+                Environment.Exit(1);
+
+            if (options.patchVersion == String.Empty)
+            {
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken!");
+            }
+            else
+            {
+                e.PatchVersion = options.patchVersion;
+            }
 
             // beware System.IO.DirectoryNotFoundException
             //
