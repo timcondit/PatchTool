@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PatchTool</RootNamespace>
     <AssemblyName>PacMan</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -53,25 +53,13 @@
     <StartupObject>PatchTool.PacMan</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Clyde, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\Extractor\bin\Release\Clyde.exe</HintPath>
-    </Reference>
-    <Reference Include="PatchLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\PatchLib\bin\Release\PatchLib.dll</HintPath>
+    <Reference Include="CommandLine">
+      <HintPath>..\References\Release\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestApiCore">
-      <HintPath>..\References\Release\TestApiCore.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PacMan.cs" />
@@ -98,6 +86,19 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Extractor\Extractor.csproj">
+      <Project>{F3F7E2E8-EA06-425C-B3AF-BB11A2540F53}</Project>
+      <Name>Extractor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatchLib\PatchLib.csproj">
+      <Project>{E24A0395-B54E-4944-92D1-ADD70F9E5ADB}</Project>
+      <Name>PatchLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

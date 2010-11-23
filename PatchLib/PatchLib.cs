@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Ionic.Zip;
@@ -170,7 +169,8 @@ namespace PatchTool
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
 
             // create backup folders: Clyde needs the patchID; fake it for now
-            DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), "patches", @"1.2.3.4", "new"));
+            string newPathStr = "patches" + @"1.2.3.4" + "new";
+            DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr));
             if (!Directory.Exists(backupDirNew.ToString()))
             {
                 try
@@ -184,7 +184,8 @@ namespace PatchTool
                 }
             }
             //
-            DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), "patches", @"1.2.3.4", "old"));
+            string oldPathStr = "patches" + @"1.2.3.4" + "new";
+            DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr));
             if (!Directory.Exists(backupDirOld.ToString()))
             {
                 try
@@ -223,8 +224,10 @@ namespace PatchTool
             foreach (FileInfo f in srcFiles)
             {
                 tail = RelativePath(srcDir.ToString(), f.FullName);
-                string orig = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail), f.ToString());
-                string copied = Path.Combine(backupDirNew.ToString(), Path.GetDirectoryName(tail), f.ToString());
+                string origTmp = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail));
+                string orig = Path.Combine(origTmp, f.ToString());
+                string copiedTmp = Path.Combine(backupDirNew.ToString(), Path.GetDirectoryName(tail));
+                string copied = Path.Combine(copiedTmp, f.ToString());
                 FileCompare(orig, copied, tail);
             }
             Console.WriteLine();
@@ -285,8 +288,10 @@ namespace PatchTool
             foreach (FileInfo f in srcFiles)
             {
                 tail = RelativePath(srcDir.ToString(), f.FullName);
-                string orig = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail), f.ToString());
-                string copied = Path.Combine(dstDir.ToString(), Path.GetDirectoryName(tail), f.ToString());
+                string origTmp = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail));
+                string orig = Path.Combine(origTmp, f.ToString());
+                string copiedTmp = Path.Combine(dstDir.ToString(), Path.GetDirectoryName(tail));
+                string copied = Path.Combine(copiedTmp, f.ToString());
                 // TC: explain this
                 FileCompare(orig, copied, tail);
             }

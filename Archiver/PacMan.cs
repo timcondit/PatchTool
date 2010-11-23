@@ -1,4 +1,5 @@
-﻿using Microsoft.Test.CommandLineParsing;    // http://testapi.codeplex.com/
+﻿using CommandLine;
+using CommandLine.Text;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -7,6 +8,52 @@ namespace PatchTool
 {
     public class PacMan
     {
+        private sealed class Options
+        {
+            #region Standard Option Attribute
+            [Option("s", "sourceDir",
+                    Required = true,
+                    HelpText = "The path to the patch's contents.")]
+            public string sourceDir = String.Empty;
+
+            [Option("a", "appName",
+                    Required = true,
+                    HelpText = "The name of the target app, e.g., ServerSuite.")]
+            public string appName = String.Empty;
+
+            [Option("r", "patchVersion",
+                    Required = true,
+                    HelpText = "The version number for this patch.")]
+            public string patchVersion = String.Empty;
+
+            //[Option("v", null,
+            //        HelpText = "Verbose level. Range: from 0 to 2.")]
+            //public int? VerboseLevel = null;
+
+            //[Option("i", null,
+            //       HelpText = "If file has errors don't stop processing.")]
+            //public bool IgnoreErrors = false;
+
+            //[Option("j", "jump",
+            //        HelpText = "Data processing start offset.")]
+            //public double StartOffset = 0;
+
+            [HelpOption(
+                    HelpText = "Display this help screen.")]
+
+            public string GetUsage()
+            {
+                var help = new HelpText("Envision Package Manager");
+                help.AdditionalNewLineAfterOption = true;
+                help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2010);
+                help.AddPreOptionsLine("Usage: PacMan -s<sourceDir> -a<appName> -r<patchVersion>");
+                help.AddOptions(this);
+
+                return help;
+            }
+            #endregion
+        }
+
         static void Main(string[] args)
         {
             if (args.Length < 3)
@@ -22,39 +69,52 @@ namespace PatchTool
                 return;
             }
 
-            CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
+            //CommandLineDictionary d = CommandLineDictionary.FromArguments(args, '-', '=');
+            Options options = new Options();
+            ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
+            if (!parser.ParseArguments(args, options))
+                Environment.Exit(1);
+
             Archiver a = new Archiver();
+
+            // where's the patch contents?
+            if (options.sourceDir == String.Empty)
+            {
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken!");
+            }
+            else
+            {
+                a.SourceDir = options.sourceDir;
+            }
 
             // application identifier, e.g., ServerSuite, ChannelManager, etc.  Maybe this should
             // be an enumeration
-            string app_name;
-            // where's the patch contents?
-            string src_dir;
-            string patch_version;
-
-            try
+            if (options.appName == String.Empty)
             {
-                d.TryGetValue("sourceDir", out src_dir);
-                a.SourceDir = src_dir;
-
-                d.TryGetValue("appName", out app_name);
-                a.AppName = app_name;
-
-                d.TryGetValue("patchVersion", out patch_version);
-                a.PatchVersion = patch_version;
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken!");
             }
-            catch (System.ArgumentNullException e)
+            else
             {
-                Console.WriteLine("Something broke while parsing command-line arguments");
-                Console.WriteLine();
-                Console.WriteLine(e.StackTrace);
-                throw;
+                a.AppName = options.appName;
+            }
+            
+            if (options.patchVersion == String.Empty)
+            {
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken!");
+            }
+            else
+            {
+                a.PatchVersion = options.patchVersion;
             }
 
             //  If the files are stored in C:\patches\<APPNAME>\<PATCHVER>, and that location
             // already exists, error and exit.
             //
-            a.ExtractDir = Path.Combine(@"C:\patches", a.AppName, a.PatchVersion);
+            string extractDirTmp = Path.Combine(@"C:\patches", a.AppName);
+            a.ExtractDir = Path.Combine(extractDirTmp, a.PatchVersion);
             a.run();
         }
     }
