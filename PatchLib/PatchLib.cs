@@ -269,7 +269,15 @@ namespace PatchTool
                     Directory.CreateDirectory(backupSubdirOld.ToString());
                 }
 
-                File.Copy(fileToPatch, bakFileOld, true);
+                try
+                {
+                    File.Copy(fileToPatch, bakFileOld, true);
+                }
+                catch (System.IO.FileNotFoundException e)
+                {
+                    Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
+                    //Console.WriteLine("Stack trace: {0}", e);
+                }
                 // TC: commented out for now -- too noisy
                 //FileStat(bakFileOld);
                 //Console.WriteLine();
@@ -320,6 +328,17 @@ namespace PatchTool
         // TC: probably want to return bool and not write to STDOUT
         private void FileCompare(string fileName1, string fileName2, string fileName3)
         {
+            try
+            {
+                FileEquals(fileName1, fileName2);
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
+                return;
+                //Console.WriteLine("Stack trace: {0}", e);
+            }
+
             if (FileEquals(fileName1, fileName2))
             {
                 Console.Write("{0, -90}", "* " + fileName3, Console.WindowWidth, Console.WindowHeight);
@@ -410,7 +429,15 @@ namespace PatchTool
             {
                 string name = Path.GetFileName(file);
                 string dest = Path.Combine(destFolder, name);
-                File.Copy(file, dest, true);
+                try
+                {
+                    File.Copy(file, dest, true);
+                }
+                catch (System.IO.FileNotFoundException e)
+                {
+                    Console.WriteLine("WARN: a file to replace was not found: {0}", file);
+                    //Console.WriteLine("Stack trace: {0}", e);
+                }
             }
             string[] folders = Directory.GetDirectories(sourceFolder);
             foreach (string folder in folders)
