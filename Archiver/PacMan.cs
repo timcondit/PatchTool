@@ -110,14 +110,14 @@ namespace PatchTool
                 a.PatchVersion = options.patchVersion;
             }
 
-            //  If the files are stored in C:\patches\<APPNAME>\<PATCHVER>, and that location
-            // already exists, error and exit.
+            // TC: If the files are stored in C:\patch_staging\<APPNAME>\<PATCHVER>, and that
+            // location already exists, error and exit.
             //
-            //string extractDirTmp = Path.Combine(@"C:\patches", a.AppName);
-            //a.ExtractDir = Path.Combine(extractDirTmp, a.PatchVersion);
-            //
-            // NB: The extractDir should ALWAYS be the APPDIR, but I don't verify this yet.
-            a.ExtractDir = Directory.GetCurrentDirectory();
+            // The extract dir is set before the archive is created.  There is NOTHING that can be
+            // done (as far as I know) at extraction time to change that.  Bottom line is, the
+            // extractDir cannot be APPDIR.  Which sucks, but oh well.
+            string extractDirTmp = Path.Combine(@"C:\patch_staging", a.AppName);
+            a.ExtractDir = Path.Combine(extractDirTmp, a.PatchVersion);
             a.run();
         }
     }

@@ -236,8 +236,8 @@ namespace PatchTool
             CopyFolder(srcDir.ToString(), backupDirNew.ToString());
             Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
             Console.WriteLine("      should match the files in the extract dir [2]:");
-            Console.WriteLine("\t[1] {0}", ExtractDir);
-            Console.WriteLine("\t[2] {0}", backupDirNew);
+            Console.WriteLine("\t[1] {0}", backupDirNew);
+            Console.WriteLine("\t[2] {0}", ExtractDir);
             foreach (FileInfo f in srcFiles)
             {
                 tail = RelativePath(srcDir.ToString(), f.FullName);
@@ -314,8 +314,8 @@ namespace PatchTool
 
             CopyFolder(srcDir.ToString(), dstDir.ToString());
 
-            Console.WriteLine("INFO: Did the patch succeed?  The files in the new backup location [1]");
-            Console.WriteLine("      should match the files in APPDIR [2]:");
+            Console.WriteLine("INFO: Did the patch succeed?  The files in APPDIR [1] should match");
+            Console.WriteLine("      the files in the new backup location [2]:");
             Console.WriteLine("\t[1] {0}", dstDir);
             Console.WriteLine("\t[2] {0}", backupDirNew);
             foreach (FileInfo f in srcFiles)
