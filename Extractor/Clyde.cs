@@ -3,6 +3,7 @@ using CommandLine.Text;
 using Microsoft.Win32;
 using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace PatchTool
 {
@@ -55,7 +56,7 @@ namespace PatchTool
             if (options.patchVersion == String.Empty)
             {
                 // "pretty it up" and exit
-                throw new ArgumentException("something's broken!");
+                throw new ArgumentException("something's broken! (options.patchVersion)");
             }
             else
             {
@@ -76,7 +77,8 @@ namespace PatchTool
             }
             catch (System.UnauthorizedAccessException)
             {
-                System.Environment.Exit(1);
+                MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
+                throw;
             }
 
             // TC: for testing

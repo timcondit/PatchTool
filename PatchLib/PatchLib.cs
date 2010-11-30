@@ -8,15 +8,22 @@ using Ionic.Zip;
 // http://dotnetzip.codeplex.com/
 // http://cheeso.members.winisp.net/DotNetZipHelp/html/d4648875-d41a-783b-d5f4-638df39ee413.htm
 //
-// TODO
+// TODO - maybe
 // 1: look at ExtractExistingFileAction OverwriteSilently
 //  http://cheeso.members.winisp.net/DotNetZipHelp/html/5443c4c0-6f74-9ae1-37fd-9a4ae936832d.htm
-// 2: 
+// 2: add rollback
+// 3: add undo (like rollback only after the patch completes)
+// 4: add continue / cancel "breakpoints"
+// 5: add "list file contents" to the archives (e.g. APP-VER.exe)
+// 6: add logging when creating archives
 
 // NOTES
 // 1: Extractor will have to maintain the list of registry keys for each application that is
 //    patched.  But Archiver will need to pass a hint to let Extractor know which registry key to
 //    query.
+//
+//    Late note: No - have the user run the patch from APPDIR for the target application instead.
+//    One less dependency, a lot less hassle with 32- and 64-bit OS's.
 
 namespace PatchTool
 {
@@ -66,6 +73,7 @@ namespace PatchTool
                     System.Environment.Exit(1);
                 }
 
+                // these files install the patch
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
                 zip.AddFile("CommandLine.dll");
@@ -82,7 +90,6 @@ namespace PatchTool
 
                 // TC: delete other patches before reusing file name!
                 string patchName = AppName + @"-" + PatchVersion + @".exe";
-                //string patchName = String.Concat(AppName, @"-", PatchVersion, @".exe");
                 // debug
                 Console.WriteLine("patchName: {0}", patchName);
 
@@ -255,7 +262,7 @@ namespace PatchTool
                 tail = RelativePath(srcDir.ToString(), f.FullName);
                 bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
 
-                // get and check original location; eventually this will be a milestone: if the
+                // Get and check original location; eventually this will be a milestone: if the
                 // file is missing, user may want to cancel
                 fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
                 // TC: commented out for now -- too noisy
@@ -273,10 +280,9 @@ namespace PatchTool
                 {
                     File.Copy(fileToPatch, bakFileOld, true);
                 }
-                catch (System.IO.FileNotFoundException e)
+                catch (System.IO.FileNotFoundException)
                 {
                     Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
-                    //Console.WriteLine("Stack trace: {0}", e);
                 }
                 // TC: commented out for now -- too noisy
                 //FileStat(bakFileOld);
@@ -332,11 +338,10 @@ namespace PatchTool
             {
                 FileEquals(fileName1, fileName2);
             }
-            catch (System.IO.FileNotFoundException e)
+            catch (System.IO.FileNotFoundException)
             {
                 Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
                 return;
-                //Console.WriteLine("Stack trace: {0}", e);
             }
 
             if (FileEquals(fileName1, fileName2))
@@ -433,10 +438,9 @@ namespace PatchTool
                 {
                     File.Copy(file, dest, true);
                 }
-                catch (System.IO.FileNotFoundException e)
+                catch (System.IO.FileNotFoundException)
                 {
                     Console.WriteLine("WARN: a file to replace was not found: {0}", file);
-                    //Console.WriteLine("Stack trace: {0}", e);
                 }
             }
             string[] folders = Directory.GetDirectories(sourceFolder);

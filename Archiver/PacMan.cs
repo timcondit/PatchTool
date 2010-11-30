@@ -81,7 +81,7 @@ namespace PatchTool
             if (options.sourceDir == String.Empty)
             {
                 // "pretty it up" and exit
-                throw new ArgumentException("something's broken!");
+                throw new ArgumentException("something's broken! (options.sourceDir)");
             }
             else
             {
@@ -93,7 +93,7 @@ namespace PatchTool
             if (options.appName == String.Empty)
             {
                 // "pretty it up" and exit
-                throw new ArgumentException("something's broken!");
+                throw new ArgumentException("something's broken! (options.appName)");
             }
             else
             {
@@ -103,7 +103,7 @@ namespace PatchTool
             if (options.patchVersion == String.Empty)
             {
                 // "pretty it up" and exit
-                throw new ArgumentException("something's broken!");
+                throw new ArgumentException("something's broken! (options.patchVersion)");
             }
             else
             {
@@ -113,8 +113,11 @@ namespace PatchTool
             //  If the files are stored in C:\patches\<APPNAME>\<PATCHVER>, and that location
             // already exists, error and exit.
             //
-            string extractDirTmp = Path.Combine(@"C:\patches", a.AppName);
-            a.ExtractDir = Path.Combine(extractDirTmp, a.PatchVersion);
+            //string extractDirTmp = Path.Combine(@"C:\patches", a.AppName);
+            //a.ExtractDir = Path.Combine(extractDirTmp, a.PatchVersion);
+            //
+            // NB: The extractDir should ALWAYS be the APPDIR, but I don't verify this yet.
+            a.ExtractDir = Directory.GetCurrentDirectory();
             a.run();
         }
     }
