@@ -207,7 +207,7 @@ namespace PatchTool
             {
                 try
                 {
-                Directory.CreateDirectory(backupDirOld.ToString());
+                    Directory.CreateDirectory(backupDirOld.ToString());
                 }
                 catch (System.UnauthorizedAccessException)
                 {
@@ -284,6 +284,12 @@ namespace PatchTool
                 {
                     Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
                 }
+                catch (System.IO.DirectoryNotFoundException)
+                {
+                    // This exception occurs when the patch includes a new directory that is not
+                    // on the machine being patched.  As a result, the directory is also not in
+                    // patches/VERSION/old, which causes this exception.  Ignore it.
+                }
                 // TC: commented out for now -- too noisy
                 //FileStat(bakFileOld);
                 //Console.WriteLine();
@@ -343,6 +349,11 @@ namespace PatchTool
                 Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
                 return;
             }
+            catch (System.IO.DirectoryNotFoundException)
+            {
+                Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
+                return;
+            }
 
             if (FileEquals(fileName1, fileName2))
             {
@@ -384,7 +395,7 @@ namespace PatchTool
         // http://stackoverflow.com/questions/968935/c-binary-file-compare
         static bool FileEquals(string fileName1, string fileName2)
         {
-            // Check the file size and CRC equality here.. if they are equal...    
+            // Check the file size and CRC equality here.. if they are equal...
             using (var file1 = new FileStream(fileName1, FileMode.Open))
             using (var file2 = new FileStream(fileName2, FileMode.Open))
                 return StreamsContentsAreEqual(file1, file2);
