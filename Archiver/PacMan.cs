@@ -62,9 +62,9 @@ namespace PatchTool
             {
                 string usage = "PacMan.exe\n\n";
                 usage += "Required:\n";
-                usage += "\t-sourceDir\t\tthe path to the patch contents\n";
-                usage += "\t-appName\tthe name of the target app, e.g., ServerSuite\n";
-                usage += "\t-patchVersion\tthe version number for this patch\n";
+                usage += "\t--sourceDir\tthe path to the patch contents\n";
+                usage += "\t--appName\tthe name of the target app, e.g., ServerSuite\n";
+                usage += "\t--patchVersion\tthe version number for this patch\n";
                 usage += "Optional:\n";
                 usage += "\t-?\t\tthis doesn't do anything yet";
                 MessageBox.Show(usage, "PacMan needs more info");
