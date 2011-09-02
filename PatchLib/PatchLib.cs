@@ -82,7 +82,7 @@ namespace PatchTool
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
                 options.ProductVersion = PatchVersion;
                 options.DefaultExtractDirectory = ExtractDir;
-                options.Copyright = "Copyright 2010 Envision Telephony";
+                options.Copyright = "Copyright 2011 Envision Telephony";
                 string commandLine = @"Clyde.exe --patchVersion=" + PatchVersion;
                 options.PostExtractCommandLine = commandLine;
                 // false for dev, (maybe) true for production

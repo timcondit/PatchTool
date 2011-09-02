@@ -24,7 +24,7 @@ namespace PatchTool
             {
                 var help = new HelpText("Envision Package Manager");
                 help.AdditionalNewLineAfterOption = true;
-                help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2010);
+                help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2011);
                 help.AddPreOptionsLine("Usage: Clyde -r<patchVersion>");
                 help.AddPreOptionsLine("       Clyde -?");
                 help.AddOptions(this);
