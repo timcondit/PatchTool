@@ -39,10 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\References\Release\Ionic.Zip.dll</HintPath>
+      <HintPath>$(ETSDK)\DotNetZip\1.9\DotNetZipLib-DevKit-v1.9\DotNetZip-v1.9\Debug\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\References\Release\log4net.dll</HintPath>
+      <HintPath>$(ETSDK)\log4net\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
