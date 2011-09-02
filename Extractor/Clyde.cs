@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using Microsoft.Win32;
+using NLog;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -33,6 +34,8 @@ namespace PatchTool
             }
             #endregion
         }
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         static void Main(string[] args)
         {

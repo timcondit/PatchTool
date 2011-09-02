@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using NLog;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -55,6 +56,8 @@ namespace PatchTool
             #endregion
         }
 
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         static void Main(string[] args)
         {
             // TC: this will do for now until I can use the new help text
@@ -68,6 +71,8 @@ namespace PatchTool
                 usage += "Optional:\n";
                 usage += "\t-?\t\tthis doesn't do anything yet";
                 MessageBox.Show(usage, "PacMan needs more info");
+
+                logger.Info("Not enough arguments provided.  Show usage and exit.");
                 return;
             }
 
