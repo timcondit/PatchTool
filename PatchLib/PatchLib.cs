@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Ionic.Zip;
+using NLog;
 
 // using DotNetZip library
 // http://dotnetzip.codeplex.com/
@@ -36,14 +37,15 @@ namespace PatchTool
             set { _sourceDir = value; }
         }
 
-        private string _appName = "EnvisionWidget";
+        // This is no longer set per-application, so now we need a better name.  EnvisionWidget was originally a throwaway.
+        private string _appName = "PacMan";
         public string AppName
         {
             get { return _appName; }
             set { _appName = value; }
         }
 
-        private string _patchVersion = "16.32.64.128";
+        private string _patchVersion = "0.0.0.0";
         public string PatchVersion
         {
             get { return _patchVersion; }
@@ -64,6 +66,8 @@ namespace PatchTool
                 // TC: watch out for unwanted appending to an existing archive (TEST)
                 if (Directory.Exists(SourceDir))
                 {
+                    // How to identify multiple applications under one directory?  By "friendly name" (e.g. Envision Server Suite)?
+                    // Use the names we search the registry with: Server, ChannelManager, WMWrapperService, Tools.
                     zip.AddDirectory(SourceDir, Path.GetFileName(SourceDir));
                 }
                 else
@@ -73,10 +77,12 @@ namespace PatchTool
                     System.Environment.Exit(1);
                 }
 
-                // these files install the patch
+                // these files install and log the patch
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
                 zip.AddFile("CommandLine.dll");
+                zip.AddFile("NLog.dll");
+                zip.AddFile("NLog.config");
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
@@ -133,6 +139,7 @@ namespace PatchTool
         //private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
         // TC: not yet
         //string logmsg;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private void init()
         {
