@@ -136,9 +136,6 @@ namespace PatchTool
 
     public class Extractor
     {
-        //private static log4net.ILog log = log4net.LogManager.GetLogger("patch.log");
-        // TC: not yet
-        //string logmsg;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private void init()
