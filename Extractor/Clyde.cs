@@ -63,16 +63,16 @@ namespace PatchTool
                     // "null" is passed to installedApps, but the method requires a default value.
                     string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
                     installedApps.Add(pApps.Current, installPath);
-                    logger.Info("InstallPath found for " + pApps.Current);
+                    logger.Info("InstallPath found for {0}", pApps.Current);
                     rk.Close();
                 }
                 catch (NullReferenceException)
                 {
-                    logger.Info("InstallPath not found for " + pApps.Current);
+                    logger.Info("InstallPath not found for {0}", pApps.Current);
                 }
                 catch (ArgumentException)
                 {
-                    logger.Info("InstallPath not found for " + pApps.Current);
+                    logger.Info("InstallPath not found for {0}", pApps.Current);
                 }
             }
 
@@ -82,11 +82,10 @@ namespace PatchTool
             }
             else
             {
-                logger.Info("Found " + installedApps.Count + " Envision applications:");
+                logger.Info("Found {0} Envision applications:", installedApps.Count);
                 foreach (KeyValuePair<string, string> item in installedApps)
                 {
-                    string msg = item.Key + " installed at [" + item.Value + "]";
-                    logger.Info(msg);
+                    logger.Info("{0} installed at \"{1}\"", item.Key, item.Value);
                 }
             }
 
