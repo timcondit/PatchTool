@@ -3,6 +3,7 @@ using CommandLine.Text;
 using Microsoft.Win32;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -39,16 +40,91 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
-            // TC: read the APPDIR from the registry
-            RegistryKey hklm = Registry.LocalMachine;
-            hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\Server");
-
             // TC: Clyde needs no arguments.  APPDIR is read from the registry; patchVersion is set
             // when the patch is created; and extractDir is composed from all three.
             //
             // Late note: this is about to be not true.  Clyde needs the patch name (in the form of
             // APPNAME-PATCHVER.exe).
             Extractor e = new Extractor();
+
+            // Registry keys for all Envision apps that are eligible for updating via PacMan/Clyde are rooted at
+            // SOFTWARE\Envision\Click2Coach.  I'm keeping the paths in the list to make it clear that these are keys,
+            // as well as names.
+            IEnumerable<string> patchableApps = new List<string> { "Server", "ChannelManager", "WMWrapperService", "Tools" };
+            IEnumerator<string> pApps = patchableApps.GetEnumerator();
+
+            // installedApps is the list of applications that are found in the registry on the target system
+            IDictionary<string, string> installedApps = new Dictionary<string, string>();
+            //RegistryKey rk = Registry.LocalMachine;
+
+            while (pApps.MoveNext())
+            {
+                // DEBUG
+                //Console.WriteLine(pApps.Current);
+                //string installPath = @"SOFTWARE\Envision\Click2Coach\" + pApps.Current + @"\InstallPath";
+                //string subKey = @"SOFTWARE/Envision/Click2Coach/" + pApps.Current;
+                string subKey = @"SOFTWARE\Envision\Click2Coach\" + pApps.Current;
+                //string installPath = @"SOFTWARE/Envision/Click2Coach/" + pApps.Current + @"/InstallPath";
+                //Console.WriteLine("installPath: " + installPath);
+                try
+                {
+                    //logger.Info("Looking for " + pApps.Current + " in the registry");
+                    //RegistryKey rk = Registry.LocalMachine.OpenSubKey(installPath);
+                    //Console.WriteLine("installPath: " + rk.GetValue(installPath));
+                    Console.WriteLine("trying to open " + subKey);
+                    RegistryKey rk = Registry.LocalMachine.OpenSubKey(subKey);
+                    Console.WriteLine("rk:" + rk);
+                    Console.WriteLine("trying to fetch InstallPath from " + subKey);
+                    string regVal = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
+                    //Registry.GetValue(rk.ToString(), "InstallPath", "null");
+                    Console.WriteLine(regVal);
+                    //Console.WriteLine("installPath: " + rk.GetValue(installPath));
+                    //rk.OpenSubKey(installPath);
+                    //rk.GetValue(regVal);
+                    installedApps.Add(pApps.Current, regVal);
+                    logger.Info(pApps.Current + " found in the registry at " + regVal);
+                    rk.Close();
+                }
+                catch (NullReferenceException exc)
+                {
+                    logger.Info(pApps.Current + " not found in the registry at " + subKey);
+                    //logger.Info(pApps.Current + " not found in the registry at " + installPath);
+                    //logger.Info(exc.StackTrace);
+                    //// ya right
+                    //Console.WriteLine(exc.StackTrace);
+                }
+                catch (ArgumentException exc)
+                {
+                    logger.Info(pApps.Current + " not found in the registry at " + subKey);
+                    //logger.Info(pApps.Current + " not found in the registry at " + installPath);
+                    //logger.Info(exc.StackTrace);
+                    //// ya right
+                    //Console.WriteLine(exc.StackTrace);
+                }
+            }
+
+            if (installedApps.Count == 0)
+            {
+                logger.Warn("No Envision applications were found on this machine!");
+            }
+
+            // When we get here, installedApps should have at least one key-value pair representing an application.
+            // If it's empty, there's nothing installed.
+            logger.Info("Found " + installedApps.Count + " Envision applications:");
+            foreach (KeyValuePair<string, string> item in installedApps)
+            {
+                logger.Info(item.Key);
+            }
+
+            // TC: for testing
+            Console.Write("Press any key to continue");
+            Console.ReadLine();
+            Environment.Exit(0);
+
+            // TC: read the APPDIR from the registry
+            RegistryKey hklm = Registry.LocalMachine;
+            hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\ChannelManager");
+
             e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
 
             Options options = new Options();
@@ -88,5 +164,15 @@ namespace PatchTool
             Console.Write("Press any key to continue");
             Console.ReadLine();
         }
+
+        //private static string PathName(string _name)
+        //{
+        //    get
+        //    {
+        //        RegistryKey rk = Registry.LocalMachine;
+        //        rk.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\ChannelManager");
+        //        return (string)rk.GetValue("InstallPath");
+        //    }
+        //}
     }
 }
