@@ -1,11 +1,11 @@
-﻿using CommandLine;
-using CommandLine.Text;
-using Microsoft.Win32;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using CommandLine;
+using CommandLine.Text;
+using Microsoft.Win32;
+using NLog;
 
 namespace PatchTool
 {
@@ -40,20 +40,19 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
-            // TC: Clyde needs no arguments.  APPDIR is read from the registry; patchVersion is set
-            // when the patch is created; and extractDir is composed from all three.
-            //
-            // Late note: this is about to be not true.  Clyde needs the patch name (in the form of
-            // APPNAME-PATCHVER.exe).
-            Extractor e = new Extractor();
-
+            // get a dictionary of applications installed on the target machine (key:appName, value:APPDIR)
             IEnumerable<string> patchableApps = new List<string> { "Server", "ChannelManager", "WMWrapperService", "Tools" };
             IDictionary<string, string> installedApps = getInstalledApps(patchableApps);
+
+            // get a list of applications to be patched
+            // FIXME get this from a config?  See IntegrationLoadTest/CallTestDriver for ideas.
+            IEnumerable<string> appsToPatch = new List<string> { "Server", "Tools" };
 
             // TC: read the APPDIR from the registry
             RegistryKey hklm = Registry.LocalMachine;
             hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\ChannelManager");
 
+            Extractor e = new Extractor();
             e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
 
             Options options = new Options();

@@ -1,9 +1,9 @@
-﻿using CommandLine;
-using CommandLine.Text;
-using NLog;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using CommandLine;
+using CommandLine.Text;
+using NLog;
 
 namespace PatchTool
 {
@@ -69,6 +69,9 @@ namespace PatchTool
             }
 
             Archiver a = new Archiver();
+            a.makeSourceConfig();
+            a.makeTargetConfig();
+
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
             if (!parser.ParseArguments(args, options))

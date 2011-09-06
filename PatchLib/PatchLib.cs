@@ -60,72 +60,158 @@ namespace PatchTool
             set { _extractDir = value; }
         }
 
-        // Make sources config here.  This tells us where to get source files from an Aristotle working copy.  Keep it
-        // separate from the destination config files.  They should not change very often(*), but the destinations
-        // will be added to as successive patches add more files (they are cumulative within a release series).
-        //
-        // (*) Actually, it's a partial set of files that the installers ship, so we'll add to it from time to time.
-        //
-        // Write to file.  Move it to a WCF or ASP.NET form later.
+        // Source config is a list of where to find files on the Aristotle working copy.  It is independent of the
+        // apps to patch.  Every file in makeTargetConfig (identified by key) must be here.
         public void makeSourceConfig()
         {
             IniConfigSource source = new IniConfigSource();
-            IConfig config = source.AddConfig("Files");
-            config.Set("RootPath", @"C:\Source\builds\Aristotle");
+            IConfig config = source.AddConfig("PatchSources");
+            config.Set("srcRoot", @"C:\Source\builds\Aristotle");
 
-            // 1: these files should not be identified as specific to any application
-            // 2: they should have unique names
-            config.Set("Envision.jar", @"${RootPath}\Release\Envision.jar");
-            config.Set("envision_schema.xml", @"${RootPath}\config\server\envision_schema.xml");
-            config.Set("envision_schema_central.xml", @"${RootPath}\config\server\envision_schema_central.xml");
-            config.Set("ETScheduleService.xml", @"${RootPath}\config\server\C2CServiceDescriptions\ETScheduleService.xml");
-            config.Set("ChannelBrokerService.xml", @"${RootPath}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
-            config.Set("CiscoICM.dll", @"${RootPath}\workdir\ContactSourceRunner\CiscoICM.dll");
-            config.Set("cstaLoader.dll", @"${RootPath}\workdir\ContactSourceRunner\cstaLoader.dll");
-            config.Set("cstaLoader_1_2.dll", @"${RootPath}\workdir\ContactSourceRunner\cstaLoader_1_2.dll");
-            config.Set("cstaLoader_1_3_3.dll", @"${RootPath}\workdir\ContactSourceRunner\cstaLoader_1_3_3.dll");
-            config.Set("cstaLoader_3_33.dll", @"${RootPath}\workdir\ContactSourceRunner\cstaLoader_3_33.dll");
-            config.Set("cstaLoader_9_1.dll", @"${RootPath}\workdir\ContactSourceRunner\cstaLoader_9_1.dll");
-            config.Set("cstaLoader_9_5.dll", @"${RootPath}\workdir\ContactSourceRunner\cstaLoader_9_5.dll");
-            config.Set("ctcapi32.dll", @"${RootPath}\workdir\ContactSourceRunner\ctcapi32.dll");
-            config.Set("ctcLoader_6.0.dll", @"${RootPath}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
-            config.Set("ctcLoader_7.0.dll", @"${RootPath}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
-            config.Set("NetMerge.dll", @"${RootPath}\workdir\ContactSourceRunner\NetMerge.dll");
-            config.Set("SourceRunnerService.exe", @"${RootPath}\workdir\ContactSourceRunner\SourceRunnerService.exe");
-            config.Set("TeliaCallGuide.dll", @"${RootPath}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
-            config.Set("Tsapi.dll", @"${RootPath}\workdir\ContactSourceRunner\Tsapi.dll");
-            config.Set("CommonUpdates.xml", @"${RootPath}\config\server\DatabaseUpdates\CommonUpdates.xml");
-            config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${RootPath}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
-            config.Set("audiocodesChannel.dll", @"${RootPath}\workdir\ChannelManager\audiocodesChannel.dll");
-            config.Set("audiocodesChannel.pdb", @"${RootPath}\workdir\ChannelManager\audiocodesChannel.pdb");
-            config.Set("AvayaVoipChannel.dll", @"${RootPath}\workdir\ChannelManager\AvayaVoipChannel.dll");
-            config.Set("AvayaVoipChannel.pdb", @"${RootPath}\workdir\ChannelManager\AvayaVoipChannel.pdb");
-            config.Set("ChanMgrSvc.exe", @"${RootPath}\workdir\ChannelManager\ChanMgrSvc.exe");
-            config.Set("ChanMgrSvc.pdb", @"${RootPath}\workdir\ChannelManager\ChanMgrSvc.pdb");
-            config.Set("DemoModeChannel.dll", @"${RootPath}\workdir\ChannelManager\DemoModeChannel.dll");
-            config.Set("DemoModeChannel.pdb", @"${RootPath}\workdir\ChannelManager\DemoModeChannel.pdb");
-            config.Set("DialogicChannel.dll", @"${RootPath}\workdir\ChannelManager\DialogicChannel.dll");
-            config.Set("DialogicChannel.pdb", @"${RootPath}\workdir\ChannelManager\DialogicChannel.pdb");
-            config.Set("DialogicChannel60.dll", @"${RootPath}\workdir\ChannelManager\DialogicChannel60.dll");
-            config.Set("DialogicChannel60.pdb", @"${RootPath}\workdir\ChannelManager\DialogicChannel60.pdb");
-            config.Set("DMCCConfigLib.dll", @"${RootPath}\workdir\ChannelManager\DMCCConfigLib.dll");
-            config.Set("DMCCConfigLib.pdb", @"${RootPath}\workdir\ChannelManager\DMCCConfigLib.pdb");
-            config.Set("DMCCWrapperLib.dll", @"${RootPath}\workdir\ChannelManager\DMCCWrapperLib.dll");
-            config.Set("DMCCWrapperLib.pdb", @"${RootPath}\workdir\ChannelManager\DMCCWrapperLib.pdb");
-            config.Set("DMCCWrapperLib.tlb", @"${RootPath}\workdir\ChannelManager\DMCCWrapperLib.tlb");
-            config.Set("IPXChannel.dll", @"${RootPath}\workdir\ChannelManager\IPXChannel.dll");
-            config.Set("IPXChannel.pdb", @"${RootPath}\workdir\ChannelManager\IPXChannel.pdb");
-            config.Set("RtpTransmitter.dll", @"${RootPath}\workdir\ChannelManager\RtpTransmitter.dll");
-            config.Set("RtpTransmitter.pdb", @"${RootPath}\workdir\ChannelManager\RtpTransmitter.pdb");
-            config.Set("EnvisionSR.bat", @"${RootPath}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
-            config.Set("EnvisionSR.reg", @"${RootPath}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg");
-            config.Set("instsrv.exe", @"${RootPath}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
-            config.Set("sleep.exe", @"${RootPath}\src\tools\Scripts\ChannelManager\EnvisionSR\sleep.exe");
-            config.Set("srvany.exe", @"${RootPath}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
-            config.Set("svcmgr.exe", @"${RootPath}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
+            // These files are not specific to any application.  Each one should have a unique key.
+            //
+            // Q: Similar to makeTargetConfig(), which of these is the right way to go?
+            // A: It'll have to be (2).  If we have a second file with the same name and different path, we'll need to
+            //    append something (maybe "_1") to the end of the second file of the same name.  But we can't append
+            //    a mangled file name to the path to identify the file.
+            //
+            // (1) config.Set("Envision.jar", @"${srcRoot}\Release");
+            // (2) config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
+
+            config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
+            config.Set("envision_schema.xml", @"${srcRoot}\config\server\envision_schema.xml");
+            config.Set("envision_schema_central.xml", @"${srcRoot}\config\server\envision_schema_central.xml");
+            config.Set("ETScheduleService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml");
+            config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
+            config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
+            config.Set("cstaLoader.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader.dll");
+            config.Set("cstaLoader_1_2.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_2.dll");
+            config.Set("cstaLoader_1_3_3.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_3_3.dll");
+            config.Set("cstaLoader_3_33.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_3_33.dll");
+            config.Set("cstaLoader_9_1.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_1.dll");
+            config.Set("cstaLoader_9_5.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_5.dll");
+            config.Set("ctcapi32.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcapi32.dll");
+            config.Set("ctcLoader_6.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
+            config.Set("ctcLoader_7.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
+            config.Set("NetMerge.dll", @"${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
+            config.Set("SourceRunnerService.exe", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
+            config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
+            config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
+            config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
+            config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            config.Set("audiocodesChannel.dll", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.dll");
+            config.Set("audiocodesChannel.pdb", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.pdb");
+            config.Set("AvayaVoipChannel.dll", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.dll");
+            config.Set("AvayaVoipChannel.pdb", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.pdb");
+            config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
+            config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
+            config.Set("DemoModeChannel.dll", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.dll");
+            config.Set("DemoModeChannel.pdb", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.pdb");
+            config.Set("DialogicChannel.dll", @"${srcRoot}\workdir\ChannelManager\DialogicChannel.dll");
+            config.Set("DialogicChannel.pdb", @"${srcRoot}\workdir\ChannelManager\DialogicChannel.pdb");
+            config.Set("DialogicChannel60.dll", @"${srcRoot}\workdir\ChannelManager\DialogicChannel60.dll");
+            config.Set("DialogicChannel60.pdb", @"${srcRoot}\workdir\ChannelManager\DialogicChannel60.pdb");
+            config.Set("DMCCConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\DMCCConfigLib.dll");
+            config.Set("DMCCConfigLib.pdb", @"${srcRoot}\workdir\ChannelManager\DMCCConfigLib.pdb");
+            config.Set("DMCCWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.dll");
+            config.Set("DMCCWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.pdb");
+            config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
+            config.Set("IPXChannel.dll", @"${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
+            config.Set("IPXChannel.pdb", @"${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
+            config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
+            config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
+            config.Set("EnvisionSR.bat", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
+            config.Set("EnvisionSR.reg", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg");
+            config.Set("instsrv.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
+            config.Set("sleep.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\sleep.exe");
+            config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
+            config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
+            config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
 
             source.ExpandKeyValues();
-            source.Save("Aristotle_sources.config");
+            source.Save("Aristotle_source.config");
+        }
+
+        // These are the on-disk targets for each application.  At the moment we patch four applications: Server,
+        // ChannelManager, WMWrapperService and Tools.  All four should be more-or-less represented in the targets
+        // listed here.  The list will grow as files are added, but I won't try to include them all up front.
+        public void makeTargetConfig()
+        {
+            IniConfigSource source = new IniConfigSource();
+
+            // Each patchableApp (see Clyde.cs) needs its own config section and appRoot.
+            IConfig server = source.AddConfig("Server");
+            server.Set("serverRoot", @".");
+
+            // Note how we configure multiple copies of the same file on the same app
+            server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
+
+            server.Set("envision_schema.xml", @"${serverRoot}\envision_schema.xml");
+            server.Set("envision_schema_central.xml", @"${serverRoot}\envision_schema_central.xml");
+            server.Set("ETScheduleService.xml", @"${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");
+            server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
+            server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
+            server.Set("cstaLoader.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader.dll");
+            server.Set("cstaLoader_1_2.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_2.dll");
+            server.Set("cstaLoader_1_3_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_3_3.dll");
+            server.Set("cstaLoader_3_33.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
+            server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
+            server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
+            server.Set("ctcapi32.dll", @"${serverRoot}\ContactSourceRunner\ctcapi32.dll");
+            server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
+            server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
+            server.Set("NetMerge.dll", @"${serverRoot}\ContactSourceRunner\NetMerge.dll");
+            server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
+            server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
+            server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
+            server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
+            server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            
+
+            IConfig cm = source.AddConfig("ChannelManager");
+            cm.Set("cmRoot", @".");
+
+            cm.Set("audiocodesChannel.dll", @"${cmRoot}\ChannelManager\audiocodesChannel.dll");
+            cm.Set("audiocodesChannel.pdb", @"${cmRoot}\ChannelManager\audiocodesChannel.pdb");
+            cm.Set("AvayaVoipChannel.dll", @"${cmRoot}\ChannelManager\AvayaVoipChannel.dll");
+            cm.Set("AvayaVoipChannel.pdb", @"${cmRoot}\ChannelManager\AvayaVoipChannel.pdb");
+            cm.Set("ChanMgrSvc.exe", @"${cmRoot}\ChannelManager\ChanMgrSvc.exe");
+            cm.Set("ChanMgrSvc.pdb", @"${cmRoot}\ChannelManager\ChanMgrSvc.pdb");
+            cm.Set("DemoModeChannel.dll", @"${cmRoot}\ChannelManager\DemoModeChannel.dll");
+            cm.Set("DemoModeChannel.pdb", @"${cmRoot}\ChannelManager\DemoModeChannel.pdb");
+            cm.Set("DialogicChannel.dll", @"${cmRoot}\ChannelManager\DialogicChannel.dll");
+            cm.Set("DialogicChannel.pdb", @"${cmRoot}\ChannelManager\DialogicChannel.pdb");
+            cm.Set("DialogicChannel60.dll", @"${cmRoot}\ChannelManager\DialogicChannel60.dll");
+            cm.Set("DialogicChannel60.pdb", @"${cmRoot}\ChannelManager\DialogicChannel60.pdb");
+            cm.Set("DMCCConfigLib.dll", @"${cmRoot}\ChannelManager\DMCCConfigLib.dll");
+            cm.Set("DMCCConfigLib.pdb", @"${cmRoot}\ChannelManager\DMCCConfigLib.pdb");
+            cm.Set("DMCCWrapperLib.dll", @"${cmRoot}\ChannelManager\DMCCWrapperLib.dll");
+            cm.Set("DMCCWrapperLib.pdb", @"${cmRoot}\ChannelManager\DMCCWrapperLib.pdb");
+            cm.Set("DMCCWrapperLib.tlb", @"${cmRoot}\ChannelManager\DMCCWrapperLib.tlb");
+            cm.Set("IPXChannel.dll", @"${cmRoot}\ChannelManager\IPXChannel.dll");
+            cm.Set("IPXChannel.pdb", @"${cmRoot}\ChannelManager\IPXChannel.pdb");
+            cm.Set("RtpTransmitter.dll", @"${cmRoot}\ChannelManager\RtpTransmitter.dll");
+            cm.Set("RtpTransmitter.pdb", @"${cmRoot}\ChannelManager\RtpTransmitter.pdb");
+
+            cm.Set("EnvisionSR.bat", @"${cmRoot}\ChannelManager\EnvisionSR\EnvisionSR.bat");
+            cm.Set("EnvisionSR.reg", @"${cmRoot}\ChannelManager\EnvisionSR\EnvisionSR.reg");
+            cm.Set("instsrv.exe", @"${cmRoot}\ChannelManager\EnvisionSR\instsrv.exe");
+            cm.Set("sleep.exe", @"${cmRoot}\ChannelManager\EnvisionSR\sleep.exe");
+            cm.Set("srvany.exe", @"${cmRoot}\ChannelManager\EnvisionSR\srvany.exe");
+            cm.Set("svcmgr.exe", @"${cmRoot}\ChannelManager\EnvisionSR\svcmgr.exe");
+
+
+            IConfig wmws = source.AddConfig("WMWrapperService");
+            wmws.Set("wmwsRoot", @".");
+            wmws.Set("DefaultEnvisionProfile.prx", @"${wmwsRoot}\DefaultEnvisionProfile.prx");
+            
+
+            IConfig tools = source.AddConfig("Tools");
+            tools.Set("toolsRoot", @".");
+
+
+            source.ExpandKeyValues();
+            source.Save("Aristotle_targets.config");
         }
 
         public void run()
