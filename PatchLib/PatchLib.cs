@@ -32,6 +32,8 @@ namespace PatchTool
 {
     public class Archiver
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private string _sourceDir;
         public string SourceDir
         {
@@ -66,7 +68,7 @@ namespace PatchTool
         public void makeSourceConfig()
         {
             IniConfigSource source = new IniConfigSource();
-            IConfig config = source.AddConfig("PatchSources");
+            IConfig config = source.AddConfig("Sources");
             config.Set("srcRoot", @"C:\Source\builds\Aristotle");
 
             // These files are not specific to any application.  Each one should have a unique key.  For future work,
@@ -151,12 +153,14 @@ namespace PatchTool
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
 
             source.ExpandKeyValues();
-            source.Save("Aristotle_source.config");
+            source.Save("Aristotle_sources.config");
         }
 
         // These are the on-disk targets for each application.  At the moment we patch four applications: Server,
         // ChannelManager, WMWrapperService and Tools.  All four should be more-or-less represented in the targets
         // listed here.  The list will grow as files are added, but I won't try to include them all up front.
+        //
+        // Should this be broken out by application?
         public void makeTargetConfig()
         {
             IniConfigSource source = new IniConfigSource();
@@ -235,25 +239,65 @@ namespace PatchTool
             source.Save("Aristotle_targets.config");
         }
 
-        // Get the list of files for a specific application and put them in a portable filesystem structure.
-        // NB: patchFileKeys binds the source and target tables.  That may turn out to be a bad choice.
+        // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
+        // source file to it's destination.
         //
-        // This method will read the target config and the source config for appToPatch.
-        public void makePortablePatch(string appToPatch, IEnumerable<string> patchFileKeys)
+        // Depends: appKeys, sourceConfig and targetConfig all have to use the same key names.
+        public void makePortablePatch(string appToPatch, IEnumerable<string> appKeys)
         {
-            foreach (string pFile in patchFileKeys)
+            // Make the root.  Sometimes they'll be empty--fix it later.
+            DirectoryInfo di = new DirectoryInfo(Path.Combine(PatchVersion, appToPatch));
+            if (di.Exists == false)
             {
-                // var source, destination
-                // source, destination = getPatchFile(
-                Console.WriteLine(pFile);
+                di.Create();
             }
-            //throw new NotImplementedException();
-        }
+            else
+            {
+                logger.Error("directory already exists: {0}", di.FullName);
+                Environment.Exit(1);
+            }
 
-        public bool getPatchFile(string source, string target)
-        {
-            // returns true if the file is found and copied to it's target location
-            throw new NotImplementedException();
+            IConfigSource sourceConfig = new IniConfigSource("Aristotle_sources.config");
+            IConfigSource targetConfig = new IniConfigSource("Aristotle_targets.config");
+            foreach (string key in appKeys)
+            {
+                // Try all patchableApps, but skip if their appKeys are empty.  This lets me update the patch lists
+                // in PacMan.cs without messing around in here.  Alternate approach is try to fetch the key, log
+                // warning when not found.
+                if (key.Length == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    // e.g., C:\Source\builds\Aristotle\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe
+                    string source = sourceConfig.Configs["Sources"].Get(key);
+
+                    // May not look like it, but it's missing the app name in front
+                    // e.g., .\ChannelManager\EnvisionSR\svcmgr.exe
+                    string target = targetConfig.Configs[appToPatch].Get(key);
+
+                    // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\0.0.0.0\ChannelManager
+                    string targetDir = Path.GetFullPath(Path.Combine(PatchVersion, appToPatch));
+
+                    // finally, a fully qualified target path
+                    string fqTargetPath = Path.GetFullPath(Path.Combine(targetDir, target));
+
+                    try
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(fqTargetPath));
+                        // File.Copy throws many exceptions ...
+                        File.Copy(source, fqTargetPath);
+                    }
+                    catch (Exception e)
+                    {
+                        if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                        {
+                            logger.Error("file or directory not found: {0}", source);
+                        }
+                    }
+                }
+            }
         }
 
         public void run()
