@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -68,8 +69,29 @@ namespace PatchTool
             IConfig config = source.AddConfig("PatchSources");
             config.Set("srcRoot", @"C:\Source\builds\Aristotle");
 
-            // These files are not specific to any application.  Each one should have a unique key.
+            // These files are not specific to any application.  Each one should have a unique key.  For future work,
+            // it might make sense to bundle them together per application.  It might look like this:
             //
+            // [ServerSources]
+            // Envision.jar = ${srcRoot}\Release\Envision.jar
+            // ...
+            // [ServerTargets]
+            // Envision.jar = ${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar
+            // ...
+            //
+            // This duplicates some sources, which may lead to maintenance headaches.  If the source configs are kept
+            // separate, there needs to be some way to associate the source with the target.
+
+            // Could I say the file name keys must be the same on the source and targets?  What would this break?  If
+            // it works, then gathering the files for a patch looks like this:
+            //   getPatchFile("server", "Envision.jar");
+            //
+            // Something like this would be better:
+            //   getPatchFile(server, Envision_jar);
+            //
+            // This would be better still, but it's not to be in C#:
+            //   getPatchFile(:server, :Envision_jar)
+
             // Q: Similar to makeTargetConfig(), which of these is the right way to go?
             // A: It'll have to be (2).  If we have a second file with the same name and different path, we'll need to
             //    append something (maybe "_1") to the end of the second file of the same name.  But we can't append
@@ -209,9 +231,29 @@ namespace PatchTool
             IConfig tools = source.AddConfig("Tools");
             tools.Set("toolsRoot", @".");
 
-
             source.ExpandKeyValues();
             source.Save("Aristotle_targets.config");
+        }
+
+        // Get the list of files for a specific application and put them in a portable filesystem structure.
+        // NB: patchFileKeys binds the source and target tables.  That may turn out to be a bad choice.
+        //
+        // This method will read the target config and the source config for appToPatch.
+        public void makePortablePatch(string appToPatch, IEnumerable<string> patchFileKeys)
+        {
+            foreach (string pFile in patchFileKeys)
+            {
+                // var source, destination
+                // source, destination = getPatchFile(
+                Console.WriteLine(pFile);
+            }
+            //throw new NotImplementedException();
+        }
+
+        public bool getPatchFile(string source, string target)
+        {
+            // returns true if the file is found and copied to it's target location
+            throw new NotImplementedException();
         }
 
         public void run()

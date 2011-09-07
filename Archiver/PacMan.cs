@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using CommandLine;
@@ -71,6 +72,42 @@ namespace PatchTool
             Archiver a = new Archiver();
             a.makeSourceConfig();
             a.makeTargetConfig();
+
+            // This is where we specify which files go into the patch (Server).
+            // It will be manually updated for now.
+            IEnumerable<string> serverKeys = new List<string> { "envision_schema.xml", "envision_schema_central.xml",
+                "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll", "cstaLoader.dll",
+                "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll", "cstaLoader_9_1.dll",
+                "cstaLoader_9_5.dll", "ctcapi32.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll", "NetMerge.dll",
+                "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll", "CommonUpdates.xml",
+                "MSSQLUpdate_build_10.0.0303.1.xml"
+            };
+            a.makePortablePatch("Server", serverKeys);
+
+            // This is where we specify which files go into the patch (ChannelManager).
+            // It will be manually updated for now.
+            IEnumerable<string> cmKeys = new List<string> { "audiocodesChannel.dll", "audiocodesChannel.pdb",
+                "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
+                "DemoModeChannel.dll", "DemoModeChannel.pdb", "DialogicChannel.dll", "DialogicChannel.pdb",
+                "DialogicChannel60.dll", "DialogicChannel60.pdb", "DMCCConfigLib.dll", "DMCCConfigLib.pdb",
+                "DMCCWrapperLib.dll", "DMCCWrapperLib.pdb", "DMCCWrapperLib.tlb", "IPXChannel.dll", "IPXChannel.pdb",
+                "RtpTransmitter.dll", "RtpTransmitter.pdb", "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",
+                "sleep.exe", "srvany.exe", "svcmgr.exe"
+            };
+            a.makePortablePatch("ChannelManager", cmKeys);
+
+            // This is where we specify which files go into the patch (WMWrapperService).
+            // It will be manually updated for now.
+            IEnumerable<string> wmwsKeys = new List<string> {
+                "DefaultEnvisionProfile.prx"
+            };
+            a.makePortablePatch("WMWrapperService", wmwsKeys);
+
+            // This is where we specify which files go into the patch (Tools).
+            // It will be manually updated for now.
+            IEnumerable<string> toolsKeys = new List<string> { "" };
+            a.makePortablePatch("Tools", toolsKeys);
+
 
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
