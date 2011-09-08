@@ -375,6 +375,7 @@ namespace PatchTool
         //}
     }
 
+
     public class Extractor
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -477,6 +478,8 @@ namespace PatchTool
             //    (e.g., APPDIR/ -> APPDIR/patches/10.1.0001.0/old/)
             // 3: apply the patch.
 
+            // TODO log this instead of, or in addition to the big ugly console
+
             // 1: copy srcDir to backupDirNew
             CopyFolder(srcDir.ToString(), backupDirNew.ToString());
             Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
@@ -493,6 +496,8 @@ namespace PatchTool
                 FileCompare(orig, copied, tail);
             }
             Console.WriteLine();
+
+            // TODO log this instead of, or in addition to the big ugly console
 
             //
             // 2: copy the same files from dstDir to backupDirOld
@@ -557,6 +562,8 @@ namespace PatchTool
                 FileCompare(orig, copied, tail);
             }
             Console.WriteLine();
+
+            // TODO log this instead of, or in addition to the big ugly console
 
             //
             // 3: apply the patch.

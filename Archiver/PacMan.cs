@@ -73,8 +73,11 @@ namespace PatchTool
             a.makeSourceConfig();
             a.makeTargetConfig();
 
-            // This is where we specify which files go into the patch (Server).
-            // It will be manually updated for now.
+            // Should have the patchVersion before calling a.makePortablePatch().  Actually, should really break the
+            // configuration out into a separate utility.
+
+            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // Comment out if not needed for the current patch.
             IEnumerable<string> serverKeys = new List<string> { "Envision.jar", "envision_schema.xml",
                 "envision_schema_central.xml", "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll",
                 "cstaLoader.dll", "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll",
@@ -84,8 +87,8 @@ namespace PatchTool
             };
             a.makePortablePatch("Server", serverKeys);
 
-            // This is where we specify which files go into the patch (ChannelManager).
-            // It will be manually updated for now.
+            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // Comment out if not needed for the current patch.
             IEnumerable<string> cmKeys = new List<string> { "audiocodesChannel.dll", "audiocodesChannel.pdb",
                 "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
                 "DemoModeChannel.dll", "DemoModeChannel.pdb", "DialogicChannel.dll", "DialogicChannel.pdb",
@@ -96,17 +99,17 @@ namespace PatchTool
             };
             a.makePortablePatch("ChannelManager", cmKeys);
 
-            // This is where we specify which files go into the patch (WMWrapperService).
-            // It will be manually updated for now.
+            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // Comment out if not needed for the current patch.
             IEnumerable<string> wmwsKeys = new List<string> {
                 "DefaultEnvisionProfile.prx"
             };
             a.makePortablePatch("WMWrapperService", wmwsKeys);
 
-            // This is where we specify which files go into the patch (Tools).
-            // It will be manually updated for now.
-            IEnumerable<string> toolsKeys = new List<string> { "" };
-            a.makePortablePatch("Tools", toolsKeys);
+            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // Comment out if not needed for the current patch.
+            //IEnumerable<string> toolsKeys = new List<string> { "" };
+            //a.makePortablePatch("Tools", toolsKeys);
 
 
             Options options = new Options();
