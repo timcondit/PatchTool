@@ -192,7 +192,7 @@ namespace PatchTool
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
             server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
-            
+
 
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
@@ -230,7 +230,7 @@ namespace PatchTool
             IConfig wmws = source.AddConfig("WMWrapperService");
             wmws.Set("wmwsRoot", @".");
             wmws.Set("DefaultEnvisionProfile.prx", @"${wmwsRoot}\DefaultEnvisionProfile.prx");
-            
+
 
             IConfig tools = source.AddConfig("Tools");
             tools.Set("toolsRoot", @".");
@@ -275,25 +275,28 @@ namespace PatchTool
 
                     // May not look like it, but it's missing the app name in front
                     // e.g., .\ChannelManager\EnvisionSR\svcmgr.exe
-                    string target = targetConfig.Configs[appToPatch].Get(key);
+                    string[] targets = targetConfig.Configs[appToPatch].Get(key).Split('|');
 
-                    // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\0.0.0.0\ChannelManager
-                    string targetDir = Path.GetFullPath(Path.Combine(PatchVersion, appToPatch));
-
-                    // finally, a fully qualified target path
-                    string fqTargetPath = Path.GetFullPath(Path.Combine(targetDir, target));
-
-                    try
+                    foreach (string t in targets)
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(fqTargetPath));
-                        // File.Copy throws many exceptions ...
-                        File.Copy(source, fqTargetPath);
-                    }
-                    catch (Exception e)
-                    {
-                        if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                        // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\0.0.0.0\ChannelManager
+                        string targetDir = Path.GetFullPath(Path.Combine(PatchVersion, appToPatch));
+
+                        // finally, a fully qualified target path
+                        string fqTargetPath = Path.GetFullPath(Path.Combine(targetDir, t));
+
+                        try
                         {
-                            logger.Error("file or directory not found: {0}", source);
+                            Directory.CreateDirectory(Path.GetDirectoryName(fqTargetPath));
+                            // File.Copy throws many exceptions ...
+                            File.Copy(source, fqTargetPath);
+                        }
+                        catch (Exception e)
+                        {
+                            if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                            {
+                                logger.Error("not found: {0}", source);
+                            }
                         }
                     }
                 }
@@ -304,18 +307,15 @@ namespace PatchTool
         {
             using (ZipFile zip = new ZipFile())
             {
-                // TC: watch out for unwanted appending to an existing archive (TEST)
                 if (Directory.Exists(SourceDir))
                 {
-                    // How to identify multiple applications under one directory?  By "friendly name" (e.g. Envision Server Suite)?
-                    // Use the names we search the registry with: Server, ChannelManager, WMWrapperService, Tools.
                     zip.AddDirectory(SourceDir, Path.GetFileName(SourceDir));
                 }
                 else
                 {
+                    // logger?
                     Console.WriteLine("{0} is not a valid directory", SourceDir);
-                    // NOT A BIG FAN of these types of side-effects
-                    System.Environment.Exit(1);
+                    Environment.Exit(1);
                 }
 
                 // these files install and log the patch
