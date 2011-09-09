@@ -56,7 +56,7 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
-            // TC: this will do for now until I can use the new help text
+            // TODO use patchVersion as the sourceDir; get rid of sourceDir
             if (args.Length < 2)
             {
                 string usage = "PacMan.exe\n\n";

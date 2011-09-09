@@ -237,22 +237,6 @@ namespace PatchTool
             source.Save("Aristotle_targets.config");
         }
 
-        //// Pull together the source and target configs, to create the patch staging for PacMan to archive.
-        //public void makePatchManifest()
-        //{
-        //    // Create a manifest.  This should go into a standalone patch configuration tool.
-        //    IniConfigSource manifest = new IniConfigSource();
-        //    IConfig appsToPatch = manifest.AddConfig("AppsToPatch");
-
-        //    // PatchVersion is a placeholder.  Later on I may want to use file count or something as the value.
-        //    appsToPatch.Set("Server", "null");
-        //    appsToPatch.Set("ChannelManager", "null");
-        //    appsToPatch.Set("WMWrapperService", "null");
-        //    appsToPatch.Set("Tools", "null");
-
-        //    manifest.Save("patch.manifest");
-        //}
-
         // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
         // source file to it's destination.
         //
@@ -423,18 +407,14 @@ namespace PatchTool
             set { _patchVersion = value; }
         }
 
-        // This should be equivalent to ExtractDir in Archiver.  I should probably find a better
-        // solution.
-        //
-        // TC: constructor param?
+        // This should be equivalent to ExtractDir in Archiver.  I should probably find a better solution.
         private string _extractDir = Directory.GetCurrentDirectory();
         public string ExtractDir
         {
             get { return _extractDir; }
         }
 
-        // Are all files in srcDir also present in dstDir (extractDir and appDir, respectively)?  Should it return
-        // void or bool?
+        // Should this return bool for success or failure?
         //
         // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
         public void run(string _srcDir, string _dstDir)
@@ -514,8 +494,8 @@ namespace PatchTool
             //
             // 2: copy the same files from dstDir to backupDirOld
             //
-            // TC: want an INFO message here, describing what's going on
-            // (verifying that all files to be replaced are found on the system).
+            // TC: want an INFO message here, describing what's going on (verifying that all files to be replaced are
+            // found on the system).
             //Console.WriteLine("INFO: Are all files to be replaced present on the system?  The files in APPDIR");
             //Console.WriteLine("      should match the files in the patch");
 
@@ -524,14 +504,12 @@ namespace PatchTool
                 tail = RelativePath(srcDir.ToString(), f.FullName);
                 bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
 
-                // Get and check original location; eventually this will be a milestone: if the
-                // file is missing, user may want to cancel
+                // Get and check original location; eventually this will be a milestone: if the file is missing, user
+                // may want to cancel
                 fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
-                // TC: commented out for now -- too noisy
-                //FileStat(fileToPatch);
 
-                // Create any nested subdirectories included in the patch.  Note, this will loop
-                // over the same location multiple times; it's a little big ugly
+                // Create any nested subdirectories included in the patch.  Note, this will loop over the same
+                // location multiple times; it's a little big ugly
                 DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
                 if (!Directory.Exists(backupSubdirOld.ToString()))
                 {
@@ -548,13 +526,10 @@ namespace PatchTool
                 }
                 catch (System.IO.DirectoryNotFoundException)
                 {
-                    // This exception occurs when the patch includes a new directory that is not
-                    // on the machine being patched.  As a result, the directory is also not in
-                    // patches/VERSION/old, which causes this exception.  Ignore it.
+                    // This exception occurs when the patch includes a new directory that is not on the machine being
+                    // patched.  As a result, the directory is also not in patches/VERSION/old, which causes this
+                    // exception.  Ignore it.
                 }
-                // TC: commented out for now -- too noisy
-                //FileStat(bakFileOld);
-                //Console.WriteLine();
             }
 
             Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");

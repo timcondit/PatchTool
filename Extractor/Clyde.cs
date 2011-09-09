@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using CommandLine;
 using CommandLine.Text;
 using Microsoft.Win32;
-using Nini.Config;
 using NLog;
 
 namespace PatchTool
@@ -44,20 +43,11 @@ namespace PatchTool
             // Get the intersection of those applications which are patched with those which are installed.  For
             // example, if Server, ChannelManager and Tools are patched, but only Server and ChannelManager are
             // installed, then we don't patch Tools.  But it may be staged if it's easier to do it than not.
-            //
-            // getInstalledApps() returns a dictionary { appName => registryPath } for all installed apps.
 
-            // get a dictionary of applications installed on the target machine (key:appName, value:APPDIR)
             IEnumerable<string> patchableApps = new List<string> { "Server", "ChannelManager", "WMWrapperService", "Tools" };
             IDictionary<string, string> installedApps = getInstalledApps(patchableApps);
 
-            // TC: read the APPDIR from the registry
-            //RegistryKey hklm = Registry.LocalMachine;
-            //hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\ChannelManager");
-            //Console.WriteLine("hklm: {0}", hklm);
-
             Extractor e = new Extractor();
-            //e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
 
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
@@ -76,28 +66,10 @@ namespace PatchTool
 
             foreach (string iApp in installedApps.Keys)
             {
-                // beware System.IO.DirectoryNotFoundException
-                //
-                // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
                 try
                 {
-                    // TC: few things TODO
-                    // 1: add a Console title (somewhere, maybe not here)
-                    // 2:: tell the user what we're doing here (pre-file-move check)
-                    // 3: add simple continue or cancel here?
-                    // 4: get rid of "ROOT" - should be "e.run(e.ExtractDir, e.AppDir);"
-
-                    // TC: for testing
-                    //Console.Write("Press any key to continue");
-                    //Console.ReadLine();
-
                     string appDir = installedApps[iApp];
-                    Console.WriteLine("appDir: {0}", appDir);
-
-
-                    Console.WriteLine("e.AppDir: {0}", e.AppDir);
-                    Console.WriteLine("iApp: {0}", iApp);
-                    // ugly but I don't care
+                    // it's ugly but I don't care right now
                     string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
                     e.run(Path.Combine(srcDirRoot, iApp), appDir);
                 }
@@ -115,12 +87,8 @@ namespace PatchTool
 
         private static IDictionary<string, string> getInstalledApps(IEnumerable<string> patchableApps)
         {
-            // I may ditch this installedApps and write these values out to patch.manifest instead
             IDictionary<string, string> installedApps = new Dictionary<string, string>();
             IEnumerator<string> pApps = patchableApps.GetEnumerator();
-            // swap out NULL values for paths to installed apps
-            //IniConfigSource installedApps2 = new IniConfigSource("patch.manifest");
-            //IConfig appsToPatch = installedApps2.Configs["AppsToPatch"];
 
             while (pApps.MoveNext())
             {
@@ -134,7 +102,6 @@ namespace PatchTool
                     // "null" is passed to installedApps, but the method requires a default value.
                     string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
                     installedApps.Add(pApps.Current, installPath);
-                    //appsToPatch.Set(pApps.Current, installPath);
 
                     logger.Info("InstallPath found for {0}", pApps.Current);
                     rk.Close();
@@ -148,7 +115,6 @@ namespace PatchTool
                     logger.Info("InstallPath not found for {0}", pApps.Current);
                 }
             }
-            //installedApps2.Save("patch.manifest");
 
             if (installedApps.Count == 0)
             {
@@ -163,16 +129,6 @@ namespace PatchTool
                 }
             }
             return installedApps;
-        }
-
-        // Can/should I just search for the appsToPatch by name in the root of the just-extracted archive?
-        //
-        // Maybe better: write an appsToPatch.config in PacMan, and include it in Clyde.  For now it will have one
-        // section, which lists the apps to patch.  Later on it should include the patch contents for each app, and
-        // replace the appKeys Lists in PacMan.
-        private static IEnumerable<string> appsToPatch()
-        {
-            throw new NotImplementedException();
         }
     }
 }
