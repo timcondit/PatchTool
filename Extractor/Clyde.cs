@@ -45,26 +45,19 @@ namespace PatchTool
             // example, if Server, ChannelManager and Tools are patched, but only Server and ChannelManager are
             // installed, then we don't patch Tools.  But it may be staged if it's easier to do it than not.
             //
-            // getInstalledApps() returns a dictionary { appName => registryPath } for all installed apps.  How to get
-            // the patchedApps?
+            // getInstalledApps() returns a dictionary { appName => registryPath } for all installed apps.
 
             // get a dictionary of applications installed on the target machine (key:appName, value:APPDIR)
             IEnumerable<string> patchableApps = new List<string> { "Server", "ChannelManager", "WMWrapperService", "Tools" };
             IDictionary<string, string> installedApps = getInstalledApps(patchableApps);
 
-            //// Get list of applications to be patched straight from the archive.  This feels a little brittle, but
-            //// maybe it's not bad.
-            //IEnumerable<string> appsToPatch = new List<string> { "Server", "Tools" };
-
-            // Update the values in <patchVersion>.manifest with registry keys for installed apps.  If 
-
             // TC: read the APPDIR from the registry
-            RegistryKey hklm = Registry.LocalMachine;
-            hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\ChannelManager");
-            Console.WriteLine("hklm: {0}", hklm);
+            //RegistryKey hklm = Registry.LocalMachine;
+            //hklm = hklm.OpenSubKey(@"SOFTWARE\Envision\Click2Coach\ChannelManager");
+            //Console.WriteLine("hklm: {0}", hklm);
 
             Extractor e = new Extractor();
-            e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
+            //e.AppDir = hklm.GetValue("InstallPath", "rootin tootin").ToString();
 
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
@@ -98,11 +91,15 @@ namespace PatchTool
                     //Console.Write("Press any key to continue");
                     //Console.ReadLine();
 
+                    string appDir = installedApps[iApp];
+                    Console.WriteLine("appDir: {0}", appDir);
+
+
                     Console.WriteLine("e.AppDir: {0}", e.AppDir);
                     Console.WriteLine("iApp: {0}", iApp);
                     // ugly but I don't care
                     string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
-                    e.run(Path.Combine(srcDirRoot, iApp), e.AppDir);
+                    e.run(Path.Combine(srcDirRoot, iApp), appDir);
                 }
                 catch (System.UnauthorizedAccessException)
                 {
@@ -122,8 +119,8 @@ namespace PatchTool
             IDictionary<string, string> installedApps = new Dictionary<string, string>();
             IEnumerator<string> pApps = patchableApps.GetEnumerator();
             // swap out NULL values for paths to installed apps
-            IniConfigSource installedApps2 = new IniConfigSource("patch.manifest");
-            IConfig appsToPatch = installedApps2.Configs["AppsToPatch"];
+            //IniConfigSource installedApps2 = new IniConfigSource("patch.manifest");
+            //IConfig appsToPatch = installedApps2.Configs["AppsToPatch"];
 
             while (pApps.MoveNext())
             {
@@ -137,7 +134,7 @@ namespace PatchTool
                     // "null" is passed to installedApps, but the method requires a default value.
                     string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
                     installedApps.Add(pApps.Current, installPath);
-                    appsToPatch.Set(pApps.Current, installPath);
+                    //appsToPatch.Set(pApps.Current, installPath);
 
                     logger.Info("InstallPath found for {0}", pApps.Current);
                     rk.Close();
@@ -151,7 +148,7 @@ namespace PatchTool
                     logger.Info("InstallPath not found for {0}", pApps.Current);
                 }
             }
-            installedApps2.Save("patch.manifest");
+            //installedApps2.Save("patch.manifest");
 
             if (installedApps.Count == 0)
             {

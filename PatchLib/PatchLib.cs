@@ -21,14 +21,7 @@ using NLog;
 // 6: add logging when creating archives
 
 // NOTES
-// 1: Extractor will have to maintain the list of registry keys for each application that is
-//    patched.  But Archiver will need to pass a hint to let Extractor know which registry key to
-//    query.
-//
-//    Late note: No - have the user run the patch from APPDIR for the target application instead.
-//    One less dependency, a lot less hassle with 32- and 64-bit OS's.
-//
-// 2: How to pause.
+// 1: How to pause.
 //      // TC: for testing
 //      //Console.Write("Press any key to continue");
 //      //Console.ReadLine();
@@ -47,7 +40,8 @@ namespace PatchTool
             set { _sourceDir = value; }
         }
 
-        // This is no longer set per-application, so now we need a better name.  EnvisionWidget was originally a throwaway.
+        // This is no longer set per-application, so now we need a different name.  Envision maybe?  As in
+        // Envision-10.1.10.0.exe
         private string _appName = "PacMan";
         public string AppName
         {
@@ -162,11 +156,9 @@ namespace PatchTool
             source.Save("Aristotle_sources.config");
         }
 
-        // These are the on-disk targets for each application.  At the moment we patch four applications: Server,
-        // ChannelManager, WMWrapperService and Tools.  All four should be more-or-less represented in the targets
+        // Target config is where the files are installed on each application.  At the moment we patch Server,
+        // ChannelManager, Tools and WMWrapperService.  All four should be more-or-less represented in the targets
         // listed here.  The list will grow as files are added, but I won't try to include them all up front.
-        //
-        // Should this be broken out by application?
         public void makeTargetConfig()
         {
             IniConfigSource source = new IniConfigSource();
@@ -245,25 +237,21 @@ namespace PatchTool
             source.Save("Aristotle_targets.config");
         }
 
-        // This is where we pull together the source and target configs, to put together the patch staging for PacMan
-        // to archive.  And Clyde uses this file to determine which applications have been patched.
-        //
-        // How to populate this?  Could create a PatchConfig class, initialize empty, and add a method to add the apps
-        // to patch one at a time.
-        public void makePatchManifest()
-        {
-            // Create a manifest.  This should go into a standalone patch configuration tool.
-            IniConfigSource manifest = new IniConfigSource();
-            IConfig appsToPatch = manifest.AddConfig("AppsToPatch");
+        //// Pull together the source and target configs, to create the patch staging for PacMan to archive.
+        //public void makePatchManifest()
+        //{
+        //    // Create a manifest.  This should go into a standalone patch configuration tool.
+        //    IniConfigSource manifest = new IniConfigSource();
+        //    IConfig appsToPatch = manifest.AddConfig("AppsToPatch");
 
-            // PatchVersion is a placeholder.  Later on I may want to use file count or something as the value.
-            appsToPatch.Set("Server", "null");
-            appsToPatch.Set("ChannelManager", "null");
-            appsToPatch.Set("WMWrapperService", "null");
-            appsToPatch.Set("Tools", "null");
+        //    // PatchVersion is a placeholder.  Later on I may want to use file count or something as the value.
+        //    appsToPatch.Set("Server", "null");
+        //    appsToPatch.Set("ChannelManager", "null");
+        //    appsToPatch.Set("WMWrapperService", "null");
+        //    appsToPatch.Set("Tools", "null");
 
-            manifest.Save("patch.manifest");
-        }
+        //    manifest.Save("patch.manifest");
+        //}
 
         // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
         // source file to it's destination.
@@ -351,7 +339,6 @@ namespace PatchTool
                 zip.AddFile("Nini.dll");
                 zip.AddFile("NLog.dll");
                 zip.AddFile("NLog.config");
-                zip.AddFile("patch.manifest");
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
@@ -365,9 +352,6 @@ namespace PatchTool
 
                 // TC: delete other patches before reusing file name!
                 string patchName = AppName + @"-" + PatchVersion + @".exe";
-                // debug
-                Console.WriteLine("patchName: {0}", patchName);
-
                 zip.SaveSelfExtractor(patchName, options);
             }
         }
@@ -449,8 +433,8 @@ namespace PatchTool
             get { return _extractDir; }
         }
 
-        // Are all files in srcDir also present in dstDir (extractDir and appDir, respectively)?
-        // Should it return void or bool?
+        // Are all files in srcDir also present in dstDir (extractDir and appDir, respectively)?  Should it return
+        // void or bool?
         //
         // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
         public void run(string _srcDir, string _dstDir)

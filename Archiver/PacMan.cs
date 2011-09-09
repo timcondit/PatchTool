@@ -133,9 +133,6 @@ namespace PatchTool
                 a.PatchVersion = options.patchVersion;
             }
 
-            // This should be in PacMan instead of PatchLib
-            a.makePatchManifest();
-
             logger.Info("Copying ServerSuite patch files");
             a.makePortablePatch("Server", serverKeys);
 
@@ -148,13 +145,11 @@ namespace PatchTool
             //logger.Info("Copying Tools patch files");
             //a.makePortablePatch("Tools", toolsKeys);
 
-            // TC: If the files are stored in C:\patch_staging\<APPNAME>\<PATCHVER>, and that
-            // location already exists, error and exit.
+            // TC: If the files are stored in C:\patch_staging\<APPNAME>\<PATCHVER>, and that location already exists,
+            // error and exit.
             //
-            // The extract dir is set before the archive is created.  There is NOTHING that can be
-            // done (as far as I know) at extraction time to change that.  Bottom line is, the
-            // extractDir cannot be APPDIR.  Which sucks, but oh well.
-            //string extractDirTmp = Path.Combine(@"C:\patch_staging", a.PatchVersion);
+            // The extract dir is set before the archive is created.  There is NOTHING that can be done (as far as I
+            // know) at extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.
             a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
             a.run();
         }
