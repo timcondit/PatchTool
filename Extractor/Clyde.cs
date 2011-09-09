@@ -91,7 +91,12 @@ namespace PatchTool
                 // 2:: tell the user what we're doing here (pre-file-move check)
                 // 3: add simple continue or cancel here?
                 // 4: get rid of "ROOT" - should be "e.run(e.ExtractDir, e.AppDir);"
-                e.run(Path.Combine(e.ExtractDir, e.PatchVersion), e.AppDir);
+
+                // TC: for testing
+                //Console.Write("Press any key to continue");
+                //Console.ReadLine();
+
+                e.run(Path.Combine(e.ExtractDir, "files"), e.AppDir);
             }
             catch (System.UnauthorizedAccessException)
             {

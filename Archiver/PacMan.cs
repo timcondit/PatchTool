@@ -59,13 +59,9 @@ namespace PatchTool
             // TC: this will do for now until I can use the new help text
             if (args.Length < 2)
             {
-                string usage = "PacMan.exe\n\n";
-                usage += "Required:\n";
-                usage += "\t--sourceDir\tthe path to the patch contents\n";
-                usage += "\t--patchVersion\tthe version number for this patch\n";
+                string usage = "Usage:\n\tPacMan.exe --sourceDir=<path to patch contents>\n";
                 MessageBox.Show(usage, "PacMan needs more info");
-
-                logger.Info("Not enough arguments provided.  Show usage and exit.");
+                logger.Info("Need source dir.  Show usage and exit.");
                 return;
             }
 

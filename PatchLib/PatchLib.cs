@@ -27,6 +27,12 @@ using NLog;
 //
 //    Late note: No - have the user run the patch from APPDIR for the target application instead.
 //    One less dependency, a lot less hassle with 32- and 64-bit OS's.
+//
+// 2: How to pause.
+//      // TC: for testing
+//      //Console.Write("Press any key to continue");
+//      //Console.ReadLine();
+
 
 namespace PatchTool
 {
@@ -299,8 +305,8 @@ namespace PatchTool
 
                     foreach (string t in targets)
                     {
-                        // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\0.0.0.0\ChannelManager
-                        string targetDir = Path.GetFullPath(Path.Combine(PatchVersion, appToPatch));
+                        // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\files\ChannelManager
+                        string targetDir = Path.GetFullPath(Path.Combine("files", appToPatch));
 
                         // finally, a fully qualified target path
                         string fqTargetPath = Path.GetFullPath(Path.Combine(targetDir, t));
