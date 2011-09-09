@@ -81,32 +81,39 @@ namespace PatchTool
                 e.PatchVersion = options.patchVersion;
             }
 
-            // beware System.IO.DirectoryNotFoundException
-            //
-            // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
-            try
+            foreach (string iApp in installedApps.Keys)
             {
-                // TC: few things TODO
-                // 1: add a Console title (somewhere, maybe not here)
-                // 2:: tell the user what we're doing here (pre-file-move check)
-                // 3: add simple continue or cancel here?
-                // 4: get rid of "ROOT" - should be "e.run(e.ExtractDir, e.AppDir);"
+                // beware System.IO.DirectoryNotFoundException
+                //
+                // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
+                try
+                {
+                    // TC: few things TODO
+                    // 1: add a Console title (somewhere, maybe not here)
+                    // 2:: tell the user what we're doing here (pre-file-move check)
+                    // 3: add simple continue or cancel here?
+                    // 4: get rid of "ROOT" - should be "e.run(e.ExtractDir, e.AppDir);"
+
+                    // TC: for testing
+                    //Console.Write("Press any key to continue");
+                    //Console.ReadLine();
+
+                    Console.WriteLine("e.AppDir: {0}", e.AppDir);
+                    Console.WriteLine("iApp: {0}", iApp);
+                    // ugly but I don't care
+                    string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
+                    e.run(Path.Combine(srcDirRoot, iApp), e.AppDir);
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
+                    throw;
+                }
 
                 // TC: for testing
-                //Console.Write("Press any key to continue");
-                //Console.ReadLine();
-
-                e.run(Path.Combine(e.ExtractDir, "files"), e.AppDir);
+                Console.Write("Press any key to continue");
+                Console.ReadLine();
             }
-            catch (System.UnauthorizedAccessException)
-            {
-                MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
-                throw;
-            }
-
-            // TC: for testing
-            Console.Write("Press any key to continue");
-            Console.ReadLine();
         }
 
         private static IDictionary<string, string> getInstalledApps(IEnumerable<string> patchableApps)

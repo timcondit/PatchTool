@@ -305,8 +305,8 @@ namespace PatchTool
 
                     foreach (string t in targets)
                     {
-                        // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\files\ChannelManager
-                        string targetDir = Path.GetFullPath(Path.Combine("files", appToPatch));
+                        // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\0.0.0.0\ChannelManager
+                        string targetDir = Path.GetFullPath(Path.Combine(PatchVersion, appToPatch));
 
                         // finally, a fully qualified target path
                         string fqTargetPath = Path.GetFullPath(Path.Combine(targetDir, t));
