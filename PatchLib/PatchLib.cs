@@ -251,12 +251,12 @@ namespace PatchTool
             IConfig appsToPatch = manifest.AddConfig("AppsToPatch");
 
             // PatchVersion is a placeholder.  Later on I may want to use file count or something as the value.
-            appsToPatch.Set("Server", PatchVersion);
-            appsToPatch.Set("ChannelManager", PatchVersion);
-            appsToPatch.Set("WMWrapperService", PatchVersion);
-            //appsToPatch.Set("Tools", PatchVersion);
+            appsToPatch.Set("Server", "null");
+            appsToPatch.Set("ChannelManager", "null");
+            appsToPatch.Set("WMWrapperService", "null");
+            appsToPatch.Set("Tools", "null");
 
-            manifest.Save(String.Format("{0}.manifest", PatchVersion));
+            manifest.Save("patch.manifest");
         }
 
         // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
@@ -342,9 +342,10 @@ namespace PatchTool
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
                 zip.AddFile("CommandLine.dll");
+                zip.AddFile("Nini.dll");
                 zip.AddFile("NLog.dll");
                 zip.AddFile("NLog.config");
-                zip.AddFile(String.Format("{0}.manifest", PatchVersion));
+                zip.AddFile("patch.manifest");
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;

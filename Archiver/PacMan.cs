@@ -105,7 +105,7 @@ namespace PatchTool
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
             // Comment out if not needed for the current patch.
-            //IEnumerable<string> toolsKeys = new List<string> { "" };
+            IEnumerable<string> toolsKeys = new List<string> { "" };
 
 
             Options options = new Options();
@@ -155,8 +155,8 @@ namespace PatchTool
             // The extract dir is set before the archive is created.  There is NOTHING that can be
             // done (as far as I know) at extraction time to change that.  Bottom line is, the
             // extractDir cannot be APPDIR.  Which sucks, but oh well.
-            string extractDirTmp = Path.Combine(@"C:\patch_staging", a.PatchVersion);
-            a.ExtractDir = Path.Combine(extractDirTmp, a.PatchVersion);
+            //string extractDirTmp = Path.Combine(@"C:\patch_staging", a.PatchVersion);
+            a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
             a.run();
         }
     }

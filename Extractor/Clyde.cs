@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using CommandLine;
 using CommandLine.Text;
 using Microsoft.Win32;
+using Nini.Config;
 using NLog;
 
 namespace PatchTool
@@ -105,8 +106,13 @@ namespace PatchTool
 
         private static IDictionary<string, string> getInstalledApps(IEnumerable<string> patchableApps)
         {
+            // I may ditch this installedApps and write these values out to patch.manifest instead
             IDictionary<string, string> installedApps = new Dictionary<string, string>();
             IEnumerator<string> pApps = patchableApps.GetEnumerator();
+            // swap out NULL values for paths to installed apps
+            IniConfigSource installedApps2 = new IniConfigSource("patch.manifest");
+            IConfig appsToPatch = installedApps2.Configs["AppsToPatch"];
+
             while (pApps.MoveNext())
             {
                 try
@@ -119,6 +125,8 @@ namespace PatchTool
                     // "null" is passed to installedApps, but the method requires a default value.
                     string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
                     installedApps.Add(pApps.Current, installPath);
+                    appsToPatch.Set(pApps.Current, installPath);
+
                     logger.Info("InstallPath found for {0}", pApps.Current);
                     rk.Close();
                 }
@@ -131,6 +139,7 @@ namespace PatchTool
                     logger.Info("InstallPath not found for {0}", pApps.Current);
                 }
             }
+            installedApps2.Save("patch.manifest");
 
             if (installedApps.Count == 0)
             {
