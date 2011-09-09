@@ -239,6 +239,26 @@ namespace PatchTool
             source.Save("Aristotle_targets.config");
         }
 
+        // This is where we pull together the source and target configs, to put together the patch staging for PacMan
+        // to archive.  And Clyde uses this file to determine which applications have been patched.
+        //
+        // How to populate this?  Could create a PatchConfig class, initialize empty, and add a method to add the apps
+        // to patch one at a time.
+        public void makePatchManifest()
+        {
+            // Create a manifest.  This should go into a standalone patch configuration tool.
+            IniConfigSource manifest = new IniConfigSource();
+            IConfig appsToPatch = manifest.AddConfig("AppsToPatch");
+
+            // PatchVersion is a placeholder.  Later on I may want to use file count or something as the value.
+            appsToPatch.Set("Server", PatchVersion);
+            appsToPatch.Set("ChannelManager", PatchVersion);
+            appsToPatch.Set("WMWrapperService", PatchVersion);
+            //appsToPatch.Set("Tools", PatchVersion);
+
+            manifest.Save(String.Format("{0}.manifest", PatchVersion));
+        }
+
         // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
         // source file to it's destination.
         //
@@ -324,6 +344,7 @@ namespace PatchTool
                 zip.AddFile("CommandLine.dll");
                 zip.AddFile("NLog.dll");
                 zip.AddFile("NLog.config");
+                zip.AddFile(String.Format("{0}.manifest", PatchVersion));
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;

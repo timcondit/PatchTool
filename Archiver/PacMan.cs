@@ -85,7 +85,6 @@ namespace PatchTool
                 "NetMerge.dll", "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll", "CommonUpdates.xml",
                 "MSSQLUpdate_build_10.0.0303.1.xml"
             };
-            a.makePortablePatch("Server", serverKeys);
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
             // Comment out if not needed for the current patch.
@@ -97,19 +96,16 @@ namespace PatchTool
                 "RtpTransmitter.dll", "RtpTransmitter.pdb", "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",
                 "sleep.exe", "srvany.exe", "svcmgr.exe"
             };
-            a.makePortablePatch("ChannelManager", cmKeys);
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
             // Comment out if not needed for the current patch.
             IEnumerable<string> wmwsKeys = new List<string> {
                 "DefaultEnvisionProfile.prx"
             };
-            a.makePortablePatch("WMWrapperService", wmwsKeys);
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
             // Comment out if not needed for the current patch.
             //IEnumerable<string> toolsKeys = new List<string> { "" };
-            //a.makePortablePatch("Tools", toolsKeys);
 
 
             Options options = new Options();
@@ -137,6 +133,21 @@ namespace PatchTool
             {
                 a.PatchVersion = options.patchVersion;
             }
+
+            // This should be in PacMan instead of PatchLib
+            a.makePatchManifest();
+
+            logger.Info("Copying ServerSuite patch files");
+            a.makePortablePatch("Server", serverKeys);
+
+            logger.Info("Copying ChannelManager patch files");
+            a.makePortablePatch("ChannelManager", cmKeys);
+
+            logger.Info("Copying WMWrapperService patch files");
+            a.makePortablePatch("WMWrapperService", wmwsKeys);
+
+            //logger.Info("Copying Tools patch files");
+            //a.makePortablePatch("Tools", toolsKeys);
 
             // TC: If the files are stored in C:\patch_staging\<APPNAME>\<PATCHVER>, and that
             // location already exists, error and exit.
