@@ -255,7 +255,7 @@ namespace PatchTool
             sip.Set("LumiSoft.Net.pdb", @"${sipRoot}\LumiSoft.Net.pdb");
             sip.Set("LumiSoft.Net.xml", @"${sipRoot}\LumiSoft.Net.xml");
             sip.Set("SIPGateway.exe", @"${sipRoot}\SIPGateway.exe");
-            sip.Set("SIPGateway.exe.sip", @"${sipRoot}\SIPGateway.exe.sip");
+            sip.Set("SIPGateway.exe.config", @"${sipRoot}\SIPGateway.exe.config");
             sip.Set("SIPGateway.pdb", @"${sipRoot}\SIPGateway.pdb");
             sip.Set("log4net.dll", @"${sipRoot}\log4net.dll");
             sip.Set("server.dll", @"${sipRoot}\server.dll");

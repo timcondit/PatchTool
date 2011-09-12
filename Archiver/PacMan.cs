@@ -85,8 +85,8 @@ namespace PatchTool
                 "MSSQLUpdate_build_10.0.0303.1.xml"
             };
 
-            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
-            // Comment out if not needed for the current patch.
+            // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
+            // for now.  Comment out if not needed for the current patch.
             IEnumerable<string> cmKeys = new List<string> { "audiocodesChannel.dll", "audiocodesChannel.pdb",
                 "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
                 "DemoModeChannel.dll", "DemoModeChannel.pdb", "DialogicChannel.dll", "DialogicChannel.pdb",
@@ -96,13 +96,20 @@ namespace PatchTool
                 "sleep.exe", "srvany.exe", "svcmgr.exe"
             };
 
-            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
-            // Comment out if not needed for the current patch.
+            // This is where we specify which files go into the patch (SIPGateway). It will be manually updated for
+            // now.  Comment out if not needed for the current patch.
+            IEnumerable<string> sipKeys = new List<string> { "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
+                "LumiSoft.Net.dll", "LumiSoft.Net.pdb", "LumiSoft.Net.xml", "SIPGateway.exe", "SIPGateway.exe.config",
+                "SIPGateway.pdb", "log4net.dll", "server.dll", "server.pdb"
+            };
+
+            // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
+            // for now.  Comment out if not needed for the current patch.
             IEnumerable<string> wmwsKeys = new List<string> {
                 "DefaultEnvisionProfile.prx"
             };
 
-            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
             // Comment out if not needed for the current patch.
             IEnumerable<string> toolsKeys = new List<string> { "" };
 
@@ -138,6 +145,9 @@ namespace PatchTool
 
             logger.Info("Copying ChannelManager patch files");
             a.makePortablePatch("ChannelManager", cmKeys);
+
+            logger.Info("Copying SIPGateway patch files");
+            a.makePortablePatch("SIPGateway", sipKeys);
 
             logger.Info("Copying WMWrapperService patch files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);
