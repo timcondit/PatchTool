@@ -152,6 +152,27 @@ namespace PatchTool
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
 
+            //
+            // These files are from SIPGateway.aip.  For the first time we're going to do a new install with the patch
+            // tool.  It adds some complications.  First, we're installing SDK files like log4net.  Those will not
+            // have to patched in future patches.  We'll have to figure out some way to manage that (maybe with JSON
+            // or XML, but probably not INI).  Next, there's no install path in the registry for the SIP Gateway yet.
+            // It'll be installed next to the ChannelManager this time.  That doesn't solve the issue, but it gets us
+            // past it for now.
+            //
+            config.Set("GatewayLib.dll", @"${srcRoot}\workdir\SIPGateway\GatewayLib.dll");
+            config.Set("GatewayLib.pdb", @"${srcRoot}\workdir\SIPGateway\GatewayLib.pdb");
+            config.Set("GatewayLogging.xml", @"${srcRoot}\config\SIPGateway\GatewayLogging.xml");
+            config.Set("LumiSoft.Net.dll", @"${srcRoot}\workdir\SIPGateway\LumiSoft.Net.dll");
+            config.Set("LumiSoft.Net.pdb", @"${srcRoot}\workdir\SIPGateway\LumiSoft.Net.pdb");
+            config.Set("LumiSoft.Net.xml", @"${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml");
+            config.Set("SIPGateway.exe", @"${srcRoot}\workdir\SIPGateway\SIPGateway.exe");
+            config.Set("SIPGateway.exe.config", @"${srcRoot}\workdir\SIPGateway\SIPGateway.exe.config");
+            config.Set("SIPGateway.pdb", @"${srcRoot}\workdir\SIPGateway\SIPGateway.pdb");
+            config.Set("log4net.dll", @"${srcRoot}\workdir\SIPGateway\log4net.dll");
+            config.Set("server.dll", @"${srcRoot}\workdir\SIPGateway\server.dll");
+            config.Set("server.pdb", @"${srcRoot}\workdir\SIPGateway\server.pdb");
+
             source.ExpandKeyValues();
             source.Save("Aristotle_sources.config");
         }
@@ -223,6 +244,22 @@ namespace PatchTool
             cm.Set("sleep.exe", @"${cmRoot}\EnvisionSR\sleep.exe");
             cm.Set("srvany.exe", @"${cmRoot}\EnvisionSR\srvany.exe");
             cm.Set("svcmgr.exe", @"${cmRoot}\EnvisionSR\svcmgr.exe");
+
+
+            IConfig sip = source.AddConfig("SIPGateway");
+            sip.Set("sipRoot", @".");
+            sip.Set("GatewayLib.dll", @"${sipRoot}\GatewayLib.dll");
+            sip.Set("GatewayLib.pdb", @"${sipRoot}\GatewayLib.pdb");
+            sip.Set("GatewayLogging.xml", @"${sipRoot}\GatewayLogging.xml");
+            sip.Set("LumiSoft.Net.dll", @"${sipRoot}\LumiSoft.Net.dll");
+            sip.Set("LumiSoft.Net.pdb", @"${sipRoot}\LumiSoft.Net.pdb");
+            sip.Set("LumiSoft.Net.xml", @"${sipRoot}\LumiSoft.Net.xml");
+            sip.Set("SIPGateway.exe", @"${sipRoot}\SIPGateway.exe");
+            sip.Set("SIPGateway.exe.sip", @"${sipRoot}\SIPGateway.exe.sip");
+            sip.Set("SIPGateway.pdb", @"${sipRoot}\SIPGateway.pdb");
+            sip.Set("log4net.dll", @"${sipRoot}\log4net.dll");
+            sip.Set("server.dll", @"${sipRoot}\server.dll");
+            sip.Set("server.pdb", @"${sipRoot}\server.pdb");
 
 
             IConfig wmws = source.AddConfig("WMWrapperService");
