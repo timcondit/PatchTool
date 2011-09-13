@@ -93,14 +93,9 @@ namespace PatchTool
                 "DialogicChannel60.dll", "DialogicChannel60.pdb", "DMCCConfigLib.dll", "DMCCConfigLib.pdb",
                 "DMCCWrapperLib.dll", "DMCCWrapperLib.pdb", "DMCCWrapperLib.tlb", "IPXChannel.dll", "IPXChannel.pdb",
                 "RtpTransmitter.dll", "RtpTransmitter.pdb", "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",
-                "sleep.exe", "srvany.exe", "svcmgr.exe"
-            };
-
-            // This is where we specify which files go into the patch (SIPGateway). It will be manually updated for
-            // now.  Comment out if not needed for the current patch.
-            IEnumerable<string> sipKeys = new List<string> { "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
+                "sleep.exe", "srvany.exe", "svcmgr.exe", "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
                 "LumiSoft.Net.dll", "LumiSoft.Net.pdb", "LumiSoft.Net.xml", "SIPGateway.exe", "SIPGateway.exe.config",
-                "SIPGateway.pdb", "log4net.dll", "server.dll", "server.pdb"
+                "SIPGateway.pdb", "log4net.dll", "server.dll", "server.pdb",
             };
 
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
@@ -145,9 +140,6 @@ namespace PatchTool
 
             logger.Info("Copying ChannelManager patch files");
             a.makePortablePatch("ChannelManager", cmKeys);
-
-            logger.Info("Copying SIPGateway patch files");
-            a.makePortablePatch("SIPGateway", sipKeys);
 
             logger.Info("Copying WMWrapperService patch files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);

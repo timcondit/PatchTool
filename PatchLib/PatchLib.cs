@@ -238,6 +238,7 @@ namespace PatchTool
             cm.Set("RtpTransmitter.dll", @"${cmRoot}\RtpTransmitter.dll");
             cm.Set("RtpTransmitter.pdb", @"${cmRoot}\RtpTransmitter.pdb");
 
+            // EnvisionSR
             cm.Set("EnvisionSR.bat", @"${cmRoot}\EnvisionSR\EnvisionSR.bat");
             cm.Set("EnvisionSR.reg", @"${cmRoot}\EnvisionSR\EnvisionSR.reg");
             cm.Set("instsrv.exe", @"${cmRoot}\EnvisionSR\instsrv.exe");
@@ -245,21 +246,19 @@ namespace PatchTool
             cm.Set("srvany.exe", @"${cmRoot}\EnvisionSR\srvany.exe");
             cm.Set("svcmgr.exe", @"${cmRoot}\EnvisionSR\svcmgr.exe");
 
-
-            IConfig sip = source.AddConfig("SIPGateway");
-            sip.Set("sipRoot", @".");
-            sip.Set("GatewayLib.dll", @"${sipRoot}\GatewayLib.dll");
-            sip.Set("GatewayLib.pdb", @"${sipRoot}\GatewayLib.pdb");
-            sip.Set("GatewayLogging.xml", @"${sipRoot}\GatewayLogging.xml");
-            sip.Set("LumiSoft.Net.dll", @"${sipRoot}\LumiSoft.Net.dll");
-            sip.Set("LumiSoft.Net.pdb", @"${sipRoot}\LumiSoft.Net.pdb");
-            sip.Set("LumiSoft.Net.xml", @"${sipRoot}\LumiSoft.Net.xml");
-            sip.Set("SIPGateway.exe", @"${sipRoot}\SIPGateway.exe");
-            sip.Set("SIPGateway.exe.config", @"${sipRoot}\SIPGateway.exe.config");
-            sip.Set("SIPGateway.pdb", @"${sipRoot}\SIPGateway.pdb");
-            sip.Set("log4net.dll", @"${sipRoot}\log4net.dll");
-            sip.Set("server.dll", @"${sipRoot}\server.dll");
-            sip.Set("server.pdb", @"${sipRoot}\server.pdb");
+            // SIPGateway
+            cm.Set("GatewayLib.dll", @"${cmRoot}\SIPGateway\GatewayLib.dll");
+            cm.Set("GatewayLib.pdb", @"${cmRoot}\SIPGateway\GatewayLib.pdb");
+            cm.Set("GatewayLogging.xml", @"${cmRoot}\SIPGateway\GatewayLogging.xml");
+            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\SIPGateway\LumiSoft.Net.dll");
+            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
+            cm.Set("LumiSoft.Net.xml", @"${cmRoot}\SIPGateway\LumiSoft.Net.xml");
+            cm.Set("SIPGateway.exe", @"${cmRoot}\SIPGateway\SIPGateway.exe");
+            cm.Set("SIPGateway.exe.config", @"${cmRoot}\SIPGateway\SIPGateway.exe.config");
+            cm.Set("SIPGateway.pdb", @"${cmRoot}\SIPGateway\SIPGateway.pdb");
+            cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
+            cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
+            cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
 
 
             IConfig wmws = source.AddConfig("WMWrapperService");
