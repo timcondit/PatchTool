@@ -151,15 +151,6 @@ namespace PatchTool
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
-
-            //
-            // These files are from SIPGateway.aip.  For the first time we're going to do a new install with the patch
-            // tool.  It adds some complications.  First, we're installing SDK files like log4net.  Those will not
-            // have to patched in future patches.  We'll have to figure out some way to manage that (maybe with JSON
-            // or XML, but probably not INI).  Next, there's no install path in the registry for the SIP Gateway yet.
-            // It'll be installed next to the ChannelManager this time.  That doesn't solve the issue, but it gets us
-            // past it for now.
-            //
             config.Set("GatewayLib.dll", @"${srcRoot}\workdir\SIPGateway\GatewayLib.dll");
             config.Set("GatewayLib.pdb", @"${srcRoot}\workdir\SIPGateway\GatewayLib.pdb");
             config.Set("GatewayLogging.xml", @"${srcRoot}\config\SIPGateway\GatewayLogging.xml");
