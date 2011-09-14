@@ -144,8 +144,8 @@ namespace PatchTool
             logger.Info("Copying WMWrapperService patch files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);
 
-            //logger.Info("Copying Tools patch files");
-            //a.makePortablePatch("Tools", toolsKeys);
+            logger.Info("Copying Tools patch files");
+            a.makePortablePatch("Tools", toolsKeys);
 
             // TC: If the files are stored in C:\patch_staging\<APPNAME>\<PATCHVER>, and that location already exists,
             // error and exit.
