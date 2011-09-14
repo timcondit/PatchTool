@@ -113,18 +113,27 @@ namespace PatchTool
             config.Set("cstaLoader_1_2.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_2.dll");
             config.Set("cstaLoader_1_3_3.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_3_3.dll");
             config.Set("cstaLoader_3_33.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_3_33.dll");
+            config.Set("cstaLoader_6_4_3.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_6_4_3.dll");
             config.Set("cstaLoader_9_1.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_1.dll");
             config.Set("cstaLoader_9_5.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_5.dll");
             config.Set("ctcLoader_6.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
             config.Set("ctcLoader_7.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
+            config.Set("ETContactSource.exe", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.exe");
+            config.Set("ETContactSource.pdb", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb");
             config.Set("NetMerge.dll", @"${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
             config.Set("SourceRunnerService.exe", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
+            config.Set("SourceRunnerService.pdb", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
             config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\ChannelManager\AlvasAudio.dll");
+            config.Set("AlvasAudio.pdb", @"${srcRoot}\workdir\ChannelManager\AlvasAudio.pdb");
+            config.Set("AlvasAudio.tlb", @"${srcRoot}\workdir\ChannelManager\AlvasAudio.tlb");
             config.Set("audiocodesChannel.dll", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.dll");
             config.Set("audiocodesChannel.pdb", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.pdb");
+            config.Set("AudioReader.dll", @"${srcRoot}\workdir\ChannelManager\AudioReader.dll");
+            config.Set("AudioReader.pdb", @"${srcRoot}\workdir\ChannelManager\AudioReader.pdb");
             config.Set("AvayaVoipChannel.dll", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.dll");
             config.Set("AvayaVoipChannel.pdb", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.pdb");
             config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
@@ -142,8 +151,23 @@ namespace PatchTool
             config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
             config.Set("IPXChannel.dll", @"${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
             config.Set("IPXChannel.pdb", @"${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
+            config.Set("LumiSoft.Net.dll", @"${srcRoot}\workdir\ChannelManager\LumiSoft.Net.dll");
+            config.Set("LumiSoft.Net.pdb", @"${srcRoot}\workdir\ChannelManager\LumiSoft.Net.pdb");
             config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
+            config.Set("server.dll", @"${srcRoot}\workdir\ChannelManager\server.dll");
+            config.Set("server.pdb", @"${srcRoot}\workdir\ChannelManager\server.pdb");
+            config.Set("SIPChannel.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannel.dll");
+            config.Set("SIPChannel.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannel.pdb");
+            config.Set("SIPChannelHpxMedia.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.dll");
+            config.Set("SIPChannelHpxMedia.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.pdb");
+            config.Set("SIPConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll");
+            config.Set("SIPConfigLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb");
+            config.Set("SIPPhone.dll", @"${srcRoot}\workdir\ChannelManager\SIPPhone.dll");
+            config.Set("SIPPhone.pdb", @"${srcRoot}\workdir\ChannelManager\SIPPhone.pdb");
+            config.Set("SIPWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll");
+            config.Set("SIPWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb");
+            config.Set("SIPWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.tlb");
             config.Set("EnvisionSR.bat", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
             config.Set("EnvisionSR.reg", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg");
             config.Set("instsrv.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
@@ -192,22 +216,32 @@ namespace PatchTool
             server.Set("cstaLoader_1_2.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_2.dll");
             server.Set("cstaLoader_1_3_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_3_3.dll");
             server.Set("cstaLoader_3_33.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
+            server.Set("cstaLoader_6_4_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_6_4_3.dll");
             server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
             server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
             server.Set("ctcapi32.dll", @"${serverRoot}\ContactSourceRunner\ctcapi32.dll");
             server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
             server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
+            server.Set("ETContactSource.exe", @"${serverRoot}\ContactSourceRunner\ETContactSource.exe");
+            server.Set("ETContactSource.pdb", @"${serverRoot}\ContactSourceRunner\ETContactSource.pdb");
             server.Set("NetMerge.dll", @"${serverRoot}\ContactSourceRunner\NetMerge.dll");
             server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
+            server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
             server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
             server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
 
 
+
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
 
+            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio.dll");
+            cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
+            cm.Set("AlvasAudio.tlb", @"${cmRoot}\AlvasAudio.tlb");
+            cm.Set("AudioReader.dll", @"${cmRoot}\AudioReader.dll");
+            cm.Set("AudioReader.pdb", @"${cmRoot}\AudioReader.pdb");
             cm.Set("audiocodesChannel.dll", @"${cmRoot}\audiocodesChannel.dll");
             cm.Set("audiocodesChannel.pdb", @"${cmRoot}\audiocodesChannel.pdb");
             cm.Set("AvayaVoipChannel.dll", @"${cmRoot}\AvayaVoipChannel.dll");
@@ -227,8 +261,23 @@ namespace PatchTool
             cm.Set("DMCCWrapperLib.tlb", @"${cmRoot}\DMCCWrapperLib.tlb");
             cm.Set("IPXChannel.dll", @"${cmRoot}\IPXChannel.dll");
             cm.Set("IPXChannel.pdb", @"${cmRoot}\IPXChannel.pdb");
+            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll");
+            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb");
             cm.Set("RtpTransmitter.dll", @"${cmRoot}\RtpTransmitter.dll");
             cm.Set("RtpTransmitter.pdb", @"${cmRoot}\RtpTransmitter.pdb");
+            cm.Set("server.dll", @"${cmRoot}\server.dll");
+            cm.Set("server.pdb", @"${cmRoot}\server.pdb");
+            cm.Set("SIPChannel.dll", @"${cmRoot}\SIPChannel.dll");
+            cm.Set("SIPChannel.pdb", @"${cmRoot}\SIPChannel.pdb");
+            cm.Set("SIPChannelHpxMedia.dll", @"${cmRoot}\SIPChannelHpxMedia.dll");
+            cm.Set("SIPChannelHpxMedia.pdb", @"${cmRoot}\SIPChannelHpxMedia.pdb");
+            cm.Set("SIPConfigLib.dll", @"${cmRoot}\SIPConfigLib.dll");
+            cm.Set("SIPConfigLib.pdb", @"${cmRoot}\SIPConfigLib.pdb");
+            cm.Set("SIPPhone.dll", @"${cmRoot}\SIPPhone.dll");
+            cm.Set("SIPPhone.pdb", @"${cmRoot}\SIPPhone.pdb");
+            cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
+            cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
+            cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
 
             // EnvisionSR
             cm.Set("EnvisionSR.bat", @"${cmRoot}\EnvisionSR\EnvisionSR.bat");
