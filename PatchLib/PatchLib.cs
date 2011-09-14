@@ -102,6 +102,7 @@ namespace PatchTool
             // (1) config.Set("Envision.jar", @"${srcRoot}\Release");
             // (2) config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
 
+            config.Set("Centricity_BLL.dll", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
             config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
             config.Set("envision_schema.xml", @"${srcRoot}\config\server\envision_schema.xml");
             config.Set("envision_schema_central.xml", @"${srcRoot}\config\server\envision_schema_central.xml");
@@ -181,6 +182,7 @@ namespace PatchTool
             // Note how we configure multiple copies of the same file on the same app
             server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
 
+            server.Set("Centricity_BLL.dll", @"${serverRoot}\bin\Centricity_BLL.dll");
             server.Set("envision_schema.xml", @"${serverRoot}\envision_schema.xml");
             server.Set("envision_schema_central.xml", @"${serverRoot}\envision_schema_central.xml");
             server.Set("ETScheduleService.xml", @"${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");

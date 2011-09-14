@@ -82,7 +82,7 @@ namespace PatchTool
                 "cstaLoader.dll", "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll",
                 "cstaLoader_9_1.dll", "cstaLoader_9_5.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll", "NetMerge.dll",
                 "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll", "CommonUpdates.xml",
-                "MSSQLUpdate_build_10.0.0303.1.xml"
+                "MSSQLUpdate_build_10.0.0303.1.xml", "Centricity_BLL.dll",
             };
 
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
