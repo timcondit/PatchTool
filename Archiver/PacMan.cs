@@ -80,8 +80,8 @@ namespace PatchTool
             IEnumerable<string> serverKeys = new List<string> { "Envision.jar", "envision_schema.xml",
                 "envision_schema_central.xml", "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll",
                 "cstaLoader.dll", "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll",
-                "cstaLoader_9_1.dll", "cstaLoader_9_5.dll", "ctcapi32.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll",
-                "NetMerge.dll", "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll", "CommonUpdates.xml",
+                "cstaLoader_9_1.dll", "cstaLoader_9_5.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll", "NetMerge.dll",
+                "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll", "CommonUpdates.xml",
                 "MSSQLUpdate_build_10.0.0303.1.xml"
             };
 
