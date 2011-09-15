@@ -152,6 +152,7 @@ namespace PatchTool
             config.Set("instsrv.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
             config.Set("IPXChannel.dll", @"${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
             config.Set("IPXChannel.pdb", @"${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
+            config.Set("log4net.dll", @"${srcRoot}\workdir\SharedResources\log4net.dll");
             config.Set("LumiSoft.Net.dll", @"${srcRoot}\workdir\SharedResources\LumiSoft.Net.dll");
             config.Set("LumiSoft.Net.pdb", @"${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb");
             config.Set("LumiSoft.Net.xml", @"${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml");
@@ -286,6 +287,7 @@ namespace PatchTool
             cm.Set("LumiSoft.Net.dll", @"${cmRoot}\SIPGateway\LumiSoft.Net.dll");
             cm.Set("LumiSoft.Net.xml", @"${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
+            cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
             cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
             cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
             cm.Set("SIPGateway.exe", @"${cmRoot}\SIPGateway\SIPGateway.exe");
