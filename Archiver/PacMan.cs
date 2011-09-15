@@ -95,7 +95,7 @@ namespace PatchTool
                 "RtpTransmitter.dll", "RtpTransmitter.pdb", "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",
                 "sleep.exe", "srvany.exe", "svcmgr.exe", "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
                 "LumiSoft.Net.dll", "LumiSoft.Net.pdb", "LumiSoft.Net.xml", "SIPGateway.exe", "SIPGateway.exe.config",
-                "SIPGateway.pdb", "log4net.dll", "server.dll", "server.pdb",
+                "SIPGateway.pdb", "server.dll", "server.pdb",
             };
 
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
