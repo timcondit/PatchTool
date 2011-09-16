@@ -76,7 +76,6 @@ namespace PatchTool
             // configuration out into a separate utility.
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
-            // Comment out if not needed for the current patch.
             IEnumerable<string> serverKeys = new List<string> { "Envision.jar", "envision_schema.xml",
                 "envision_schema_central.xml", "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll",
                 "cstaLoader.dll", "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll",
@@ -86,26 +85,47 @@ namespace PatchTool
             };
 
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
-            // for now.  Comment out if not needed for the current patch.
-            IEnumerable<string> cmKeys = new List<string> { "audiocodesChannel.dll", "audiocodesChannel.pdb",
-                "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
-                "DemoModeChannel.dll", "DemoModeChannel.pdb", "DialogicChannel.dll", "DialogicChannel.pdb",
-                "DialogicChannel60.dll", "DialogicChannel60.pdb", "DMCCConfigLib.dll", "DMCCConfigLib.pdb",
-                "DMCCWrapperLib.dll", "DMCCWrapperLib.pdb", "DMCCWrapperLib.tlb", "IPXChannel.dll", "IPXChannel.pdb",
-                "RtpTransmitter.dll", "RtpTransmitter.pdb", "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",
-                "sleep.exe", "srvany.exe", "svcmgr.exe", "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
-                "LumiSoft.Net.dll", "LumiSoft.Net.pdb", "LumiSoft.Net.xml", "SIPGateway.exe", "SIPGateway.exe.config",
-                "SIPGateway.pdb", "log4net.dll", "server.dll", "server.pdb",
+            // for now.
+            IEnumerable<string> cmKeys = new List<string> {
+                "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
+                "audiocodesChannel.dll", "audiocodesChannel.pdb",
+                "AudioReader.dll", "AudioReader.pdb",
+                "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb",
+                "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
+                "DemoModeChannel.dll", "DemoModeChannel.pdb",
+                "DialogicChannel.dll", "DialogicChannel.pdb",
+                "DialogicChannel60.dll", "DialogicChannel60.pdb",
+                "DMCCConfigLib.dll", "DMCCConfigLib.pdb",
+                "DMCCWrapperLib.dll", "DMCCWrapperLib.pdb", "DMCCWrapperLib.tlb", 
+                "IPXChannel.dll", "IPXChannel.pdb",
+                "LumiSoft.Net.dll", "LumiSoft.Net.pdb",
+                "RtpTransmitter.dll", "RtpTransmitter.pdb",
+                "server.dll", "server.pdb",
+                "SIPChannel.dll", "SIPChannel.pdb",
+                "SIPChannelHpxMedia.dll", "SIPChannelHpxMedia.pdb",
+                "SIPConfigLib.dll", "SIPConfigLib.pdb",
+                "SIPPhone.dll", "SIPPhone.pdb",
+                "SIPWrapperLib.dll", "SIPWrapperLib.pdb", "SIPWrapperLib.tlb",
+                
+                // EnvisionSR
+                "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",
+                "sleep.exe", "srvany.exe", "svcmgr.exe",
+                
+                // SIP Gateway
+                "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
+                "log4net.dll",
+                "LumiSoft.Net.dll", "LumiSoft.Net.xml", "LumiSoft.Net.pdb",
+                "server.dll", "server.pdb",
+                "SIPGateway.exe", "SIPGateway.exe.config", "SIPGateway.pdb",
             };
 
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
-            // for now.  Comment out if not needed for the current patch.
+            // for now.
             IEnumerable<string> wmwsKeys = new List<string> {
                 "DefaultEnvisionProfile.prx"
             };
 
             // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
-            // Comment out if not needed for the current patch.
             IEnumerable<string> toolsKeys = new List<string> { "" };
 
 
