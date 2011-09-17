@@ -72,29 +72,6 @@ namespace PatchTool
             config.Set("srcRoot", @"C:\Source\builds\Aristotle");
             config.Set("webapps_version", @"10_1_10_82");
 
-            // These files are not specific to any application.  Each one should have a unique key.  For future work,
-            // it might make sense to bundle them together per application.  It might look like this:
-            //
-            // [ServerSources]
-            // Envision.jar = ${srcRoot}\Release\Envision.jar
-            // ...
-            // [ServerTargets]
-            // Envision.jar = ${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar
-            // ...
-            //
-            // This duplicates some sources, which may lead to maintenance headaches.  If the source configs are kept
-            // separate, there needs to be some way to associate the source with the target.
-
-            // Could I say the file name keys must be the same on the source and targets?  What would this break?  If
-            // it works, then gathering the files for a patch looks like this:
-            //   getPatchFile("server", "Envision.jar");
-            //
-            // Something like this would be better:
-            //   getPatchFile(server, Envision_jar);
-            //
-            // This would be better still, but it's not to be in C#:
-            //   getPatchFile(:server, :Envision_jar)
-
             // Q: Similar to makeTargetConfig(), which of these is the right way to go?
             // A: It'll have to be (2).  If we have a second file with the same name and different path, we'll need to
             //    append something (maybe "_1") to the end of the second file of the same name.  But we can't append
