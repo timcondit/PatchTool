@@ -125,6 +125,27 @@ namespace PatchTool
                 "DefaultEnvisionProfile.prx"
             };
 
+            // This is where we specify which files go into the patch (CentricityWebApplications). It will be manually
+            // updated for now.
+            IEnumerable<string> webappsKeys = new List<string> {
+                // AVPlayer
+                "AVPlayer.application", "AgentSupport.exe.deploy",
+                "AVPlayer.exe.config.deploy", "AVPlayer.exe.deploy", "AVPlayer.exe.manifest",
+                "CentricityApp.dll.deploy", "hasp_windows.dll.deploy", "Interop.WMPLib.dll.deploy",
+                "log4net.dll.deploy", "nativeServiceWin32.dll.deploy",
+                "server.dll.deploy", "SharedResources.dll.deploy", "ISource.dll.deploy",
+                "AVPlayer.resources.dll.deploy", "AVPlayer.resources.dll.deploy_1",
+                "CentricityApp.resources.dll.deploy", "CentricityApp.resources.dll.deploy_1",
+                "AVPlayerIcon.ico.deploy",
+
+                // RecordingDownloadTool
+                "RecordingDownloadTool.application", "CentricityApp.dll.deploy_1", "log4net.dll.deploy_1",
+                "RecordingDownloadTool.exe.config.deploy", "RecordingDownloadTool.exe.deploy",
+                "RecordingDownloadTool.exe.manifest", "server.dll.deploy_1", "sox.exe.deploy",
+                "CentricityApp.resources.dll.deploy_2", "CentricityApp.resources.dll.deploy_3",
+                "RecordingDownloadTool.resources.dll.deploy", "RecordingDownloadTool.resources.dll.deploy_1",
+            };
+
             // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
             IEnumerable<string> toolsKeys = new List<string> { "" };
 
@@ -154,6 +175,10 @@ namespace PatchTool
             {
                 a.PatchVersion = options.patchVersion;
             }
+
+            // NB: the app names (WebApps, Server, ...) must match the names of the IConfigs in PatchLib
+            logger.Info("Copying CentricityWebApps patch files");
+            a.makePortablePatch("WebApps", webappsKeys);
 
             logger.Info("Copying ServerSuite patch files");
             a.makePortablePatch("Server", serverKeys);

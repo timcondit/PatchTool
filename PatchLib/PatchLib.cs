@@ -188,37 +188,39 @@ namespace PatchTool
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
 
-            // CentricityWebApplications
+            // AVPlayer
             config.Set("AVPlayer.application", @"${srcRoot}\workdir\AVPlayer\AVPlayer.application");
-            config.Set("AVPlayer.exe.config.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
-            config.Set("AVPlayer.exe.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
-            config.Set("AVPlayer.exe.manifest_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
-            config.Set("AVPlayer.resources.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
-            config.Set("AVPlayer.resources.dll.deploy_3", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
-            config.Set("AVPlayerIcon.ico.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
-            config.Set("AgentSupport.exe.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+            config.Set("AgentSupport.exe.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+            config.Set("AVPlayer.exe.config.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
+            config.Set("AVPlayer.exe.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
+            config.Set("AVPlayer.exe.manifest", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
             config.Set("CentricityApp.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
-            config.Set("CentricityApp.dll.deploy_2", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
-            config.Set("CentricityApp.resources.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
-            config.Set("CentricityApp.resources.dll.deploy_2", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
-            config.Set("CentricityApp.resources.dll.deploy_4", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            config.Set("CentricityApp.resources.dll.deploy_5", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            config.Set("ISource.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
-            config.Set("Interop.WMPLib.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            config.Set("hasp_windows.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+            config.Set("Interop.WMPLib.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            config.Set("log4net.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            config.Set("nativeServiceWin32.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+            config.Set("server.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            config.Set("SharedResources.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+            config.Set("ISource.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+            config.Set("AVPlayer.resources.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
+            config.Set("AVPlayer.resources.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+            config.Set("CentricityApp.resources.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            config.Set("CentricityApp.resources.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            config.Set("AVPlayerIcon.ico.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
+
+            // RecordingDownloadTool
             config.Set("RecordingDownloadTool.application", @"${srcRoot}\workdir\RecordingDownloadTool\RecordingDownloadTool.application");
+            config.Set("CentricityApp.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+            config.Set("log4net.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
             config.Set("RecordingDownloadTool.exe.config.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
             config.Set("RecordingDownloadTool.exe.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
             config.Set("RecordingDownloadTool.exe.manifest", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
-            config.Set("RecordingDownloadTool.resources.dll.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
-            config.Set("RecordingDownloadTool.resources.dll.deploy_3", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
-            config.Set("SharedResources.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
-            config.Set("hasp_windows.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
-            config.Set("log4net.dll.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
-            config.Set("log4net.dll.deploy_2", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
-            config.Set("nativeServiceWin32.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
-            config.Set("server.dll.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
-            config.Set("server.dll.deploy_2", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            config.Set("server.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
             config.Set("sox.exe.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+            config.Set("CentricityApp.resources.dll.deploy_2", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            config.Set("CentricityApp.resources.dll.deploy_3", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            config.Set("RecordingDownloadTool.resources.dll.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+            config.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
 
             source.ExpandKeyValues();
             source.Save("Aristotle_sources.config");
@@ -341,6 +343,62 @@ namespace PatchTool
 
             IConfig tools = source.AddConfig("Tools");
             tools.Set("toolsRoot", @".");
+
+
+            IConfig webapps = source.AddConfig("WebApps");
+            webapps.Set("webappsRoot", @".");
+            webapps.Set("webapps_version", @"10_1_10_82");
+
+            // AVPlayer
+            //    "AVPlayer.application", "AgentSupport.exe.deploy",
+            //    "AVPlayer.exe.config.deploy", "AVPlayer.exe.deploy", "AVPlayer.exe.manifest",
+            //    "CentricityApp.dll.deploy", "hasp_windows.dll.deploy", "Interop.WMPLib.dll.deploy",
+            //    "log4net.dll.deploy", "nativeServiceWin32.dll.deploy",
+            //    "server.dll.deploy", "SharedResources.dll.deploy", "ISource.dll.deploy",
+            //    "AVPlayer.resources.dll.deploy", "AVPlayer.resources.dll.deploy_1",
+            //    "CentricityApp.resources.dll.deploy", "CentricityApp.resources.dll.deploy_1",
+            //    "AVPlayerIcon.ico.deploy",
+            //
+            // RecordingDownloadTool
+            //    "RecordingDownloadTool.application", "CentricityApp.dll.deploy_1", "log4net.dll.deploy_1",
+            //    "RecordingDownloadTool.exe.config.deploy", "RecordingDownloadTool.exe.deploy",
+            //    "RecordingDownloadTool.exe.manifest", "server.dll.deploy_1", "sox.exe.deploy",
+            //    "CentricityApp.resources.dll.deploy_2", "CentricityApp.resources.dll.deploy_3",
+            //    "RecordingDownloadTool.resources.dll.deploy", "RecordingDownloadTool.resources.dll.deploy_1",
+
+            // AVPlayer
+            webapps.Set("AVPlayer.application", @"${webappsRoot}\AVPlayer.application");
+            webapps.Set("AgentSupport.exe.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+            webapps.Set("AVPlayer.exe.config.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.webapps.deploy");
+            webapps.Set("AVPlayer.exe.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
+            webapps.Set("AVPlayer.exe.manifest", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
+            webapps.Set("CentricityApp.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
+            webapps.Set("hasp_windows.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+            webapps.Set("Interop.WMPLib.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            webapps.Set("log4net.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("nativeServiceWin32.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+            webapps.Set("server.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            webapps.Set("SharedResources.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+            webapps.Set("ISource.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+            webapps.Set("AVPlayer.resources.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
+            webapps.Set("AVPlayer.resources.dll.deploy_1", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_1", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            webapps.Set("AVPlayerIcon.ico.deploy", @"${webappsRoot}\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
+
+            // RecordingDownloadTool
+            webapps.Set("RecordingDownloadTool.application", @"${webappsRoot}\RecordingDownloadTool.application");
+            webapps.Set("CentricityApp.dll.deploy_1", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+            webapps.Set("log4net.dll.deploy_1", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("RecordingDownloadTool.exe.config.deploy", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.webapps.deploy");
+            webapps.Set("RecordingDownloadTool.exe.deploy", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
+            webapps.Set("RecordingDownloadTool.exe.manifest", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
+            webapps.Set("server.dll.deploy_1", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
+            webapps.Set("sox.exe.deploy", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_2", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_3", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            webapps.Set("RecordingDownloadTool.resources.dll.deploy", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+            webapps.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${webappsRoot}\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
 
             source.ExpandKeyValues();
             source.Save("Aristotle_targets.config");
