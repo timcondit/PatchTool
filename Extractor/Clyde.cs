@@ -44,10 +44,28 @@ namespace PatchTool
             // example, if Server, ChannelManager and Tools are patched, but only Server and ChannelManager are
             // installed, then we don't patch Tools.  But it may be staged if it's easier to do it than not.
 
-            IEnumerable<string> patchableApps = new List<string> { "Server", "ChannelManager", "WMWrapperService", "Tools" };
+            // TODO use a dictionary instead of patchableApps (keys) and patchableAppsByDisplayName (values)
+            IEnumerable<string> patchableApps = new List<string> { "Server", "ChannelManager", "WebApps", "WMWrapperService", "Tools" };
             IDictionary<string, string> installedApps = getInstalledApps(patchableApps);
 
+            IEnumerable<string> patchableAppsByDisplayName = new List<string> {
+                "Envision Server Suite",
+                "Envision Channel Manager",
+                "Envision Web Apps",
+                "Envision Windows Media Wrapper Service",
+                "Envision Tools Suite"
+            };
+
+            IEnumerator<string> secondCheck = patchableAppsByDisplayName.GetEnumerator();
+            bool foundOnSecondCheck;
+
             Extractor e = new Extractor();
+
+            while (secondCheck.MoveNext())
+            {
+                foundOnSecondCheck = e.IsApplicationInstalled(secondCheck.Current);
+                Console.WriteLine("found on second check: {0}:{1}", secondCheck.Current, foundOnSecondCheck);
+            }
 
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
@@ -94,6 +112,8 @@ namespace PatchTool
             {
                 try
                 {
+                    logger.Info("Checking if {0} is installed ...", pApps.Current);
+
                     // Create a new RegistryKey instance every time, or the value detection fails (don't know why)
                     string subKey = @"SOFTWARE\Envision\Click2Coach\" + pApps.Current;
                     RegistryKey rk = Registry.LocalMachine.OpenSubKey(subKey);

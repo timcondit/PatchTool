@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Ionic.Zip;
+using Microsoft.Win32;
 using Nini.Config;
 using NLog;
 
@@ -446,6 +447,8 @@ namespace PatchTool
 
         public void run()
         {
+            logger.Info("Making archive [what's it called?]");
+
             using (ZipFile zip = new ZipFile())
             {
                 if (Directory.Exists(SourceDir))
@@ -892,6 +895,60 @@ namespace PatchTool
                 result = Path.Combine(result, s);
             }
             return result;
+        }
+
+        // http://mdb-blog.blogspot.com/2010/09/c-check-if-programapplication-is.html
+        public bool IsApplicationInstalled(string p_name)
+        {
+            string keyName;
+
+            // search in: CurrentUser
+            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            if (ExistsInSubKey(Registry.CurrentUser, keyName, "DisplayName", p_name) == true)
+            {
+                return true;
+            }
+
+            // search in: LocalMachine_32
+            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            if (ExistsInSubKey(Registry.LocalMachine, keyName, "DisplayName", p_name) == true)
+            {
+                return true;
+            }
+
+            // search in: LocalMachine_64
+            keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+            if (ExistsInSubKey(Registry.LocalMachine, keyName, "DisplayName", p_name) == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // http://mdb-blog.blogspot.com/2010/09/c-check-if-programapplication-is.html
+        private static bool ExistsInSubKey(RegistryKey p_root, string p_subKeyName, string p_attributeName, string p_name)
+        {
+            RegistryKey subkey;
+            string displayName;
+
+            using (RegistryKey key = p_root.OpenSubKey(p_subKeyName))
+            {
+                if (key != null)
+                {
+                    foreach (string kn in key.GetSubKeyNames())
+                    {
+                        using (subkey = key.OpenSubKey(kn))
+                        {
+                            displayName = subkey.GetValue(p_attributeName) as string;
+                            if (p_name.Equals(displayName, StringComparison.OrdinalIgnoreCase) == true)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }
