@@ -182,14 +182,14 @@ namespace PatchTool
             }
 
             // NB: the app names (WebApps, Server, ...) must match the names of the IConfigs in PatchLib
-            logger.Info("Copying CentricityWebApps patch files");
-            a.makePortablePatch("WebApps", webappsKeys);
-
             logger.Info("Copying ServerSuite patch files");
             a.makePortablePatch("Server", serverKeys);
 
             logger.Info("Copying ChannelManager patch files");
             a.makePortablePatch("ChannelManager", cmKeys);
+
+            logger.Info("Copying CentricityWebApps patch files");
+            a.makePortablePatch("WebApps", webappsKeys);
 
             logger.Info("Copying WMWrapperService patch files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);

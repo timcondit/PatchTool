@@ -389,7 +389,7 @@ namespace PatchTool
         // Depends: appKeys, sourceConfig and targetConfig all have to use the same key names.
         public void makePortablePatch(string appToPatch, IEnumerable<string> appKeys)
         {
-            // Make the root.  Sometimes they'll be empty--fix it later.
+            // Make the roots.  Sometimes they'll be empty--fix it later.
             DirectoryInfo di = new DirectoryInfo(Path.Combine(PatchVersion, appToPatch));
             if (di.Exists == false)
             {
@@ -423,11 +423,8 @@ namespace PatchTool
 
                     foreach (string t in targets)
                     {
-                        // fixed: C:\Source\git\PatchTool\Archiver\bin\Debug\0.0.0.0\ChannelManager
-                        string targetDir = Path.GetFullPath(Path.Combine(PatchVersion, appToPatch));
-
-                        // finally, a fully qualified target path
-                        string fqTargetPath = Path.GetFullPath(Path.Combine(targetDir, t));
+                        // full paths to each file being added to the patch
+                        string fqTargetPath = Path.GetFullPath(Path.Combine(di.ToString(), t));
 
                         try
                         {
@@ -578,7 +575,7 @@ namespace PatchTool
                 {
                     Directory.CreateDirectory(backupDirNew.ToString());
                 }
-                catch (System.UnauthorizedAccessException)
+                catch (UnauthorizedAccessException)
                 {
                     MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
                     throw;
@@ -593,7 +590,7 @@ namespace PatchTool
                 {
                     Directory.CreateDirectory(backupDirOld.ToString());
                 }
-                catch (System.UnauthorizedAccessException)
+                catch (UnauthorizedAccessException)
                 {
                     MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
                     throw;
@@ -666,15 +663,15 @@ namespace PatchTool
                 {
                     File.Copy(fileToPatch, bakFileOld, true);
                 }
-                catch (System.IO.FileNotFoundException)
+                catch (Exception e)
                 {
-                    Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
-                }
-                catch (System.IO.DirectoryNotFoundException)
-                {
-                    // This exception occurs when the patch includes a new directory that is not on the machine being
-                    // patched.  As a result, the directory is also not in patches/VERSION/old, which causes this
-                    // exception.  Ignore it.
+                    // DirectoryNotFoundException occurs when the patch includes a new directory that is not on the
+                    // machine being patched.  As a result, the directory is also not in patches/VERSION/old, which
+                    // causes this exception.  Log it but don't rethrow.
+                    if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                    {
+                        Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
+                    }
                 }
             }
 
@@ -729,15 +726,13 @@ namespace PatchTool
             {
                 FileEquals(fileName1, fileName2);
             }
-            catch (System.IO.FileNotFoundException)
+            catch (Exception e)
             {
-                Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
-                return;
-            }
-            catch (System.IO.DirectoryNotFoundException)
-            {
-                Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
-                return;
+                if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                {
+                    Console.WriteLine("WARN: a file to compare was not found: {0}", fileName2);
+                    return;
+                }
             }
 
             if (FileEquals(fileName1, fileName2))
@@ -834,7 +829,7 @@ namespace PatchTool
                 {
                     File.Copy(file, dest, true);
                 }
-                catch (System.IO.FileNotFoundException)
+                catch (FileNotFoundException)
                 {
                     Console.WriteLine("WARN: a file to replace was not found: {0}", file);
                 }

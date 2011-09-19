@@ -73,7 +73,7 @@ namespace PatchTool
                     string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
                     e.run(Path.Combine(srcDirRoot, iApp), appDir);
                 }
-                catch (System.UnauthorizedAccessException)
+                catch (UnauthorizedAccessException)
                 {
                     MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
                     throw;
@@ -106,13 +106,12 @@ namespace PatchTool
                     logger.Info("InstallPath found for {0}", pApps.Current);
                     rk.Close();
                 }
-                catch (NullReferenceException)
+                catch (Exception e)
                 {
-                    logger.Info("InstallPath not found for {0}", pApps.Current);
-                }
-                catch (ArgumentException)
-                {
-                    logger.Info("InstallPath not found for {0}", pApps.Current);
+                    if (e is NullReferenceException || e is ArgumentException)
+                    {
+                        logger.Info("InstallPath not found for {0}", pApps.Current);
+                    }
                 }
             }
 
