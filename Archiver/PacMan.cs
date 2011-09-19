@@ -125,7 +125,7 @@ namespace PatchTool
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
             // for now.
             IEnumerable<string> wmwsKeys = new List<string> {
-                "DefaultEnvisionProfile.prx"
+                "DefaultEnvisionProfile.prx",
             };
 
             // This is where we specify which files go into the patch (CentricityWebApplications). It will be manually
@@ -150,7 +150,9 @@ namespace PatchTool
             };
 
             // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
-            IEnumerable<string> toolsKeys = new List<string> { "" };
+            IEnumerable<string> toolsKeys = new List<string> {
+                "DBMigration_84SP9_To_10.sql",
+            };
 
 
             Options options = new Options();

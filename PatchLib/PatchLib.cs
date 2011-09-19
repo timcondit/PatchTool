@@ -89,7 +89,7 @@ namespace PatchTool
             config.Set("AudioReader.pdb", @"${srcRoot}\workdir\ChannelManager\AudioReader.pdb");
             config.Set("AvayaVoipChannel.dll", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.dll");
             config.Set("AvayaVoipChannel.pdb", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.pdb");
-            config.Set("Centricity.dll", @"${srcRoot}\workdir\centricity\ET\bin\centricity.dll");
+            config.Set("centricity.dll", @"${srcRoot}\workdir\centricity\ET\bin\centricity.dll");
             config.Set("Centricity_BLL.dll", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
             config.Set("Centricity_DAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.dll");
             config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
@@ -106,6 +106,7 @@ namespace PatchTool
             config.Set("cstaLoader_9_5.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_5.dll");
             config.Set("ctcLoader_6.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
             config.Set("ctcLoader_7.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
+            config.Set("DBMigration_84SP9_To_10.sql", @"${srcRoot}\src\tools\DBMigration\v2\DBMigration_84SP9_To_10.sql");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
             config.Set("DemoModeChannel.dll", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.dll");
             config.Set("DemoModeChannel.pdb", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.pdb");
@@ -214,7 +215,7 @@ namespace PatchTool
             IConfig server = source.AddConfig("Server");
             server.Set("serverRoot", @".");
 
-            server.Set("Centricity.dll", @"${serverRoot}\bin\Centricity.dll");
+            server.Set("centricity.dll", @"${serverRoot}\bin\centricity.dll");
             server.Set("Centricity_BLL.dll", @"${serverRoot}\bin\Centricity_BLL.dll");
             server.Set("Centricity_DAL.dll", @"${serverRoot}\bin\Centricity_DAL.dll");
             server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
@@ -320,6 +321,7 @@ namespace PatchTool
 
             IConfig tools = source.AddConfig("Tools");
             tools.Set("toolsRoot", @".");
+            tools.Set("DBMigration_84SP9_To_10.sql", @"${toolsRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
 
 
             IConfig webapps = source.AddConfig("WebApps");
