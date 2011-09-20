@@ -897,58 +897,67 @@ namespace PatchTool
             return result;
         }
 
-        // http://mdb-blog.blogspot.com/2010/09/c-check-if-programapplication-is.html
-        public bool IsApplicationInstalled(string p_name)
+        // dup dup
+        public string GetInstallLocation(string appName)
         {
-            string keyName;
-
-            // search in: CurrentUser
-            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            if (ExistsInSubKey(Registry.CurrentUser, keyName, "DisplayName", p_name) == true)
+            string keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName);
+            try
             {
-                return true;
-            }
-
-            // search in: LocalMachine_32
-            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            if (ExistsInSubKey(Registry.LocalMachine, keyName, "DisplayName", p_name) == true)
-            {
-                return true;
-            }
-
-            // search in: LocalMachine_64
-            keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-            if (ExistsInSubKey(Registry.LocalMachine, keyName, "DisplayName", p_name) == true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        // http://mdb-blog.blogspot.com/2010/09/c-check-if-programapplication-is.html
-        private static bool ExistsInSubKey(RegistryKey p_root, string p_subKeyName, string p_attributeName, string p_name)
-        {
-            RegistryKey subkey;
-            string displayName;
-
-            using (RegistryKey key = p_root.OpenSubKey(p_subKeyName))
-            {
-                if (key != null)
+                foreach (String a in key.GetSubKeyNames())
                 {
-                    foreach (string kn in key.GetSubKeyNames())
+                    RegistryKey subkey = key.OpenSubKey(a);
+                    try
                     {
-                        using (subkey = key.OpenSubKey(kn))
+                        if (subkey.GetValue("DisplayName").ToString() == appName)
                         {
-                            displayName = subkey.GetValue(p_attributeName) as string;
-                            if (p_name.Equals(displayName, StringComparison.OrdinalIgnoreCase) == true)
-                            {
-                                return true;
-                            }
+                            return subkey.GetValue("InstallLocation").ToString();
                         }
                     }
+                    catch (NullReferenceException) { }
                 }
             }
-            return false;
+            catch (NullReferenceException) { }
+
+            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            key = Registry.LocalMachine.OpenSubKey(keyName);
+            try
+            {
+                foreach (String a in key.GetSubKeyNames())
+                {
+                    RegistryKey subkey = key.OpenSubKey(a);
+                    try
+                    {
+                        if (subkey.GetValue("DisplayName").ToString() == appName)
+                        {
+                            return subkey.GetValue("InstallLocation").ToString();
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
+            }
+            catch (NullReferenceException) { }
+
+            keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+            key = Registry.LocalMachine.OpenSubKey(keyName);
+            try
+            {
+                foreach (String a in key.GetSubKeyNames())
+                {
+                    RegistryKey subkey = key.OpenSubKey(a);
+                    try
+                    {
+                        if (subkey.GetValue("DisplayName").ToString() == appName)
+                        {
+                            return subkey.GetValue("InstallLocation").ToString();
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
+            }
+            catch (NullReferenceException) { }
+
+            return "NONE";
         }
     }
 }
