@@ -349,13 +349,13 @@ namespace PatchTool
             // AVPlayer
             webapps.Set("AVPlayer.application", @"${webappsRoot}\AVPlayer\AVPlayer.application");
             webapps.Set("AgentSupport.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
-            webapps.Set("AVPlayer.exe.config.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.webapps.deploy");
+            webapps.Set("AVPlayer.exe.config.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
             webapps.Set("AVPlayer.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
             webapps.Set("AVPlayer.exe.manifest", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
             webapps.Set("CentricityApp.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
             webapps.Set("hasp_windows.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
             webapps.Set("Interop.WMPLib.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
-            webapps.Set("log4net.dll.deploy", @"${webappsRoot}\AVPlayer\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("log4net.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
             webapps.Set("nativeServiceWin32.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
             webapps.Set("server.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
             webapps.Set("SharedResources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
@@ -370,7 +370,7 @@ namespace PatchTool
             webapps.Set("RecordingDownloadTool.application", @"${webappsRoot}\RecordingDownloadTool\RecordingDownloadTool.application");
             webapps.Set("CentricityApp.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
             webapps.Set("log4net.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
-            webapps.Set("RecordingDownloadTool.exe.config.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.webapps.deploy");
+            webapps.Set("RecordingDownloadTool.exe.config.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
             webapps.Set("RecordingDownloadTool.exe.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
             webapps.Set("RecordingDownloadTool.exe.manifest", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
             webapps.Set("server.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
