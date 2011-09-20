@@ -722,6 +722,115 @@ namespace PatchTool
             Console.WriteLine();
         }
 
+        // 
+        public IDictionary<string, string> getInstalledApps(IEnumerable<string> patchableApps)
+        {
+            IDictionary<string, string> installedApps = new Dictionary<string, string>();
+            IEnumerator<string> pApps = patchableApps.GetEnumerator();
+
+            while (pApps.MoveNext())
+            {
+                try
+                {
+                    // Create a new RegistryKey instance every time, or the value detection fails (don't know why)
+                    string subKey = @"SOFTWARE\Envision\Click2Coach\" + pApps.Current;
+                    RegistryKey rk = Registry.LocalMachine.OpenSubKey(subKey);
+
+                    // Registry.GetValue() throws an ArgumentException if the value is not found.  It's an error if the
+                    // "null" is passed to installedApps, but the method requires a default value.
+                    string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
+                    installedApps.Add(pApps.Current, installPath);
+
+                    logger.Info("InstallPath found for {0}", pApps.Current);
+                    rk.Close();
+                }
+                catch (Exception e)
+                {
+                    if (e is NullReferenceException || e is ArgumentException)
+                    {
+                        logger.Info("InstallPath not found for {0}", pApps.Current);
+                    }
+                }
+            }
+
+            if (installedApps.Count == 0)
+            {
+                logger.Warn("No Envision applications were found on this machine!");
+            }
+            else
+            {
+                logger.Info("Found {0} Envision applications:", installedApps.Count);
+                foreach (KeyValuePair<string, string> item in installedApps)
+                {
+                    logger.Info("{0} installed at \"{1}\"", item.Key, item.Value);
+                }
+            }
+            return installedApps;
+        }
+
+        // dup dup
+        public string GetInstallLocation(string appName)
+        {
+            string keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName);
+            try
+            {
+                foreach (String a in key.GetSubKeyNames())
+                {
+                    RegistryKey subkey = key.OpenSubKey(a);
+                    try
+                    {
+                        if (subkey.GetValue("DisplayName").ToString() == appName)
+                        {
+                            return subkey.GetValue("InstallLocation").ToString();
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
+            }
+            catch (NullReferenceException) { }
+
+            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            key = Registry.LocalMachine.OpenSubKey(keyName);
+            try
+            {
+                foreach (String a in key.GetSubKeyNames())
+                {
+                    RegistryKey subkey = key.OpenSubKey(a);
+                    try
+                    {
+                        if (subkey.GetValue("DisplayName").ToString() == appName)
+                        {
+                            return subkey.GetValue("InstallLocation").ToString();
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
+            }
+            catch (NullReferenceException) { }
+
+            keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+            key = Registry.LocalMachine.OpenSubKey(keyName);
+            try
+            {
+                foreach (String a in key.GetSubKeyNames())
+                {
+                    RegistryKey subkey = key.OpenSubKey(a);
+                    try
+                    {
+                        if (subkey.GetValue("DisplayName").ToString() == appName)
+                        {
+                            return subkey.GetValue("InstallLocation").ToString();
+                        }
+                    }
+                    catch (NullReferenceException) { }
+                }
+            }
+            catch (NullReferenceException) { }
+
+            return "NONE";
+        }
+
         // TC: probably want to return bool and not write to STDOUT
         private void FileCompare(string fileName1, string fileName2, string fileName3)
         {
@@ -895,69 +1004,6 @@ namespace PatchTool
                 result = Path.Combine(result, s);
             }
             return result;
-        }
-
-        // dup dup
-        public string GetInstallLocation(string appName)
-        {
-            string keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
-
-            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            key = Registry.LocalMachine.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
-
-            keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-            key = Registry.LocalMachine.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
-
-            return "NONE";
         }
     }
 }
