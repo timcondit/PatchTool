@@ -56,16 +56,6 @@ namespace PatchTool
             // first check
             IDictionary<string, string> installedApps = e.getInstalledApps(patchableApps.Keys);
 
-            // second check (partly redundant if done right, which it's not at the moment)
-            //
-            // TODO: given the value from patchableApps, how to get the key, and use it to update installedApps?
-            // In other words, from "Envision Web Apps" installedApps.Add("WebApps", wheresWebApps).
-            string wheresWebApps = e.GetInstallLocation("Envision Web Apps");
-            if (wheresWebApps != "NONE")
-            {
-                installedApps.Add("WebApps", wheresWebApps);
-            }
-
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
             if (!parser.ParseArguments(args, options))
@@ -86,7 +76,6 @@ namespace PatchTool
                 try
                 {
                     string appDir = installedApps[iApp];
-                    // it's ugly but I don't care right now
                     string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
                     e.run(Path.Combine(srcDirRoot, iApp), appDir);
                 }
@@ -100,6 +89,28 @@ namespace PatchTool
                 Console.Write("Press any key to continue");
                 Console.ReadLine();
             }
+
+            // second check comes much later (partly redundant if done right, which it's not at the moment)
+            //
+            // TODO: given the value from patchableApps, how to get the key, and use it to update installedApps?
+            // In other words, from "Envision Web Apps" installedApps.Add("WebApps", wheresWebApps).
+            string wheresWebApps = e.GetInstallLocation("Envision Web Apps");
+            if (wheresWebApps != "NONE")
+            {
+                try
+                {
+                    string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
+                    e.run(Path.Combine(srcDirRoot, "WebApps"), wheresWebApps, true);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
+                    throw;
+                }
+            }
+            // TC: for testing
+            Console.Write("Press any key to continue");
+            Console.ReadLine();
         }
     }
 }
