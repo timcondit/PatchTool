@@ -61,8 +61,10 @@ namespace PatchTool
             // TODO: given the value from patchableApps, how to get the key, and use it to update installedApps?
             // In other words, from "Envision Web Apps" installedApps.Add("WebApps", wheresWebApps).
             string wheresWebApps = e.GetInstallLocation("Envision Web Apps");
-            Console.WriteLine("where's Web Apps? [{0}]", wheresWebApps);
-            installedApps.Add("WebApps", wheresWebApps);
+            if (wheresWebApps != "NONE")
+            {
+                installedApps.Add("WebApps", wheresWebApps);
+            }
 
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
