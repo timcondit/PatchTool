@@ -43,7 +43,7 @@ namespace PatchTool
 
         // This is no longer set per-application, so now we need a different name.  Envision maybe?  As in
         // Envision-10.1.10.0.exe
-        private string _appName = "PacMan";
+        private string _appName = "envision-installer";
         public string AppName
         {
             get { return _appName; }
