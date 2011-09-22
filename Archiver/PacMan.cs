@@ -76,13 +76,15 @@ namespace PatchTool
             // configuration out into a separate utility.
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
-            IEnumerable<string> serverKeys = new List<string> { "Envision.jar", "envision_schema.xml",
-                "envision_schema_central.xml", "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll",
+            IEnumerable<string> serverKeys = new List<string> {
+                "Envision.jar", "envision_schema.xml", "envision_schema_central.xml",
+                "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll",
                 "cstaLoader.dll", "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll",
-                "cstaLoader_9_1.dll", "cstaLoader_9_5.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll", "NetMerge.dll",
-                "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll", "CommonUpdates.xml",
-                "MSSQLUpdate_build_10.0.0303.1.xml",
-                
+                "cstaLoader_9_1.dll", "cstaLoader_9_5.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll",
+                "EditEvaluation.aspx", "EnvisionTheme.css", "NetMerge.dll", "NewEvaluation.aspx",
+                "RadEditor.skin", "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll",
+                "CommonUpdates.xml", "MSSQLUpdate_build_10.0.0303.1.xml",
+
                 // Centricity
                 "centricity.dll", "Centricity_BLL.dll", "Centricity_DAL.dll", "RAL.dll",
             };
@@ -120,6 +122,9 @@ namespace PatchTool
                 "LumiSoft.Net.dll", "LumiSoft.Net.xml", "LumiSoft.Net.pdb",
                 "server.dll", "server.pdb",
                 "SIPGateway.exe", "SIPGateway.exe.config", "SIPGateway.pdb",
+
+                // for registering AlvasAudio.dll
+                "gacutil.exe", "regasm.exe",
             };
 
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated

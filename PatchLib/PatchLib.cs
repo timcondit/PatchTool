@@ -81,9 +81,11 @@ namespace PatchTool
             // (1) config.Set("Envision.jar", @"${srcRoot}\Release");
             // (2) config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
 
+            // from the working copy
             config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
             config.Set("AlvasAudio.pdb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.pdb");
             config.Set("AlvasAudio.tlb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.tlb");
+            config.Set("AlvasAudio.bat", @"${srcRoot}\config\chanmgr\AlvasAudio.bat");
             config.Set("audiocodesChannel.dll", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.dll");
             config.Set("audiocodesChannel.pdb", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.pdb");
             config.Set("AudioReader.dll", @"${srcRoot}\workdir\ChannelManager\AudioReader.dll");
@@ -120,11 +122,13 @@ namespace PatchTool
             config.Set("DMCCWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.dll");
             config.Set("DMCCWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.pdb");
             config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
+            config.Set("EditEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx");
             config.Set("EnvisionSR.bat", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
             config.Set("EnvisionSR.reg", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg");
             config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
             config.Set("envision_schema.xml", @"${srcRoot}\config\server\envision_schema.xml");
             config.Set("envision_schema_central.xml", @"${srcRoot}\config\server\envision_schema_central.xml");
+            config.Set("EnvisionTheme.css", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\EnvisionTheme.css");
             config.Set("ETContactSource.exe", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.exe");
             config.Set("ETContactSource.pdb", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb");
             config.Set("ETScheduleService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml");
@@ -140,6 +144,8 @@ namespace PatchTool
             config.Set("LumiSoft.Net.xml", @"${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml");
             config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
             config.Set("NetMerge.dll", @"${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
+            config.Set("NewEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx");
+            config.Set("RadEditor.skin", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
             config.Set("RAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
             config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
@@ -201,6 +207,19 @@ namespace PatchTool
             config.Set("RecordingDownloadTool.resources.dll.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
             config.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
 
+            // from %ETSDK%
+            try
+            {
+                string gacutil = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v3.5\gacutil.exe");
+                config.Set("gacutil.exe", gacutil);
+                string regasm = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\regasm.exe");
+                config.Set("regasm.exe", regasm);
+            }
+            catch (ArgumentNullException)
+            {
+                logger.Fatal("Please set %ETSDK% and try again");
+            }
+
             source.ExpandKeyValues();
             source.Save("Aristotle_sources.config");
         }
@@ -231,15 +250,19 @@ namespace PatchTool
             server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
             server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
             server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
+            server.Set("EditEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx");
             // Note how we configure multiple copies of the same file on the same app
             server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
             server.Set("envision_schema.xml", @"${serverRoot}\envision_schema.xml");
             server.Set("envision_schema_central.xml", @"${serverRoot}\envision_schema_central.xml");
+            server.Set("EnvisionTheme.css", @"${serverRoot}\App_Themes\EnvisionTheme\EnvisionTheme.css");
             server.Set("ETContactSource.exe", @"${serverRoot}\ContactSourceRunner\ETContactSource.exe");
             server.Set("ETContactSource.pdb", @"${serverRoot}\ContactSourceRunner\ETContactSource.pdb");
             server.Set("ETScheduleService.xml", @"${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");
             server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
             server.Set("NetMerge.dll", @"${serverRoot}\ContactSourceRunner\NetMerge.dll");
+            server.Set("NewEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\NewEvaluation.aspx");
+            server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
             server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
             server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
@@ -250,7 +273,12 @@ namespace PatchTool
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
 
+            // Should probably stash the AlvasAudio.dll.  It needs to be registered in the GAC.
             cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio.dll");
+            cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio.bat");
+            cm.Set("gacutil.exe", @"${cmRoot}\gacutil.exe");
+            cm.Set("regasm.exe", @"${cmRoot}\regasm.exe");
+
             cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
             cm.Set("AlvasAudio.tlb", @"${cmRoot}\AlvasAudio.tlb");
             cm.Set("audiocodesChannel.dll", @"${cmRoot}\audiocodesChannel.dll");
