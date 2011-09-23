@@ -31,12 +31,7 @@ using NLog;
 
 namespace PatchTool
 {
-    public class Common
-    {
-        public static string SourceDir = "patchFiles";
-    }
-
-    public class Archiver:Common
+    public class Archiver
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -550,7 +545,7 @@ namespace PatchTool
     }
 
 
-    public class Extractor:Common
+    public class Extractor
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -571,11 +566,11 @@ namespace PatchTool
             PatchVersion = _patchVersion;
         }
 
-        private string _appDir;
-        public string AppDir
+        // need to keep in sync with Archiver (it's a little ugly)
+        private string _sourceDir = "patchFiles";
+        public string SourceDir
         {
-            get { return _appDir; }
-            set { _appDir = value; }
+            get { return _sourceDir; }
         }
 
         private string _patchVersion;
@@ -640,12 +635,12 @@ namespace PatchTool
                 try
                 {
                     // 1: MOVE everything in dstDir to dstDir/patches/old
-                    logger.Info("copying {0} to {1}", dstDir.ToString(), oldPathStr);
+                    logger.Info("moving {0} to {1}", dstDir.ToString(), oldPathStr);
                     Directory.Move(Path.Combine(dstDir.ToString(), "AVPlayer"), Path.Combine(backupDirOld.ToString(), "AVPlayer"));
                     Directory.Move(Path.Combine(dstDir.ToString(), "RecordingDownloadTool"), Path.Combine(backupDirOld.ToString(), "RecordingDownloadTool"));
 
                     // 2: copy everything in srcDir to srcDir/patches/new
-                    logger.Info("moving {0} to {1}", srcDir.ToString(), newPathStr);
+                    logger.Info("copying {0} to {1}", srcDir.ToString(), newPathStr);
                     CopyFolder(srcDir.ToString(), backupDirNew.ToString());
 
                     // 3: copy everything in srcDir to dstDir

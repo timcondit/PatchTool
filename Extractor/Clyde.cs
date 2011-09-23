@@ -61,22 +61,14 @@ namespace PatchTool
             if (!parser.ParseArguments(args, options))
                 Environment.Exit(1);
 
-            if (options.patchVersion == String.Empty)
-            {
-                // "pretty it up" and exit
-                throw new ArgumentException("something's broken! (options.patchVersion)");
-            }
-            else
-            {
-                e.PatchVersion = options.patchVersion;
-            }
+            e.PatchVersion = options.patchVersion;
 
             foreach (string iApp in installedApps.Keys)
             {
                 try
                 {
                     string appDir = installedApps[iApp];
-                    string srcDirRoot = Path.Combine(e.ExtractDir, Common.SourceDir);
+                    string srcDirRoot = Path.Combine(e.ExtractDir, e.SourceDir);
                     e.run(Path.Combine(srcDirRoot, iApp), appDir);
                 }
                 catch (UnauthorizedAccessException)
@@ -99,7 +91,7 @@ namespace PatchTool
             {
                 try
                 {
-                    string srcDirRoot = Path.Combine(e.ExtractDir, Common.SourceDir);
+                    string srcDirRoot = Path.Combine(e.ExtractDir, e.SourceDir);
                     e.run(Path.Combine(srcDirRoot, "WebApps"), wheresWebApps, true);
                 }
                 catch (UnauthorizedAccessException)

@@ -39,38 +39,16 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
-            // TODO use patchVersion as the sourceDir; get rid of sourceDir
-            if (args.Length < 1)
-            {
-                string usage = "PacMan.exe\n\n";
-                usage += "Required:\n";
-                usage += "\t--patchVersion\tthe version number for this patch\n";
-                MessageBox.Show(usage, "PacMan needs more info");
-
-                logger.Info("Not enough arguments provided.  Show usage and exit.");
-            }
-
             Archiver a = new Archiver();
-
             Options options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
             if (!parser.ParseArguments(args, options))
                 Environment.Exit(1);
 
+            a.PatchVersion = options.patchVersion;
             a.SourceDir = "patchFiles";
 
-            if (options.patchVersion == String.Empty)
-            {
-                // "pretty it up" and exit
-                throw new ArgumentException("something's broken! (options.patchVersion)");
-            }
-            else
-            {
-                a.PatchVersion = options.patchVersion;
-            }
-
             string webapps_version = Archiver.formatVersionString(a.PatchVersion);
-
             a.makeSourceConfig(webapps_version);
             a.makeTargetConfig(webapps_version);
 
