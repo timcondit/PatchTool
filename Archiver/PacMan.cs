@@ -69,8 +69,37 @@ namespace PatchTool
             }
 
             Archiver a = new Archiver();
-            a.makeSourceConfig();
-            a.makeTargetConfig();
+
+            Options options = new Options();
+            ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
+            if (!parser.ParseArguments(args, options))
+                Environment.Exit(1);
+
+            // where's the patch contents?
+            if (options.sourceDir == String.Empty)
+            {
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken! (options.sourceDir)");
+            }
+            else
+            {
+                a.SourceDir = options.sourceDir;
+            }
+
+            if (options.patchVersion == String.Empty)
+            {
+                // "pretty it up" and exit
+                throw new ArgumentException("something's broken! (options.patchVersion)");
+            }
+            else
+            {
+                a.PatchVersion = options.patchVersion;
+            }
+
+            string webapps_version = Archiver.formatVersionString(a.PatchVersion);
+
+            a.makeSourceConfig(webapps_version);
+            a.makeTargetConfig(webapps_version);
 
             // Should have the patchVersion before calling a.makePortablePatch().  Actually, should really break the
             // configuration out into a separate utility.
@@ -158,33 +187,6 @@ namespace PatchTool
             IEnumerable<string> toolsKeys = new List<string> {
                 "DBMigration_84SP9_To_10.sql",
             };
-
-
-            Options options = new Options();
-            ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
-            if (!parser.ParseArguments(args, options))
-                Environment.Exit(1);
-
-            // where's the patch contents?
-            if (options.sourceDir == String.Empty)
-            {
-                // "pretty it up" and exit
-                throw new ArgumentException("something's broken! (options.sourceDir)");
-            }
-            else
-            {
-                a.SourceDir = options.sourceDir;
-            }
-
-            if (options.patchVersion == String.Empty)
-            {
-                // "pretty it up" and exit
-                throw new ArgumentException("something's broken! (options.patchVersion)");
-            }
-            else
-            {
-                a.PatchVersion = options.patchVersion;
-            }
 
             // NB: the app names (WebApps, Server, ...) must match the names of the IConfigs in PatchLib
             logger.Info("Copying ServerSuite patch files");
