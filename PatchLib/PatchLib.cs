@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Ionic.Zip;
 using Microsoft.Win32;
@@ -471,6 +472,38 @@ namespace PatchTool
                     }
                 }
             }
+        }
+
+        // Only one format right now.
+        public static string formatVersionString(string toFormat, string format = "clickonce")
+        {
+            // this should match anything from 0.0.0.0 on up
+            Regex regex = new Regex(@"\d+(\.)\d+(\.)\d+(\.)\d+");
+            string replaced;
+
+            // e.g., 10.1.10.92 -> 10_1_10_92
+            if (format == "clickonce")
+            {
+                if (regex.IsMatch(toFormat))
+                {
+                    logger.Info("match: {0}", toFormat);
+                    replaced = Archiver.dotToDash(regex.Match(toFormat));
+                    logger.Info("dotToDash: {0}", replaced);
+                    return replaced;
+                }
+                else
+                {
+                    logger.Info("no match: {0}", toFormat);
+                    return toFormat;
+                }
+            }
+            return toFormat;
+        }
+
+        static string dotToDash(Match m)
+        {
+            string x = m.ToString();
+            return x.Replace(@".", @"_");
         }
 
         public void run()
