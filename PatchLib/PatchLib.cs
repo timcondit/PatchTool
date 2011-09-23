@@ -274,10 +274,10 @@ namespace PatchTool
             cm.Set("cmRoot", @".");
 
             // Should probably stash the AlvasAudio.dll.  It needs to be registered in the GAC.
-            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio.dll");
-            cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio.bat");
-            cm.Set("gacutil.exe", @"${cmRoot}\gacutil.exe");
-            cm.Set("regasm.exe", @"${cmRoot}\regasm.exe");
+            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
+            cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
+            cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
+            cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
 
             cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
             cm.Set("AlvasAudio.tlb", @"${cmRoot}\AlvasAudio.tlb");

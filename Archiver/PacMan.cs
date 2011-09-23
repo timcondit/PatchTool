@@ -92,7 +92,7 @@ namespace PatchTool
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
             // for now.
             IEnumerable<string> cmKeys = new List<string> {
-                "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
+                "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "audiocodesChannel.dll", "audiocodesChannel.pdb",
                 "AudioReader.dll", "AudioReader.pdb",
                 "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb",
