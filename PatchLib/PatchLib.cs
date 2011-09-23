@@ -635,10 +635,6 @@ namespace PatchTool
             {
                 // 1: MOVE everything in dstDir to dstDir/patches/old
                 logger.Info("copying {0} to {1}", dstDir.ToString(), oldPathStr);
-                //MoveFolderContents(dstDir.ToString(), backupDirOld.ToString());
-                Console.WriteLine(Path.Combine(dstDir.ToString(), "AVPlayer"), Path.Combine(backupDirOld.ToString(), "AVPlayer"));
-                Console.WriteLine(Path.Combine(dstDir.ToString(), "RecordingDownloadTool"), Path.Combine(backupDirOld.ToString(), "RecordingDownloadTool"));
-                Console.WriteLine(backupDirOld.ToString());
                 Directory.Move(Path.Combine(dstDir.ToString(), "AVPlayer"), Path.Combine(backupDirOld.ToString(), "AVPlayer"));
                 Directory.Move(Path.Combine(dstDir.ToString(), "RecordingDownloadTool"), Path.Combine(backupDirOld.ToString(), "RecordingDownloadTool"));
 
