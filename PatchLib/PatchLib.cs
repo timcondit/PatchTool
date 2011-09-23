@@ -67,12 +67,12 @@ namespace PatchTool
 
         // Source config is a list of where to find files on the Aristotle working copy.  It is independent of the
         // apps to patch.  Every file in makeTargetConfig (identified by key) must be here.
-        public void makeSourceConfig()
+        public void makeSourceConfig(string webapps_version = "0_0_0_0")
         {
             IniConfigSource source = new IniConfigSource();
             IConfig config = source.AddConfig("Sources");
             config.Set("srcRoot", @"C:\Source\builds\Aristotle");
-            config.Set("webapps_version", @"10_1_10_82");
+            config.Set("webapps_version", webapps_version);
 
             // Q: Similar to makeTargetConfig(), which of these is the right way to go?
             // A: It'll have to be (2).  If we have a second file with the same name and different path, we'll need to
@@ -228,7 +228,7 @@ namespace PatchTool
         // Target config is where the files are installed on each application.  At the moment we patch Server,
         // ChannelManager, Tools and WMWrapperService.  All four should be more-or-less represented in the targets
         // listed here.  The list will grow as files are added, but I won't try to include them all up front.
-        public void makeTargetConfig()
+        public void makeTargetConfig(string webapps_version = "0_0_0_0")
         {
             IniConfigSource source = new IniConfigSource();
 
@@ -356,7 +356,7 @@ namespace PatchTool
 
             IConfig webapps = source.AddConfig("WebApps");
             webapps.Set("webappsRoot", @".");
-            webapps.Set("webapps_version", @"10_1_10_82");
+            webapps.Set("webapps_version", webapps_version);
 
             // AVPlayer
             //    "AVPlayer.application", "AgentSupport.exe.deploy",
@@ -475,29 +475,24 @@ namespace PatchTool
         }
 
         // Only one format right now.
-        public static string formatVersionString(string toFormat, string format = "clickonce")
+        public static string formatVersionString(string toFormat)
         {
             // this should match anything from 0.0.0.0 on up
             Regex regex = new Regex(@"\d+(\.)\d+(\.)\d+(\.)\d+");
-            string replaced;
+            string replaced = toFormat;
 
             // e.g., 10.1.10.92 -> 10_1_10_92
-            if (format == "clickonce")
+            if (regex.IsMatch(toFormat))
             {
-                if (regex.IsMatch(toFormat))
-                {
-                    logger.Info("match: {0}", toFormat);
-                    replaced = Archiver.dotToDash(regex.Match(toFormat));
-                    logger.Info("dotToDash: {0}", replaced);
-                    return replaced;
-                }
-                else
-                {
-                    logger.Info("no match: {0}", toFormat);
-                    return toFormat;
-                }
+                logger.Info("match: {0}", toFormat);
+                replaced = Archiver.dotToDash(regex.Match(toFormat));
+                logger.Info("dotToDash: {0}", replaced);
             }
-            return toFormat;
+            else
+            {
+                logger.Info("no match: {0}", toFormat);
+            }
+            return replaced;
         }
 
         static string dotToDash(Match m)
@@ -624,7 +619,7 @@ namespace PatchTool
         // Should this return bool for success or failure?
         //
         // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
-        public void run(string _srcDir, string _dstDir, bool replaceAll=false)
+        public void run(string _srcDir, string _dstDir, bool replaceAll = false)
         {
             // patch directory and local target
             DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
