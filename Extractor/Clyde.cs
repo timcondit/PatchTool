@@ -76,7 +76,7 @@ namespace PatchTool
                 try
                 {
                     string appDir = installedApps[iApp];
-                    string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
+                    string srcDirRoot = Path.Combine(e.ExtractDir, Common.SourceDir);
                     e.run(Path.Combine(srcDirRoot, iApp), appDir);
                 }
                 catch (UnauthorizedAccessException)
@@ -99,7 +99,7 @@ namespace PatchTool
             {
                 try
                 {
-                    string srcDirRoot = Path.Combine(e.ExtractDir, e.PatchVersion);
+                    string srcDirRoot = Path.Combine(e.ExtractDir, Common.SourceDir);
                     e.run(Path.Combine(srcDirRoot, "WebApps"), wheresWebApps, true);
                 }
                 catch (UnauthorizedAccessException)

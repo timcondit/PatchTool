@@ -31,7 +31,12 @@ using NLog;
 
 namespace PatchTool
 {
-    public class Archiver
+    public class Common
+    {
+        public static string SourceDir = "patchFiles";
+    }
+
+    public class Archiver:Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -420,7 +425,7 @@ namespace PatchTool
         public void makePortablePatch(string appToPatch, IEnumerable<string> appKeys)
         {
             // Make the roots.  Sometimes they'll be empty--fix it later.
-            DirectoryInfo di = new DirectoryInfo(Path.Combine(PatchVersion, appToPatch));
+            DirectoryInfo di = new DirectoryInfo(Path.Combine(SourceDir, appToPatch));
             if (di.Exists == false)
             {
                 di.Create();
@@ -545,7 +550,7 @@ namespace PatchTool
     }
 
 
-    public class Extractor
+    public class Extractor:Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
