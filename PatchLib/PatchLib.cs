@@ -484,9 +484,10 @@ namespace PatchTool
             // e.g., 10.1.10.92 -> 10_1_10_92
             if (regex.IsMatch(toFormat))
             {
-                logger.Info("match: {0}", toFormat);
+                // probably better to (eventually) configure the logger to send to log only, not stdout too
+                //logger.Info("match: {0}", toFormat);
                 replaced = Archiver.dotToDash(regex.Match(toFormat));
-                logger.Info("dotToDash: {0}", replaced);
+                //logger.Info("dotToDash: {0}", replaced);
             }
             else
             {
@@ -661,19 +662,29 @@ namespace PatchTool
             // Sometimes (like with Centricity Web Apps) we replace all files.  Keep it simple.
             if (replaceAll == true)
             {
-                // 1: MOVE everything in dstDir to dstDir/patches/old
-                logger.Info("copying {0} to {1}", dstDir.ToString(), oldPathStr);
-                Directory.Move(Path.Combine(dstDir.ToString(), "AVPlayer"), Path.Combine(backupDirOld.ToString(), "AVPlayer"));
-                Directory.Move(Path.Combine(dstDir.ToString(), "RecordingDownloadTool"), Path.Combine(backupDirOld.ToString(), "RecordingDownloadTool"));
+                try
+                {
+                    // 1: MOVE everything in dstDir to dstDir/patches/old
+                    logger.Info("copying {0} to {1}", dstDir.ToString(), oldPathStr);
+                    Directory.Move(Path.Combine(dstDir.ToString(), "AVPlayer"), Path.Combine(backupDirOld.ToString(), "AVPlayer"));
+                    Directory.Move(Path.Combine(dstDir.ToString(), "RecordingDownloadTool"), Path.Combine(backupDirOld.ToString(), "RecordingDownloadTool"));
 
-                // 2: copy everything in srcDir to srcDir/patches/new
-                logger.Info("moving {0} to {1}", srcDir.ToString(), newPathStr);
-                CopyFolder(srcDir.ToString(), backupDirNew.ToString());
+                    // 2: copy everything in srcDir to srcDir/patches/new
+                    logger.Info("moving {0} to {1}", srcDir.ToString(), newPathStr);
+                    CopyFolder(srcDir.ToString(), backupDirNew.ToString());
 
-                // 3: copy everything in srcDir to dstDir
-                logger.Info("copying {0} to {1}", srcDir.ToString(), dstDir.ToString());
-                CopyFolder(srcDir.ToString(), dstDir.ToString());
-
+                    // 3: copy everything in srcDir to dstDir
+                    logger.Info("copying {0} to {1}", srcDir.ToString(), dstDir.ToString());
+                    CopyFolder(srcDir.ToString(), dstDir.ToString());
+                }
+                catch (IOException)
+                {
+                    logger.Error(@"Clyde won't overwrite existing patch files"); // (under patches\old and patches\new)");
+                    logger.Error(@"Move or remove these directories and try again");
+                    logger.Error(@"{0}", backupDirOld.ToString());
+                    logger.Error(@"{0}", backupDirNew.ToString());
+                    logger.Fatal("Exiting");
+                }
                 return;
             }
 
