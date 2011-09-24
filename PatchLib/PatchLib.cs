@@ -136,6 +136,7 @@ namespace PatchTool
             config.Set("GatewayLib.dll", @"${srcRoot}\workdir\SharedResources\GatewayLib.dll");
             config.Set("GatewayLib.pdb", @"${srcRoot}\workdir\SharedResources\GatewayLib.pdb");
             config.Set("GatewayLogging.xml", @"${srcRoot}\config\SIPGateway\GatewayLogging.xml");
+            config.Set("InstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\InstallSIPGateway.bat");
             config.Set("instsrv.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
             config.Set("IPXChannel.dll", @"${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
             config.Set("IPXChannel.pdb", @"${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
@@ -173,6 +174,7 @@ namespace PatchTool
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
+            config.Set("UninstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\UninstallSIPGateway.bat");
 
             // AVPlayer
             config.Set("AVPlayer.application", @"${srcRoot}\workdir\AVPlayer\AVPlayer.application");
@@ -215,6 +217,8 @@ namespace PatchTool
                 config.Set("gacutil.exe", gacutil);
                 string regasm = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\regasm.exe");
                 config.Set("regasm.exe", regasm);
+                string installutil = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\InstallUtil.exe");
+                config.Set("InstallUtil.exe", installutil);
             }
             catch (ArgumentNullException)
             {
@@ -333,6 +337,9 @@ namespace PatchTool
             cm.Set("GatewayLib.dll", @"${cmRoot}\SIPGateway\GatewayLib.dll");
             cm.Set("GatewayLib.pdb", @"${cmRoot}\SIPGateway\GatewayLib.pdb");
             cm.Set("GatewayLogging.xml", @"${cmRoot}\SIPGateway\GatewayLogging.xml");
+            cm.Set("InstallSIPGateway.bat", @"${cmRoot}\SIPGateway\InstallSIPGateway.bat");
+            cm.Set("UninstallSIPGateway.bat", @"${cmRoot}\SIPGateway\UninstallSIPGateway.bat");
+            cm.Set("InstallUtil.exe", @"${cmRoot}\SIPGateway\InstallUtil.exe");
             cm.Set("LumiSoft.Net.dll", @"${cmRoot}\SIPGateway\LumiSoft.Net.dll");
             cm.Set("LumiSoft.Net.xml", @"${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
@@ -357,23 +364,6 @@ namespace PatchTool
             IConfig webapps = source.AddConfig("WebApps");
             webapps.Set("webappsRoot", @".");
             webapps.Set("webapps_version", webapps_version);
-
-            // AVPlayer
-            //    "AVPlayer.application", "AgentSupport.exe.deploy",
-            //    "AVPlayer.exe.config.deploy", "AVPlayer.exe.deploy", "AVPlayer.exe.manifest",
-            //    "CentricityApp.dll.deploy", "hasp_windows.dll.deploy", "Interop.WMPLib.dll.deploy",
-            //    "log4net.dll.deploy", "nativeServiceWin32.dll.deploy",
-            //    "server.dll.deploy", "SharedResources.dll.deploy", "ISource.dll.deploy",
-            //    "AVPlayer.resources.dll.deploy", "AVPlayer.resources.dll.deploy_1",
-            //    "CentricityApp.resources.dll.deploy", "CentricityApp.resources.dll.deploy_1",
-            //    "AVPlayerIcon.ico.deploy",
-            //
-            // RecordingDownloadTool
-            //    "RecordingDownloadTool.application", "CentricityApp.dll.deploy_1", "log4net.dll.deploy_1",
-            //    "RecordingDownloadTool.exe.config.deploy", "RecordingDownloadTool.exe.deploy",
-            //    "RecordingDownloadTool.exe.manifest", "server.dll.deploy_1", "sox.exe.deploy",
-            //    "CentricityApp.resources.dll.deploy_2", "CentricityApp.resources.dll.deploy_3",
-            //    "RecordingDownloadTool.resources.dll.deploy", "RecordingDownloadTool.resources.dll.deploy_1",
 
             // AVPlayer
             webapps.Set("AVPlayer.application", @"${webappsRoot}\AVPlayer\AVPlayer.application");

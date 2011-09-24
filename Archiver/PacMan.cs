@@ -98,10 +98,12 @@ namespace PatchTool
                 
                 // SIP Gateway
                 "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
+                "InstallUtil.exe", "InstallSIPGateway.bat",
                 "log4net.dll",
                 "LumiSoft.Net.dll", "LumiSoft.Net.xml", "LumiSoft.Net.pdb",
                 "server.dll", "server.pdb",
                 "SIPGateway.exe", "SIPGateway.exe.config", "SIPGateway.pdb",
+                "UninstallSIPGateway.bat",
 
                 // for registering AlvasAudio.dll
                 "gacutil.exe", "regasm.exe",
