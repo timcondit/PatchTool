@@ -497,7 +497,6 @@ namespace PatchTool
                 // these files install and log the patch
                 zip.AddFile("Clyde.exe");
                 zip.AddFile("PatchLib.dll");
-                zip.AddFile("CommandLine.dll");
                 zip.AddFile("Nini.dll");
                 zip.AddFile("NLog.dll");
                 zip.AddFile("NLog.config");
