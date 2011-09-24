@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using CommandLine;
-using CommandLine.Text;
 using Microsoft.Win32;
 using NLog;
 
@@ -11,31 +9,6 @@ namespace PatchTool
 {
     class Clyde
     {
-        private sealed class Options
-        {
-            #region Standard Option Attribute
-            [Option("r", "patchVersion",
-                    Required = true,
-                    HelpText = "The version number for this patch.")]
-            public string patchVersion = String.Empty;
-
-            [HelpOption(
-                    HelpText = "Display this help screen.")]
-
-            public string GetUsage()
-            {
-                var help = new HelpText("Envision Package Manager");
-                help.AdditionalNewLineAfterOption = true;
-                help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2011);
-                help.AddPreOptionsLine("Usage: Clyde -r<patchVersion>");
-                help.AddPreOptionsLine("       Clyde -?");
-                help.AddOptions(this);
-
-                return help;
-            }
-            #endregion
-        }
-
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         static void Main(string[] args)
@@ -55,13 +28,6 @@ namespace PatchTool
 
             // first check
             IDictionary<string, string> installedApps = e.getInstalledApps(patchableApps.Keys);
-
-            Options options = new Options();
-            ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
-            if (!parser.ParseArguments(args, options))
-                Environment.Exit(1);
-
-            e.PatchVersion = options.patchVersion;
 
             foreach (string iApp in installedApps.Keys)
             {
@@ -83,9 +49,6 @@ namespace PatchTool
             }
 
             // second check comes much later (partly redundant if done right, which it's not at the moment)
-            //
-            // TODO: given the value from patchableApps, how to get the key, and use it to update installedApps?
-            // In other words, from "Envision Web Apps" installedApps.Add("WebApps", wheresWebApps).
             string wheresWebApps = e.GetInstallLocation("Envision Web Apps");
             if (wheresWebApps != "NONE")
             {

@@ -8,6 +8,7 @@ using Ionic.Zip;
 using Microsoft.Win32;
 using Nini.Config;
 using NLog;
+using com.et.versioninfo;
 
 // using DotNetZip library
 // http://dotnetzip.codeplex.com/
@@ -21,12 +22,6 @@ using NLog;
 // 4: add continue / cancel "breakpoints"
 // 5: add "list file contents" to the archives (e.g. APP-VER.exe)
 // 6: add logging when creating archives
-
-// NOTES
-// 1: How to pause.
-//      // TC: for testing
-//      //Console.Write("Press any key to continue");
-//      //Console.ReadLine();
 
 
 namespace PatchTool
@@ -42,20 +37,10 @@ namespace PatchTool
             set { _sourceDir = value; }
         }
 
-        // This is no longer set per-application, so now we need a different name.  Envision maybe?  As in
-        // Envision-10.1.10.0.exe
-        private string _appName = "envision-installer";
-        public string AppName
-        {
-            get { return _appName; }
-            set { _appName = value; }
-        }
-
-        private string _patchVersion = "0.0.0.0";
+        private string _patchVersion = VersionInfo.PRODUCT_VERSION;
         public string PatchVersion
         {
             get { return _patchVersion; }
-            set { _patchVersion = value; }
         }
 
         private string _extractDir = ".";
@@ -519,16 +504,14 @@ namespace PatchTool
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
-                options.ProductVersion = PatchVersion;
+                options.ProductVersion = VersionInfo.PRODUCT_VERSION;
                 options.DefaultExtractDirectory = ExtractDir;
-                options.Copyright = "Copyright 2011 Envision Telephony";
-                string commandLine = @"Clyde.exe --patchVersion=" + PatchVersion;
-                options.PostExtractCommandLine = commandLine;
+                options.Copyright = VersionInfo.COPYRIGHT;
+                options.PostExtractCommandLine = "Clyde.exe";
                 // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
 
-                // TC: delete other patches before reusing file name!
-                string patchName = AppName + @"-" + PatchVersion + @".exe";
+                string patchName = @"envision-installer-" + PatchVersion + @".exe";
                 zip.SaveSelfExtractor(patchName, options);
             }
         }
@@ -539,21 +522,9 @@ namespace PatchTool
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private void init()
-        {
-            Console.SetWindowSize(100, 50);
-            //Console.SetWindowSize(140, 50);
-        }
-
         public Extractor()
         {
-            init();
-        }
-
-        public Extractor(string _patchVersion)
-        {
-            init();
-            PatchVersion = _patchVersion;
+            Console.SetWindowSize(100, 50);
         }
 
         // need to keep in sync with Archiver (it's a little ugly)
@@ -563,11 +534,10 @@ namespace PatchTool
             get { return _sourceDir; }
         }
 
-        private string _patchVersion;
+        private string _patchVersion = VersionInfo.PRODUCT_VERSION;
         public string PatchVersion
         {
             get { return _patchVersion; }
-            set { _patchVersion = value; }
         }
 
         // This should be equivalent to ExtractDir in Archiver.  I should probably find a better solution.

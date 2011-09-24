@@ -2,50 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using CommandLine;
-using CommandLine.Text;
 using NLog;
 
 namespace PatchTool
 {
     public class PacMan
     {
-        private sealed class Options
-        {
-            #region Standard Option Attribute
-            [Option("r", "patchVersion",
-                    Required = true,
-                    HelpText = "The version number for this patch.")]
-            public string patchVersion = "0.0.0.0";
-
-            [HelpOption(
-                    HelpText = "Display this help screen.")]
-
-            public string GetUsage()
-            {
-                var help = new HelpText("Envision Package Manager");
-                help.AdditionalNewLineAfterOption = true;
-                help.Copyright = new CopyrightInfo("Envision Telephony, Inc.", 2011);
-                help.AddPreOptionsLine("Usage: PacMan -r<patchVersion>");
-                help.AddPreOptionsLine("       PacMan -?");
-                help.AddOptions(this);
-
-                return help;
-            }
-            #endregion
-        }
-
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         static void Main(string[] args)
         {
             Archiver a = new Archiver();
-            Options options = new Options();
-            ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
-            if (!parser.ParseArguments(args, options))
-                Environment.Exit(1);
-
-            a.PatchVersion = options.patchVersion;
             a.SourceDir = "patchFiles";
 
             string webapps_version = Archiver.formatVersionString(a.PatchVersion);
@@ -157,11 +124,8 @@ namespace PatchTool
             logger.Info("Copying Tools patch files");
             a.makePortablePatch("Tools", toolsKeys);
 
-            // TC: If the files are stored in C:\patch_staging\<APPNAME>\<PATCHVER>, and that location already exists,
-            // error and exit.
-            //
-            // The extract dir is set before the archive is created.  There is NOTHING that can be done (as far as I
-            // know) at extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.
+            // The extract dir is set before the archive is created.  As far as I know, there is nothing to be done at
+            // extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.
             a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
             a.run();
         }

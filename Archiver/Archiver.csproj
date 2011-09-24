@@ -53,9 +53,6 @@
     <StartupObject>PatchTool.PacMan</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine">
-      <HintPath>$(ETSDK)\libcmdline\libcmdline-1.8-stable-src\CommandLine\src\libcmdline\bin\Debug\CommandLine.dll</HintPath>
-    </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ETSDK)\NLog\NLog.2.0.0.2000\lib\net20\NLog.dll</HintPath>

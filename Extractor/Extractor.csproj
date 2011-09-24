@@ -50,11 +50,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(ETSDK)\libcmdline\libcmdline-1.8-stable-src\CommandLine\src\libcmdline\bin\Debug\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>$(ETSDK)\DotNetZip\1.9\DotNetZipLib-DevKit-v1.9\DotNetZip-v1.9\Debug\Ionic.Zip.dll</HintPath>
     </Reference>
