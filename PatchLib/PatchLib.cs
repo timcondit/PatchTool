@@ -79,8 +79,11 @@ namespace PatchTool
             config.Set("AvayaVoipChannel.dll", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.dll");
             config.Set("AvayaVoipChannel.pdb", @"${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.pdb");
             config.Set("centricity.dll", @"${srcRoot}\workdir\centricity\ET\bin\centricity.dll");
+            config.Set("centricity.pdb", @"${srcRoot}\workdir\centricity\ET\bin\centricity.pdb");
             config.Set("Centricity_BLL.dll", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
+            config.Set("Centricity_BLL.pdb", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.pdb");
             config.Set("Centricity_DAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.dll");
+            config.Set("Centricity_DAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.pdb");
             config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
             config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
             config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
@@ -93,8 +96,17 @@ namespace PatchTool
             config.Set("cstaLoader_6_4_3.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_6_4_3.dll");
             config.Set("cstaLoader_9_1.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_1.dll");
             config.Set("cstaLoader_9_5.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_5.dll");
+
+            // FIXME these should come from the same place.  Installer and the patch tool should be updated.
+            // FIXME the names of the files don't match (6.0, 6_0)
             config.Set("ctcLoader_6.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
+            config.Set("ctcLoader_6.0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_6_0\Release\ctcLoader_6_0.pdb");
+
+            // FIXME these should come from the same place.  Installer and the patch tool should be updated.
+            // FIXME the names of the files don't match (7.0, 7_0)
             config.Set("ctcLoader_7.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
+            config.Set("ctcLoader_7.0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_7_0\Release\ctcLoader_7_0.pdb");
+
             config.Set("DBMigration_84SP9_To_10.sql", @"${srcRoot}\src\tools\DBMigration\v2\DBMigration_84SP9_To_10.sql");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
             config.Set("DemoModeChannel.dll", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.dll");
@@ -134,6 +146,7 @@ namespace PatchTool
             config.Set("NewEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx");
             config.Set("RadEditor.skin", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
             config.Set("RAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
+            config.Set("RAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\RAL.pdb");
             config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
             config.Set("server.dll", @"${srcRoot}\workdir\SharedResources\server.dll");
@@ -158,7 +171,12 @@ namespace PatchTool
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
+            config.Set("TeliaCallGuide.pdb", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
+
+            // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
+            config.Set("Tsapi.pdb", @"${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb");
+            
             config.Set("UninstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\UninstallSIPGateway.bat");
 
             // AVPlayer
@@ -225,9 +243,15 @@ namespace PatchTool
             IConfig server = source.AddConfig("Server");
             server.Set("serverRoot", @".");
 
+            server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio.dll");
+            server.Set("AlvasAudio.pdb", @"${serverRoot}\AlvasAudio.pdb");
+            server.Set("AlvasAudio.tlb", @"${serverRoot}\AlvasAudio.tlb");
             server.Set("centricity.dll", @"${serverRoot}\bin\centricity.dll");
+            server.Set("centricity.pdb", @"${serverRoot}\bin\centricity.pdb");
             server.Set("Centricity_BLL.dll", @"${serverRoot}\bin\Centricity_BLL.dll");
+            server.Set("Centricity_BLL.pdb", @"${serverRoot}\bin\Centricity_BLL.pdb");
             server.Set("Centricity_DAL.dll", @"${serverRoot}\bin\Centricity_DAL.dll");
+            server.Set("Centricity_DAL.pdb", @"${serverRoot}\bin\Centricity_DAL.pdb");
             server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
             server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
@@ -239,7 +263,9 @@ namespace PatchTool
             server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
             server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
             server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
+            server.Set("ctcLoader_6.0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.pdb");
             server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
+            server.Set("ctcLoader_7.0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.pdb");
             server.Set("EditEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx");
             // Note how we configure multiple copies of the same file on the same app
             server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
@@ -254,10 +280,13 @@ namespace PatchTool
             server.Set("NewEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\NewEvaluation.aspx");
             server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
+            server.Set("RAL.pdb", @"${serverRoot}\bin\RAL.pdb");
             server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
             server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
             server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
+            server.Set("TeliaCallGuide.pdb", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.pdb");
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
+            server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
 
 
             IConfig cm = source.AddConfig("ChannelManager");
@@ -441,6 +470,7 @@ namespace PatchTool
                         {
                             if (e is FileNotFoundException || e is DirectoryNotFoundException)
                             {
+                                // this should fail with logger.Fatal() if a needed file is not found
                                 logger.Error("not found: {0}", source);
                             }
                         }
@@ -857,7 +887,7 @@ namespace PatchTool
             {
                 if (e is FileNotFoundException || e is DirectoryNotFoundException)
                 {
-                    logger.Warn("WARN: a file to compare was not found: {0}", fileName2);
+                    logger.Warn("a file to compare was not found: {0}", fileName2);
                     return;
                 }
             }
