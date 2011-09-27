@@ -24,16 +24,24 @@ namespace PatchTool
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
             IEnumerable<string> serverKeys = new List<string> {
+                "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "Envision.jar", "envision_schema.xml", "envision_schema_central.xml",
                 "ETScheduleService.xml", "ChannelBrokerService.xml", "CiscoICM.dll",
                 "cstaLoader.dll", "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll", "cstaLoader_3_33.dll",
-                "cstaLoader_9_1.dll", "cstaLoader_9_5.dll", "ctcLoader_6.0.dll", "ctcLoader_7.0.dll",
+                "cstaLoader_9_1.dll", "cstaLoader_9_5.dll",
+                "ctcLoader_6.0.dll", "ctcLoader_6.0.pdb",
+                "ctcLoader_7.0.dll", "ctcLoader_7.0.pdb",
                 "EditEvaluation.aspx", "EnvisionTheme.css", "NetMerge.dll", "NewEvaluation.aspx",
-                "RadEditor.skin", "SourceRunnerService.exe", "TeliaCallGuide.dll", "Tsapi.dll",
+                "RadEditor.skin", "SourceRunnerService.exe",
+                "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
+                "Tsapi.dll", "Tsapi.pdb",
                 "CommonUpdates.xml", "MSSQLUpdate_build_10.0.0303.1.xml",
 
                 // Centricity
-                "centricity.dll", "Centricity_BLL.dll", "Centricity_DAL.dll", "RAL.dll",
+                "centricity.dll", "centricity.pdb",
+                "Centricity_BLL.dll", "Centricity_BLL.pdb",
+                "Centricity_DAL.dll", "Centricity_DAL.pdb",
+                "RAL.dll", "RAL.pdb",
             };
 
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
