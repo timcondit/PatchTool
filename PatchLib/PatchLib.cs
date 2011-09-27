@@ -228,6 +228,9 @@ namespace PatchTool
                 config.Set("regasm.exe", regasm);
                 string installutil = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\InstallUtil.exe");
                 config.Set("InstallUtil.exe", installutil);
+                string sc = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft\sc.exe");
+                config.Set("sc.exe", sc);
+
             }
             catch (ArgumentNullException)
             {
@@ -364,6 +367,7 @@ namespace PatchTool
             cm.Set("LumiSoft.Net.xml", @"${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
             cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
+            cm.Set("sc.exe", @"{serverRoot}\SIPGateway\sc.exe");
             cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
             cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
             cm.Set("SIPGateway.exe", @"${cmRoot}\SIPGateway\SIPGateway.exe");

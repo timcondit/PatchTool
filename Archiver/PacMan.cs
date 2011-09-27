@@ -82,7 +82,7 @@ namespace PatchTool
                 "InstallUtil.exe", "InstallSIPGateway.bat",
                 "log4net.dll",
                 "LumiSoft.Net.dll", "LumiSoft.Net.xml", "LumiSoft.Net.pdb",
-                "server.dll", "server.pdb",
+                "sc.exe", "server.dll", "server.pdb",
                 "SIPGateway.exe", "SIPGateway.exe.config", "SIPGateway.pdb",
                 "UninstallSIPGateway.bat",
 
