@@ -87,7 +87,11 @@ namespace PatchTool
             config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
+
+            // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("cstaLoader.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader.dll");
+            config.Set("cstaLoader.pdb", @"${srcRoot}\src\contactsources\tsapi\cstaLoader\Release\cstaLoader.pdb");
+
             config.Set("cstaLoader_1_2.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_2.dll");
             config.Set("cstaLoader_1_3_3.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_3_3.dll");
             config.Set("cstaLoader_3_33.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader_3_33.dll");
@@ -98,12 +102,12 @@ namespace PatchTool
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             // FIXME the names of the files don't match (6.0, 6_0)
             config.Set("ctcLoader_6.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
-            config.Set("ctcLoader_6.0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_6_0\Release\ctcLoader_6_0.pdb");
+            config.Set("ctcLoader_6_0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_6_0\Release\ctcLoader_6_0.pdb");
 
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             // FIXME the names of the files don't match (7.0, 7_0)
             config.Set("ctcLoader_7.0.dll", @"${srcRoot}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
-            config.Set("ctcLoader_7.0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_7_0\Release\ctcLoader_7_0.pdb");
+            config.Set("ctcLoader_7_0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_7_0\Release\ctcLoader_7_0.pdb");
 
             config.Set("DBMigration_84SP9_To_10.sql", @"${srcRoot}\src\tools\DBMigration\v2\DBMigration_84SP9_To_10.sql");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
@@ -140,7 +144,11 @@ namespace PatchTool
             config.Set("LumiSoft.Net.pdb", @"${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb");
             config.Set("LumiSoft.Net.xml", @"${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml");
             config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+
+            // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("NetMerge.dll", @"${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
+            config.Set("NetMerge.pdb", @"${srcRoot}\src\contactsources\netmerge\Release\NetMerge.pdb");
+            
             config.Set("NewEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx");
             config.Set("RadEditor.skin", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
             config.Set("RAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
@@ -252,16 +260,19 @@ namespace PatchTool
             server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
             server.Set("cstaLoader.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader.dll");
+            server.Set("cstaLoader.pdb", @"${serverRoot}\ContactSourceRunner\cstaLoader.pdb");
             server.Set("cstaLoader_1_2.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_2.dll");
             server.Set("cstaLoader_1_3_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_3_3.dll");
             server.Set("cstaLoader_3_33.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
             server.Set("cstaLoader_6_4_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_6_4_3.dll");
-            server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
+            server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_1.dll");
             server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
+            // FIXME the names of the files don't match (6.0, 6_0)
             server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
-            server.Set("ctcLoader_6.0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.pdb");
+            server.Set("ctcLoader_6_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_6_0.pdb");
+            // FIXME the names of the files don't match (7.0, 7_0)
             server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
-            server.Set("ctcLoader_7.0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.pdb");
+            server.Set("ctcLoader_7_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_7_0.pdb");
             server.Set("EditEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx");
             // Note how we configure multiple copies of the same file on the same app
             server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
@@ -273,6 +284,7 @@ namespace PatchTool
             server.Set("ETScheduleService.xml", @"${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");
             server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
             server.Set("NetMerge.dll", @"${serverRoot}\ContactSourceRunner\NetMerge.dll");
+            server.Set("NetMerge.pdb", @"${serverRoot}\ContactSourceRunner\NetMerge.pdb");
             server.Set("NewEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\NewEvaluation.aspx");
             server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
