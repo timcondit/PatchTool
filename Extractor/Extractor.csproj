@@ -58,7 +58,7 @@
       <HintPath>$(ETSDK)\NLog\NLog.2.0.0.2000\lib\net20\NLog.dll</HintPath>
     </Reference>
     <Reference Include="server">
-      <HintPath>..\..\..\builds\Aristotle\workdir\SharedResources\server.dll</HintPath>
+      <HintPath>..\..\..\..\workdir\SharedResources\server.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />

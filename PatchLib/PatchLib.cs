@@ -56,7 +56,9 @@ namespace PatchTool
         {
             IniConfigSource source = new IniConfigSource();
             IConfig config = source.AddConfig("Sources");
-            config.Set("srcRoot", @"C:\Source\builds\Aristotle");
+
+            // from src\tools\PatchTool\Archiver\bin\Release back to the working copy root
+            config.Set("srcRoot", @"..\..\..\..\..\..");
             config.Set("webapps_version", webapps_version);
 
             // Q: Similar to makeTargetConfig(), which of these is the right way to go?
