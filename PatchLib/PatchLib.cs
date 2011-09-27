@@ -59,13 +59,9 @@ namespace PatchTool
             config.Set("srcRoot", @"C:\Source\builds\Aristotle");
             config.Set("webapps_version", webapps_version);
 
-            // Q: Similar to makeTargetConfig(), which of these is the right way to go?
-            // A: It'll have to be (2).  If we have a second file with the same name and different path, we'll need to
-            //    append something (maybe "_1") to the end of the second file of the same name.  But we can't append
-            //    a mangled file name to the path to identify the file.
-            //
-            // (1) config.Set("Envision.jar", @"${srcRoot}\Release");
-            // (2) config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
+            // If there's a second file with the same name and different path, we'll need to append something (maybe
+            // "_1") to the end of the second file of the same name.  But we can't append a mangled file name to the
+            // path to identify the file.
 
             // from the working copy
             config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
@@ -232,9 +228,7 @@ namespace PatchTool
             source.Save("Aristotle_sources.config");
         }
 
-        // Target config is where the files are installed on each application.  At the moment we patch Server,
-        // ChannelManager, Tools and WMWrapperService.  All four should be more-or-less represented in the targets
-        // listed here.  The list will grow as files are added, but I won't try to include them all up front.
+        // Target config is where the files are installed on each application.
         public void makeTargetConfig(string webapps_version = "0_0_0_0")
         {
             IniConfigSource source = new IniConfigSource();
@@ -292,12 +286,8 @@ namespace PatchTool
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
 
-            // Should probably stash the AlvasAudio.dll.  It needs to be registered in the GAC.
-            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
             cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
-            cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
-            cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
-
+            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
             cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
             cm.Set("AlvasAudio.tlb", @"${cmRoot}\AlvasAudio.tlb");
             cm.Set("audiocodesChannel.dll", @"${cmRoot}\audiocodesChannel.dll");
@@ -319,10 +309,12 @@ namespace PatchTool
             cm.Set("DMCCWrapperLib.dll", @"${cmRoot}\DMCCWrapperLib.dll");
             cm.Set("DMCCWrapperLib.pdb", @"${cmRoot}\DMCCWrapperLib.pdb");
             cm.Set("DMCCWrapperLib.tlb", @"${cmRoot}\DMCCWrapperLib.tlb");
+            cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
             cm.Set("IPXChannel.dll", @"${cmRoot}\IPXChannel.dll");
             cm.Set("IPXChannel.pdb", @"${cmRoot}\IPXChannel.pdb");
             cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll");
             cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb");
+            cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
             cm.Set("RtpTransmitter.dll", @"${cmRoot}\RtpTransmitter.dll");
             cm.Set("RtpTransmitter.pdb", @"${cmRoot}\RtpTransmitter.pdb");
             cm.Set("server.dll", @"${cmRoot}\server.dll");
@@ -448,11 +440,7 @@ namespace PatchTool
                 }
                 else
                 {
-                    // e.g., C:\Source\builds\Aristotle\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe
                     string source = sourceConfig.Configs["Sources"].Get(key);
-
-                    // May not look like it, but it's missing the app name in front
-                    // e.g., .\ChannelManager\EnvisionSR\svcmgr.exe
                     string[] targets = targetConfig.Configs[appToPatch].Get(key).Split('|');
 
                     foreach (string t in targets)
@@ -463,7 +451,6 @@ namespace PatchTool
                         try
                         {
                             Directory.CreateDirectory(Path.GetDirectoryName(fqTargetPath));
-                            // File.Copy throws many exceptions ...
                             File.Copy(source, fqTargetPath);
                         }
                         catch (Exception e)
@@ -581,7 +568,6 @@ namespace PatchTool
         // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
         public void run(string _srcDir, string _dstDir, bool replaceAll = false)
         {
-            // patch directory and local target
             DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
 
