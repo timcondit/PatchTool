@@ -224,13 +224,22 @@ namespace PatchTool
             {
                 string gacutil = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v3.5\gacutil.exe");
                 config.Set("gacutil.exe", gacutil);
-                string regasm = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\regasm.exe");
-                config.Set("regasm.exe", regasm);
                 string installutil = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\InstallUtil.exe");
                 config.Set("InstallUtil.exe", installutil);
+                string regasm = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft.NET\v2.0\regasm.exe");
+                config.Set("regasm.exe", regasm);
                 string sc = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"Microsoft\sc.exe");
                 config.Set("sc.exe", sc);
 
+                // LAA-BIN
+                string dumpbin = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"java\LAA-BIN\dumpbin.exe");
+                config.Set("dumpbin.exe", dumpbin);
+                string EnvisionServer = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"java\LAA-BIN\EnvisionServer.exe");
+                config.Set("EnvisionServer.exe", EnvisionServer);
+                string java = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"java\LAA-BIN\java.exe");
+                config.Set("java.exe", java);
+                string javaw = Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), @"java\LAA-BIN\javaw.exe");
+                config.Set("javaw.exe", javaw);
             }
             catch (ArgumentNullException)
             {
@@ -299,6 +308,12 @@ namespace PatchTool
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
             server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
 
+
+            // LAA-BIN
+            server.Set("dumpbin.exe", @"${serverRoot}\LAA-BIN\dumpbin.exe");
+            server.Set("EnvisionServer.exe", @"${serverRoot}\LAA-BIN\EnvisionServer.exe");
+            server.Set("java.exe", @"${serverRoot}\LAA-BIN\java.exe");
+            server.Set("javaw.exe", @"${serverRoot}\LAA-BIN\javaw.exe");
 
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");

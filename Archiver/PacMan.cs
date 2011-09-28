@@ -48,6 +48,9 @@ namespace PatchTool
                 "Centricity_BLL.dll", "Centricity_BLL.pdb",
                 "Centricity_DAL.dll", "Centricity_DAL.pdb",
                 "RAL.dll", "RAL.pdb",
+
+                // LAA-BIN
+                "dumpbin.exe", "EnvisionServer.exe", "java.exe", "javaw.exe",
             };
 
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
