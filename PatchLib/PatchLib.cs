@@ -368,12 +368,13 @@ namespace PatchTool
             server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
             server.Set("updater.jar", @"${serverRoot}\JRE\lib\ext\updater.jar");
             server.Set("web.config", @"${serverRoot}\web.config");
-            
+
             // LAA-BIN
             server.Set("dumpbin.exe", @"${serverRoot}\LAA-BIN\dumpbin.exe");
             server.Set("EnvisionServer.exe", @"${serverRoot}\LAA-BIN\EnvisionServer.exe");
             server.Set("java.exe", @"${serverRoot}\LAA-BIN\java.exe");
             server.Set("javaw.exe", @"${serverRoot}\LAA-BIN\javaw.exe");
+
 
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
@@ -442,7 +443,7 @@ namespace PatchTool
             cm.Set("LumiSoft.Net.xml", @"${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
             cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
-            cm.Set("sc.exe", @"${serverRoot}\SIPGateway\sc.exe");
+            cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
             cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
             cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
             cm.Set("SIPGateway.exe", @"${cmRoot}\SIPGateway\SIPGateway.exe");
