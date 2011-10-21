@@ -66,10 +66,15 @@ namespace PatchTool
             // path to identify the file.
 
             // from the working copy
+            config.Set("Administrator.exe", @"${srcRoot}\Administrator.exe");
+            config.Set("AgentAutomation.dll", @"${srcRoot}\AgentAutomation.dll");
             config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
             config.Set("AlvasAudio.pdb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.pdb");
             config.Set("AlvasAudio.tlb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.tlb");
             config.Set("AlvasAudio.bat", @"${srcRoot}\config\chanmgr\AlvasAudio.bat");
+            config.Set("App_Code.compiled", @"${srcRoot}\App_Code.compiled");
+            config.Set("App_global.asax.compiled", @"${srcRoot}\App_global.asax.compiled");
+            config.Set("App_GlobalResources.compiled", @"${srcRoot}\App_GlobalResources.compiled");
             config.Set("audiocodesChannel.dll", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.dll");
             config.Set("audiocodesChannel.pdb", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.pdb");
             config.Set("AudioReader.dll", @"${srcRoot}\workdir\ChannelManager\AudioReader.dll");
@@ -80,13 +85,21 @@ namespace PatchTool
             config.Set("centricity.pdb", @"${srcRoot}\workdir\centricity\ET\bin\centricity.pdb");
             config.Set("Centricity_BLL.dll", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
             config.Set("Centricity_BLL.pdb", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.pdb");
+            config.Set("Centricity_BLL.XmlSerializers.dll", @"${srcRoot}\Centricity_BLL.XmlSerializers.dll");
             config.Set("Centricity_DAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.dll");
             config.Set("Centricity_DAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.pdb");
+            config.Set("Centricity_deploy.dll", @"${srcRoot}\Centricity_deploy.dll");
+            config.Set("Centricity_deploy.dll", @"${srcRoot}\Centricity_SCA.dll");
+            config.Set("Centricity_deploy.resources.dll_DE", @"${srcRoot}\bin\de\Centricity_deploy.resources.dll");
+            config.Set("Centricity_deploy.resources.dll_ES", @"${srcRoot}\bin\es\Centricity_deploy.resources.dll");
+            config.Set("Centricity_Shared.dll", @"${srcRoot}\Centricity_Shared.dll");
+            config.Set("Centricity_Shared.pdb", @"${srcRoot}\Centricity_Shared.pdb");
             config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
             config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
             config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
+            config.Set("ContactSources.properties", @"${srcRoot}\ContactSourceRunner\ContactSources.properties");
 
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("cstaLoader.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader.dll");
@@ -110,6 +123,7 @@ namespace PatchTool
             config.Set("ctcLoader_7_0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_7_0\Release\ctcLoader_7_0.pdb");
 
             config.Set("DBMigration_84SP9_To_10.sql", @"${srcRoot}\src\tools\DBMigration\v2\DBMigration_84SP9_To_10.sql");
+            config.Set("Default.aspx", @"${srcRoot}\Home\Send\Default.aspx");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
             config.Set("DemoModeChannel.dll", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.dll");
             config.Set("DemoModeChannel.pdb", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.pdb");
@@ -123,15 +137,18 @@ namespace PatchTool
             config.Set("DMCCWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.pdb");
             config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
             config.Set("EditEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx");
+            config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
+            config.Set("EnvisionControls.cab", @"${srcRoot}\WebServer\webapps\ET\ETReporting\EnvisionControls.cab");
+            config.Set("EnvisionServer.bat", @"${srcRoot}\EnvisionServer.bat");
             config.Set("EnvisionSR.bat", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
             config.Set("EnvisionSR.reg", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg");
-            config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
             config.Set("envision_schema.xml", @"${srcRoot}\config\server\envision_schema.xml");
             config.Set("envision_schema_central.xml", @"${srcRoot}\config\server\envision_schema_central.xml");
             config.Set("EnvisionTheme.css", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\EnvisionTheme.css");
             config.Set("ETContactSource.exe", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.exe");
             config.Set("ETContactSource.pdb", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb");
             config.Set("ETScheduleService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml");
+            config.Set("ETService.exe", @"${srcRoot}\ETService.exe");
             config.Set("GatewayLib.dll", @"${srcRoot}\workdir\SharedResources\GatewayLib.dll");
             config.Set("GatewayLib.pdb", @"${srcRoot}\workdir\SharedResources\GatewayLib.pdb");
             config.Set("GatewayLogging.xml", @"${srcRoot}\config\SIPGateway\GatewayLogging.xml");
@@ -140,10 +157,17 @@ namespace PatchTool
             config.Set("IPXChannel.dll", @"${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
             config.Set("IPXChannel.pdb", @"${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
             config.Set("log4net.dll", @"${srcRoot}\workdir\SharedResources\log4net.dll");
+            config.Set("jtapi.jar", @"${srcRoot}\JRE\lib\ext\jtapi.jar");
+            config.Set("JtapiItemService.xml", @"${srcRoot}\C2CServiceDescriptions\JtapiItemService.xml");
+            config.Set("jtracing.jar", @"${srcRoot}\JRE\lib\ext\jtracing.jar");
+            config.Set("log4j.properties.template", @"${srcRoot}\ContactSourceRunner\log4j.properties.template");
             config.Set("LumiSoft.Net.dll", @"${srcRoot}\workdir\SharedResources\LumiSoft.Net.dll");
             config.Set("LumiSoft.Net.pdb", @"${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb");
             config.Set("LumiSoft.Net.xml", @"${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml");
+            config.Set("manifest.xml", @"${srcRoot}\C2CServiceDescriptions\manifest.xml");
             config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            config.Set("MSSQLUpdate_build_10.1.2.0.xml", @"${srcRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml");
+            config.Set("nativeServiceWin32.dll", @"${srcRoot}\ContactSourceRunner\nativeServiceWin32.dll");
 
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("NetMerge.dll", @"${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
@@ -153,7 +177,7 @@ namespace PatchTool
             config.Set("RadEditor.skin", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
             config.Set("RAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
             config.Set("RAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\RAL.pdb");
-            config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
+            config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");  
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
             config.Set("server.dll", @"${srcRoot}\workdir\SharedResources\server.dll");
             config.Set("server.pdb", @"${srcRoot}\workdir\SharedResources\server.pdb");
@@ -163,6 +187,7 @@ namespace PatchTool
             config.Set("SIPChannelHpxMedia.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.pdb");
             config.Set("SIPConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll");
             config.Set("SIPConfigLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb");
+            config.Set("SIP_events.properties", @"${srcRoot}\ChannelManager\SIP_events.properties");
             config.Set("SIPGateway.exe", @"${srcRoot}\workdir\SIPGateway\SIPGateway.exe");
             config.Set("SIPGateway.exe.config", @"${srcRoot}\workdir\SIPGateway\SIPGateway.exe.config");
             config.Set("SIPGateway.pdb", @"${srcRoot}\workdir\SIPGateway\SIPGateway.pdb");
@@ -184,6 +209,8 @@ namespace PatchTool
             config.Set("Tsapi.pdb", @"${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb");
             
             config.Set("UninstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\UninstallSIPGateway.bat");
+            config.Set("updater.jar", @"${srcRoot}\JRE\lib\ext\updater.jar");
+            config.Set("web.config", @"${srcRoot}\web.config");
 
             // AVPlayer
             config.Set("AVPlayer.application", @"${srcRoot}\workdir\AVPlayer\AVPlayer.application");
