@@ -199,6 +199,7 @@ namespace PatchTool
             config.Set("SourceRunnerService.exe", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
             config.Set("SourceRunnerService.pdb", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb");
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
+            //config.Set("states.BIB.xml", @"{srcRoot}\config\chanmgr\states.BIB.xml");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("TeliaCallGuide.pdb", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
@@ -208,7 +209,7 @@ namespace PatchTool
             config.Set("Tsapi.pdb", @"${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb");
             
             config.Set("UninstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\UninstallSIPGateway.bat");
-            config.Set("web.config", @"${srcRoot}\src\clients\centricity\ET\web.config");
+            //config.Set("web.config", @"${srcRoot}\src\clients\centricity\ET\web.config");
 
             // AVPlayer
             config.Set("AVPlayer.application", @"${srcRoot}\workdir\AVPlayer\AVPlayer.application");
@@ -259,7 +260,7 @@ namespace PatchTool
 
                 string jtapi_jar = Path.Combine(ETSDK, @"cti_libs\jtapi\jtapi.jar");
                 config.Set("jtapi.jar", jtapi_jar);
-                string jtracing_jar = Path.Combine(ETSDK, @"cti_libs\jtapi\jtapi.jar");
+                string jtracing_jar = Path.Combine(ETSDK, @"cti_libs\jtapi\jtracing.jar");
                 config.Set("jtracing.jar", jtracing_jar);
                 string updater_jar = Path.Combine(ETSDK, @"cti_libs\jtapi\updater.jar");
                 config.Set("updater.jar", updater_jar);
@@ -359,7 +360,6 @@ namespace PatchTool
             server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
             server.Set("RAL.pdb", @"${serverRoot}\bin\RAL.pdb");
-            server.Set("SIP_events.properties", @"${serverRoot}\ChannelManager\SIP_events.properties");
             server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
             server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
             server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
@@ -423,6 +423,8 @@ namespace PatchTool
             cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
             cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
             cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
+            cm.Set("SIP_events.properties", @"${cmRoot}\ChannelManager\SIP_events.properties");
+            //cm.Set("states.BIB.xml", @"{cmRoot}\states.BIB.xml");
 
             // EnvisionSR
             cm.Set("EnvisionSR.bat", @"${cmRoot}\EnvisionSR\EnvisionSR.bat");
@@ -535,6 +537,7 @@ namespace PatchTool
                 else
                 {
                     string source = sourceConfig.Configs["Sources"].Get(key);
+                    //logger.Info(source);
                     string[] targets = targetConfig.Configs[appToPatch].Get(key).Split('|');
 
                     foreach (string t in targets)
