@@ -195,6 +195,10 @@ namespace PatchTool
             config.Set("SIPWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll");
             config.Set("SIPWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb");
             config.Set("SIPWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.tlb");
+            config.Set("SiteToGroupAgentMover.ascx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\SiteToGroupAgentMover.ascx");
+            config.Set("SiteToGroupAgentMover.ascx.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
+            config.Set("SiteToGroupAgentMover.ascx.de.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
+            config.Set("SiteToGroupAgentMover.ascx.es.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx");
             config.Set("sleep.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\sleep.exe");
             config.Set("SourceRunnerService.exe", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
             config.Set("SourceRunnerService.pdb", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb");
@@ -360,6 +364,11 @@ namespace PatchTool
             server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
             server.Set("RAL.pdb", @"${serverRoot}\bin\RAL.pdb");
+            server.Set("SIP_events.properties", @"${serverRoot}\ChannelManager\SIP_events.properties");
+            server.Set("SiteToGroupAgentMover.ascx", @"${serverRoot}\UserControls\Movers\SiteToGroupAgentMover.ascx");
+            server.Set("SiteToGroupAgentMover.ascx.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
+            server.Set("SiteToGroupAgentMover.ascx.de.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
+            server.Set("SiteToGroupAgentMover.ascx.es.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx");
             server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
             server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
             server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
@@ -375,6 +384,11 @@ namespace PatchTool
             server.Set("java.exe", @"${serverRoot}\LAA-BIN\java.exe");
             server.Set("javaw.exe", @"${serverRoot}\LAA-BIN\javaw.exe");
 
+            // AlvasAudio
+            server.Set("AlvasAudio.bat", @"${serverRoot}\AlvasAudio\AlvasAudio.bat");
+            server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio\AlvasAudio.dll");
+            server.Set("gacutil.exe", @"${serverRoot}\AlvasAudio\gacutil.exe");
+            server.Set("regasm.exe", @"${serverRoot}\AlvasAudio\regasm.exe");
 
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
@@ -451,6 +465,12 @@ namespace PatchTool
             cm.Set("SIPGateway.exe", @"${cmRoot}\SIPGateway\SIPGateway.exe");
             cm.Set("SIPGateway.exe.config", @"${cmRoot}\SIPGateway\SIPGateway.exe.config");
             cm.Set("SIPGateway.pdb", @"${cmRoot}\SIPGateway\SIPGateway.pdb");
+
+            // AlvasAudio
+            cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
+            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
+            cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
+            cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
 
 
             IConfig wmws = source.AddConfig("WMWrapperService");

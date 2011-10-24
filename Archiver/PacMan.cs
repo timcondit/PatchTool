@@ -25,7 +25,7 @@ namespace PatchTool
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
             IEnumerable<string> serverKeys = new List<string> {
                 "Administrator.exe", "AgentAutomation.dll",
-                "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
+                "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "ChannelBrokerService.xml", "CiscoICM.dll",
                 "CommonUpdates.xml", "ContactSources.properties",
                 "cstaLoader.dll", "cstaLoader.pdb",
@@ -46,6 +46,9 @@ namespace PatchTool
                 "nativeServiceWin32.dll",
                 "NetMerge.dll", "NetMerge.pdb",
                 "NewEvaluation.aspx", "RadEditor.skin",
+                "SIP_events.properties",
+                "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
+                "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
                 "SourceRunnerService.exe", "SourceRunnerService.pdb",
                 "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",
@@ -64,6 +67,10 @@ namespace PatchTool
 
                 // LAA-BIN
                 "dumpbin.exe", "EnvisionServer.exe", "java.exe", "javaw.exe",
+                
+                // for registering AlvasAudio.dll
+                "gacutil.exe", "regasm.exe",
+
             };
 
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
