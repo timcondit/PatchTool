@@ -376,8 +376,8 @@ namespace PatchTool
             server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
             server.Set("RAL.pdb", @"${serverRoot}\bin\RAL.pdb");
-            server.Set("server.dll", @"${serverRoot}\server.dll");
-            server.Set("server.pdb", @"${serverRoot}\server.pdb");
+            server.Set("server.dll", @"${serverRoot}\bin\server.dll");
+            server.Set("server.pdb", @"${serverRoot}\bin\server.pdb");
             server.Set("SIP_events.properties", @"${serverRoot}\ChannelManager\SIP_events.properties");
             server.Set("SiteToGroupAgentMover.ascx", @"${serverRoot}\UserControls\Movers\SiteToGroupAgentMover.ascx");
             server.Set("SiteToGroupAgentMover.ascx.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
