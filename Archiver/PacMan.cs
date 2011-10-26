@@ -27,6 +27,7 @@ namespace PatchTool
                 "Administrator.exe", "AgentAutomation.dll",
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "ChannelBrokerService.xml", "CiscoICM.dll",
+                "client.properties",
                 "CommonUpdates.xml", "ContactSources.properties",
                 "cstaLoader.dll", "cstaLoader.pdb",
                 "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll",
@@ -37,20 +38,24 @@ namespace PatchTool
                 "Default.aspx", "Envision.jar",
                 "EditEvaluation.aspx", "EnvisionTheme.css",
                 "envision_schema.xml", "envision_schema_central.xml",
-                "EnvisionControls.cab", "EnvisionServer.bat",
+                "EnvisionControls.cab",
+                "EnvisionServer.bat", "EnvisionServer.exe_1",
                 "ETContactSource.exe", "ETContactSource.pdb",
                 "ETScheduleService.xml", "ETService.exe",
                 "jtapi.jar", "JtapiItemService.xml", "jtracing.jar",
-                "log4j.properties.template", "manifest.xml",
+                "log4j.properties.template",
+                "manifest.xml", "manifest.xml_2",
                 "MSSQLUpdate_build_10.0.0303.1.xml", "MSSQLUpdate_build_10.1.2.0.xml",
                 "nativeServiceWin32.dll",
                 "NetMerge.dll", "NetMerge.pdb",
                 "NewEvaluation.aspx", "RadEditor.skin",
+                "server.dll", "server.pdb",
                 "SIP_events.properties",
                 "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
                 "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
                 "SourceRunnerService.exe", "SourceRunnerService.pdb",
                 "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
+                "TokenService.xml",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",
 
                 // Centricity
@@ -117,7 +122,7 @@ namespace PatchTool
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
             // for now.
             IEnumerable<string> wmwsKeys = new List<string> {
-                "DefaultEnvisionProfile.prx",
+                "DefaultEnvisionProfile.prx", "server.dll", "WMWrapperService.exe",
             };
 
             // This is where we specify which files go into the patch (CentricityWebApplications). It will be manually
