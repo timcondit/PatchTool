@@ -27,8 +27,8 @@ namespace PatchTool
                 "Administrator.exe", "AgentAutomation.dll",
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "ChannelBrokerService.xml", "CiscoICM.dll",
-                "client.properties",
-                "CommonUpdates.xml", "ContactSources.properties",
+                "client.properties", "CommonUpdates.xml",
+                "ContactSourceRunner.bat", "ContactSources.properties", 
                 "cstaLoader.dll", "cstaLoader.pdb",
                 "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll",
                 "cstaLoader_3_33.dll", "cstaLoader_6_4_3.dll",
@@ -85,7 +85,8 @@ namespace PatchTool
                 "audiocodesChannel.dll", "audiocodesChannel.pdb",
                 "AudioReader.dll", "AudioReader.pdb",
                 "AvayaVoipChannel.dll", "AvayaVoipChannel.pdb",
-                "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
+                "Chanmgr_common.xsd", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
+                "ChanMgrSvc.SIP.config", "ChannelManager.SIP.xml",
                 "DemoModeChannel.dll", "DemoModeChannel.pdb",
                 "DialogicChannel.dll", "DialogicChannel.pdb",
                 "DialogicChannel60.dll", "DialogicChannel60.pdb",
@@ -101,6 +102,7 @@ namespace PatchTool
                 "SIP_events.properties",
                 "SIPPhone.dll", "SIPPhone.pdb",
                 "SIPWrapperLib.dll", "SIPWrapperLib.pdb", "SIPWrapperLib.tlb",
+                "states.BIB.xml",
                 
                 // EnvisionSR
                 "EnvisionSR.bat", "EnvisionSR.reg", "instsrv.exe",

@@ -95,12 +95,16 @@ namespace PatchTool
             config.Set("Centricity_deploy.resources.dll_ES", @"${srcRoot}\workdir\centricity\ET\bin\es\Centricity_deploy.resources.dll");
             config.Set("Centricity_Shared.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.dll");
             config.Set("Centricity_Shared.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.pdb");
+            config.Set("Chanmgr_common.xsd", @"${srcRoot}\config\chanmgr\Chanmgr_common.xsd");
             config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
             config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
+            config.Set("ChanMgrSvc.SIP.config", @"${srcRoot}\config\chanmgr\ChanMgrSvc.SIP.config");
             config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
+            config.Set("ChannelManager.SIP.xml", @"${srcRoot}\config\chanmgr\ChannelManager.SIP.xml");
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             config.Set("client.properties", @"${srcRoot}\config\clients\client.properties");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
+            config.Set("ContactSourceRunner.bat", @"${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
             config.Set("ContactSources.properties", @"${srcRoot}\config\sourcerunnerservice\ContactSources.properties");
 
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
@@ -210,7 +214,7 @@ namespace PatchTool
             config.Set("SourceRunnerService.exe", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
             config.Set("SourceRunnerService.pdb", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb");
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
-            //config.Set("states.BIB.xml", @"{srcRoot}\config\chanmgr\states.BIB.xml");
+            config.Set("states.BIB.xml", @"{srcRoot}\config\chanmgr\states.BIB.xml");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("TeliaCallGuide.pdb", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
@@ -331,6 +335,7 @@ namespace PatchTool
             server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
             server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
+            server.Set("ContactSourceRunner.bat", @"${serverRoot}\ContactSourceRunner\ContactSourceRunner.bat");
             server.Set("ContactSources.properties", @"${serverRoot}\ContactSourceRunner\ContactSources.properties");
             server.Set("cstaLoader.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader.dll");
             server.Set("cstaLoader.pdb", @"${serverRoot}\ContactSourceRunner\cstaLoader.pdb");
@@ -418,8 +423,11 @@ namespace PatchTool
             cm.Set("AudioReader.pdb", @"${cmRoot}\AudioReader.pdb");
             cm.Set("AvayaVoipChannel.dll", @"${cmRoot}\AvayaVoipChannel.dll");
             cm.Set("AvayaVoipChannel.pdb", @"${cmRoot}\AvayaVoipChannel.pdb");
+            cm.Set("Chanmgr_common.xsd", @"${cmRoot}\Chanmgr_common.xsd");
             cm.Set("ChanMgrSvc.exe", @"${cmRoot}\ChanMgrSvc.exe");
             cm.Set("ChanMgrSvc.pdb", @"${cmRoot}\ChanMgrSvc.pdb");
+            cm.Set("ChanMgrSvc.SIP.config", @"${cmRoot}\ChanMgrSvc.SIP.config");
+            cm.Set("ChannelManager.SIP.xml", @"${cmRoot}\ChannelManager.SIP.xml");
             cm.Set("DemoModeChannel.dll", @"${cmRoot}\DemoModeChannel.dll");
             cm.Set("DemoModeChannel.pdb", @"${cmRoot}\DemoModeChannel.pdb");
             cm.Set("DialogicChannel.dll", @"${cmRoot}\DialogicChannel.dll");
@@ -453,7 +461,7 @@ namespace PatchTool
             cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
             cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
             cm.Set("SIP_events.properties", @"${cmRoot}\ChannelManager\SIP_events.properties");
-            //cm.Set("states.BIB.xml", @"{cmRoot}\states.BIB.xml");
+            cm.Set("states.BIB.xml", @"{cmRoot}\states.BIB.xml");
 
             // EnvisionSR
             cm.Set("EnvisionSR.bat", @"${cmRoot}\EnvisionSR\EnvisionSR.bat");
