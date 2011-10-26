@@ -178,12 +178,12 @@ namespace PatchTool
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("NetMerge.dll", @"${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
             config.Set("NetMerge.pdb", @"${srcRoot}\src\contactsources\netmerge\Release\NetMerge.pdb");
-            
+
             config.Set("NewEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx");
             config.Set("RadEditor.skin", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
             config.Set("RAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
             config.Set("RAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\RAL.pdb");
-            config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");  
+            config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
             config.Set("server.dll", @"${srcRoot}\workdir\SharedResources\server.dll");
             config.Set("server.pdb", @"${srcRoot}\workdir\SharedResources\server.pdb");
@@ -219,7 +219,7 @@ namespace PatchTool
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
             config.Set("Tsapi.pdb", @"${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb");
-            
+
             config.Set("UninstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\UninstallSIPGateway.bat");
             //config.Set("web.config", @"${srcRoot}\src\clients\centricity\ET\web.config");
             config.Set("WMWrapperService.exe", @"${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe");
@@ -887,7 +887,7 @@ namespace PatchTool
             Console.WriteLine();
         }
 
-        // 
+        //
         public IDictionary<string, string> getInstalledApps(IEnumerable<string> patchableApps)
         {
             IDictionary<string, string> installedApps = new Dictionary<string, string>();
