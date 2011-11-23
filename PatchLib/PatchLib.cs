@@ -139,6 +139,7 @@ namespace PatchTool
             config.Set("DialogicChannel60.pdb", @"${srcRoot}\workdir\ChannelManager\DialogicChannel60.pdb");
             config.Set("DMCCConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\DMCCConfigLib.dll");
             config.Set("DMCCConfigLib.pdb", @"${srcRoot}\workdir\ChannelManager\DMCCConfigLib.pdb");
+            config.Set("dmcc_devices.bat", @"${srcRoot}\src\tools\chanmgr\dmcc_devices.bat");
             config.Set("DMCCWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.dll");
             config.Set("DMCCWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.pdb");
             config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
@@ -436,6 +437,7 @@ namespace PatchTool
             cm.Set("DialogicChannel60.pdb", @"${cmRoot}\DialogicChannel60.pdb");
             cm.Set("DMCCConfigLib.dll", @"${cmRoot}\DMCCConfigLib.dll");
             cm.Set("DMCCConfigLib.pdb", @"${cmRoot}\DMCCConfigLib.pdb");
+            cm.Set("dmcc_devices.bat", @"${cmRoot}\dmcc_devices.bat");
             cm.Set("DMCCWrapperLib.dll", @"${cmRoot}\DMCCWrapperLib.dll");
             cm.Set("DMCCWrapperLib.pdb", @"${cmRoot}\DMCCWrapperLib.pdb");
             cm.Set("DMCCWrapperLib.tlb", @"${cmRoot}\DMCCWrapperLib.tlb");

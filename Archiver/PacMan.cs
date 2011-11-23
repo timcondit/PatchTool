@@ -91,6 +91,7 @@ namespace PatchTool
                 "DialogicChannel.dll", "DialogicChannel.pdb",
                 "DialogicChannel60.dll", "DialogicChannel60.pdb",
                 "DMCCConfigLib.dll", "DMCCConfigLib.pdb",
+                "dmcc_devices.bat",
                 "DMCCWrapperLib.dll", "DMCCWrapperLib.pdb", "DMCCWrapperLib.tlb", 
                 "IPXChannel.dll", "IPXChannel.pdb",
                 "LumiSoft.Net.dll", "LumiSoft.Net.pdb",
