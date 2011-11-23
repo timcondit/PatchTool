@@ -214,7 +214,7 @@ namespace PatchTool
             config.Set("SourceRunnerService.exe", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
             config.Set("SourceRunnerService.pdb", @"${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb");
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
-            config.Set("states.BIB.xml", @"{srcRoot}\config\chanmgr\states.BIB.xml");
+            config.Set("states.BIB.xml", @"${srcRoot}\config\chanmgr\states.BIB.xml");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("TeliaCallGuide.pdb", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
@@ -460,8 +460,8 @@ namespace PatchTool
             cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
             cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
             cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
-            cm.Set("SIP_events.properties", @"${cmRoot}\ChannelManager\SIP_events.properties");
-            cm.Set("states.BIB.xml", @"{cmRoot}\states.BIB.xml");
+            cm.Set("SIP_events.properties", @"${cmRoot}\SIP_events.properties");
+            cm.Set("states.BIB.xml", @"${cmRoot}\states.BIB.xml");
 
             // EnvisionSR
             cm.Set("EnvisionSR.bat", @"${cmRoot}\EnvisionSR\EnvisionSR.bat");
