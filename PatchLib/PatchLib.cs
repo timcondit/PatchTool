@@ -444,8 +444,6 @@ namespace PatchTool
             cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
             cm.Set("IPXChannel.dll", @"${cmRoot}\IPXChannel.dll");
             cm.Set("IPXChannel.pdb", @"${cmRoot}\IPXChannel.pdb");
-            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll");
-            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb");
             cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
             cm.Set("RtpTransmitter.dll", @"${cmRoot}\RtpTransmitter.dll");
             cm.Set("RtpTransmitter.pdb", @"${cmRoot}\RtpTransmitter.pdb");
@@ -480,9 +478,9 @@ namespace PatchTool
             cm.Set("InstallSIPGateway.bat", @"${cmRoot}\SIPGateway\InstallSIPGateway.bat");
             cm.Set("UninstallSIPGateway.bat", @"${cmRoot}\SIPGateway\UninstallSIPGateway.bat");
             cm.Set("InstallUtil.exe", @"${cmRoot}\SIPGateway\InstallUtil.exe");
-            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\SIPGateway\LumiSoft.Net.dll");
-            cm.Set("LumiSoft.Net.xml", @"${cmRoot}\SIPGateway\LumiSoft.Net.xml");
-            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
+            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll|${cmRoot}\SIPGateway\LumiSoft.Net.dll");
+            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb|${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
+            cm.Set("LumiSoft.Net.xml", @"${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
             cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
             cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
