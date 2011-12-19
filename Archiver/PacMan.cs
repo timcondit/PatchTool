@@ -115,6 +115,7 @@ namespace PatchTool
                 "log4net.dll",
                 "sc.exe", "server.dll", "server.pdb",
                 "SIPGateway.exe", "SIPGateway.exe.config", "SIPGateway.pdb",
+                "SIPWrapperLogging.xml",
                 "UninstallSIPGateway.bat",
 
                 // for registering AlvasAudio.dll
