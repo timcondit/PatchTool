@@ -194,8 +194,6 @@ namespace PatchTool
             config.Set("server.pdb", @"${srcRoot}\workdir\SharedResources\server.pdb");
             config.Set("SIPChannel.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannel.dll");
             config.Set("SIPChannel.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannel.pdb");
-            config.Set("SIPChannelHpxMedia.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.dll");
-            config.Set("SIPChannelHpxMedia.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.pdb");
             config.Set("SIPConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll");
             config.Set("SIPConfigLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb");
             config.Set("SIP_events.properties", @"${srcRoot}\config\chanmgr\SIP_events.properties");
@@ -452,8 +450,6 @@ namespace PatchTool
             cm.Set("server.pdb", @"${cmRoot}\server.pdb");
             cm.Set("SIPChannel.dll", @"${cmRoot}\SIPChannel.dll");
             cm.Set("SIPChannel.pdb", @"${cmRoot}\SIPChannel.pdb");
-            cm.Set("SIPChannelHpxMedia.dll", @"${cmRoot}\SIPChannelHpxMedia.dll");
-            cm.Set("SIPChannelHpxMedia.pdb", @"${cmRoot}\SIPChannelHpxMedia.pdb");
             cm.Set("SIPConfigLib.dll", @"${cmRoot}\SIPConfigLib.dll");
             cm.Set("SIPConfigLib.pdb", @"${cmRoot}\SIPConfigLib.pdb");
             cm.Set("SIPPhone.dll", @"${cmRoot}\SIPPhone.dll");

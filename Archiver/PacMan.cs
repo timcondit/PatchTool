@@ -98,7 +98,6 @@ namespace PatchTool
                 "RtpTransmitter.dll", "RtpTransmitter.pdb",
                 "server.dll", "server.pdb",
                 "SIPChannel.dll", "SIPChannel.pdb",
-                "SIPChannelHpxMedia.dll", "SIPChannelHpxMedia.pdb",
                 "SIPConfigLib.dll", "SIPConfigLib.pdb",
                 "SIP_events.properties",
                 "SIPPhone.dll", "SIPPhone.pdb",
