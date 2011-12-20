@@ -1,0 +1,1375 @@
+<files>
+    <file source=>
+        <destination>
+
+        </destination>
+    </file>
+</files>
+
+
+    <file source="${srcRoot}\src\clients\admin\Administrator\Release\Administrator.exe">
+        <destination>
+            "${serverRoot}\Administrator.exe"
+        </destination>
+    </file>
+    <file source="${srcRoot}\src\apis\automationapi\Release\AgentAutomation.dll">
+        <destination>
+            "${serverRoot}\AgentAutomation.dll"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy">
+        <destination>
+            "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy"
+        </destination>
+    </file>
+    <file source="${srcRoot}\config\chanmgr\AlvasAudio.bat">
+        <destination>
+            "${serverRoot}\AlvasAudio\AlvasAudio.bat"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\AlvasAudio.bat"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\AlvasAudio.bat"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\SharedResources\AlvasAudio.dll">
+        <destination>
+            "${serverRoot}\AlvasAudio\AlvasAudio.dll"
+        </destination>
+        <destination>
+            "${serverRoot}\AlvasAudio.dll"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\AlvasAudio.dll"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\AlvasAudio.dll"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\SharedResources\AlvasAudio.pdb");>
+        <destination>
+            "${serverRoot}\AlvasAudio.pdb"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio.pdb"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\SharedResources\AlvasAudio.tlb");>
+        <destination>
+            "${serverRoot}\AlvasAudio.tlb"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio.tlb"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\centricity\ET\bin\App_Code.compiled");>
+        <destination>
+            "${serverRoot}\bin\App_Code.compiled"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\centricity\ET\bin\App_global.asax.compiled");>
+        <destination>
+            "${serverRoot}\bin\App_global.asax.compiled"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\centricity\ET\bin\App_GlobalResources.compiled");>
+        <destination>
+            "${serverRoot}\bin\App_GlobalResources.compiled"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\ChannelManager\audiocodesChannel.dll");>
+        <destination>
+            "${cmRoot}\audiocodesChannel.dll"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\ChannelManager\audiocodesChannel.pdb");>
+        <destination>
+            "${cmRoot}\audiocodesChannel.pdb"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\ChannelManager\AudioReader.dll");>
+        <destination>
+            "${cmRoot}\AudioReader.dll"
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\ChannelManager\AudioReader.pdb");>
+        <destination>
+            "${cmRoot}\AudioReader.pdb"
+        </destination>
+    </file>
+
+    <file source="${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.dll");>
+        <destination>
+
+            config.Set("AvayaVoipChannel.dll", 
+            cm.Set("AvayaVoipChannel.dll", "${cmRoot}\AvayaVoipChannel.dll");
+
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\ChannelManager\AvayaVoipChannel.pdb");>
+        <destination>
+
+            config.Set("AvayaVoipChannel.pdb", 
+            cm.Set("AvayaVoipChannel.pdb", "${cmRoot}\AvayaVoipChannel.pdb");
+
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\AVPlayer\AVPlayer.application");>
+        <destination>
+
+            config.Set("AVPlayer.application", 
+            webapps.Set("AVPlayer.application", "${webappsRoot}\AVPlayer\AVPlayer.application");
+
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");>
+        <destination>
+
+            config.Set("AVPlayer.exe.config.deploy", 
+            webapps.Set("AVPlayer.exe.config.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
+
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");>
+        <destination>
+
+            config.Set("AVPlayer.exe.deploy", 
+            webapps.Set("AVPlayer.exe.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
+
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");>
+        <destination>
+
+            config.Set("AVPlayer.exe.manifest", 
+            webapps.Set("AVPlayer.exe.manifest", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
+
+        </destination>
+    </file>
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");>
+        <destination>
+
+            config.Set("AVPlayer.resources.dll.deploy", 
+            webapps.Set("AVPlayer.resources.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("AVPlayer.resources.dll.deploy_1", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+            webapps.Set("AVPlayer.resources.dll.deploy_1", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("AVPlayerIcon.ico.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
+            webapps.Set("AVPlayerIcon.ico.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("centricity.dll", "${srcRoot}\workdir\centricity\ET\bin\centricity.dll");
+            server.Set("centricity.dll", "${serverRoot}\bin\centricity.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("centricity.pdb", "${srcRoot}\workdir\centricity\ET\bin\centricity.pdb");
+            server.Set("centricity.pdb", "${serverRoot}\bin\centricity.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CentricityApp.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
+            webapps.Set("CentricityApp.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CentricityApp.dll.deploy_1", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+            webapps.Set("CentricityApp.dll.deploy_1", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CentricityApp.resources.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CentricityApp.resources.dll.deploy_2", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_2", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CentricityApp.resources.dll.deploy_1", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_1", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CentricityApp.resources.dll.deploy_3", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_3", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_BLL.dll", "${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
+            server.Set("Centricity_BLL.dll", "${serverRoot}\bin\Centricity_BLL.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_BLL.pdb", "${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.pdb");
+            server.Set("Centricity_BLL.pdb", "${serverRoot}\bin\Centricity_BLL.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_BLL.XmlSerializers.dll", "${srcRoot}\workdir\centricity\ET\bin\Centricity_BLL.XmlSerializers.dll");
+            server.Set("Centricity_BLL.XmlSerializers.dll", "${serverRoot}\bin\Centricity_BLL.XmlSerializers.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_DAL.dll", "${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.dll");
+            server.Set("Centricity_DAL.dll", "${serverRoot}\bin\Centricity_DAL.dll");
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+
+            config.Set("Centricity_DAL.pdb", "${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.pdb");
+            server.Set("Centricity_DAL.pdb", "${serverRoot}\bin\Centricity_DAL.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            // what's going on with this pair?  (de, de-DE)
+            config.Set("Centricity_deploy.resources.dll_DE", "${srcRoot}\workdir\centricity\ET\bin\de\Centricity_deploy.resources.dll");
+            server.Set("Centricity_deploy.resources.dll_DE", "${serverRoot}\bin\de\Centricity_deploy.resources.dll");
+            config.Set("Centricity_deploy.resources.dll_DE_1", "${srcRoot}\workdir\centricity\ET\bin\de-DE\Centricity_deploy.resources.dll");
+            server.Set("Centricity_deploy.resources.dll_DE_1", "${serverRoot}\bin\de-DE\Centricity_deploy.resources.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_deploy.resources.dll_ES", "${srcRoot}\workdir\centricity\ET\bin\es\Centricity_deploy.resources.dll");
+            server.Set("Centricity_deploy.resources.dll_ES", "${serverRoot}\bin\es\Centricity_deploy.resources.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_deploy.dll", "${srcRoot}\workdir\centricity\ET\bin\Centricity_deploy.dll");
+            server.Set("Centricity_deploy.dll", "${serverRoot}\Centricity_deploy.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_SCA.dll", "${srcRoot}\workdir\centricity\ET\bin\Centricity_SCA.dll");
+            server.Set("Centricity_SCA.dll", "${serverRoot}\bin\Centricity_SCA.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_Shared.dll", "${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.dll");
+            server.Set("Centricity_Shared.dll", "${serverRoot}\bin\Centricity_Shared.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Centricity_Shared.pdb", "${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.pdb");
+            server.Set("Centricity_Shared.pdb", "${serverRoot}\Centricity_Shared.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ChanMgrSvc.exe", "${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
+            cm.Set("ChanMgrSvc.exe", "${cmRoot}\ChanMgrSvc.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ChanMgrSvc.pdb", "${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
+            cm.Set("ChanMgrSvc.pdb", "${cmRoot}\ChanMgrSvc.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ChanMgrSvc.SIP.config", "${srcRoot}\config\chanmgr\ChanMgrSvc.SIP.config");
+            cm.Set("ChanMgrSvc.SIP.config", "${cmRoot}\ChanMgrSvc.SIP.config");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Chanmgr_common.xsd", "${srcRoot}\config\chanmgr\Chanmgr_common.xsd");
+            cm.Set("Chanmgr_common.xsd", "${cmRoot}\Chanmgr_common.xsd");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ChannelBrokerService.xml", "${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
+            server.Set("ChannelBrokerService.xml", "${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ChannelManager.SIP.xml", "${srcRoot}\config\chanmgr\ChannelManager.SIP.xml");
+            cm.Set("ChannelManager.SIP.xml", "${cmRoot}\ChannelManager.SIP.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CiscoICM.dll", "${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
+            server.Set("CiscoICM.dll", "${serverRoot}\ContactSourceRunner\CiscoICM.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("CommonUpdates.xml", "${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
+            server.Set("CommonUpdates.xml", "${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ContactSourceRunner.bat", "${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
+            server.Set("ContactSourceRunner.bat", "${serverRoot}\ContactSourceRunner\ContactSourceRunner.bat");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ContactSources.properties", "${srcRoot}\config\sourcerunnerservice\ContactSources.properties");
+            server.Set("ContactSources.properties", "${serverRoot}\ContactSourceRunner\ContactSources.properties");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader.dll");
+            server.Set("cstaLoader.dll", "${serverRoot}\ContactSourceRunner\cstaLoader.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader.pdb", "${srcRoot}\src\contactsources\tsapi\cstaLoader\Release\cstaLoader.pdb");
+            server.Set("cstaLoader.pdb", "${serverRoot}\ContactSourceRunner\cstaLoader.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader_1_2.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_2.dll");
+            server.Set("cstaLoader_1_2.dll", "${serverRoot}\ContactSourceRunner\cstaLoader_1_2.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader_1_3_3.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader_1_3_3.dll");
+            server.Set("cstaLoader_1_3_3.dll", "${serverRoot}\ContactSourceRunner\cstaLoader_1_3_3.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader_3_33.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader_3_33.dll");
+            server.Set("cstaLoader_3_33.dll", "${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader_6_4_3.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader_6_4_3.dll");
+            server.Set("cstaLoader_6_4_3.dll", "${serverRoot}\ContactSourceRunner\cstaLoader_6_4_3.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader_9_1.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_1.dll");
+            server.Set("cstaLoader_9_1.dll", "${serverRoot}\ContactSourceRunner\cstaLoader_9_1.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("cstaLoader_9_5.dll", "${srcRoot}\workdir\ContactSourceRunner\cstaLoader_9_5.dll");
+            server.Set("cstaLoader_9_5.dll", "${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ctcLoader_6.0.dll", "${srcRoot}\workdir\ContactSourceRunner\ctcLoader_6.0.dll");
+            server.Set("ctcLoader_6.0.dll", "${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ctcLoader_6_0.pdb", "${srcRoot}\src\contactsources\netmerge\ctcLoader_6_0\Release\ctcLoader_6_0.pdb");
+            server.Set("ctcLoader_6_0.pdb", "${serverRoot}\ContactSourceRunner\ctcLoader_6_0.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ctcLoader_7.0.dll", "${srcRoot}\workdir\ContactSourceRunner\ctcLoader_7.0.dll");
+            server.Set("ctcLoader_7.0.dll", "${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ctcLoader_7_0.pdb", "${srcRoot}\src\contactsources\netmerge\ctcLoader_7_0\Release\ctcLoader_7_0.pdb");
+            server.Set("ctcLoader_7_0.pdb", "${serverRoot}\ContactSourceRunner\ctcLoader_7_0.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("client.properties", "${srcRoot}\config\clients\client.properties");
+            server.Set("client.properties", "${serverRoot}\client.properties");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DBMigration_84SP9_To_10.sql", "${srcRoot}\src\tools\DBMigration\v2\DBMigration_84SP9_To_10.sql");
+            tools.Set("DBMigration_84SP9_To_10.sql", "${toolsRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Default.aspx", "${srcRoot}\workdir\centricity\ET\Home\Send\Default.aspx");
+            server.Set("Default.aspx", "${serverRoot}\Home\Send\Default.aspx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DefaultEnvisionProfile.prx", "${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
+            wmws.Set("DefaultEnvisionProfile.prx", "${wmwsRoot}\DefaultEnvisionProfile.prx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DemoModeChannel.dll", "${srcRoot}\workdir\ChannelManager\DemoModeChannel.dll");
+            cm.Set("DemoModeChannel.dll", "${cmRoot}\DemoModeChannel.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DemoModeChannel.pdb", "${srcRoot}\workdir\ChannelManager\DemoModeChannel.pdb");
+            cm.Set("DemoModeChannel.pdb", "${cmRoot}\DemoModeChannel.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DialogicChannel.dll", "${srcRoot}\workdir\ChannelManager\DialogicChannel.dll");
+            cm.Set("DialogicChannel.dll", "${cmRoot}\DialogicChannel.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DialogicChannel.pdb", "${srcRoot}\workdir\ChannelManager\DialogicChannel.pdb");
+            cm.Set("DialogicChannel.pdb", "${cmRoot}\DialogicChannel.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DialogicChannel60.dll", "${srcRoot}\workdir\ChannelManager\DialogicChannel60.dll");
+            cm.Set("DialogicChannel60.dll", "${cmRoot}\DialogicChannel60.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DialogicChannel60.pdb", "${srcRoot}\workdir\ChannelManager\DialogicChannel60.pdb");
+            cm.Set("DialogicChannel60.pdb", "${cmRoot}\DialogicChannel60.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DMCCConfigLib.dll", "${srcRoot}\workdir\ChannelManager\DMCCConfigLib.dll");
+            cm.Set("DMCCConfigLib.dll", "${cmRoot}\DMCCConfigLib.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DMCCConfigLib.pdb", "${srcRoot}\workdir\ChannelManager\DMCCConfigLib.pdb");
+            cm.Set("DMCCConfigLib.pdb", "${cmRoot}\DMCCConfigLib.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DMCCWrapperLib.dll", "${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.dll");
+            cm.Set("DMCCWrapperLib.dll", "${cmRoot}\DMCCWrapperLib.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DMCCWrapperLib.pdb", "${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.pdb");
+            cm.Set("DMCCWrapperLib.pdb", "${cmRoot}\DMCCWrapperLib.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("DMCCWrapperLib.tlb", "${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
+            cm.Set("DMCCWrapperLib.tlb", "${cmRoot}\DMCCWrapperLib.tlb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("dmcc_devices.bat", "${srcRoot}\src\tools\chanmgr\dmcc_devices.bat");
+            cm.Set("dmcc_devices.bat", "${cmRoot}\dmcc_devices.bat");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("dumpbin.exe", Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\dumpbin.exe"));
+            server.Set("dumpbin.exe", "${serverRoot}\LAA-BIN\dumpbin.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EditEvaluation.aspx", "${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx");
+            server.Set("EditEvaluation.aspx", "${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Envision.jar", "${srcRoot}\Release\Envision.jar");
+                server.Set("Envision.jar", "${serverRoot}\Envision.jar");
+                server.Set("Envision.jar", "${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar");
+                server.Set("Envision.jar", "${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionSR.bat", "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
+            cm.Set("EnvisionSR.bat", "${cmRoot}\EnvisionSR\EnvisionSR.bat");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionSR.reg", "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg");
+            cm.Set("EnvisionSR.reg", "${cmRoot}\EnvisionSR\EnvisionSR.reg");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("envision_schema.xml", "${srcRoot}\config\server\envision_schema.xml");
+            server.Set("envision_schema.xml", "${serverRoot}\envision_schema.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("envision_schema_central.xml", "${srcRoot}\config\server\envision_schema_central.xml");
+            server.Set("envision_schema_central.xml", "${serverRoot}\envision_schema_central.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionControls.cab", "${srcRoot}\setup\Signature\EnvisionControls.cab");
+            server.Set("EnvisionControls.cab", "${serverRoot}\WebServer\webapps\ET\ETReporting\EnvisionControls.cab");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionServer.bat", "${srcRoot}\config\server\EnvisionServer.bat");
+            server.Set("EnvisionServer.bat", "${serverRoot}\EnvisionServer.bat");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionServer.exe", Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\EnvisionServer.exe"));
+            server.Set("EnvisionServer.exe", "${serverRoot}\LAA-BIN\EnvisionServer.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionServer.exe_1", "${srcRoot}\workdir\etservice\EnvisionServer.exe");
+            server.Set("EnvisionServer.exe_1", "${serverRoot}\EnvisionServer.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("EnvisionTheme.css", "${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\EnvisionTheme.css");
+            server.Set("EnvisionTheme.css", "${serverRoot}\App_Themes\EnvisionTheme\EnvisionTheme.css");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ETContactSource.exe", "${srcRoot}\workdir\ContactSourceRunner\ETContactSource.exe");
+            server.Set("ETContactSource.exe", "${serverRoot}\ContactSourceRunner\ETContactSource.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ETContactSource.pdb", "${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb");
+            server.Set("ETContactSource.pdb", "${serverRoot}\ContactSourceRunner\ETContactSource.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ETScheduleService.xml", "${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml");
+            server.Set("ETScheduleService.xml", "${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ETService.exe", "${srcRoot}\workdir\etservice\ETService.exe");
+            server.Set("ETService.exe", "${serverRoot}\ETService.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("gacutil.exe", Path.Combine(ETSDK, "Microsoft.NET\v3.5\gacutil.exe"));
+                server.Set("gacutil.exe", "${serverRoot}\AlvasAudio\gacutil.exe");
+                cm.Set("gacutil.exe", "${cmRoot}\AlvasAudio\gacutil.exe");
+                cm.Set("gacutil.exe", "${cmRoot}\AlvasAudio\gacutil.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("hasp_windows.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+            webapps.Set("hasp_windows.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("InstallUtil.exe", Path.Combine(ETSDK, "Microsoft.NET\v2.0\InstallUtil.exe"));
+            cm.Set("InstallUtil.exe", "${cmRoot}\SIPGateway\InstallUtil.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Interop.WMPLib.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            webapps.Set("Interop.WMPLib.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("instsrv.exe", "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
+            cm.Set("instsrv.exe", "${cmRoot}\EnvisionSR\instsrv.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("IPXChannel.dll", "${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
+            cm.Set("IPXChannel.dll", "${cmRoot}\IPXChannel.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("IPXChannel.pdb", "${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
+            cm.Set("IPXChannel.pdb", "${cmRoot}\IPXChannel.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("ISource.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+            webapps.Set("ISource.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("java.exe", Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\java.exe"));
+            server.Set("java.exe", "${serverRoot}\LAA-BIN\java.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("javaw.exe", Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\javaw.exe"));
+            server.Set("javaw.exe", "${serverRoot}\LAA-BIN\javaw.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("jtapi.jar", Path.Combine(ETSDK, "cti_libs\jtapi\jtapi.jar"));
+            server.Set("jtapi.jar", "${serverRoot}\JRE\lib\ext\jtapi.jar");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("JtapiItemService.xml", "${srcRoot}\config\server\C2CServiceDescriptions\JtapiItemService.xml");
+            server.Set("JtapiItemService.xml", "${serverRoot}\C2CServiceDescriptions\JtapiItemService.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("jtracing.jar", Path.Combine(ETSDK, "cti_libs\jtapi\jtracing.jar"));
+            server.Set("jtracing.jar", "${serverRoot}\JRE\lib\ext\jtracing.jar");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("log4j.properties.template", "${srcRoot}\config\sourcerunnerservice\log4j.properties.template");
+            server.Set("log4j.properties.template", "${serverRoot}\ContactSourceRunner\log4j.properties.template");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("log4net.dll", "${srcRoot}\workdir\SharedResources\log4net.dll");
+            cm.Set("log4net.dll", "${cmRoot}\SIPGateway\log4net.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("log4net.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("log4net.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("log4net.dll.deploy_1", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("log4net.dll.deploy_1", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("LumiSoft.Net.dll", "${srcRoot}\workdir\SharedResources\LumiSoft.Net.dll");
+            cm.Set("LumiSoft.Net.dll", "${cmRoot}\LumiSoft.Net.dll|${cmRoot}\SIPGateway\LumiSoft.Net.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("LumiSoft.Net.pdb", "${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb");
+            cm.Set("LumiSoft.Net.pdb", "${cmRoot}\LumiSoft.Net.pdb|${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("LumiSoft.Net.xml", "${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml");
+            cm.Set("LumiSoft.Net.xml", "${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("nativeServiceWin32.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+            webapps.Set("nativeServiceWin32.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("manifest.xml", "${srcRoot}\config\server\ArchitectureServiceDescriptions\manifest.xml");
+            server.Set("manifest.xml", "${serverRoot}\ArchitectureServiceDescriptions\manifest.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("manifest.xml_2", "${srcRoot}\config\server\C2CServiceDescriptions\manifest.xml");
+            server.Set("manifest.xml_2", "${serverRoot}\C2CServiceDescriptions\manifest.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("MSSQLUpdate_build_10.0.0303.1.xml", "${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            server.Set("MSSQLUpdate_build_10.0.0303.1.xml", "${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("MSSQLUpdate_build_10.1.2.0.xml", "${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml");
+            server.Set("MSSQLUpdate_build_10.1.2.0.xml", "${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("nativeServiceWin32.dll", "${srcRoot}\workdir\server\nativeServiceWin32.dll");
+            server.Set("nativeServiceWin32.dll", "${serverRoot}\nativeServiceWin32.dll|${serverRoot}\ContactSourceRunner\nativeServiceWin32.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("NetMerge.dll", "${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll");
+            server.Set("NetMerge.dll", "${serverRoot}\ContactSourceRunner\NetMerge.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("NetMerge.pdb", "${srcRoot}\src\contactsources\netmerge\Release\NetMerge.pdb");
+            server.Set("NetMerge.pdb", "${serverRoot}\ContactSourceRunner\NetMerge.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("NewEvaluation.aspx", "${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx");
+            server.Set("NewEvaluation.aspx", "${serverRoot}\PerformanceManagement\Evaluations\NewEvaluation.aspx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RadEditor.skin", "${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
+            server.Set("RadEditor.skin", "${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RAL.dll", "${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
+            server.Set("RAL.dll", "${serverRoot}\bin\RAL.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RAL.pdb", "${srcRoot}\workdir\centricity\ET\bin\RAL.pdb");
+            server.Set("RAL.pdb", "${serverRoot}\bin\RAL.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RecordingDownloadTool.application", "${srcRoot}\workdir\RecordingDownloadTool\RecordingDownloadTool.application");
+            webapps.Set("RecordingDownloadTool.application", "${webappsRoot}\RecordingDownloadTool\RecordingDownloadTool.application");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RecordingDownloadTool.exe.config.deploy", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
+            webapps.Set("RecordingDownloadTool.exe.config.deploy", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RecordingDownloadTool.exe.deploy", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
+            webapps.Set("RecordingDownloadTool.exe.deploy", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RecordingDownloadTool.exe.manifest", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
+            webapps.Set("RecordingDownloadTool.exe.manifest", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RecordingDownloadTool.resources.dll.deploy", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+            webapps.Set("RecordingDownloadTool.resources.dll.deploy", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RecordingDownloadTool.resources.dll.deploy_1", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
+            webapps.Set("RecordingDownloadTool.resources.dll.deploy_1", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("regasm.exe", Path.Combine(ETSDK, "Microsoft.NET\v2.0\regasm.exe"));
+                server.Set("regasm.exe", "${serverRoot}\AlvasAudio\regasm.exe");
+                cm.Set("regasm.exe", "${cmRoot}\AlvasAudio\regasm.exe");
+                cm.Set("regasm.exe", "${cmRoot}\AlvasAudio\regasm.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RtpTransmitter.dll", "${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
+            cm.Set("RtpTransmitter.dll", "${cmRoot}\RtpTransmitter.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("RtpTransmitter.pdb", "${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
+            cm.Set("RtpTransmitter.pdb", "${cmRoot}\RtpTransmitter.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("sc.exe", Path.Combine(ETSDK, "Microsoft\sc.exe"));
+            cm.Set("sc.exe", "${cmRoot}\SIPGateway\sc.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("server.dll", "${srcRoot}\workdir\SharedResources\server.dll");
+                server.Set("server.dll", "${serverRoot}\bin\server.dll");
+                cm.Set("server.dll", "${cmRoot}\server.dll");
+                cm.Set("server.dll", "${cmRoot}\SIPGateway\server.dll");
+                wmws.Set("server.dll", "${wmwsRoot}\server.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("server.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            webapps.Set("server.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("server.dll.deploy_1", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
+            webapps.Set("server.dll.deploy_1", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("server.pdb", "${srcRoot}\workdir\SharedResources\server.pdb");
+                server.Set("server.pdb", "${serverRoot}\bin\server.pdb");
+                cm.Set("server.pdb", "${cmRoot}\server.pdb");
+                cm.Set("server.pdb", "${cmRoot}\SIPGateway\server.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SharedResources.dll.deploy", "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+            webapps.Set("SharedResources.dll.deploy", "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPChannel.dll", "${srcRoot}\workdir\ChannelManager\SIPChannel.dll");
+            cm.Set("SIPChannel.dll", "${cmRoot}\SIPChannel.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPChannel.pdb", "${srcRoot}\workdir\ChannelManager\SIPChannel.pdb");
+            cm.Set("SIPChannel.pdb", "${cmRoot}\SIPChannel.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPConfigLib.dll", "${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll");
+            cm.Set("SIPConfigLib.dll", "${cmRoot}\SIPConfigLib.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPConfigLib.pdb", "${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb");
+            cm.Set("SIPConfigLib.pdb", "${cmRoot}\SIPConfigLib.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPPhone.dll", "${srcRoot}\workdir\ChannelManager\SIPPhone.dll");
+            cm.Set("SIPPhone.dll", "${cmRoot}\SIPPhone.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPPhone.pdb", "${srcRoot}\workdir\ChannelManager\SIPPhone.pdb");
+            cm.Set("SIPPhone.pdb", "${cmRoot}\SIPPhone.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPWrapperLib.dll", "${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll");
+            cm.Set("SIPWrapperLib.dll", "${cmRoot}\SIPWrapperLib.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPWrapperLib.pdb", "${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb");
+            cm.Set("SIPWrapperLib.pdb", "${cmRoot}\SIPWrapperLib.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIPWrapperLogging.xml", "${srcRoot}\config\chanmgr\SIPWrapperLogging.xml");
+            cm.Set("SIPWrapperLogging.xml", "${cmRoot}\SIPWrapperLogging.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SIP_events.properties", "${srcRoot}\config\chanmgr\SIP_events.properties");
+                server.Set("SIP_events.properties", "${serverRoot}\ChannelManager\SIP_events.properties");
+                cm.Set("SIP_events.properties", "${cmRoot}\SIP_events.properties");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SiteToGroupAgentMover.ascx", "${srcRoot}\workdir\centricity\ET\UserControls\Movers\SiteToGroupAgentMover.ascx");
+            server.Set("SiteToGroupAgentMover.ascx", "${serverRoot}\UserControls\Movers\SiteToGroupAgentMover.ascx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SiteToGroupAgentMover.ascx.resx", "${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
+            server.Set("SiteToGroupAgentMover.ascx.resx", "${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SiteToGroupAgentMover.ascx.de.resx", "${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
+            server.Set("SiteToGroupAgentMover.ascx.de.resx", "${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SiteToGroupAgentMover.ascx.es.resx", "${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx");
+            server.Set("SiteToGroupAgentMover.ascx.es.resx", "${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("sleep.exe", "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\sleep.exe");
+            cm.Set("sleep.exe", "${cmRoot}\EnvisionSR\sleep.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SourceRunnerService.exe", "${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe");
+            server.Set("SourceRunnerService.exe", "${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("SourceRunnerService.pdb", "${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb");
+            server.Set("SourceRunnerService.pdb", "${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("sox.exe.deploy", "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+            webapps.Set("sox.exe.deploy", "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("srvany.exe", "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
+            cm.Set("srvany.exe", "${cmRoot}\EnvisionSR\srvany.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("states.BIB.xml", "${srcRoot}\config\chanmgr\states.BIB.xml");
+            cm.Set("states.BIB.xml", "${cmRoot}\states.BIB.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("svcmgr.exe", "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
+            cm.Set("svcmgr.exe", "${cmRoot}\EnvisionSR\svcmgr.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("TeliaCallGuide.dll", "${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
+            server.Set("TeliaCallGuide.dll", "${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("TeliaCallGuide.pdb", "${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
+            server.Set("TeliaCallGuide.pdb", "${serverRoot}\ContactSourceRunner\TeliaCallGuide.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("TokenService.xml", "${srcRoot}\config\server\ArchitectureServiceDescriptions\TokenService.xml");
+            server.Set("TokenService.xml", "${serverRoot}\ArchitectureServiceDescriptions\TokenService.xml");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Tsapi.dll", "${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
+            server.Set("Tsapi.dll", "${serverRoot}\ContactSourceRunner\Tsapi.dll");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("Tsapi.pdb", "${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb");
+            server.Set("Tsapi.pdb", "${serverRoot}\ContactSourceRunner\Tsapi.pdb");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("updater.jar", Path.Combine(ETSDK, "cti_libs\jtapi\updater.jar"));
+            server.Set("updater.jar", "${serverRoot}\JRE\lib\ext\updater.jar");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
+            config.Set("WMWrapperService.exe", "${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe");
+            wmws.Set("WMWrapperService.exe", "${wmwsRoot}\WMWrapperService.exe");
+
+        </destination>
+    </file>
+    <file source=>
+        <destination>
+
