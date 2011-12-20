@@ -1,15 +1,5 @@
 
             // from the working copy
-            config.Set("Administrator.exe", @"${srcRoot}\src\clients\admin\Administrator\Release\Administrator.exe");
-            config.Set("AgentAutomation.dll", @"${srcRoot}\src\apis\automationapi\Release\AgentAutomation.dll");
-            config.Set("AgentSupport.exe.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
-            config.Set("AlvasAudio.bat", @"${srcRoot}\config\chanmgr\AlvasAudio.bat");
-            config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
-            config.Set("AlvasAudio.pdb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.pdb");
-            config.Set("AlvasAudio.tlb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.tlb");
-            config.Set("App_Code.compiled", @"${srcRoot}\workdir\centricity\ET\bin\App_Code.compiled");
-            config.Set("App_global.asax.compiled", @"${srcRoot}\workdir\centricity\ET\bin\App_global.asax.compiled");
-            config.Set("App_GlobalResources.compiled", @"${srcRoot}\workdir\centricity\ET\bin\App_GlobalResources.compiled");
             config.Set("audiocodesChannel.dll", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.dll");
             config.Set("audiocodesChannel.pdb", @"${srcRoot}\workdir\ChannelManager\audiocodesChannel.pdb");
             config.Set("AudioReader.dll", @"${srcRoot}\workdir\ChannelManager\AudioReader.dll");
@@ -23,33 +13,17 @@
             config.Set("AVPlayer.resources.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
             config.Set("AVPlayer.resources.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
             config.Set("AVPlayerIcon.ico.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
-            config.Set("centricity.dll", @"${srcRoot}\workdir\centricity\ET\bin\centricity.dll");
-            config.Set("centricity.pdb", @"${srcRoot}\workdir\centricity\ET\bin\centricity.pdb");
             config.Set("CentricityApp.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
             config.Set("CentricityApp.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
             config.Set("CentricityApp.resources.dll.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
             config.Set("CentricityApp.resources.dll.deploy_1", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
             config.Set("CentricityApp.resources.dll.deploy_2", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
             config.Set("CentricityApp.resources.dll.deploy_3", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            config.Set("Centricity_BLL.dll", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
-            config.Set("Centricity_BLL.pdb", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.pdb");
-            config.Set("Centricity_BLL.XmlSerializers.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_BLL.XmlSerializers.dll");
-            config.Set("Centricity_DAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.dll");
-            config.Set("Centricity_DAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.pdb");
-            config.Set("Centricity_deploy.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_deploy.dll");
-            config.Set("Centricity_deploy.resources.dll_DE", @"${srcRoot}\workdir\centricity\ET\bin\de\Centricity_deploy.resources.dll");
-            config.Set("Centricity_deploy.resources.dll_DE_1", @"${srcRoot}\workdir\centricity\ET\bin\de-DE\Centricity_deploy.resources.dll");
-            config.Set("Centricity_deploy.resources.dll_ES", @"${srcRoot}\workdir\centricity\ET\bin\es\Centricity_deploy.resources.dll");
-            config.Set("Centricity_SCA.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_SCA.dll");
-            config.Set("Centricity_Shared.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.dll");
-            config.Set("Centricity_Shared.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.pdb");
             config.Set("ChanMgrSvc.exe", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.exe");
             config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
             config.Set("ChanMgrSvc.SIP.config", @"${srcRoot}\config\chanmgr\ChanMgrSvc.SIP.config");
             config.Set("Chanmgr_common.xsd", @"${srcRoot}\config\chanmgr\Chanmgr_common.xsd");
-            config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
             config.Set("ChannelManager.SIP.xml", @"${srcRoot}\config\chanmgr\ChannelManager.SIP.xml");
-            config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             config.Set("client.properties", @"${srcRoot}\config\clients\client.properties");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
             config.Set("ContactSourceRunner.bat", @"${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
@@ -185,30 +159,78 @@
         // Target config is where the files are installed on each application.
             server.Set("serverRoot", @".");
 
+            config.Set("Administrator.exe", @"${srcRoot}\src\clients\admin\Administrator\Release\Administrator.exe");
             server.Set("Administrator.exe", @"${serverRoot}\Administrator.exe");
+
+            config.Set("AgentAutomation.dll", @"${srcRoot}\src\apis\automationapi\Release\AgentAutomation.dll");
             server.Set("AgentAutomation.dll", @"${serverRoot}\AgentAutomation.dll");
+
+            config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
             server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio.dll");
+
+            config.Set("AlvasAudio.pdb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.pdb");
             server.Set("AlvasAudio.pdb", @"${serverRoot}\AlvasAudio.pdb");
+
+            config.Set("AlvasAudio.tlb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.tlb");
             server.Set("AlvasAudio.tlb", @"${serverRoot}\AlvasAudio.tlb");
+
+            config.Set("App_Code.compiled", @"${srcRoot}\workdir\centricity\ET\bin\App_Code.compiled");
             server.Set("App_Code.compiled", @"${serverRoot}\bin\App_Code.compiled");
+
+            config.Set("App_global.asax.compiled", @"${srcRoot}\workdir\centricity\ET\bin\App_global.asax.compiled");
             server.Set("App_global.asax.compiled", @"${serverRoot}\bin\App_global.asax.compiled");
+
+            config.Set("App_GlobalResources.compiled", @"${srcRoot}\workdir\centricity\ET\bin\App_GlobalResources.compiled");
             server.Set("App_GlobalResources.compiled", @"${serverRoot}\bin\App_GlobalResources.compiled");
+
+            config.Set("centricity.dll", @"${srcRoot}\workdir\centricity\ET\bin\centricity.dll");
             server.Set("centricity.dll", @"${serverRoot}\bin\centricity.dll");
+
+            config.Set("centricity.pdb", @"${srcRoot}\workdir\centricity\ET\bin\centricity.pdb");
             server.Set("centricity.pdb", @"${serverRoot}\bin\centricity.pdb");
+
+            config.Set("Centricity_BLL.dll", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.dll");
             server.Set("Centricity_BLL.dll", @"${serverRoot}\bin\Centricity_BLL.dll");
+
+            config.Set("Centricity_BLL.pdb", @"${srcRoot}\workdir\Centricity\ET\bin\Centricity_BLL.pdb");
             server.Set("Centricity_BLL.pdb", @"${serverRoot}\bin\Centricity_BLL.pdb");
+
+            config.Set("Centricity_BLL.XmlSerializers.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_BLL.XmlSerializers.dll");
             server.Set("Centricity_BLL.XmlSerializers.dll", @"${serverRoot}\bin\Centricity_BLL.XmlSerializers.dll");
+
+            config.Set("Centricity_DAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.dll");
             server.Set("Centricity_DAL.dll", @"${serverRoot}\bin\Centricity_DAL.dll");
+
+            config.Set("Centricity_DAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_DAL.pdb");
             server.Set("Centricity_DAL.pdb", @"${serverRoot}\bin\Centricity_DAL.pdb");
+
+            config.Set("Centricity_deploy.resources.dll_DE", @"${srcRoot}\workdir\centricity\ET\bin\de\Centricity_deploy.resources.dll");
             server.Set("Centricity_deploy.resources.dll_DE", @"${serverRoot}\bin\de\Centricity_deploy.resources.dll");
+
+            config.Set("Centricity_deploy.resources.dll_DE_1", @"${srcRoot}\workdir\centricity\ET\bin\de-DE\Centricity_deploy.resources.dll");
             server.Set("Centricity_deploy.resources.dll_DE_1", @"${serverRoot}\bin\de-DE\Centricity_deploy.resources.dll");
+
+            config.Set("Centricity_deploy.resources.dll_ES", @"${srcRoot}\workdir\centricity\ET\bin\es\Centricity_deploy.resources.dll");
             server.Set("Centricity_deploy.resources.dll_ES", @"${serverRoot}\bin\es\Centricity_deploy.resources.dll");
+
+            config.Set("Centricity_deploy.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_deploy.dll");
             server.Set("Centricity_deploy.dll", @"${serverRoot}\Centricity_deploy.dll");
+
+            config.Set("Centricity_SCA.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_SCA.dll");
             server.Set("Centricity_SCA.dll", @"${serverRoot}\bin\Centricity_SCA.dll");
+
+            config.Set("Centricity_Shared.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.dll");
             server.Set("Centricity_Shared.dll", @"${serverRoot}\bin\Centricity_Shared.dll");
+
+            config.Set("Centricity_Shared.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.pdb");
             server.Set("Centricity_Shared.pdb", @"${serverRoot}\Centricity_Shared.pdb");
+
+            config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
             server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
+
+            config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
+
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
             server.Set("ContactSourceRunner.bat", @"${serverRoot}\ContactSourceRunner\ContactSourceRunner.bat");
             server.Set("ContactSources.properties", @"${serverRoot}\ContactSourceRunner\ContactSources.properties");
@@ -276,18 +298,31 @@
             server.Set("EnvisionServer.exe", @"${serverRoot}\LAA-BIN\EnvisionServer.exe");
             server.Set("java.exe", @"${serverRoot}\LAA-BIN\java.exe");
             server.Set("javaw.exe", @"${serverRoot}\LAA-BIN\javaw.exe");
+
+            config.Set("AlvasAudio.bat", @"${srcRoot}\config\chanmgr\AlvasAudio.bat");
             server.Set("AlvasAudio.bat", @"${serverRoot}\AlvasAudio\AlvasAudio.bat");
+
+            config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
             server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio\AlvasAudio.dll");
+
             server.Set("gacutil.exe", @"${serverRoot}\AlvasAudio\gacutil.exe");
             server.Set("regasm.exe", @"${serverRoot}\AlvasAudio\regasm.exe");
 
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
 
+            config.Set("AlvasAudio.bat", @"${srcRoot}\config\chanmgr\AlvasAudio.bat");
             cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
+
+            config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
             cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
+
+            config.Set("AlvasAudio.pdb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.pdb");
             cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
+
+            config.Set("AlvasAudio.tlb", @"${srcRoot}\workdir\SharedResources\AlvasAudio.tlb");
             cm.Set("AlvasAudio.tlb", @"${cmRoot}\AlvasAudio.tlb");
+
             cm.Set("audiocodesChannel.dll", @"${cmRoot}\audiocodesChannel.dll");
             cm.Set("audiocodesChannel.pdb", @"${cmRoot}\audiocodesChannel.pdb");
             cm.Set("AudioReader.dll", @"${cmRoot}\AudioReader.dll");
@@ -344,8 +379,13 @@
             cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
             cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
             cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
+
+            config.Set("AlvasAudio.bat", @"${srcRoot}\config\chanmgr\AlvasAudio.bat");
             cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
+
+            config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
             cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
+
             cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
             cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
 
@@ -368,7 +408,10 @@
 
             // AVPlayer
             webapps.Set("AVPlayer.application", @"${webappsRoot}\AVPlayer\AVPlayer.application");
+
+            config.Set("AgentSupport.exe.deploy", @"${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
             webapps.Set("AgentSupport.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+
             webapps.Set("AVPlayer.exe.config.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
             webapps.Set("AVPlayer.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
             webapps.Set("AVPlayer.exe.manifest", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
