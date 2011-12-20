@@ -157,10 +157,6 @@ namespace PatchTool
             config.Set("ETContactSource.pdb", @"${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb");
             config.Set("ETScheduleService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml");
             config.Set("ETService.exe", @"${srcRoot}\workdir\etservice\ETService.exe");
-            config.Set("GatewayLib.dll", @"${srcRoot}\workdir\SharedResources\GatewayLib.dll");
-            config.Set("GatewayLib.pdb", @"${srcRoot}\workdir\SharedResources\GatewayLib.pdb");
-            config.Set("GatewayLogging.xml", @"${srcRoot}\config\SIPGateway\GatewayLogging.xml");
-            config.Set("InstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\InstallSIPGateway.bat");
             config.Set("instsrv.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe");
             config.Set("IPXChannel.dll", @"${srcRoot}\workdir\ChannelManager\IPXChannel.dll");
             config.Set("IPXChannel.pdb", @"${srcRoot}\workdir\ChannelManager\IPXChannel.pdb");
@@ -194,19 +190,14 @@ namespace PatchTool
             config.Set("server.pdb", @"${srcRoot}\workdir\SharedResources\server.pdb");
             config.Set("SIPChannel.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannel.dll");
             config.Set("SIPChannel.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannel.pdb");
-            config.Set("SIPChannelHpxMedia.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.dll");
-            config.Set("SIPChannelHpxMedia.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannelHpxMedia.pdb");
             config.Set("SIPConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll");
             config.Set("SIPConfigLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb");
             config.Set("SIP_events.properties", @"${srcRoot}\config\chanmgr\SIP_events.properties");
-            config.Set("SIPGateway.exe", @"${srcRoot}\workdir\SIPGateway\SIPGateway.exe");
-            config.Set("SIPGateway.exe.config", @"${srcRoot}\workdir\SIPGateway\SIPGateway.exe.config");
-            config.Set("SIPGateway.pdb", @"${srcRoot}\workdir\SIPGateway\SIPGateway.pdb");
             config.Set("SIPPhone.dll", @"${srcRoot}\workdir\ChannelManager\SIPPhone.dll");
             config.Set("SIPPhone.pdb", @"${srcRoot}\workdir\ChannelManager\SIPPhone.pdb");
             config.Set("SIPWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll");
             config.Set("SIPWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb");
-            config.Set("SIPWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.tlb");
+            config.Set("SIPWrapperLogging.xml", @"${srcRoot}\config\chanmgr\SIPWrapperLogging.xml");
             config.Set("SiteToGroupAgentMover.ascx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\SiteToGroupAgentMover.ascx");
             config.Set("SiteToGroupAgentMover.ascx.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
             config.Set("SiteToGroupAgentMover.ascx.de.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
@@ -225,7 +216,6 @@ namespace PatchTool
             config.Set("Tsapi.dll", @"${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll");
             config.Set("Tsapi.pdb", @"${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb");
 
-            config.Set("UninstallSIPGateway.bat", @"${srcRoot}\config\chanmgr\UninstallSIPGateway.bat");
             //config.Set("web.config", @"${srcRoot}\src\clients\centricity\ET\web.config");
             config.Set("WMWrapperService.exe", @"${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe");
 
@@ -451,15 +441,12 @@ namespace PatchTool
             cm.Set("server.pdb", @"${cmRoot}\server.pdb");
             cm.Set("SIPChannel.dll", @"${cmRoot}\SIPChannel.dll");
             cm.Set("SIPChannel.pdb", @"${cmRoot}\SIPChannel.pdb");
-            cm.Set("SIPChannelHpxMedia.dll", @"${cmRoot}\SIPChannelHpxMedia.dll");
-            cm.Set("SIPChannelHpxMedia.pdb", @"${cmRoot}\SIPChannelHpxMedia.pdb");
             cm.Set("SIPConfigLib.dll", @"${cmRoot}\SIPConfigLib.dll");
             cm.Set("SIPConfigLib.pdb", @"${cmRoot}\SIPConfigLib.pdb");
             cm.Set("SIPPhone.dll", @"${cmRoot}\SIPPhone.dll");
             cm.Set("SIPPhone.pdb", @"${cmRoot}\SIPPhone.pdb");
             cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
             cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
-            cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
             cm.Set("SIP_events.properties", @"${cmRoot}\SIP_events.properties");
             cm.Set("states.BIB.xml", @"${cmRoot}\states.BIB.xml");
 
@@ -472,11 +459,6 @@ namespace PatchTool
             cm.Set("svcmgr.exe", @"${cmRoot}\EnvisionSR\svcmgr.exe");
 
             // SIPGateway
-            cm.Set("GatewayLib.dll", @"${cmRoot}\SIPGateway\GatewayLib.dll");
-            cm.Set("GatewayLib.pdb", @"${cmRoot}\SIPGateway\GatewayLib.pdb");
-            cm.Set("GatewayLogging.xml", @"${cmRoot}\SIPGateway\GatewayLogging.xml");
-            cm.Set("InstallSIPGateway.bat", @"${cmRoot}\SIPGateway\InstallSIPGateway.bat");
-            cm.Set("UninstallSIPGateway.bat", @"${cmRoot}\SIPGateway\UninstallSIPGateway.bat");
             cm.Set("InstallUtil.exe", @"${cmRoot}\SIPGateway\InstallUtil.exe");
             cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll|${cmRoot}\SIPGateway\LumiSoft.Net.dll");
             cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb|${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
@@ -485,9 +467,7 @@ namespace PatchTool
             cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
             cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
             cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
-            cm.Set("SIPGateway.exe", @"${cmRoot}\SIPGateway\SIPGateway.exe");
-            cm.Set("SIPGateway.exe.config", @"${cmRoot}\SIPGateway\SIPGateway.exe.config");
-            cm.Set("SIPGateway.pdb", @"${cmRoot}\SIPGateway\SIPGateway.pdb");
+            cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
 
             // AlvasAudio
             cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");

@@ -98,11 +98,10 @@ namespace PatchTool
                 "RtpTransmitter.dll", "RtpTransmitter.pdb",
                 "server.dll", "server.pdb",
                 "SIPChannel.dll", "SIPChannel.pdb",
-                "SIPChannelHpxMedia.dll", "SIPChannelHpxMedia.pdb",
                 "SIPConfigLib.dll", "SIPConfigLib.pdb",
                 "SIP_events.properties",
                 "SIPPhone.dll", "SIPPhone.pdb",
-                "SIPWrapperLib.dll", "SIPWrapperLib.pdb", "SIPWrapperLib.tlb",
+                "SIPWrapperLib.dll", "SIPWrapperLib.pdb",
                 "states.BIB.xml",
                 
                 // EnvisionSR
@@ -110,12 +109,10 @@ namespace PatchTool
                 "sleep.exe", "srvany.exe", "svcmgr.exe",
                 
                 // SIP Gateway
-                "GatewayLib.dll", "GatewayLib.pdb", "GatewayLogging.xml",
-                "InstallUtil.exe", "InstallSIPGateway.bat",
+                "InstallUtil.exe",
                 "log4net.dll",
                 "sc.exe", "server.dll", "server.pdb",
-                "SIPGateway.exe", "SIPGateway.exe.config", "SIPGateway.pdb",
-                "UninstallSIPGateway.bat",
+                "SIPWrapperLogging.xml",
 
                 // for registering AlvasAudio.dll
                 "gacutil.exe", "regasm.exe",
