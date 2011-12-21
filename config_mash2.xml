@@ -1,6 +1,5 @@
 <files>
-    <file source=
->
+    <file source=>
         <destination>
 
         </destination>
@@ -209,7 +208,7 @@
     </file>
 
     <file source=
->
+        >
         <destination>
             // what's going on with this pair?  (de, de-DE)
             "${srcRoot}\workdir\centricity\ET\bin\de\Centricity_deploy.resources.dll"
@@ -425,667 +424,504 @@
             "${cmRoot}\DMCCWrapperLib.pdb"
         </destination>
     </file>
-
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb"
             "${cmRoot}\DMCCWrapperLib.tlb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\chanmgr\dmcc_devices.bat">
         <destination>
-            "${srcRoot}\src\tools\chanmgr\dmcc_devices.bat"
             "${cmRoot}\dmcc_devices.bat"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\dumpbin.exe")>
         <destination>
-            Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\dumpbin.exe")
             "${serverRoot}\LAA-BIN\dumpbin.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx"
             "${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\Release\Envision.jar">
         <destination>
-            "${srcRoot}\Release\Envision.jar"
-                "${serverRoot}\Envision.jar"
-                "${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar"
-                "${serverRoot}\wwwroot\EnvisionComponents\Envision.jar"
+            "${serverRoot}\Envision.jar"
+        </destination>
+        <destination>
+            "${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar"
+        </destination>
+        <destination>
+            "${serverRoot}\wwwroot\EnvisionComponents\Envision.jar"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat">
         <destination>
-            "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat"
             "${cmRoot}\EnvisionSR\EnvisionSR.bat"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg">
         <destination>
-            "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.reg"
             "${cmRoot}\EnvisionSR\EnvisionSR.reg"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\envision_schema.xml">
         <destination>
-            "${srcRoot}\config\server\envision_schema.xml"
             "${serverRoot}\envision_schema.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\envision_schema_central.xml">
         <destination>
-            "${srcRoot}\config\server\envision_schema_central.xml"
             "${serverRoot}\envision_schema_central.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\setup\Signature\EnvisionControls.cab">
         <destination>
-            "${srcRoot}\setup\Signature\EnvisionControls.cab"
             "${serverRoot}\WebServer\webapps\ET\ETReporting\EnvisionControls.cab"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\EnvisionServer.bat">
         <destination>
-            "${srcRoot}\config\server\EnvisionServer.bat"
             "${serverRoot}\EnvisionServer.bat"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\EnvisionServer.exe")>
         <destination>
-            Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\EnvisionServer.exe")
             "${serverRoot}\LAA-BIN\EnvisionServer.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\etservice\EnvisionServer.exe">
         <destination>
-            "${srcRoot}\workdir\etservice\EnvisionServer.exe"
             "${serverRoot}\EnvisionServer.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\EnvisionTheme.css">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\EnvisionTheme.css"
             "${serverRoot}\App_Themes\EnvisionTheme\EnvisionTheme.css"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\ETContactSource.exe">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\ETContactSource.exe"
             "${serverRoot}\ContactSourceRunner\ETContactSource.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\ETContactSource.pdb"
             "${serverRoot}\ContactSourceRunner\ETContactSource.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml">
         <destination>
-            "${srcRoot}\config\server\C2CServiceDescriptions\ETScheduleService.xml"
             "${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\etservice\ETService.exe">
         <destination>
-            "${srcRoot}\workdir\etservice\ETService.exe"
             "${serverRoot}\ETService.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "Microsoft.NET\v3.5\gacutil.exe")>
         <destination>
-            Path.Combine(ETSDK, "Microsoft.NET\v3.5\gacutil.exe")
-                "${serverRoot}\AlvasAudio\gacutil.exe"
-                "${cmRoot}\AlvasAudio\gacutil.exe"
-                "${cmRoot}\AlvasAudio\gacutil.exe"
+            "${serverRoot}\AlvasAudio\gacutil.exe"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\gacutil.exe"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\gacutil.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "Microsoft.NET\v2.0\InstallUtil.exe")>
         <destination>
-            Path.Combine(ETSDK, "Microsoft.NET\v2.0\InstallUtil.exe")
             "${cmRoot}\SIPGateway\InstallUtil.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe">
         <destination>
-            "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\instsrv.exe"
             "${cmRoot}\EnvisionSR\instsrv.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\IPXChannel.dll">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\IPXChannel.dll"
             "${cmRoot}\IPXChannel.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\IPXChannel.pdb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\IPXChannel.pdb"
             "${cmRoot}\IPXChannel.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\java.exe")>
         <destination>
-            Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\java.exe")
             "${serverRoot}\LAA-BIN\java.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\javaw.exe")>
         <destination>
-            Path.Combine(Environment.GetEnvironmentVariable("ETSDK"), "java\LAA-BIN\javaw.exe")
             "${serverRoot}\LAA-BIN\javaw.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "cti_libs\jtapi\jtapi.jar")>
         <destination>
-            Path.Combine(ETSDK, "cti_libs\jtapi\jtapi.jar")
             "${serverRoot}\JRE\lib\ext\jtapi.jar"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\C2CServiceDescriptions\JtapiItemService.xml">
         <destination>
-            "${srcRoot}\config\server\C2CServiceDescriptions\JtapiItemService.xml"
             "${serverRoot}\C2CServiceDescriptions\JtapiItemService.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "cti_libs\jtapi\jtracing.jar")>
         <destination>
-            Path.Combine(ETSDK, "cti_libs\jtapi\jtracing.jar")
             "${serverRoot}\JRE\lib\ext\jtracing.jar"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\sourcerunnerservice\log4j.properties.template">
         <destination>
-            "${srcRoot}\config\sourcerunnerservice\log4j.properties.template"
             "${serverRoot}\ContactSourceRunner\log4j.properties.template"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\SharedResources\log4net.dll">
         <destination>
-            "${srcRoot}\workdir\SharedResources\log4net.dll"
             "${cmRoot}\SIPGateway\log4net.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\SharedResources\LumiSoft.Net.dll">
         <destination>
-            "${srcRoot}\workdir\SharedResources\LumiSoft.Net.dll"
             "${cmRoot}\LumiSoft.Net.dll|${cmRoot}\SIPGateway\LumiSoft.Net.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb">
         <destination>
-            "${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb"
             "${cmRoot}\LumiSoft.Net.pdb|${cmRoot}\SIPGateway\LumiSoft.Net.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml">
         <destination>
-            "${srcRoot}\src\Components\LumiSoft_SIP_SDK\LumiSoft.Net.xml"
             "${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\ArchitectureServiceDescriptions\manifest.xml">
         <destination>
-            "${srcRoot}\config\server\ArchitectureServiceDescriptions\manifest.xml"
             "${serverRoot}\ArchitectureServiceDescriptions\manifest.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\C2CServiceDescriptions\manifest.xml">
         <destination>
-            "${srcRoot}\config\server\C2CServiceDescriptions\manifest.xml"
             "${serverRoot}\C2CServiceDescriptions\manifest.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml">
         <destination>
-            "${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml"
             "${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml">
         <destination>
-            "${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml"
             "${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\server\nativeServiceWin32.dll">
         <destination>
-            "${srcRoot}\workdir\server\nativeServiceWin32.dll"
             "${serverRoot}\nativeServiceWin32.dll|${serverRoot}\ContactSourceRunner\nativeServiceWin32.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\NetMerge.dll"
             "${serverRoot}\ContactSourceRunner\NetMerge.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\contactsources\netmerge\Release\NetMerge.pdb">
         <destination>
-            "${srcRoot}\src\contactsources\netmerge\Release\NetMerge.pdb"
             "${serverRoot}\ContactSourceRunner\NetMerge.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\NewEvaluation.aspx"
             "${serverRoot}\PerformanceManagement\Evaluations\NewEvaluation.aspx"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin"
             "${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\bin\RAL.dll">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\bin\RAL.dll"
             "${serverRoot}\bin\RAL.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\bin\RAL.pdb">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\bin\RAL.pdb"
             "${serverRoot}\bin\RAL.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\RecordingDownloadTool.application">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\RecordingDownloadTool.application"
             "${webappsRoot}\RecordingDownloadTool\RecordingDownloadTool.application"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "Microsoft.NET\v2.0\regasm.exe")>
         <destination>
-            Path.Combine(ETSDK, "Microsoft.NET\v2.0\regasm.exe")
-                "${serverRoot}\AlvasAudio\regasm.exe"
-                "${cmRoot}\AlvasAudio\regasm.exe"
-                "${cmRoot}\AlvasAudio\regasm.exe"
+            "${serverRoot}\AlvasAudio\regasm.exe"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\regasm.exe"
+        </destination>
+        <destination>
+            "${cmRoot}\AlvasAudio\regasm.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll"
             "${cmRoot}\RtpTransmitter.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb"
             "${cmRoot}\RtpTransmitter.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "Microsoft\sc.exe")>
         <destination>
-            Path.Combine(ETSDK, "Microsoft\sc.exe")
             "${cmRoot}\SIPGateway\sc.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\SharedResources\server.dll">
         <destination>
-            "${srcRoot}\workdir\SharedResources\server.dll"
-                "${serverRoot}\bin\server.dll"
-                "${cmRoot}\server.dll"
-                "${cmRoot}\SIPGateway\server.dll"
-                "${wmwsRoot}\server.dll"
+            "${serverRoot}\bin\server.dll"
+        </destination>
+        <destination>
+            "${cmRoot}\server.dll"
+        </destination>
+        <destination>
+            "${cmRoot}\SIPGateway\server.dll"
+        </destination>
+        <destination>
+            "${wmwsRoot}\server.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\SharedResources\server.pdb">
         <destination>
-            "${srcRoot}\workdir\SharedResources\server.pdb"
-                "${serverRoot}\bin\server.pdb"
-                "${cmRoot}\server.pdb"
-                "${cmRoot}\SIPGateway\server.pdb"
+            "${serverRoot}\bin\server.pdb"
+        </destination>
+        <destination>
+            "${cmRoot}\server.pdb"
+        </destination>
+        <destination>
+            "${cmRoot}\SIPGateway\server.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy">
         <destination>
-            "${srcRoot}\workdir\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy"
             "${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPChannel.dll">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPChannel.dll"
             "${cmRoot}\SIPChannel.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPChannel.pdb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPChannel.pdb"
             "${cmRoot}\SIPChannel.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll"
             "${cmRoot}\SIPConfigLib.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb"
             "${cmRoot}\SIPConfigLib.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPPhone.dll">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPPhone.dll"
             "${cmRoot}\SIPPhone.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPPhone.pdb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPPhone.pdb"
             "${cmRoot}\SIPPhone.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll"
             "${cmRoot}\SIPWrapperLib.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb">
         <destination>
-            "${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb"
             "${cmRoot}\SIPWrapperLib.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\chanmgr\SIPWrapperLogging.xml">
         <destination>
-            "${srcRoot}\config\chanmgr\SIPWrapperLogging.xml"
             "${cmRoot}\SIPWrapperLogging.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\chanmgr\SIP_events.properties">
         <destination>
-            "${srcRoot}\config\chanmgr\SIP_events.properties"
-                "${serverRoot}\ChannelManager\SIP_events.properties"
-                "${cmRoot}\SIP_events.properties"
+            "${serverRoot}\ChannelManager\SIP_events.properties"
+        </destination>
+        <destination>
+            "${cmRoot}\SIP_events.properties"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\UserControls\Movers\SiteToGroupAgentMover.ascx">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\UserControls\Movers\SiteToGroupAgentMover.ascx"
             "${serverRoot}\UserControls\Movers\SiteToGroupAgentMover.ascx"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx"
             "${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx"
             "${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx">
         <destination>
-            "${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx"
             "${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\sleep.exe">
         <destination>
-            "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\sleep.exe"
             "${cmRoot}\EnvisionSR\sleep.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.exe"
             "${serverRoot}\ContactSourceRunner\SourceRunnerService.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\SourceRunnerService.pdb"
             "${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy">
         <destination>
-            "${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy"
             "${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe">
         <destination>
-            "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe"
             "${cmRoot}\EnvisionSR\srvany.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\chanmgr\states.BIB.xml">
         <destination>
-            "${srcRoot}\config\chanmgr\states.BIB.xml"
             "${cmRoot}\states.BIB.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe">
         <destination>
-            "${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe"
             "${cmRoot}\EnvisionSR\svcmgr.exe"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll"
             "${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb"
             "${serverRoot}\ContactSourceRunner\TeliaCallGuide.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\config\server\ArchitectureServiceDescriptions\TokenService.xml">
         <destination>
-            "${srcRoot}\config\server\ArchitectureServiceDescriptions\TokenService.xml"
             "${serverRoot}\ArchitectureServiceDescriptions\TokenService.xml"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll">
         <destination>
-            "${srcRoot}\workdir\ContactSourceRunner\Tsapi.dll"
             "${serverRoot}\ContactSourceRunner\Tsapi.dll"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb">
         <destination>
-            "${srcRoot}\src\contactsources\tsapi\Release\Tsapi.pdb"
             "${serverRoot}\ContactSourceRunner\Tsapi.pdb"
         </destination>
     </file>
-    <file source=
->
+    <file source=Path.Combine(ETSDK, "cti_libs\jtapi\updater.jar")>
         <destination>
-            Path.Combine(ETSDK, "cti_libs\jtapi\updater.jar")
             "${serverRoot}\JRE\lib\ext\updater.jar"
         </destination>
     </file>
-    <file source=
->
+    <file source="${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe">
         <destination>
-            "${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe"
             "${wmwsRoot}\WMWrapperService.exe"
         </destination>
     </file>
