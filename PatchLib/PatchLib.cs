@@ -100,6 +100,7 @@ namespace PatchTool
             config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
             config.Set("ChanMgrSvc.SIP.config", @"${srcRoot}\config\chanmgr\ChanMgrSvc.SIP.config");
             config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
+            config.Set("ChannelManager.ICM.xml", @"${srcRoot}\config\chanmgr\ChannelManager.ICM.xml");
             config.Set("ChannelManager.SIP.xml", @"${srcRoot}\config\chanmgr\ChannelManager.SIP.xml");
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             config.Set("client.properties", @"${srcRoot}\config\clients\client.properties");
@@ -418,6 +419,7 @@ namespace PatchTool
             cm.Set("ChanMgrSvc.exe", @"${cmRoot}\ChanMgrSvc.exe");
             cm.Set("ChanMgrSvc.pdb", @"${cmRoot}\ChanMgrSvc.pdb");
             cm.Set("ChanMgrSvc.SIP.config", @"${cmRoot}\ChanMgrSvc.SIP.config");
+            cm.Set("ChannelManager.ICM.xml", @"${cmRoot}\ChannelManager.ICM.xml");
             cm.Set("ChannelManager.SIP.xml", @"${cmRoot}\ChannelManager.SIP.xml");
             cm.Set("DemoModeChannel.dll", @"${cmRoot}\DemoModeChannel.dll");
             cm.Set("DemoModeChannel.pdb", @"${cmRoot}\DemoModeChannel.pdb");
