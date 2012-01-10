@@ -1,0 +1,245 @@
+
+<!-- This could be called the suite-first versus application-first
+     organization.  For my money, application-first wins.
+
+     Can we generalize it to say bigger-first sucks, and smaller-first rules?
+     How will this work with the files themselves?  I originally grouped them
+     into massive source and destination configs.  Now I'm thinking they need
+     to be grouped at the individual levels - in other words, push the
+     responsibility down the stack as far as possible.
+
+     Maybe I can treat the files or components like objects of some class.
+     They contain all the information they need to DO SOMETHING USEFUL.  The
+     way I see it being used is ...
+     -->
+
+<product_suites>
+    <suite version="9.10">
+        <!-- <application name="ADIT" installer="adit_installer" /> -->
+        <application name="AGMS" installer="agms_installer" />
+        <application name="Centricity" installer="centricity_installer" />
+        <application name="ChannelManager" installer="server_installer" />
+        <application name="ContactSourceRunner" installer="server_installer" />
+        <application name="DADI" installer="dadi_installer" />
+        <application name="DBMigration" installer="dbmigration_installer" />
+        <application name="EvaluationConsistencyCheck" installer="ecc_installer" />
+        <application name="Server" installer="server_installer" />
+        <application name="WebApps" installer="webapps_installer" />
+        <application name="WMWrapperService" installer="wmwrapperservice_installer" />
+    </suite>
+    <suite version="10.0">
+        <!-- <application name="ADIT" installer="adit_installer" /> -->
+        <application name="AGMS" installer="agms_installer" />
+        <application name="Centricity" installer="centricity_installer" />
+        <application name="ChannelManager" installer="server_installer" />
+        <application name="ContactSourceRunner" installer="server_installer" />
+        <application name="DADI" installer="dadi_installer" />
+        <application name="DBMigration" installer="dbmigration_installer" />
+        <application name="EvaluationConsistencyCheck" installer="ecc_installer" />
+        <application name="Server" installer="server_installer" />
+        <application name="WebApps" installer="webapps_installer" />
+        <application name="WMWrapperService" installer="wmwrapperservice_installer" />
+    </suite>
+    <suite version="10.1">
+        <!-- <application name="ADIT" installer="adit_installer" /> -->
+        <application name="AGMS" installer="tools_installer" />
+        <application name="Centricity" installer="centricity_installer" />
+        <application name="ChannelManager" installer="server_installer" />
+        <application name="ContactSourceRunner" installer="server_installer" />
+        <application name="DADI" installer="tools_installer" />
+        <application name="DBMigration" installer="tools_installer" />
+        <application name="EvaluationConsistencyCheck" installer="tools_installer" />
+        <application name="Server" installer="server_installer" />
+        <application name="WebApps" installer="webapps_installer" />
+        <application name="WMWrapperService" installer="wmwrapperservice_installer" />
+    </suite>
+</product_suites>
+
+<applications>
+    <!-- When we add Curie (11.0 or 10.5) to maintenance, we may want to add EnoderSvc, SearchServer and ESMS applications -->
+    <!-- Also, ChannelManager and Centricity are back in the server_installer for Curie -->
+    <application name="AGMS">
+        <version name="9.10" installer="agms_installer" />
+        <version name="10.0" installer="agms_installer" />
+        <version name="10.1" installer="tools_installer" />
+    </application>
+
+    <application name="Centricity">
+        <version name="9.10" installer="centricity_installer" />
+        <version name="10.0" installer="centricity_installer" />
+        <version name="10.1" installer="centricity_installer" />
+    </application>
+
+    <application name="ChannelManager">
+        <version name="9.10" installer="server_installer" />
+        <version name="10.0" installer="channelmanager_installer" />
+        <version name="10.1" installer="channelmanager_installer" />
+    </application>
+
+    <application name="ContactSourceRunner">
+        <version name="9.10" installer="server_installer" />
+        <version name="10.0" installer="server_installer" />
+        <version name="10.1" installer="server_installer" />
+    </application>
+
+    <application name="DADI">
+        <version name="9.10" installer="dadi_installer" />
+        <version name="10.0" installer="dadi_installer" />
+        <version name="10.1" installer="dadi_installer" />
+    </application>
+
+    <application name="DBMigration">
+        <version name="9.10" installer="dbmigration_installer" />
+        <version name="10.0" installer="dbmigration_installer" />
+        <version name="10.1" installer="tools_installer" />
+    </application>
+
+    <application name="EvaluationConsistencyCheck">
+        <version name="9.10" installer="ecc_installer" />
+        <version name="10.0" installer="ecc_installer" />
+        <version name="10.1" installer="tools_installer" />
+    </application>
+
+    <application name="Server">
+        <version name="9.10" installer="server_installer" />
+        <version name="10.0" installer="server_installer" />
+        <version name="10.1" installer="server_installer" />
+    </application>
+
+    <application name="WebApps">
+        <version name="9.10" installer="webapps_installer" />
+        <version name="10.0" installer="webapps_installer" />
+        <version name="10.1" installer="webapps_installer" />
+    </application>
+
+    <application name="WMWrapperService">
+        <version name="9.10" installer="wmwrapperservice_installer" />
+        <version name="10.0" installer="wmwrapperservice_installer" />
+        <version name="10.1" installer="wmwrapperservice_installer" />
+    </application>
+</applications>
+
+@@@@@@@
+
+
+<!-- application-first versus component-first (component-first wins?) -->
+
+<!-- application-first -->
+  <patch version="10.1.14">
+      <application name="Server">
+          <component name="PATCH-114">
+              <pre>
+                  <action>
+                      <!-- run batch scripts or whatever before installing the files -->
+                  </action>
+              </pre>
+              <files action="add">
+                  <file source="" target="" />
+                  <file source="" target="" />
+              </files>
+              <files action="remove">
+                  <file target="" />
+              </files>
+              <post>
+                  <action>
+                      <!-- run batch scripts or whatever after installing the files -->
+                  </action>
+              </post>
+          </component>
+      </application>
+
+      <application name="ChannelManager">
+          <component name="PATCH-114">
+              <pre>
+                  <action>
+                      <!-- run batch scripts or whatever before installing the files -->
+                  </action>
+              </pre>
+              <files action="add">
+                  <file source="" target="" />
+                  <file source="" target="" />
+              </files>
+              <files action="remove">
+                  <file target="" />
+              </files>
+              <post>
+                  <action>
+                      <!-- run batch scripts or whatever after installing the files -->
+                  </action>
+              </post>
+          </component>
+      </application>
+
+      <application name="Centricity">
+          <component name="PATCH-78">
+              <pre>
+                  <action>
+                      <!-- run batch scripts or whatever before installing the files -->
+                  </action>
+              </pre>
+              <files action="add">
+                  <file source="" target="" />
+                  <file source="" target="" />
+              </files>
+              <files action="remove">
+                  <file target="" />
+              </files>
+              <post>
+                  <action>
+                      <!-- run batch scripts or whatever after installing the files -->
+                  </action>
+              </post>
+          </component>
+      </application>
+  </patch>
+
+
+<!-- component-first: maybe better if one patch updates multiple applications -->
+<patch version="10.1.14">
+    <component name="PATCH-114">
+        <application name="Server">
+            <!-- run batch scripts or whatever before updating files -->
+            <pre action="" />
+            <files action="add">
+                <file source="" target="" />
+                <file source="" target="" />
+            </files>
+            <files action="remove">
+                <file target="" />
+            </files>
+            <!-- run batch scripts or whatever after updating files -->
+            <post action="" />
+        </application>
+
+        <application name="ChannelManager">
+            <!-- run batch scripts or whatever before updating files -->
+            <pre action="" />
+            <files action="add">
+                <file source="" target="" />
+                <file source="" target="" />
+            </files>
+            <files action="remove">
+                <file target="" />
+            </files>
+            <!-- run batch scripts or whatever after updating files -->
+            <post action="" />
+        </application>
+    </component>
+
+    <component name="PATCH-78">
+        <application name="Centricity">
+            <!-- run batch scripts or whatever before installing the files -->
+            <pre action="" />
+            <files action="add">
+                <file source="" target="" />
+                <file source="" target="" />
+            </files>
+            <files action="remove">
+                <file target="" />
+            </files>
+            <!-- run batch scripts or whatever after updating files -->
+            <post action="" />
+        </component>
+    </application>
+</patch>
+
