@@ -14,7 +14,9 @@ IF NOT EXISTS (
             [branch_id] INT NOT NULL,
             [repository_path] NVARCHAR(255) NOT NULL,
             [friendly_name] NVARCHAR(255),
-            CONSTRAINT [PK_branch_id] PRIMARY KEY CLUSTERED ([branch_id])
+
+            CONSTRAINT [PK_branch_id]
+            PRIMARY KEY CLUSTERED ([branch_id])
         )
 END
 
@@ -24,10 +26,9 @@ END
 -- This may not be an appropriate use of INSERT, but it gets the job done.
 -- ***************************************************************************
 IF NOT EXISTS (
-    SELECT [branch_id]
+    SELECT [friendly_name]
     FROM [dbo].[branches]
-    -- seven branches: 9.10/base, 10.0/dev, int, base, 10.1/dev, int, base
-    WHERE [branch_id] IN (1,2,3,4,5,6,7))
+    WHERE [friendly_name] IN ('9.10base','10.0dev','10.0int','10.0base','10.1dev','10.1int','10.1base'))
     BEGIN
         DECLARE @repo_root NVARCHAR(255)
         SET @repo_root = 'svn://svn.click2coach.net/EPS/branches'
@@ -45,8 +46,7 @@ IF NOT EXISTS (
         VALUES (6, @repo_root + '/10.1/maintenance/int', '10.1int')
         INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
         VALUES (7, @repo_root + '/10.1/maintenance/base', '10.1base')
-    END
-
+END
 
 -- table:
 --      build
@@ -65,8 +65,13 @@ IF NOT EXISTS (
             [build_number] INT NOT NULL,
             [wc_root] NVARCHAR(255),
             [revision] INT,
-            CONSTRAINT [PK_build_id] PRIMARY KEY CLUSTERED ([build_id]),
-            CONSTRAINT [FK_branch_id__build_id] FOREIGN KEY([branch_id]) REFERENCES [dbo].[build] ([build_id]),
+
+            CONSTRAINT [PK_build_id]
+            PRIMARY KEY CLUSTERED ([build_id]),
+
+            CONSTRAINT [FK_branch_id__build_id]
+            FOREIGN KEY([branch_id])
+            REFERENCES [dbo].[build] ([build_id]),
         )
 END
 
@@ -85,9 +90,10 @@ IF NOT EXISTS (
             [binary_id] INT NOT NULL,
             [name] NVARCHAR(255),
             [build_path] NVARCHAR(255) NOT NULL,
+
             CONSTRAINT [PK_binary_id] PRIMARY KEY CLUSTERED ([binary_id])
         )
-  END
+END
 
 -- table:
 --      binary_instances
@@ -105,11 +111,18 @@ IF NOT EXISTS (
             [build_id] INT NOT NULL,
             [md5sum] NVARCHAR(255) NOT NULL,
             [binary_version] NVARCHAR(255) NOT NULL,
-            CONSTRAINT [FK_binary_instances__binary_id] FOREIGN KEY([binary_id]) REFERENCES [dbo].[binaries] ([binary_id]),
-            CONSTRAINT [FK_binary_instances__build_id] FOREIGN KEY([build_id]) REFERENCES [dbo].[build] ([build_id]),
-        )
-  END
 
+            CONSTRAINT [FK_binary_instances__binary_id]
+            FOREIGN KEY([binary_id])
+            REFERENCES [dbo].[binaries] ([binary_id]),
+
+            CONSTRAINT [FK_binary_instances__build_id]
+            FOREIGN KEY([build_id])
+            REFERENCES [dbo].[build] ([build_id]),
+        )
+END
+
+GO
 
 ----********************************************************************************
 ----
