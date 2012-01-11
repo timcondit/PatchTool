@@ -13,6 +13,9 @@
      way I see it being used is ...
      -->
 
+<!-- SQL is only used in-house, for producing patches.  The patches themselves
+     will still be self-contained. -->
+
 <product_suites>
     <suite version="9.10">
         <!-- <application name="ADIT" installer="adit_installer" /> -->
@@ -100,6 +103,7 @@
         <version name="10.1" installer="tools_installer" />
     </application>
 
+    <!-- reference to application Server below: missing referential integrity -->
     <application name="Server">
         <version name="9.10" installer="server_installer" />
         <version name="10.0" installer="server_installer" />
@@ -119,6 +123,7 @@
     </application>
 </applications>
 
+
 @@@@@@@
 
 
@@ -128,11 +133,8 @@
   <patch version="10.1.14">
       <application name="Server">
           <component name="PATCH-114">
-              <pre>
-                  <action>
-                      <!-- run batch scripts or whatever before installing the files -->
-                  </action>
-              </pre>
+              <!-- run batch scripts or whatever before updating files -->
+              <pre action="" />
               <files action="add">
                   <file source="" target="" />
                   <file source="" target="" />
@@ -140,21 +142,15 @@
               <files action="remove">
                   <file target="" />
               </files>
-              <post>
-                  <action>
-                      <!-- run batch scripts or whatever after installing the files -->
-                  </action>
-              </post>
+              <!-- run batch scripts or whatever after updating files -->
+              <post action="" />
           </component>
       </application>
 
       <application name="ChannelManager">
           <component name="PATCH-114">
-              <pre>
-                  <action>
-                      <!-- run batch scripts or whatever before installing the files -->
-                  </action>
-              </pre>
+              <!-- run batch scripts or whatever before updating files -->
+              <pre action="" />
               <files action="add">
                   <file source="" target="" />
                   <file source="" target="" />
@@ -162,21 +158,15 @@
               <files action="remove">
                   <file target="" />
               </files>
-              <post>
-                  <action>
-                      <!-- run batch scripts or whatever after installing the files -->
-                  </action>
-              </post>
+              <!-- run batch scripts or whatever after updating files -->
+              <post action="" />
           </component>
       </application>
 
       <application name="Centricity">
           <component name="PATCH-78">
-              <pre>
-                  <action>
-                      <!-- run batch scripts or whatever before installing the files -->
-                  </action>
-              </pre>
+              <!-- run batch scripts or whatever before updating files -->
+              <pre action="" />
               <files action="add">
                   <file source="" target="" />
                   <file source="" target="" />
@@ -184,11 +174,8 @@
               <files action="remove">
                   <file target="" />
               </files>
-              <post>
-                  <action>
-                      <!-- run batch scripts or whatever after installing the files -->
-                  </action>
-              </post>
+              <!-- run batch scripts or whatever after updating files -->
+              <post action="" />
           </component>
       </application>
   </patch>
@@ -200,13 +187,87 @@
         <application name="Server">
             <!-- run batch scripts or whatever before updating files -->
             <pre action="" />
-            <files action="add">
-                <file source="" target="" />
-                <file source="" target="" />
+            <!-- add or replace -->
+            <files default_action="add">
+                <!--
+                    table:
+                        branches
+                    fields:
+                        branch_id
+                        repository_root         // svn://svn.click2coach.net/EPS
+                        repository_path         // $repository_root + /bla/bla/bla
+                        friendly_name           // 10.1dev
+
+                    table:
+                        build
+                    fields:
+                        build_id (PK?)
+                        build_date
+                        build_machine (host?)
+                        build_version (M.m.R)   // marketing
+                        build_number
+                        wc_root                 // OS path
+                        branch_id (FK)
+                        checked_out_revision    // build_revision or whatever
+
+                    table:
+                        binaries                // manually curated
+                    fields:
+                        binary_id               // int?
+                        short_name              // e.g., ChanMgrSvc.exe
+                        build_path              // SOME_ROOT/workdir/ChannelManager/
+
+                    table:
+                        binary_instances        // automatically generated
+                    fields:
+                        md5sum
+                        binary_id (FK)
+                        build_id (FK)
+                        binary_version (M.m.R.b)    // explorer file version
+
+
+
+                -->
+                <file target_exists="prompt"
+                    source=@"${srcRoot}\workdir\ChannelManager\SIPChannel.dll"
+                    target=@"${cmRoot}\SIPChannel.dll" />
+                <file target_exists="overwrite"
+                    source=@"${srcRoot}\workdir\ChannelManager\SIPChannel.pdb"
+                    target=@"${cmRoot}\SIPChannel.pdb" />
+                <file target_exists="pass"
+                    source=@"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll"
+                    target=@"${cmRoot}\SIPWrapperLib.dll" />
+                <file target_exists="rename"
+                    source=@"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb"
+                    target=@"${cmRoot}\SIPWrapperLib.pdb" />
+                <file target_exists="overwrite_if_newer"
+                    source=@"${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll"
+                    target=@"${cmRoot}\SIPConfigLib.dll" />
+
+                <file source=@"${srcRoot}\workdir\ChannelManager\SIPConfigLib.pdb" target=@"${cmRoot}\SIPConfigLib.pdb" />
+                <file source=@"${srcRoot}\workdir\ChannelManager\SIPPhone.dll" target=@"${cmRoot}\SIPPhone.dll" />
+                <file source=@"${srcRoot}\workdir\ChannelManager\SIPPhone.pdb" target=@"${cmRoot}\SIPPhone.pdb" />
+                <file source=@"${srcRoot}\workdir\SharedResources\LumiSoft.Net.dll" target=@"${cmRoot}\LumiSoft.Net.dll" />
+                <file source=@"${srcRoot}\workdir\SharedResources\LumiSoft.Net.pdb" target=@"${cmRoot}\LumiSoft.Net.pdb" />
+                <file source=@"${srcRoot}\workdir\SharedResources\AlvasAudio.dll" target=@"${serverRoot}\AlvasAudio.dll" />
+                <file source=@"${srcRoot}\workdir\SharedResources\AlvasAudio.pdb" target=@"${serverRoot}\AlvasAudio.pdb" />
+                <file source=@"${srcRoot}\workdir\ChannelManager\AudioReader.dll" target=@"${cmRoot}\AudioReader.dll" />
+                <file source=@"${srcRoot}\workdir\ChannelManager\AudioReader.pdb" target=@"${cmRoot}\AudioReader.pdb" />
+                <file source=@"${srcRoot}\workdir\SharedResources\server.dll" target=@"${cmRoot}\server.dll" />
+                <file source=@"${srcRoot}\workdir\SharedResources\server.pdb" target=@"${cmRoot}\server.pdb" />
+                <file source=@"${srcRoot}\workdir\SharedResources\log4net.dll" target=@"${cmRoot}\log4net.dll" />
+                <file source=@"${srcRoot}\config\chanmgr\ChanMgrSvc.SIP.config" target=@"${cmRoot}\ChanMgrSvc.SIP.config" />
             </files>
             <files action="remove">
-                <file target="" />
-            </files>
+                <file target=@"${cmRoot}\SIPGateway\InstallUtil.exe" />
+                <file target=@"${cmRoot}\SIPGateway\LumiSoft.Net.dll" />
+                <file target=@"${cmRoot}\SIPGateway\LumiSoft.Net.pdb" />
+                <file target=@"${cmRoot}\SIPGateway\LumiSoft.Net.xml" />
+                <file target=@"${cmRoot}\SIPGateway\log4net.dll" />
+                <file target=@"${cmRoot}\SIPGateway\sc.exe" />
+                <file target=@"${cmRoot}\SIPGateway\server.dll" />
+                <file target=@"${cmRoot}\SIPGateway\server.pdb" />
+           </files>
             <!-- run batch scripts or whatever after updating files -->
             <post action="" />
         </application>
