@@ -18,6 +18,37 @@ IF NOT EXISTS (
         )
 END
 
+-- ***************************************************************************
+-- Insert branches into branch table
+--
+-- This may not be an appropriate use of INSERT, but it gets the job done.
+-- ***************************************************************************
+IF NOT EXISTS (
+    SELECT [branch_id]
+    FROM [dbo].[branches]
+    -- seven branches: 9.10/base, 10.0/dev, int, base, 10.1/dev, int, base
+    WHERE [branch_id] IN (1,2,3,4,5,6,7))
+    BEGIN
+        DECLARE @repo_root NVARCHAR(255)
+        SET @repo_root = 'svn://svn.click2coach.net/EPS/branches'
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (1, @repo_root + '/9.10/maintenance/base', '9.10base')
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (2, @repo_root + '/10.0/maintenance/dev', '10.0dev')
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (3, @repo_root + '/10.0/maintenance/int', '10.0int')
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (4, @repo_root + '/10.0/maintenance/base', '10.0base')
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (5, @repo_root + '/10.1/maintenance/dev', '10.1dev')
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (6, @repo_root + '/10.1/maintenance/int', '10.1int')
+        INSERT [dbo].[branches] ([branch_id],[repository_path],[friendly_name])
+        VALUES (7, @repo_root + '/10.1/maintenance/base', '10.1base')
+    END
+
+
+-- table:
 --      build
 IF NOT EXISTS (
     SELECT 1
