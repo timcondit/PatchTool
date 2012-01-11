@@ -5,10 +5,10 @@
 --      repository_root text            // svn://svn.click2coach.net/EPS
 --      repository_path text            // $repository_root + /bla/bla/bla
 --      friendly_name text allow_nulls  // 10.1dev
-IF NOT EXISTS (SELECT 1
+IF NOT EXISTS (
+    SELECT 1
     FROM   sys.objects
-    WHERE  object_id = Object_id(N'[dbo].[branches]')
-    AND TYPE IN ( N'U' ))
+    WHERE  object_id = Object_id(N'[dbo].[branches]') AND TYPE IN ( N'U' ))
     BEGIN
         CREATE TABLE [dbo].[branches]
         (
@@ -30,10 +30,10 @@ END
 --      build_number int
 --      wc_root text allow_nulls                // OS path
 --      checked_out_revision int allow_nulls    // build_revision or whatever
-IF NOT EXISTS (SELECT 1
+IF NOT EXISTS (
+    SELECT 1
     FROM   sys.objects
-    WHERE  object_id = Object_id(N'[dbo].[build]')
-    AND TYPE IN ( N'U' ))
+    WHERE  object_id = Object_id(N'[dbo].[build]') AND TYPE IN ( N'U' ))
     BEGIN
         CREATE TABLE [dbo].[build]
         (
@@ -56,10 +56,10 @@ END
 --      binary_id int (PK?)
 --      name text allow_nulls   // e.g., ChanMgrSvc.exe
 --      build_path text         // SOME_ROOT/workdir/ChannelManager/
-IF NOT EXISTS (SELECT 1
+IF NOT EXISTS (
+    SELECT 1
     FROM   sys.objects
-    WHERE  object_id = Object_id(N'[dbo].[binaries]')
-    AND TYPE IN ( N'U' ))
+    WHERE  object_id = Object_id(N'[dbo].[binaries]') AND TYPE IN ( N'U' ))
     BEGIN
         CREATE TABLE [dbo].[binaries]
         (
@@ -77,10 +77,10 @@ IF NOT EXISTS (SELECT 1
 --      build_id int (FK into build.build_id)
 --      md5sum text
 --      binary_version text (M.m.R.b)   // explorer file version
-IF NOT EXISTS (SELECT 1
+IF NOT EXISTS (
+    SELECT 1
     FROM   sys.objects
-    WHERE  object_id = Object_id(N'[dbo].[binary_instances]')
-    AND TYPE IN ( N'U' ))
+    WHERE  object_id = Object_id(N'[dbo].[binary_instances]') AND TYPE IN ( N'U' ))
     BEGIN
         CREATE TABLE [dbo].[binary_instances]
         (
