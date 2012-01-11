@@ -15,6 +15,7 @@ IF NOT EXISTS (SELECT 1
             [branch_id] INT NOT NULL,
             [repository_path] NVARCHAR(255) NOT NULL,
             [friendly_name] NVARCHAR(255),
+            CONSTRAINT [PK_branch_id] PRIMARY KEY CLUSTERED ([branch_id])
         )
 END
 
@@ -44,13 +45,15 @@ IF NOT EXISTS (SELECT 1
             [build_number] INT NOT NULL,
             [wc_root] NVARCHAR(255),
             [revision] INT,
+            CONSTRAINT [PK_build_id] PRIMARY KEY CLUSTERED ([build_id]),
+            CONSTRAINT [FK_branch_id__build_id] FOREIGN KEY([branch_id]) REFERENCES [dbo].[build] ([build_id]),
         )
 END
 
 --  table:
 --      binaries                // manually curated
 --  fields:
---      binary_id int           // int?
+--      binary_id int (PK?)
 --      name text allow_nulls   // e.g., ChanMgrSvc.exe
 --      build_path text         // SOME_ROOT/workdir/ChannelManager/
 IF NOT EXISTS (SELECT 1
@@ -63,6 +66,7 @@ IF NOT EXISTS (SELECT 1
             [binary_id] INT NOT NULL,
             [name] NVARCHAR(255),
             [build_path] NVARCHAR(255) NOT NULL,
+            CONSTRAINT [PK_binary_id] PRIMARY KEY CLUSTERED ([binary_id])
         )
   END
 
@@ -84,6 +88,8 @@ IF NOT EXISTS (SELECT 1
             [build_id] INT NOT NULL,
             [md5sum] NVARCHAR(255) NOT NULL,
             [binary_version] NVARCHAR(255) NOT NULL,
+            CONSTRAINT [FK_binary_instances__binary_id] FOREIGN KEY([binary_id]) REFERENCES [dbo].[binaries] ([binary_id]),
+            CONSTRAINT [FK_binary_instances__build_id] FOREIGN KEY([build_id]) REFERENCES [dbo].[build] ([build_id]),
         )
   END
 
