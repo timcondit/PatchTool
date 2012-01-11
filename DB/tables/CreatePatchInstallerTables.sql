@@ -1,10 +1,9 @@
---  table:
+-- ***************************************************************************
+-- table:
 --      branches
---  fields:
---      branch_id int
---      repository_root text            // svn://svn.click2coach.net/EPS
---      repository_path text            // $repository_root + /bla/bla/bla
---      friendly_name text allow_nulls  // 10.1dev
+-- description:
+--      SVN branches
+-- ***************************************************************************
 IF NOT EXISTS (
     SELECT 1
     FROM   sys.objects
@@ -19,17 +18,7 @@ IF NOT EXISTS (
         )
 END
 
---  table:
 --      build
---  fields:
---      build_id int (PK?)
---      branch_id int (FK into branches.branch_id)
---      build_date date allow_nulls
---      build_machine text allow_nulls          // (host?)
---      build_version text (M.m.R)              // marketing
---      build_number int
---      wc_root text allow_nulls                // OS path
---      checked_out_revision int allow_nulls    // build_revision or whatever
 IF NOT EXISTS (
     SELECT 1
     FROM   sys.objects
@@ -50,12 +39,11 @@ IF NOT EXISTS (
         )
 END
 
---  table:
---      binaries                // manually curated
---  fields:
---      binary_id int (PK?)
---      name text allow_nulls   // e.g., ChanMgrSvc.exe
---      build_path text         // SOME_ROOT/workdir/ChannelManager/
+-- table:
+--      binaries
+-- description:
+--      Generic list of binaries that are eligible for patching.  Manually
+--      edited, maybe thru an admin web page.
 IF NOT EXISTS (
     SELECT 1
     FROM   sys.objects
@@ -70,13 +58,11 @@ IF NOT EXISTS (
         )
   END
 
---  table:
---      binary_instances                // automatically generated
---  fields:
---      binary_id int (FK into binaries.binary_id)
---      build_id int (FK into build.build_id)
---      md5sum text
---      binary_version text (M.m.R.b)   // explorer file version
+-- table:
+--      binary_instances
+-- description:
+--      The specific binaries (should probably be files, as they aren't
+--      necessarily binaries) which may be added to a patch.
 IF NOT EXISTS (
     SELECT 1
     FROM   sys.objects
