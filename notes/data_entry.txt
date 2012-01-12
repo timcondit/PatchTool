@@ -1,4 +1,31 @@
 
+##############################################################################
+# Workflow
+##############################################################################
+
+1. Load binaries table -- semi-automated.  Use Aristotle_sources.config as the
+   template.  Check out SQL CSV autoloading.
+
+   http://blog.sqlauthority.com/2008/02/06/sql-server-import-csv-file-into-sql-server-using-bulk-insert-load-comma-delimited-file-into-sql-server/
+
+2. Run build as usual.
+
+3. Insert build record: manual at first?
+
+4. Query binaries table for list of binaries and paths.  Need to design a
+   query to get the required data.
+
+5. Iterate over the list, collect each file, hash and stash.  Prefer central
+   storage, maybe Amazon S3?  Don't complicate things at first.  Make it easy
+   to mirror / distribute for safety & redundancy.
+
+6. Profit!
+
+
+
+##############################################################################
+# Questions
+##############################################################################
 What does data entry look like with this database?  If we had a view, what
 would it take as input?
 
