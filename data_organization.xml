@@ -193,37 +193,39 @@
                     table:
                         branches
                     fields:
-                        branch_id
-                        repository_root         // svn://svn.click2coach.net/EPS
-                        repository_path         // $repository_root + /bla/bla/bla
-                        friendly_name           // 10.1dev
+                        branch_id int (PK?)
+                        repository_root text            // svn://svn.click2coach.net/EPS
+                        repository_path text            // $repository_root + /bla/bla/bla
+                        friendly_name text allow_nulls  // 10.1dev
 
                     table:
                         build
                     fields:
-                        build_id (PK?)
-                        build_date
-                        build_machine (host?)
-                        build_version (M.m.R)   // marketing
-                        build_number
-                        wc_root                 // OS path
-                        branch_id (FK)
-                        checked_out_revision    // build_revision or whatever
+                        build_id int (PK?)
+                        branch_id int (FK into branches.branch_id)
+                        build_date date allow_nulls
+                        build_machine text allow_nulls  // (host?)
+                        build_version text (M.m.R)      // marketing
+                        build_number int
+                        wc_root text allow_nulls        // OS path
+                        checked_out_revision int allow_nulls    // build_revision or whatever
 
                     table:
-                        binaries                // manually curated
+                        binaries                        // manually curated
                     fields:
-                        binary_id               // int?
-                        short_name              // e.g., ChanMgrSvc.exe
-                        build_path              // SOME_ROOT/workdir/ChannelManager/
+                        binary_id int (PK?)
+                        name text allow_nulls           // e.g., ChanMgrSvc.exe
+                        build_path text                 // SOME_ROOT/workdir/ChannelManager/
 
                     table:
-                        binary_instances        // automatically generated
+                        binary_instances                // automatically generated
                     fields:
-                        md5sum
-                        binary_id (FK)
-                        build_id (FK)
-                        binary_version (M.m.R.b)    // explorer file version
+                        // Composite PK of binary_id + build_id?  Seems
+                        // needlessly complex.
+                        binary_id int (FK into binaries.binary_id)
+                        build_id int (FK into build.build_id)
+                        md5sum text
+                        binary_version text (M.m.R.b)    // explorer file version
 
 
 
