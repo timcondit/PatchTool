@@ -1,0 +1,83 @@
+
+What does data entry look like with this database?  If we had a view, what
+would it take as input?
+
+Also, how and where to encode the binary targets?  They're not here yet.
+
+
+
+##############################################################################
+# table:    branches
+# PK:       branch_id
+# FK:       none
+##############################################################################
+CREATE TABLE [dbo].[branches]
+(
+    [branch_id] INT NOT NULL,
+    [repository_path] NVARCHAR(255) NOT NULL,
+    [friendly_name] NVARCHAR(255),
+
+    CONSTRAINT [PK_branch_id]
+    PRIMARY KEY CLUSTERED ([branch_id])
+)
+
+##############################################################################
+# table:    build
+# PK:       build_id
+# FK:       none
+##############################################################################
+CREATE TABLE [dbo].[build]
+(
+    [build_id] INT NOT NULL,
+    [branch_id] INT NOT NULL,
+    [build_date] DATETIME,
+    [build_machine] NVARCHAR(255),
+    [build_version] NVARCHAR(255) NOT NULL,
+    [build_number] INT NOT NULL,
+    [wc_root] NVARCHAR(255),
+    [revision] INT,
+
+    CONSTRAINT [PK_build_id]
+    PRIMARY KEY CLUSTERED ([build_id]),
+
+    CONSTRAINT [FK_branch_id__build_id]
+    FOREIGN KEY([branch_id])
+    REFERENCES [dbo].[build] ([build_id]),
+)
+
+##############################################################################
+# table:    binaries
+# PK:       binary_id
+# FK:       none
+##############################################################################
+CREATE TABLE [dbo].[binaries]
+(
+    [binary_id] INT NOT NULL,
+    [name] NVARCHAR(255),
+    [build_path] NVARCHAR(255) NOT NULL,
+
+    CONSTRAINT [PK_binary_id]
+    PRIMARY KEY CLUSTERED ([binary_id])
+)
+
+##############################################################################
+# table:    binary_instances
+# PK:       none
+# FK:       binaries.binary_id, build.build_id
+##############################################################################
+CREATE TABLE [dbo].[binary_instances]
+(
+    [binary_id] INT NOT NULL,
+    [build_id] INT NOT NULL,
+    [md5sum] NVARCHAR(255) NOT NULL,
+    [binary_version] NVARCHAR(255) NOT NULL,
+
+    CONSTRAINT [FK_binary_instances__binary_id]
+    FOREIGN KEY([binary_id])
+    REFERENCES [dbo].[binaries] ([binary_id]),
+
+    CONSTRAINT [FK_binary_instances__build_id]
+    FOREIGN KEY([build_id])
+    REFERENCES [dbo].[build] ([build_id]),
+)
+
