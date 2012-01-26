@@ -467,8 +467,8 @@ namespace PatchTool
             cm.Set("LumiSoft.Net.xml", @"${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
             cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
-            cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
-            cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
+            cm.Set("server.dll_1", @"${cmRoot}\SIPGateway\server.dll");
+            cm.Set("server.pdb_1", @"${cmRoot}\SIPGateway\server.pdb");
             cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
 
             // AlvasAudio

@@ -112,7 +112,9 @@ namespace PatchTool
                 // SIP Gateway
                 "InstallUtil.exe",
                 "log4net.dll",
-                "sc.exe", "server.dll", "server.pdb",
+                "sc.exe",
+                // change the names to copy the same file to a second place on the target
+                "server.dll_1", "server.pdb_1",
                 "SIPWrapperLogging.xml",
 
                 // for registering AlvasAudio.dll
