@@ -94,7 +94,8 @@ IF NOT EXISTS (
             [name] NVARCHAR(255),
             [build_path] NVARCHAR(255) NOT NULL,
 
-            CONSTRAINT [PK_binary_id] PRIMARY KEY CLUSTERED ([binary_id])
+            CONSTRAINT [PK_binary_id]
+            PRIMARY KEY CLUSTERED ([binary_id])
         )
 END
 
