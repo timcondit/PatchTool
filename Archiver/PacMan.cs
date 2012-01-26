@@ -115,7 +115,7 @@ namespace PatchTool
                 "sc.exe",
                 // change the names to copy the same file to a second place on the target
                 "server.dll_1", "server.pdb_1",
-                "SIPWrapperLogging.xml",
+                "SIPWrapperLib.tlb", "SIPWrapperLogging.xml",
 
                 // for registering AlvasAudio.dll
                 "gacutil.exe", "regasm.exe",
