@@ -1,5 +1,15 @@
 
 ##############################################################################
+# Big rocks
+##############################################################################
+
+1. No dependencies (in either direction) between hash-and-cache and cache
+   queries.  They should be completely independent of one another.
+
+2. Hash 
+
+
+##############################################################################
 # Workflow
 ##############################################################################
 
@@ -21,6 +31,36 @@
 
 6. Profit!
 
+
+##############################################################################
+# UI
+##############################################################################
+
+1. Front end: web site or Windows form?  Decide later?
+
+2. Need views for:
+    - adding a new binary
+    - adding a new build (binary instances)
+    - ad hoc searches?  (no)
+    - 
+
+@@@@
+
+===Issues with getting new binaries into the DB===
+
+Accessibility issue no. 1:
+    Server runs on one machine, clients somewhere else
+
+Accessibility issue no. 2:
+    Server doesn't have a copy of the new (folder and) file.  They're on the
+    client's machine.
+
+Accessibility issue no. 3:
+    Path data not available, and even if it was, see nos. 1 & 2.
+
+Conclusion:
+    The users will have to carefully add the path from the wc_root to the new
+    file.
 
 
 ##############################################################################
