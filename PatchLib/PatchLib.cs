@@ -103,6 +103,7 @@ namespace PatchTool
             config.Set("ChannelManager.ICM.xml", @"${srcRoot}\config\chanmgr\ChannelManager.ICM.xml");
             config.Set("ChannelManager.SIP.xml", @"${srcRoot}\config\chanmgr\ChannelManager.SIP.xml");
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
+            config.Set("cleanup-SIPGateway-dir.bat", @"${srcRoot}\config\chanmgr\cleanup-SIPGateway-dir.bat");
             config.Set("client.properties", @"${srcRoot}\config\clients\client.properties");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
             config.Set("ContactSourceRunner.bat", @"${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
@@ -424,6 +425,7 @@ namespace PatchTool
             cm.Set("ChanMgrSvc.SIP.config", @"${cmRoot}\ChanMgrSvc.SIP.config");
             cm.Set("ChannelManager.ICM.xml", @"${cmRoot}\ChannelManager.ICM.xml");
             cm.Set("ChannelManager.SIP.xml", @"${cmRoot}\ChannelManager.SIP.xml");
+            cm.Set("cleanup-SIPGateway-dir.bat", @"${cmRoot}\cleanup-SIPGateway-dir.bat");
             cm.Set("DemoModeChannel.dll", @"${cmRoot}\DemoModeChannel.dll");
             cm.Set("DemoModeChannel.pdb", @"${cmRoot}\DemoModeChannel.pdb");
             cm.Set("DialogicChannel.dll", @"${cmRoot}\DialogicChannel.dll");

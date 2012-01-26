@@ -88,6 +88,7 @@ namespace PatchTool
                 "Chanmgr_common.xsd", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
                 "ChanMgrSvc.SIP.config",
                 "ChannelManager.ICM.xml", "ChannelManager.SIP.xml",
+                "cleanup-SIPGateway-dir.bat",
                 "DemoModeChannel.dll", "DemoModeChannel.pdb",
                 "DialogicChannel.dll", "DialogicChannel.pdb",
                 "DialogicChannel60.dll", "DialogicChannel60.pdb",
