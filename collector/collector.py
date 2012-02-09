@@ -40,6 +40,7 @@ patterns = [
         ]
 
 rootPath = sys.argv[1]
+outFile = sys.argv[2]
 
 sources = {}
 for root, dirs, files in os.walk(rootPath):
@@ -48,9 +49,7 @@ for root, dirs, files in os.walk(rootPath):
       path = os.path.join(root, filename)
       sources[path] = filename
 
-# 1: dump to a file as CSV, then import into SQL server
-# 2: don't worry about sanitizing paths for now
-# 3: don't filter yet (in fact why filter at all?)
+f = open(outFile, 'w')
 for k, v in sources.items():
-  print k + "," + v
+    f.write(k + "," + v + "\n")
 
