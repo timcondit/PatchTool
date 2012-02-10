@@ -43,13 +43,15 @@ rootPath = sys.argv[1]
 outFile = sys.argv[2]
 
 sources = {}
+count = 1
 for root, dirs, files in os.walk(rootPath):
   for p in patterns:
     for filename in fnmatch.filter(files, p):
       path = os.path.join(root, filename)
-      sources[path] = filename
+      sources[count] = path
+      count+=1
 
 f = open(outFile, 'w')
 for k, v in sources.items():
-    f.write(k + "," + v + "\n")
+    f.write(str(k) + "," + v + "\n")
 
