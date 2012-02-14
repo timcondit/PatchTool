@@ -61,3 +61,5 @@ GO
 ALTER TABLE [dbo].[target] CHECK CONSTRAINT [FK_target_patch]
 GO
 
+-- Force unique path values
+ALTER TABLE [dbo].[Target] ADD CONSTRAINT UNQ__Target__path UNIQUE ([path])

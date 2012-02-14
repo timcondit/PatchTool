@@ -49,6 +49,9 @@ CREATE TABLE [dbo].[source](
 ) ON [PRIMARY]
 GO
 
+-- Force unique path values
+ALTER TABLE [dbo].[Source] ADD CONSTRAINT UNQ__Source__path UNIQUE ([path])
+
 -- [from MSDN] Columns defined with char, varchar, binary, and varbinary data
 -- types have a defined size.
 --
