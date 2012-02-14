@@ -1,4 +1,6 @@
 
+example from producers:
+config\chanmgr\states.ipxSIP.xml,states.ipxSIP.xml
 
         // Target config is where the files are installed on each application.
         public void makeTargetConfig(string webapps_version = "0_0_0_0")
