@@ -34,7 +34,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[source](
-    [Id] [uniqueidentifier] NOT NULL,
+    [Id] [int] IDENTITY NOT NULL,
     [path] [varchar](900) NULL,
     -- TODO explain PRIMARY KEY CLUSTERED
     CONSTRAINT [PK_source] PRIMARY KEY CLUSTERED ([Id] ASC) WITH

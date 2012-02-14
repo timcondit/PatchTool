@@ -33,7 +33,7 @@ GO
 
 -- 
 CREATE TABLE [dbo].[target](
-    [Id] [uniqueidentifier] NOT NULL,
+    [Id] [int] IDENTITY NOT NULL,
     [path] [varchar](900) NULL,
     CONSTRAINT [PK_target_1] PRIMARY KEY CLUSTERED ([Id] ASC) WITH
     (

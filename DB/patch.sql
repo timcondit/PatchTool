@@ -28,9 +28,9 @@ GO
 
 -- 
 CREATE TABLE [dbo].[patch](
-    [Id] [uniqueidentifier] NOT NULL,
-    [s_Id] [uniqueidentifier] NULL,
-    [t_Id] [uniqueidentifier] NULL,
+    [Id] [int] IDENTITY NOT NULL,
+    [s_Id] [int] NULL,
+    [t_Id] [int] NULL,
     [is_active] [bit] NULL,
     CONSTRAINT [PK_patch] PRIMARY KEY CLUSTERED ([Id] ASC) WITH
     (
