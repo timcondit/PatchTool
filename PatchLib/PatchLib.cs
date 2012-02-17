@@ -925,44 +925,25 @@ namespace PatchTool
         {
             string keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
+            string d = GetInstallDetails(key, appName);
+            if (d != "NONE") { return d; }
 
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
+            string e = GetInstallDetails(key, appName);
+            if (e != "NONE") { return e; }
 
             keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
+            string f = GetInstallDetails(key, appName);
+            if (f != "NONE") { return f; }
+
+            return "NONE";
+        }
+
+        // TODO return two-tuple of InstallLocation and DisplayVersion
+        private string GetInstallDetails(RegistryKey key, string appName)
+        {
             try
             {
                 foreach (String a in key.GetSubKeyNames())
@@ -979,7 +960,6 @@ namespace PatchTool
                 }
             }
             catch (NullReferenceException) { }
-
             return "NONE";
         }
 
