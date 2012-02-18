@@ -15,9 +15,11 @@ namespace PatchTool
         {
             Extractor e = new Extractor();
 
-            // Get the intersection of those applications which are patched with those which are installed.  For
-            // example, if Server, ChannelManager and Tools are patched, but only Server and ChannelManager are
-            // installed, then we don't patch Tools.  But it may be staged if it's easier to do it than not.
+            // Get the intersection of those applications which are patched
+            // with those which are installed.  For example, if Server,
+            // ChannelManager and Tools are patched, but only Server and
+            // ChannelManager are installed, then we don't patch Tools.  But
+            // it may be staged if it's easier to do it than not.
 
             IDictionary<string, string> patchableApps = new Dictionary<string, string>();
             patchableApps.Add("Server", "Envision Server Suite");

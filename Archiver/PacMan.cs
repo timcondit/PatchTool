@@ -19,10 +19,12 @@ namespace PatchTool
             a.makeSourceConfig(webapps_version);
             a.makeTargetConfig(webapps_version);
 
-            // Should have the patchVersion before calling a.makePortablePatch().  Actually, should really break the
+            // Should have the patchVersion before calling
+            // a.makePortablePatch().  Actually, should really break the
             // configuration out into a separate utility.
 
-            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // This is where we specify which files go into the patch
+            // (Server).  It will be manually updated for now.
             IEnumerable<string> serverKeys = new List<string> {
                 "Administrator.exe", "AgentAutomation.dll",
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
@@ -78,8 +80,8 @@ namespace PatchTool
 
             };
 
-            // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
-            // for now.
+            // This is where we specify which files go into the patch
+            // (ChannelManager). It will be manually updated for now.
             IEnumerable<string> cmKeys = new List<string> {
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "audiocodesChannel.dll", "audiocodesChannel.pdb",
@@ -117,14 +119,15 @@ namespace PatchTool
                 "gacutil.exe", "regasm.exe",
             };
 
-            // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
-            // for now.
+            // This is where we specify which files go into the patch
+            // (WMWrapperService). It will be manually updated for now.
             IEnumerable<string> wmwsKeys = new List<string> {
                 "DefaultEnvisionProfile.prx", "server.dll", "WMWrapperService.exe",
             };
 
-            // This is where we specify which files go into the patch (CentricityWebApplications). It will be manually
-            // updated for now.
+            // This is where we specify which files go into the patch
+            // (CentricityWebApplications). It will be manually updated for
+            // now.
             IEnumerable<string> webappsKeys = new List<string> {
                 // AVPlayer
                 "AVPlayer.application", "AgentSupport.exe.deploy",
@@ -144,12 +147,14 @@ namespace PatchTool
                 "RecordingDownloadTool.resources.dll.deploy", "RecordingDownloadTool.resources.dll.deploy_1",
             };
 
-            // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
+            // This is where we specify which files go into the patch (Tools).
+            // It will be manually updated for now.
             IEnumerable<string> toolsKeys = new List<string> {
                 "DBMigration_84SP9_To_10.sql",
             };
 
-            // NB: the app names (WebApps, Server, ...) must match the names of the IConfigs in PatchLib
+            // NB: the app names (WebApps, Server, ...) must match the names
+            // of the IConfigs in PatchLib
             logger.Info("Copying ServerSuite patch files");
             a.makePortablePatch("Server", serverKeys);
 
@@ -165,8 +170,9 @@ namespace PatchTool
             logger.Info("Copying Tools patch files");
             a.makePortablePatch("Tools", toolsKeys);
 
-            // The extract dir is set before the archive is created.  As far as I know, there is nothing to be done at
-            // extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.
+            // The extract dir is set before the archive is created.  As far
+            // as I know, there is nothing to be done at extraction time to
+            // change that.  Bottom line is, the extractDir cannot be APPDIR.
             a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
             a.run();
         }
