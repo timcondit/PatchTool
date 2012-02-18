@@ -50,8 +50,9 @@ namespace PatchTool
             set { _extractDir = value; }
         }
 
-        // Source config is a list of where to find files on the Aristotle working copy.  It is independent of the
-        // apps to patch.  Every file in makeTargetConfig (identified by key) must be here.
+        // Source config is a list of where to find files on the Aristotle
+        // working copy.  It is independent of the apps to patch.  Every file
+        // in makeTargetConfig (identified by key) must be here.
         public void makeSourceConfig(string webapps_version = "0_0_0_0")
         {
             IniConfigSource source = new IniConfigSource();
@@ -529,10 +530,12 @@ namespace PatchTool
             source.Save("Aristotle_targets.config");
         }
 
-        // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
-        // source file to it's destination.
+        // Each application passes in a list of keys that identifies files to
+        // patch.  Walk over the list and copy each source file to it's
+        // destination.
         //
-        // Depends: appKeys, sourceConfig and targetConfig all have to use the same key names.
+        // Depends: appKeys, sourceConfig and targetConfig all have to use the
+        // same key names.
         public void makePortablePatch(string appToPatch, IEnumerable<string> appKeys)
         {
             // Make the roots.  Sometimes they'll be empty--fix it later.
@@ -551,9 +554,10 @@ namespace PatchTool
             IConfigSource targetConfig = new IniConfigSource("Aristotle_targets.config");
             foreach (string key in appKeys)
             {
-                // Try all patchableApps, but skip if their appKeys are empty.  This lets me update the patch lists
-                // in PacMan.cs without messing around in here.  Alternate approach is try to fetch the key, log
-                // warning when not found.
+                // Try all patchableApps, but skip if their appKeys are empty.
+                // This lets me update the patch lists in PacMan.cs without
+                // messing around in here.  Alternate approach is try to fetch
+                // the key, log warning when not found.
                 if (key.Length == 0)
                 {
                     break;
@@ -578,7 +582,8 @@ namespace PatchTool
                         {
                             if (e is FileNotFoundException || e is DirectoryNotFoundException)
                             {
-                                // this should fail with logger.Fatal() if a needed file is not found
+                                // this should fail with logger.Fatal() if a
+                                // needed file is not found
                                 logger.Error("not found: {0}", source);
                             }
                         }
@@ -597,7 +602,8 @@ namespace PatchTool
             // e.g., 10.1.10.92 -> 10_1_10_92
             if (regex.IsMatch(toFormat))
             {
-                // probably better to (eventually) configure the logger to send to log only, not stdout too
+                // probably better to (eventually) configure the logger to
+                // send to log only, not stdout too
                 //logger.Info("match: {0}", toFormat);
                 replaced = Archiver.dotToDash(regex.Match(toFormat));
                 //logger.Info("dotToDash: {0}", replaced);
@@ -617,7 +623,7 @@ namespace PatchTool
 
         public void run()
         {
-            logger.Info("Making archive [what's it called?]");
+            logger.Info("Making archive");
 
             using (ZipFile zip = new ZipFile())
             {
@@ -677,7 +683,8 @@ namespace PatchTool
             get { return _patchVersion; }
         }
 
-        // This should be equivalent to ExtractDir in Archiver.  I should probably find a better solution.
+        // This should be equivalent to ExtractDir in Archiver.  I should
+        // probably find a better solution.
         private string _extractDir = Directory.GetCurrentDirectory();
         public string ExtractDir
         {
@@ -685,47 +692,23 @@ namespace PatchTool
         }
 
         // Should this return bool for success or failure?
-        //
-        // NB: may need "C:\patches\d7699dbd-8214-458e-adb0-8317dfbfaab1>runas /env /user:administrator Clyde.exe"
         public void run(string _srcDir, string _dstDir, bool replaceAll = false)
         {
             DirectoryInfo srcDir = new DirectoryInfo(_srcDir);
             DirectoryInfo dstDir = new DirectoryInfo(_dstDir);
 
-            // create backup folders
+            // create new and old backup folders
             string newPathStr = CombinePaths("patches", PatchVersion, "new");
-            DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr));
-            if (!Directory.Exists(backupDirNew.ToString()))
-            {
-                try
-                {
-                    Directory.CreateDirectory(backupDirNew.ToString());
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
-                    throw;
-                }
-            }
-            //
+            string backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr)).ToString();
+            MakeDir(backupDirNew);
             string oldPathStr = CombinePaths("patches", PatchVersion, "old");
-            DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr));
-            if (!Directory.Exists(backupDirOld.ToString()))
-            {
-                try
-                {
-                    Directory.CreateDirectory(backupDirOld.ToString());
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
-                    throw;
-                }
-            }
+            string backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr)).ToString();
+            MakeDir(backupDirOld);
 
             FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
 
-            // Sometimes (like with Centricity Web Apps) we replace all files.  Keep it simple.
+            // Sometimes (like with Centricity Web Apps) we replace all files.
+            // Keep it simple.
             if (replaceAll == true)
             {
                 try
@@ -743,18 +726,20 @@ namespace PatchTool
                     logger.Info("copying {0} to {1}", srcDir.ToString(), dstDir.ToString());
                     CopyFolder(srcDir.ToString(), dstDir.ToString());
                 }
-                catch (IOException)
+                catch (IOException e)
                 {
                     logger.Error(@"Clyde won't overwrite existing patch files"); // (under patches\old and patches\new)");
                     logger.Error(@"Move or remove these directories and try again");
                     logger.Error(@"{0}", backupDirOld.ToString());
                     logger.Error(@"{0}", backupDirNew.ToString());
                     logger.Fatal("Exiting");
+                    logger.Error(e.StackTrace);
                 }
                 return;
             }
 
-            // each file in the patch, with relative directories; base paths are the heads
+            // each file in the patch, with relative directories; base paths
+            // are the heads
             string tail;
             // each file to patch, full path
             string fileToPatch;
@@ -792,8 +777,9 @@ namespace PatchTool
             //
             // 2: copy the same files from dstDir to backupDirOld
             //
-            // TC: want an INFO message here, describing what's going on (verifying that all files to be replaced are
-            // found on the system).
+            // TC: want an INFO message here, describing what's going on
+            // (verifying that all files to be replaced are found on the
+            // system).
             //Console.WriteLine("INFO: Are all files to be replaced present on the system?  The files in APPDIR");
             //Console.WriteLine("      should match the files in the patch");
 
@@ -802,12 +788,13 @@ namespace PatchTool
                 tail = RelativePath(srcDir.ToString(), f.FullName);
                 bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
 
-                // Get and check original location; eventually this will be a milestone: if the file is missing, user
-                // may want to cancel
+                // Get and check original location; eventually this will be a
+                // milestone: if the file is missing, user may want to cancel
                 fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
 
-                // Create any nested subdirectories included in the patch.  Note, this will loop over the same
-                // location multiple times; it's a little big ugly
+                // Create any nested subdirectories included in the patch.
+                // Note, this will loop over the same location multiple times;
+                // it's a little big ugly
                 DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
                 if (!Directory.Exists(backupSubdirOld.ToString()))
                 {
@@ -820,9 +807,11 @@ namespace PatchTool
                 }
                 catch (Exception e)
                 {
-                    // DirectoryNotFoundException occurs when the patch includes a new directory that is not on the
-                    // machine being patched.  As a result, the directory is also not in patches/VERSION/old, which
-                    // causes this exception.  Log it but don't rethrow.
+                    // DirectoryNotFoundException occurs when the patch
+                    // includes a new directory that is not on the machine
+                    // being patched.  As a result, the directory is also not
+                    // in patches/VERSION/old, which causes this exception.
+                    // Log it but don't rethrow.
                     if (e is FileNotFoundException || e is DirectoryNotFoundException)
                     {
                         logger.Warn("a file to backup was not found: {0}", bakFileOld);
@@ -884,12 +873,15 @@ namespace PatchTool
             {
                 try
                 {
-                    // Create a new RegistryKey instance every time, or the value detection fails (don't know why)
+                    // Create a new RegistryKey instance every time, or the
+                    // value detection fails (don't know why)
                     string subKey = @"SOFTWARE\Envision\Click2Coach\" + pApps.Current;
                     RegistryKey rk = Registry.LocalMachine.OpenSubKey(subKey);
 
-                    // Registry.GetValue() throws an ArgumentException if the value is not found.  It's an error if the
-                    // "null" is passed to installedApps, but the method requires a default value.
+                    // Registry.GetValue() throws an ArgumentException if the
+                    // value is not found.  It's an error if the "null" is
+                    // passed to installedApps, but the method requires a
+                    // default value.
                     string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
                     installedApps.Add(pApps.Current, installPath);
 
@@ -920,30 +912,43 @@ namespace PatchTool
             return installedApps;
         }
 
-        // dup dup
-        public string GetInstallLocation(string appName)
+        public List<string> GetInstallLocation(string appName)
         {
+            List<string> details = new List<string>();
+            details.Add("emptyVersion");
+            details.Add("emptyLocation");
+
             string keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName);
-            string d = GetInstallDetails(key, appName);
-            if (d != "NONE") { return d; }
-
+            try
+            {
+                return GetInstallDetails(key, appName);
+            }
+            catch (NullReferenceException) { }
+            
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            string e = GetInstallDetails(key, appName);
-            if (e != "NONE") { return e; }
+            try
+            {
+                return GetInstallDetails(key, appName);
+            }
+            catch (NullReferenceException) { }
 
             keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            string f = GetInstallDetails(key, appName);
-            if (f != "NONE") { return f; }
+            try
+            {
+                return GetInstallDetails(key, appName);
+            }
+            catch (NullReferenceException) { }
 
-            return "NONE";
+            return details;
         }
 
         // TODO return two-tuple of InstallLocation and DisplayVersion
-        private string GetInstallDetails(RegistryKey key, string appName)
+        private static List<string> GetInstallDetails(RegistryKey key, string appName)
         {
+            List<string> tmp = new List<string>();
             try
             {
                 foreach (String a in key.GetSubKeyNames())
@@ -953,18 +958,42 @@ namespace PatchTool
                     {
                         if (subkey.GetValue("DisplayName").ToString() == appName)
                         {
-                            return subkey.GetValue("InstallLocation").ToString();
+                            tmp.Add(subkey.GetValue("DisplayVersion").ToString());
+                            tmp.Add(subkey.GetValue("InstallLocation").ToString());
+                            return tmp;
                         }
                     }
-                    catch (NullReferenceException) { }
+                    catch (NullReferenceException)
+                    {
+                        throw;
+                    }
                 }
             }
-            catch (NullReferenceException) { }
-            return "NONE";
+            catch (NullReferenceException)
+            {
+                throw;
+            }
+            return tmp;
+        }
+
+        private static void MakeDir(string dirName)
+        {
+            if (!Directory.Exists(dirName))
+            {
+                try
+                {
+                    Directory.CreateDirectory(dirName);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry");
+                    throw;
+                }
+            }
         }
 
         // TC: probably want to return bool and not write to STDOUT
-        private void FileCompare(string fileName1, string fileName2, string fileName3)
+        private static void FileCompare(string fileName1, string fileName2, string fileName3)
         {
             try
             {
@@ -997,7 +1026,7 @@ namespace PatchTool
             }
         }
 
-        private void FileStat(string fileName)
+        private static void FileStat(string fileName)
         {
             FileInfo fileInfo = new FileInfo(fileName);
             if (fileInfo.Exists)
@@ -1088,7 +1117,7 @@ namespace PatchTool
         }
 
         // http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
-        private string RelativePath(string absolutePath, string relativeTo)
+        private static string RelativePath(string absolutePath, string relativeTo)
         {
             string[] absoluteDirectories = absolutePath.Split('\\');
             string[] relativeDirectories = relativeTo.Split('\\');
@@ -1128,7 +1157,7 @@ namespace PatchTool
         }
 
         // http://stackoverflow.com/questions/144439/building-a-directory-string-from-component-parts-in-c
-        string CombinePaths(params string[] parts)
+        private static string CombinePaths(params string[] parts)
         {
             string result = String.Empty;
             foreach (string s in parts)
