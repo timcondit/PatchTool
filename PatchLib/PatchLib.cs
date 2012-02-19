@@ -100,8 +100,10 @@ namespace PatchTool
             config.Set("ChanMgrSvc.pdb", @"${srcRoot}\workdir\ChannelManager\ChanMgrSvc.pdb");
             config.Set("ChanMgrSvc.SIP.config", @"${srcRoot}\config\chanmgr\ChanMgrSvc.SIP.config");
             config.Set("ChannelBrokerService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\ChannelBrokerService.xml");
+            config.Set("ChannelManager.ICM.xml", @"${srcRoot}\config\chanmgr\ChannelManager.ICM.xml");
             config.Set("ChannelManager.SIP.xml", @"${srcRoot}\config\chanmgr\ChannelManager.SIP.xml");
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
+            config.Set("cleanup-SIPGateway-dir.bat", @"${srcRoot}\config\chanmgr\cleanup-SIPGateway-dir.bat");
             config.Set("client.properties", @"${srcRoot}\config\clients\client.properties");
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
             config.Set("ContactSourceRunner.bat", @"${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
@@ -145,7 +147,9 @@ namespace PatchTool
             config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
             config.Set("EditEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx");
             config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
-            config.Set("EnvisionControls.cab", @"${srcRoot}\setup\Signature\EnvisionControls.cab");
+            // use EN by default, but this needs to be fixed properly
+            // caution: don't use @"${srcRoot}\setup\Signature\EnvisionControls.cab"
+            config.Set("EnvisionControls.cab", @"${srcRoot}\setup\Signature\EN\EnvisionControls.cab");
             config.Set("EnvisionServer.bat", @"${srcRoot}\config\server\EnvisionServer.bat");
             config.Set("EnvisionServer.exe_1", @"${srcRoot}\workdir\etservice\EnvisionServer.exe");
             config.Set("EnvisionSR.bat", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
@@ -197,6 +201,7 @@ namespace PatchTool
             config.Set("SIPPhone.pdb", @"${srcRoot}\workdir\ChannelManager\SIPPhone.pdb");
             config.Set("SIPWrapperLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.dll");
             config.Set("SIPWrapperLib.pdb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.pdb");
+            config.Set("SIPWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\SIPWrapperLib.tlb");
             config.Set("SIPWrapperLogging.xml", @"${srcRoot}\config\chanmgr\SIPWrapperLogging.xml");
             config.Set("SiteToGroupAgentMover.ascx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\SiteToGroupAgentMover.ascx");
             config.Set("SiteToGroupAgentMover.ascx.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
@@ -319,10 +324,10 @@ namespace PatchTool
             server.Set("Centricity_deploy.resources.dll_DE", @"${serverRoot}\bin\de\Centricity_deploy.resources.dll");
             server.Set("Centricity_deploy.resources.dll_DE_1", @"${serverRoot}\bin\de-DE\Centricity_deploy.resources.dll");
             server.Set("Centricity_deploy.resources.dll_ES", @"${serverRoot}\bin\es\Centricity_deploy.resources.dll");
-            server.Set("Centricity_deploy.dll", @"${serverRoot}\Centricity_deploy.dll");
+            server.Set("Centricity_deploy.dll", @"${serverRoot}\bin\Centricity_deploy.dll");
             server.Set("Centricity_SCA.dll", @"${serverRoot}\bin\Centricity_SCA.dll");
             server.Set("Centricity_Shared.dll", @"${serverRoot}\bin\Centricity_Shared.dll");
-            server.Set("Centricity_Shared.pdb", @"${serverRoot}\Centricity_Shared.pdb");
+            server.Set("Centricity_Shared.pdb", @"${serverRoot}\bin\Centricity_Shared.pdb");
             server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
             server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
@@ -418,7 +423,9 @@ namespace PatchTool
             cm.Set("ChanMgrSvc.exe", @"${cmRoot}\ChanMgrSvc.exe");
             cm.Set("ChanMgrSvc.pdb", @"${cmRoot}\ChanMgrSvc.pdb");
             cm.Set("ChanMgrSvc.SIP.config", @"${cmRoot}\ChanMgrSvc.SIP.config");
+            cm.Set("ChannelManager.ICM.xml", @"${cmRoot}\ChannelManager.ICM.xml");
             cm.Set("ChannelManager.SIP.xml", @"${cmRoot}\ChannelManager.SIP.xml");
+            cm.Set("cleanup-SIPGateway-dir.bat", @"${cmRoot}\cleanup-SIPGateway-dir.bat");
             cm.Set("DemoModeChannel.dll", @"${cmRoot}\DemoModeChannel.dll");
             cm.Set("DemoModeChannel.pdb", @"${cmRoot}\DemoModeChannel.pdb");
             cm.Set("DialogicChannel.dll", @"${cmRoot}\DialogicChannel.dll");
@@ -447,6 +454,7 @@ namespace PatchTool
             cm.Set("SIPPhone.pdb", @"${cmRoot}\SIPPhone.pdb");
             cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
             cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
+            cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
             cm.Set("SIP_events.properties", @"${cmRoot}\SIP_events.properties");
             cm.Set("states.BIB.xml", @"${cmRoot}\states.BIB.xml");
 
@@ -465,8 +473,8 @@ namespace PatchTool
             cm.Set("LumiSoft.Net.xml", @"${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml");
             cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
             cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
-            cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
-            cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
+            cm.Set("server.dll_1", @"${cmRoot}\SIPGateway\server.dll");
+            cm.Set("server.pdb_1", @"${cmRoot}\SIPGateway\server.pdb");
             cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
 
             // AlvasAudio
