@@ -9,8 +9,18 @@
 # 'headers.bat'})
 
 import fnmatch
+import hashlib
 import os
+import shutil
 import sys
+
+def md5sum(in_file):
+  f = open(in_file, 'rb')
+  contents = f.read()
+  f.close()
+  m = hashlib.md5()
+  m.update(contents)
+  return m.hexdigest()
 
 # the current list of file extensions in PatchLib.cs [2/6/2012]
 patterns = [
@@ -39,19 +49,30 @@ patterns = [
         '*.xml',
         ]
 
-rootPath = sys.argv[1]
-outFile = sys.argv[2]
+origin = sys.argv[1]
+out_file = sys.argv[2]
+full_version = sys.argv[3]
+version = full_version.rsplit('.', 1)[0]
 
-sources = {}
-count = 1
-for root, dirs, files in os.walk(rootPath):
+index = open(out_file, 'w')
+# later: method or module
+cache = r"C:\Users\Public\Builds\%s\%s" % (version, full_version)
+
+try:
+  os.makedirs(cache)
+except WindowsError:
+  print "Directory already exists: %s\nExiting." % cache
+
+for root, dirs, files in os.walk(origin):
   for p in patterns:
     for filename in fnmatch.filter(files, p):
-      path = os.path.join(root, filename)
-      sources[count] = path
-      count+=1
+      src = os.path.join(root, filename)
 
-f = open(outFile, 'w')
-for k, v in sources.items():
-    f.write(str(k) + "," + v + "\n")
+      # add checksum and file's original source to index
+      checksum = md5sum(src)
+      index.write(checksum + " " + src + "\n")
+
+      # rename file and copy from origin to cache
+      dst = os.path.join(cache, checksum)
+      shutil.copyfile(src, dst)
 
