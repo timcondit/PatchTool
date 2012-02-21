@@ -88,6 +88,7 @@ namespace PatchTool
                 "Chanmgr_common.xsd", "ChanMgrSvc.exe", "ChanMgrSvc.pdb",
                 "ChanMgrSvc.SIP.config",
                 "ChannelManager.ICM.xml", "ChannelManager.SIP.xml",
+                "cleanup-SIPGateway-dir.bat",
                 "DemoModeChannel.dll", "DemoModeChannel.pdb",
                 "DialogicChannel.dll", "DialogicChannel.pdb",
                 "DialogicChannel60.dll", "DialogicChannel60.pdb",
@@ -112,8 +113,10 @@ namespace PatchTool
                 // SIP Gateway
                 "InstallUtil.exe",
                 "log4net.dll",
-                "sc.exe", "server.dll", "server.pdb",
-                "SIPWrapperLogging.xml",
+                "sc.exe",
+                // change the names to copy the same file to a second place on the target
+                "server.dll_1", "server.pdb_1",
+                "SIPWrapperLib.tlb", "SIPWrapperLogging.xml",
 
                 // for registering AlvasAudio.dll
                 "gacutil.exe", "regasm.exe",

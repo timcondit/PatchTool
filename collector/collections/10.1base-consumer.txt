@@ -1,0 +1,241 @@
+
+example from producers:
+config\chanmgr\states.ipxSIP.xml,states.ipxSIP.xml
+
+        // Target config is where the files are installed on each application.
+        public void makeTargetConfig(string webapps_version = "0_0_0_0")
+        {
+            IniConfigSource source = new IniConfigSource();
+
+            // Each patchableApp (see Clyde.cs) needs its own config section and appRoot.
+            IConfig server = source.AddConfig("Server");
+            server.Set("serverRoot", @".");
+
+            server.Set("Administrator.exe", @"${serverRoot}\Administrator.exe");
+            server.Set("AgentAutomation.dll", @"${serverRoot}\AgentAutomation.dll");
+            server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio.dll");
+            server.Set("AlvasAudio.pdb", @"${serverRoot}\AlvasAudio.pdb");
+            server.Set("AlvasAudio.tlb", @"${serverRoot}\AlvasAudio.tlb");
+            server.Set("App_Code.compiled", @"${serverRoot}\bin\App_Code.compiled");
+            server.Set("App_global.asax.compiled", @"${serverRoot}\bin\App_global.asax.compiled");
+            server.Set("App_GlobalResources.compiled", @"${serverRoot}\bin\App_GlobalResources.compiled");
+            server.Set("centricity.dll", @"${serverRoot}\bin\centricity.dll");
+            server.Set("centricity.pdb", @"${serverRoot}\bin\centricity.pdb");
+            server.Set("Centricity_BLL.dll", @"${serverRoot}\bin\Centricity_BLL.dll");
+            server.Set("Centricity_BLL.pdb", @"${serverRoot}\bin\Centricity_BLL.pdb");
+            server.Set("Centricity_BLL.XmlSerializers.dll", @"${serverRoot}\bin\Centricity_BLL.XmlSerializers.dll");
+            server.Set("Centricity_DAL.dll", @"${serverRoot}\bin\Centricity_DAL.dll");
+            server.Set("Centricity_DAL.pdb", @"${serverRoot}\bin\Centricity_DAL.pdb");
+            server.Set("Centricity_deploy.resources.dll_DE", @"${serverRoot}\bin\de\Centricity_deploy.resources.dll");
+            server.Set("Centricity_deploy.resources.dll_DE_1", @"${serverRoot}\bin\de-DE\Centricity_deploy.resources.dll");
+            server.Set("Centricity_deploy.resources.dll_ES", @"${serverRoot}\bin\es\Centricity_deploy.resources.dll");
+            server.Set("Centricity_deploy.dll", @"${serverRoot}\Centricity_deploy.dll");
+            server.Set("Centricity_SCA.dll", @"${serverRoot}\bin\Centricity_SCA.dll");
+            server.Set("Centricity_Shared.dll", @"${serverRoot}\bin\Centricity_Shared.dll");
+            server.Set("Centricity_Shared.pdb", @"${serverRoot}\Centricity_Shared.pdb");
+            server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
+            server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
+            server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
+            server.Set("ContactSourceRunner.bat", @"${serverRoot}\ContactSourceRunner\ContactSourceRunner.bat");
+            server.Set("ContactSources.properties", @"${serverRoot}\ContactSourceRunner\ContactSources.properties");
+            server.Set("cstaLoader.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader.dll");
+            server.Set("cstaLoader.pdb", @"${serverRoot}\ContactSourceRunner\cstaLoader.pdb");
+            server.Set("cstaLoader_1_2.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_2.dll");
+            server.Set("cstaLoader_1_3_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_3_3.dll");
+            server.Set("cstaLoader_3_33.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_3_33.dll");
+            server.Set("cstaLoader_6_4_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_6_4_3.dll");
+            server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_1.dll");
+            server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
+            // FIXME the names of the files don't match (6.0, 6_0)
+            server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
+            server.Set("ctcLoader_6_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_6_0.pdb");
+            // FIXME the names of the files don't match (7.0, 7_0)
+            server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
+            server.Set("ctcLoader_7_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_7_0.pdb");
+            server.Set("client.properties", @"${serverRoot}\client.properties");
+            server.Set("Default.aspx", @"${serverRoot}\Home\Send\Default.aspx");
+            server.Set("EditEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx");
+            // Note how we configure multiple copies of the same file on the same app
+            server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
+            server.Set("envision_schema.xml", @"${serverRoot}\envision_schema.xml");
+            server.Set("envision_schema_central.xml", @"${serverRoot}\envision_schema_central.xml");
+            server.Set("EnvisionControls.cab", @"${serverRoot}\WebServer\webapps\ET\ETReporting\EnvisionControls.cab");
+            server.Set("EnvisionServer.bat", @"${serverRoot}\EnvisionServer.bat");
+            server.Set("EnvisionServer.exe_1", @"${serverRoot}\EnvisionServer.exe");
+            server.Set("EnvisionTheme.css", @"${serverRoot}\App_Themes\EnvisionTheme\EnvisionTheme.css");
+            server.Set("ETContactSource.exe", @"${serverRoot}\ContactSourceRunner\ETContactSource.exe");
+            server.Set("ETContactSource.pdb", @"${serverRoot}\ContactSourceRunner\ETContactSource.pdb");
+            server.Set("ETScheduleService.xml", @"${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");
+            server.Set("ETService.exe", @"${serverRoot}\ETService.exe");
+            server.Set("jtapi.jar", @"${serverRoot}\JRE\lib\ext\jtapi.jar");
+            server.Set("JtapiItemService.xml", @"${serverRoot}\C2CServiceDescriptions\JtapiItemService.xml");
+            server.Set("jtracing.jar", @"${serverRoot}\JRE\lib\ext\jtracing.jar");
+            server.Set("log4j.properties.template", @"${serverRoot}\ContactSourceRunner\log4j.properties.template");
+            server.Set("manifest.xml", @"${serverRoot}\ArchitectureServiceDescriptions\manifest.xml");
+            server.Set("manifest.xml_2", @"${serverRoot}\C2CServiceDescriptions\manifest.xml");
+            server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            server.Set("MSSQLUpdate_build_10.1.2.0.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml");
+            server.Set("nativeServiceWin32.dll", @"${serverRoot}\nativeServiceWin32.dll|${serverRoot}\ContactSourceRunner\nativeServiceWin32.dll");
+            server.Set("NetMerge.dll", @"${serverRoot}\ContactSourceRunner\NetMerge.dll");
+            server.Set("NetMerge.pdb", @"${serverRoot}\ContactSourceRunner\NetMerge.pdb");
+            server.Set("NewEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\NewEvaluation.aspx");
+            server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
+            server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
+            server.Set("RAL.pdb", @"${serverRoot}\bin\RAL.pdb");
+            server.Set("server.dll", @"${serverRoot}\bin\server.dll");
+            server.Set("server.pdb", @"${serverRoot}\bin\server.pdb");
+            server.Set("SIP_events.properties", @"${serverRoot}\ChannelManager\SIP_events.properties");
+            server.Set("SiteToGroupAgentMover.ascx", @"${serverRoot}\UserControls\Movers\SiteToGroupAgentMover.ascx");
+            server.Set("SiteToGroupAgentMover.ascx.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
+            server.Set("SiteToGroupAgentMover.ascx.de.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
+            server.Set("SiteToGroupAgentMover.ascx.es.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx");
+            server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
+            server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
+            server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
+            server.Set("TeliaCallGuide.pdb", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.pdb");
+            server.Set("TokenService.xml", @"${serverRoot}\ArchitectureServiceDescriptions\TokenService.xml");
+            server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
+            server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
+            server.Set("updater.jar", @"${serverRoot}\JRE\lib\ext\updater.jar");
+            //server.Set("web.config", @"${serverRoot}\web.config");
+
+            // LAA-BIN
+            server.Set("dumpbin.exe", @"${serverRoot}\LAA-BIN\dumpbin.exe");
+            server.Set("EnvisionServer.exe", @"${serverRoot}\LAA-BIN\EnvisionServer.exe");
+            server.Set("java.exe", @"${serverRoot}\LAA-BIN\java.exe");
+            server.Set("javaw.exe", @"${serverRoot}\LAA-BIN\javaw.exe");
+
+            // AlvasAudio
+            server.Set("AlvasAudio.bat", @"${serverRoot}\AlvasAudio\AlvasAudio.bat");
+            server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio\AlvasAudio.dll");
+            server.Set("gacutil.exe", @"${serverRoot}\AlvasAudio\gacutil.exe");
+            server.Set("regasm.exe", @"${serverRoot}\AlvasAudio\regasm.exe");
+
+            IConfig cm = source.AddConfig("ChannelManager");
+            cm.Set("cmRoot", @".");
+
+            cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
+            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
+            cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
+            cm.Set("AlvasAudio.tlb", @"${cmRoot}\AlvasAudio.tlb");
+            cm.Set("audiocodesChannel.dll", @"${cmRoot}\audiocodesChannel.dll");
+            cm.Set("audiocodesChannel.pdb", @"${cmRoot}\audiocodesChannel.pdb");
+            cm.Set("AudioReader.dll", @"${cmRoot}\AudioReader.dll");
+            cm.Set("AudioReader.pdb", @"${cmRoot}\AudioReader.pdb");
+            cm.Set("AvayaVoipChannel.dll", @"${cmRoot}\AvayaVoipChannel.dll");
+            cm.Set("AvayaVoipChannel.pdb", @"${cmRoot}\AvayaVoipChannel.pdb");
+            cm.Set("Chanmgr_common.xsd", @"${cmRoot}\Chanmgr_common.xsd");
+            cm.Set("ChanMgrSvc.exe", @"${cmRoot}\ChanMgrSvc.exe");
+            cm.Set("ChanMgrSvc.pdb", @"${cmRoot}\ChanMgrSvc.pdb");
+            cm.Set("ChanMgrSvc.SIP.config", @"${cmRoot}\ChanMgrSvc.SIP.config");
+            cm.Set("ChannelManager.SIP.xml", @"${cmRoot}\ChannelManager.SIP.xml");
+            cm.Set("DemoModeChannel.dll", @"${cmRoot}\DemoModeChannel.dll");
+            cm.Set("DemoModeChannel.pdb", @"${cmRoot}\DemoModeChannel.pdb");
+            cm.Set("DialogicChannel.dll", @"${cmRoot}\DialogicChannel.dll");
+            cm.Set("DialogicChannel.pdb", @"${cmRoot}\DialogicChannel.pdb");
+            cm.Set("DialogicChannel60.dll", @"${cmRoot}\DialogicChannel60.dll");
+            cm.Set("DialogicChannel60.pdb", @"${cmRoot}\DialogicChannel60.pdb");
+            cm.Set("DMCCConfigLib.dll", @"${cmRoot}\DMCCConfigLib.dll");
+            cm.Set("DMCCConfigLib.pdb", @"${cmRoot}\DMCCConfigLib.pdb");
+            cm.Set("dmcc_devices.bat", @"${cmRoot}\dmcc_devices.bat");
+            cm.Set("DMCCWrapperLib.dll", @"${cmRoot}\DMCCWrapperLib.dll");
+            cm.Set("DMCCWrapperLib.pdb", @"${cmRoot}\DMCCWrapperLib.pdb");
+            cm.Set("DMCCWrapperLib.tlb", @"${cmRoot}\DMCCWrapperLib.tlb");
+            cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
+            cm.Set("IPXChannel.dll", @"${cmRoot}\IPXChannel.dll");
+            cm.Set("IPXChannel.pdb", @"${cmRoot}\IPXChannel.pdb");
+            cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
+            cm.Set("RtpTransmitter.dll", @"${cmRoot}\RtpTransmitter.dll");
+            cm.Set("RtpTransmitter.pdb", @"${cmRoot}\RtpTransmitter.pdb");
+            cm.Set("server.dll", @"${cmRoot}\server.dll");
+            cm.Set("server.pdb", @"${cmRoot}\server.pdb");
+            cm.Set("SIPChannel.dll", @"${cmRoot}\SIPChannel.dll");
+            cm.Set("SIPChannel.pdb", @"${cmRoot}\SIPChannel.pdb");
+            cm.Set("SIPConfigLib.dll", @"${cmRoot}\SIPConfigLib.dll");
+            cm.Set("SIPConfigLib.pdb", @"${cmRoot}\SIPConfigLib.pdb");
+            cm.Set("SIPPhone.dll", @"${cmRoot}\SIPPhone.dll");
+            cm.Set("SIPPhone.pdb", @"${cmRoot}\SIPPhone.pdb");
+            cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
+            cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
+            cm.Set("SIP_events.properties", @"${cmRoot}\SIP_events.properties");
+            cm.Set("states.BIB.xml", @"${cmRoot}\states.BIB.xml");
+
+            // EnvisionSR
+            cm.Set("EnvisionSR.bat", @"${cmRoot}\EnvisionSR\EnvisionSR.bat");
+            cm.Set("EnvisionSR.reg", @"${cmRoot}\EnvisionSR\EnvisionSR.reg");
+            cm.Set("instsrv.exe", @"${cmRoot}\EnvisionSR\instsrv.exe");
+            cm.Set("sleep.exe", @"${cmRoot}\EnvisionSR\sleep.exe");
+            cm.Set("srvany.exe", @"${cmRoot}\EnvisionSR\srvany.exe");
+            cm.Set("svcmgr.exe", @"${cmRoot}\EnvisionSR\svcmgr.exe");
+
+            // SIPGateway
+            cm.Set("InstallUtil.exe", @"${cmRoot}\SIPGateway\InstallUtil.exe");
+            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll|${cmRoot}\SIPGateway\LumiSoft.Net.dll");
+            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb|${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
+            cm.Set("LumiSoft.Net.xml", @"${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml");
+            cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
+            cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
+            cm.Set("server.dll", @"${cmRoot}\SIPGateway\server.dll");
+            cm.Set("server.pdb", @"${cmRoot}\SIPGateway\server.pdb");
+            cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
+
+            // AlvasAudio
+            cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
+            cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
+            cm.Set("gacutil.exe", @"${cmRoot}\AlvasAudio\gacutil.exe");
+            cm.Set("regasm.exe", @"${cmRoot}\AlvasAudio\regasm.exe");
+
+
+            IConfig wmws = source.AddConfig("WMWrapperService");
+            wmws.Set("wmwsRoot", @".");
+            wmws.Set("DefaultEnvisionProfile.prx", @"${wmwsRoot}\DefaultEnvisionProfile.prx");
+            wmws.Set("server.dll", @"${wmwsRoot}\server.dll");
+            wmws.Set("WMWrapperService.exe", @"${wmwsRoot}\WMWrapperService.exe");
+
+
+            IConfig tools = source.AddConfig("Tools");
+            tools.Set("toolsRoot", @".");
+            tools.Set("DBMigration_84SP9_To_10.sql", @"${toolsRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
+
+
+            IConfig webapps = source.AddConfig("WebApps");
+            webapps.Set("webappsRoot", @".");
+            webapps.Set("webapps_version", webapps_version);
+
+            // AVPlayer
+            webapps.Set("AVPlayer.application", @"${webappsRoot}\AVPlayer\AVPlayer.application");
+            webapps.Set("AgentSupport.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+            webapps.Set("AVPlayer.exe.config.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
+            webapps.Set("AVPlayer.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
+            webapps.Set("AVPlayer.exe.manifest", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
+            webapps.Set("CentricityApp.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
+            webapps.Set("hasp_windows.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+            webapps.Set("Interop.WMPLib.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            webapps.Set("log4net.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("nativeServiceWin32.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+            webapps.Set("server.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            webapps.Set("SharedResources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+            webapps.Set("ISource.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+            webapps.Set("AVPlayer.resources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
+            webapps.Set("AVPlayer.resources.dll.deploy_1", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_1", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            webapps.Set("AVPlayerIcon.ico.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
+
+            // RecordingDownloadTool
+            webapps.Set("RecordingDownloadTool.application", @"${webappsRoot}\RecordingDownloadTool\RecordingDownloadTool.application");
+            webapps.Set("CentricityApp.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+            webapps.Set("log4net.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
+            webapps.Set("RecordingDownloadTool.exe.config.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
+            webapps.Set("RecordingDownloadTool.exe.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
+            webapps.Set("RecordingDownloadTool.exe.manifest", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
+            webapps.Set("server.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
+            webapps.Set("sox.exe.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_2", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            webapps.Set("CentricityApp.resources.dll.deploy_3", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            webapps.Set("RecordingDownloadTool.resources.dll.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+            webapps.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
+
+            source.ExpandKeyValues();
+            source.Save("Aristotle_targets.config");
+        }
