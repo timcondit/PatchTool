@@ -1,0 +1,31 @@
+
+I may finally have an end-to-end strategy worked out.  The big pieces are ...
+
+
+==Production==
+x. compile sources
+x. generate portable config for all patch-eligible files (origin.idx)
+    x. see git's index for examples of the right way to do this (hint: very simply)
+    x. 'git ls-files --stage'
+    x. maybe 'git ls-tree' with options
+x. using portable config, make build server files available to Archiver
+    x. copy from build location to <version>/<full-version>/<HASH>
+    x. [done] collector.py from a0796573db1da334eca87d89fe02511fe41cf5a2
+
+
+==Archiver==
+x. read portable config for all patch-eligible files
+    x. origin.idx includes MD5 sums and (hopefully) relative paths for all eligible files.  Duplicate md5sums are allowed, but duplicate paths are not.
+    <md5sum> <origin-path>
+
+    x. target.idx includes MD5 sums and the target path, possibly with an application prefix.  The MD5 sums serve as keys into origin.idx.  Like origin.idx, duplicate md5sums are allowed, but duplicate paths are not.  The files to include are copied from the origin, and renamed from the md5sum according to the target index.
+    <md5sum> <target-path> [<active?>]
+
+
+==Extractor==
+I'd like to duplicate the (origin) file cache in the patch.  Reusing this strategy in both places would be a big win.  Having both the origin and target indices use the same strategy is another potential win.
+
+But it's not going to happen unless I can figure out how to ...
+
+{{ Do a Python proof-of-concept of the Extractor piece }}
+

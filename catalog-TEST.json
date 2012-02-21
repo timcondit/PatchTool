@@ -1,0 +1,106 @@
+
+{"widget": {
+    "debug": "on",
+    "window": {
+        "title": "Sample Konfabulator Widget",
+        "name": "main_window",
+        "width": 500,
+        "height": 500
+    },
+    "image": {
+        "src": "Images/Sun.png",
+        "name": "sun1",
+        "hOffset": 250,
+        "vOffset": 250,
+        "alignment": "center"
+    },
+    "text": {
+        "data": "Click Here",
+        "size": 36,
+        "style": "bold",
+        "name": "text1",
+        "hOffset": 250,
+        "vOffset": 100,
+        "alignment": "center",
+        "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
+    }
+}}
+
+
+-- Should this file completely describe a patch?  Can it?
+-- It cannot.  Each file listed here is unique, but patches may contain
+-- multiple copies of the same file.  Targets should be kept separate.
+{
+  "10.1.20.0": {
+    "build-server": "https://ci.click2coach.net",
+    "working-copy": "C:\Source\builds\bla\bla\bla",         -- leave out?
+    "patch-cache": "C:\Users\Public\Builds\10.1\10.1.20.0", -- leave out?
+    "cache-URL": "https://ci.click2coach.net/10.1/10.1.20.0/patch-cache",
+
+    "patchable-files": {
+      "SOMEHASH001": {
+        "origin": "some\relative\path\into\working-copy\file001.exe",
+        "add-to-patch": "true",
+        "targets": {
+          "9.10": "some/9.10/target",
+          "10.0": "some/10.0/target",
+          "10.1": "some/10.1/target",
+        }
+      }
+      "SOMEHASH002": {
+        "origin": "some\relative\path\into\working-copy\file002.exe",
+        "add-to-patch": "false",
+        "targets": {
+          "9.10": "some/9.10/target",
+          "10.0": "some/10.0/target",
+          "10.1": "some/10.1/target",
+        }
+      }
+      "SOMEHASH003": {
+        "origin": "some\relative\path\into\working-copy\file003.exe",
+        "add-to-patch": "true",
+        "targets": {
+          "9.10": "some/9.10/target",
+          "10.0": "some/10.0/target",
+          "10.1": "some/10.1/target",
+        }
+      }
+}
+
+
+-- Should this file completely describe a patch?  Can it?
+-- It cannot.  Each file listed here is unique, but patches may contain
+-- multiple copies of the same file.  Targets should be kept separate.
+{
+  "10.1.20.0": {
+    "build-server": "https://ci.click2coach.net",
+    "working-copy": "C:\Source\builds\bla\bla\bla",         -- leave out?
+    "patch-cache": "C:\Users\Public\Builds\10.1\10.1.20.0", -- leave out?
+    "cache-URL": "https://ci.click2coach.net/10.1/10.1.20.0/patch-cache",
+
+    # Q: how to identify the files?  How does git do it?
+    "patchable-files": {
+      "hash": "SOMEHASH001",
+      "origin": "some\relative\path\into\working-copy\file001.exe",
+    }
+    "SOMEHASH002": {
+      "origin": "some\relative\path\into\working-copy\file002.exe",
+      "add-to-patch": "false",
+      "targets": {
+        "9.10": "some/9.10/target",
+        "10.0": "some/10.0/target",
+        "10.1": "some/10.1/target",
+      }
+    }
+    "SOMEHASH003": {
+      "origin": "some\relative\path\into\working-copy\file003.exe",
+      "add-to-patch": "true",
+      "targets": {
+        "9.10": "some/9.10/target",
+        "10.0": "some/10.0/target",
+        "10.1": "some/10.1/target",
+      }
+    }
+  }
+}
+
