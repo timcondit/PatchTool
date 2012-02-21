@@ -19,15 +19,18 @@ namespace PatchTool
             // example, if Server, ChannelManager and Tools are patched, but only Server and ChannelManager are
             // installed, then we don't patch Tools.  But it may be staged if it's easier to do it than not.
 
-            IDictionary<string, string> patchableApps = new Dictionary<string, string>();
-            patchableApps.Add("Server", "Envision Server Suite");
-            patchableApps.Add("ChannelManager", "Envision Channel Manager");
-            patchableApps.Add("WebApps", "Envision Web Apps");
-            patchableApps.Add("WMWrapperService", "Envision Windows Media Wrapper Service");
-            patchableApps.Add("Tools", "Envision Tools Suite");
+            IDictionary<string, string> allInstallers = new Dictionary<string, string>();
+            allInstallers.Add("Server", "Envision Server");
+            allInstallers.Add("ServerSuite", "Envision Server Suite");
+            allInstallers.Add("ChannelManager", "Envision Channel Manager");
+            allInstallers.Add("Centricity", "Envision Centricity");
+            allInstallers.Add("WebApps", "Envision Web Apps");
+            allInstallers.Add("WMWrapperService", "Envision Windows Media Wrapper Service");
+            allInstallers.Add("DBMigration", "Envision Database Migration");
+            allInstallers.Add("Tools", "Envision Tools Suite");
 
             // first check
-            IDictionary<string, string> installedApps = e.getInstalledApps(patchableApps.Keys);
+            IDictionary<string, string> installedApps = e.getInstalledApps(allInstallers.Keys);
 
             foreach (string iApp in installedApps.Keys)
             {
