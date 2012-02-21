@@ -76,3 +76,7 @@ for root, dirs, files in os.walk(origin):
       dst = os.path.join(cache, checksum)
       shutil.copyfile(src, dst)
 
+# last steps: close and relocate the index
+index.close()
+shutil.move(out_file, cache)
+
