@@ -54,7 +54,6 @@ out_file = sys.argv[2]
 full_version = sys.argv[3]
 version = full_version.rsplit('.', 1)[0]
 
-index = open(out_file, 'w')
 # later: method or module
 cache = r"C:\Users\Public\Builds\%s\%s" % (version, full_version)
 
@@ -63,20 +62,25 @@ try:
 except WindowsError:
   print "Directory already exists: %s\nExiting." % cache
 
+index = []
 for root, dirs, files in os.walk(origin):
   for p in patterns:
     for filename in fnmatch.filter(files, p):
       src = os.path.join(root, filename)
+      if src not in index:
+        # add checksum and file's original source to index
+        checksum = md5sum(src)
+        index.append(checksum + " " + src + "\n")
 
-      # add checksum and file's original source to index
-      checksum = md5sum(src)
-      index.write(checksum + " " + src + "\n")
+        # rename file and copy from origin to cache
+        dst = os.path.join(cache, checksum)
+        shutil.copyfile(src, dst)
+      else:
+        raise
 
-      # rename file and copy from origin to cache
-      dst = os.path.join(cache, checksum)
-      shutil.copyfile(src, dst)
-
-# last steps: close and relocate the index
-index.close()
-shutil.move(out_file, cache)
+# last steps: write the index file to the cache
+fh = open(os.path.join(cache, out_file), 'w')
+for line in index:
+  fh.write(line)
+fh.close()
 
