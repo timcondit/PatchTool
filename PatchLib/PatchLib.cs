@@ -626,7 +626,7 @@ namespace PatchTool
 
         public void run()
         {
-            logger.Info("Making archive [what's it called?]");
+            logger.Info("Making archive");
 
             using (ZipFile zip = new ZipFile())
             {
@@ -660,9 +660,19 @@ namespace PatchTool
                 string patchName = @"envision-installer-" + PatchVersion + @".exe";
                 zip.SaveSelfExtractor(patchName, options);
             }
+            logger.Info("... done");
         }
     }
 
+    public class ApplicationRegistryData
+    {
+        // e.g., Envision Channel Manager
+        public string appName { get; set; }
+        // e.g., C:\Program Files\Envision Telephony\Envision Channel Manager
+        public string installLocation { get; set; }
+        // e.g., 10.1.0000.394
+        public string displayVersion { get; set; }
+    }
 
     public class Extractor
     {
@@ -883,95 +893,27 @@ namespace PatchTool
             Console.WriteLine();
         }
 
-        //
-        public IDictionary<string, string> getInstalledApps(IEnumerable<string> patchableApps)
+        public ApplicationRegistryData GetInstallInfo(string appName)
         {
-            IDictionary<string, string> installedApps = new Dictionary<string, string>();
-            IEnumerator<string> pApps = patchableApps.GetEnumerator();
-
-            while (pApps.MoveNext())
-            {
-                try
-                {
-                    // Create a new RegistryKey instance every time, or the value detection fails (don't know why)
-                    string subKey = @"SOFTWARE\Envision\Click2Coach\" + pApps.Current;
-                    RegistryKey rk = Registry.LocalMachine.OpenSubKey(subKey);
-
-                    // Registry.GetValue() throws an ArgumentException if the value is not found.  It's an error if the
-                    // "null" is passed to installedApps, but the method requires a default value.
-                    string installPath = Registry.GetValue(rk.ToString(), "InstallPath", "null").ToString();
-                    installedApps.Add(pApps.Current, installPath);
-
-                    logger.Info("InstallPath found for {0}", pApps.Current);
-                    rk.Close();
-                }
-                catch (Exception e)
-                {
-                    if (e is NullReferenceException || e is ArgumentException)
-                    {
-                        logger.Info("InstallPath not found for {0}", pApps.Current);
-                    }
-                }
-            }
-
-            if (installedApps.Count == 0)
-            {
-                logger.Warn("No Envision applications were found on this machine!");
-            }
-            else
-            {
-                logger.Info("Found {0} Envision applications:", installedApps.Count);
-                foreach (KeyValuePair<string, string> item in installedApps)
-                {
-                    logger.Info("{0} installed at \"{1}\"", item.Key, item.Value);
-                }
-            }
-            return installedApps;
-        }
-
-        // dup dup
-        public string GetInstallLocation(string appName)
-        {
-            string keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
+            ApplicationRegistryData reg = new ApplicationRegistryData();
+            string keyName;
+            RegistryKey key;
 
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            key = Registry.CurrentUser.OpenSubKey(keyName);
+            GetRegistryValues(appName, reg, key);
+            keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            try
-            {
-                foreach (String a in key.GetSubKeyNames())
-                {
-                    RegistryKey subkey = key.OpenSubKey(a);
-                    try
-                    {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
-                        {
-                            return subkey.GetValue("InstallLocation").ToString();
-                        }
-                    }
-                    catch (NullReferenceException) { }
-                }
-            }
-            catch (NullReferenceException) { }
-
+            GetRegistryValues(appName, reg, key);
             keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
+            GetRegistryValues(appName, reg, key);
+
+            return reg;
+        }
+
+        private void GetRegistryValues(string appName, ApplicationRegistryData reg, RegistryKey key)
+        {
             try
             {
                 foreach (String a in key.GetSubKeyNames())
@@ -981,15 +923,15 @@ namespace PatchTool
                     {
                         if (subkey.GetValue("DisplayName").ToString() == appName)
                         {
-                            return subkey.GetValue("InstallLocation").ToString();
+                            reg.appName = appName;
+                            reg.installLocation = subkey.GetValue("InstallLocation").ToString();
+                            reg.displayVersion = subkey.GetValue("DisplayVersion").ToString();
                         }
                     }
                     catch (NullReferenceException) { }
                 }
             }
             catch (NullReferenceException) { }
-
-            return null;
         }
 
         // TC: probably want to return bool and not write to STDOUT
