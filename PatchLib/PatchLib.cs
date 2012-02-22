@@ -664,16 +664,37 @@ namespace PatchTool
         }
     }
 
-    public class ApplicationRegistryData
+    public class InstallerSuite
+    {
+        public string major_minor { get; set; }
+        public List<Installer> installers { get; set; }
+    }
+
+    public class Installer
     {
         // e.g., ChannelManager
-        public string appName { get; set; }
+        public string abbr { get; set; }
+
         // e.g., Envision Channel Manager
         public string displayName { get; set; }
+
         // e.g., C:\Program Files\Envision Telephony\Envision Channel Manager
         public string installLocation { get; set; }
+
         // e.g., 10.1.0000.394
         public string displayVersion { get; set; }
+
+        // the applications that are included in this Installer
+        public List<ETApplication> applications { get; set; }
+    }
+
+    public class ETApplication
+    {
+        // e.g., ChannelManager
+        public string abbr { get; set; }
+
+        // e.g., Envision Channel Manager
+        public string displayName { get; set; }
     }
 
     public class Extractor
@@ -895,9 +916,9 @@ namespace PatchTool
             Console.WriteLine();
         }
 
-        public ApplicationRegistryData GetInstallInfo(string appName, string displayName)
+        public Installer GetInstallInfo(string appName, string displayName)
         {
-            ApplicationRegistryData reg = new ApplicationRegistryData();
+            Installer reg = new Installer();
             string keyName;
             RegistryKey key;
 
@@ -914,7 +935,7 @@ namespace PatchTool
             return reg;
         }
 
-        private void GetRegistryValues(string displayName, string appName, ApplicationRegistryData reg, RegistryKey key)
+        private void GetRegistryValues(string displayName, string appName, Installer installer, RegistryKey key)
         {
             try
             {
@@ -925,10 +946,10 @@ namespace PatchTool
                     {
                         if (subkey.GetValue("DisplayName").ToString() == displayName)
                         {
-                            reg.displayName = displayName;
-                            reg.appName = appName;  // not actually a registry value
-                            reg.installLocation = subkey.GetValue("InstallLocation").ToString();
-                            reg.displayVersion = subkey.GetValue("DisplayVersion").ToString();
+                            installer.displayName = displayName;
+                            installer.abbr = appName;  // not actually a registry value
+                            installer.installLocation = subkey.GetValue("InstallLocation").ToString();
+                            installer.displayVersion = subkey.GetValue("DisplayVersion").ToString();
                         }
                     }
                     catch (NullReferenceException) { }
