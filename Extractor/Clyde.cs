@@ -26,15 +26,26 @@ namespace PatchTool
             allInstallers.Add("DBMigration", "Envision Database Migration");
             allInstallers.Add("Tools", "Envision Tools Suite");
 
-            ApplicationRegistryData[] installedApps;
+            List<ApplicationRegistryData> installedAppsInfo = new List<ApplicationRegistryData>();
 
             foreach (KeyValuePair<string, string> pair in allInstallers)
             {
-                ApplicationRegistryData data = e.GetInstallInfo(pair.Value);
+                ApplicationRegistryData data = e.GetInstallInfo(pair.Key, pair.Value);
+                if ((data.appName != null) &&
+                    (data.displayName != null) &&
+                    (data.displayVersion != null) &&
+                    (data.installLocation != null))
+                {
+                    installedAppsInfo.Add(data);
+                }
 
+                // debug
                 Console.WriteLine("reg.appName: {0}", data.appName);
+                Console.WriteLine("reg.displayName: {0}", data.displayName);
                 Console.WriteLine("reg.installLocation: {0}", data.installLocation);
                 Console.WriteLine("reg.displayVersion: {0}", data.displayVersion);
+                Console.WriteLine();
+            }
 
                 // hopefully we've now got a bunch of ApplicationRegistryData
                 // objects with names, install locations and versions
@@ -53,7 +64,10 @@ namespace PatchTool
                 //        throw;
                 //    }
                 //}
-            }
+
+            // debug
+            Console.WriteLine("installedAppsInfo.Count: {0}", installedAppsInfo.Count);
+
             // TC: for testing
             Console.Write("Press any key to continue");
             Console.ReadLine();

@@ -666,8 +666,10 @@ namespace PatchTool
 
     public class ApplicationRegistryData
     {
-        // e.g., Envision Channel Manager
+        // e.g., ChannelManager
         public string appName { get; set; }
+        // e.g., Envision Channel Manager
+        public string displayName { get; set; }
         // e.g., C:\Program Files\Envision Telephony\Envision Channel Manager
         public string installLocation { get; set; }
         // e.g., 10.1.0000.394
@@ -893,7 +895,7 @@ namespace PatchTool
             Console.WriteLine();
         }
 
-        public ApplicationRegistryData GetInstallInfo(string appName)
+        public ApplicationRegistryData GetInstallInfo(string appName, string displayName)
         {
             ApplicationRegistryData reg = new ApplicationRegistryData();
             string keyName;
@@ -901,18 +903,18 @@ namespace PatchTool
 
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.CurrentUser.OpenSubKey(keyName);
-            GetRegistryValues(appName, reg, key);
+            GetRegistryValues(displayName, appName, reg, key);
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            GetRegistryValues(appName, reg, key);
+            GetRegistryValues(displayName, appName, reg, key);
             keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            GetRegistryValues(appName, reg, key);
+            GetRegistryValues(displayName, appName, reg, key);
 
             return reg;
         }
 
-        private void GetRegistryValues(string appName, ApplicationRegistryData reg, RegistryKey key)
+        private void GetRegistryValues(string displayName, string appName, ApplicationRegistryData reg, RegistryKey key)
         {
             try
             {
@@ -921,9 +923,10 @@ namespace PatchTool
                     RegistryKey subkey = key.OpenSubKey(a);
                     try
                     {
-                        if (subkey.GetValue("DisplayName").ToString() == appName)
+                        if (subkey.GetValue("DisplayName").ToString() == displayName)
                         {
-                            reg.appName = appName;
+                            reg.displayName = displayName;
+                            reg.appName = appName;  // not actually a registry value
                             reg.installLocation = subkey.GetValue("InstallLocation").ToString();
                             reg.displayVersion = subkey.GetValue("DisplayVersion").ToString();
                         }
