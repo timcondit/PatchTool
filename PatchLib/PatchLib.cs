@@ -989,7 +989,7 @@ namespace PatchTool
             }
             catch (NullReferenceException) { }
 
-            return "NONE";
+            return null;
         }
 
         // TC: probably want to return bool and not write to STDOUT

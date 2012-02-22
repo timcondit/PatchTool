@@ -29,41 +29,22 @@ namespace PatchTool
             allInstallers.Add("DBMigration", "Envision Database Migration");
             allInstallers.Add("Tools", "Envision Tools Suite");
 
-            // first check
-            IDictionary<string, string> installedApps = e.getInstalledApps(allInstallers.Keys);
-
-            foreach (string iApp in installedApps.Keys)
+            foreach (KeyValuePair<string, string> pair in allInstallers)
             {
-                try
+                string target = e.GetInstallLocation(pair.Value);
+                if (target != null)
                 {
-                    string appDir = installedApps[iApp];
-                    string srcDirRoot = Path.Combine(e.ExtractDir, e.SourceDir);
-                    e.run(Path.Combine(srcDirRoot, iApp), appDir);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
-                    throw;
-                }
-
-                // TC: for testing
-                Console.Write("Press any key to continue");
-                Console.ReadLine();
-            }
-
-            // second check comes much later (partly redundant if done right, which it's not at the moment)
-            string wheresWebApps = e.GetInstallLocation("Envision Web Apps");
-            if (wheresWebApps != "NONE")
-            {
-                try
-                {
-                    string srcDirRoot = Path.Combine(e.ExtractDir, e.SourceDir);
-                    e.run(Path.Combine(srcDirRoot, "WebApps"), wheresWebApps, true);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Clyde must be run as Administrator on this system", "sorry Charlie");
-                    throw;
+                    try
+                    {
+                        string srcDirRoot = Path.Combine(e.ExtractDir, e.SourceDir);
+                        string origin = Path.Combine(srcDirRoot, pair.Key);
+                        e.run(origin, target);
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        MessageBox.Show("Clyde must be run as Administrator on this system", "sorry");
+                        throw;
+                    }
                 }
             }
             // TC: for testing
