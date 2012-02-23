@@ -16,107 +16,83 @@ namespace PatchTool
             Extractor e = new Extractor();
 
             // applications
-            ETApplication server = new ETApplication();
-            ETApplication channelManager = new ETApplication();
-            ETApplication centricity = new ETApplication();
-            ETApplication webApps = new ETApplication();
-            ETApplication wmWrapperService = new ETApplication();
-            ETApplication dbMigration = new ETApplication();
-
+            ETApplication server = new ETApplication("Server", "Envision Server");
+            ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
+            ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
+            ETApplication webApps = new ETApplication("WebApps", "Envision Web Apps");
+            ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
+            ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
             // 9.10 and 10.0 installers
-            Installer serverInstaller = new Installer();
+            Installer serverInstaller = new Installer("Server", "Envision Server");
             serverInstaller.applications.Add(server);
             serverInstaller.applications.Add(channelManager);
 
-            Installer centricityInstaller = new Installer();
+            Installer centricityInstaller = new Installer("Centricity", "Envision Centricity");
             centricityInstaller.applications.Add(centricity);
 
-            Installer webAppsInstaller = new Installer();
+            Installer webAppsInstaller = new Installer("WebApps", "Envision Web Apps");
             webAppsInstaller.applications.Add(webApps);
 
-            Installer wmWrapperServiceInstaller = new Installer();
+            Installer wmWrapperServiceInstaller = new Installer("WMWrapperService", "Envision Windows Media Wrapper Service");
             wmWrapperServiceInstaller.applications.Add(wmWrapperService);
 
-            Installer dbMigrationInstaller = new Installer();
+            Installer dbMigrationInstaller = new Installer("DBMigration", "Envision Database Migration");
             dbMigrationInstaller.applications.Add(dbMigration);
 
             // 10.1 installers
-            Installer serverSuiteInstaller = new Installer();
+            Installer serverSuiteInstaller = new Installer("ServerSuite", "Envision Server Suite");
             serverSuiteInstaller.applications.Add(server);
             serverSuiteInstaller.applications.Add(centricity);
 
-            Installer channelManagerInstaller = new Installer();
+            Installer channelManagerInstaller = new Installer("ChannelManager", "Envision Channel Manager");
             channelManagerInstaller.applications.Add(channelManager);
 
-            Installer toolsInstaller = new Installer();
+            Installer toolsInstaller = new Installer("Tools", "Envision Tools Suite");
             toolsInstaller.applications.Add(dbMigration);
 
-
-            // installers suites (by major.minor version)
-            InstallerSuite nineDotTen = new InstallerSuite();
-            nineDotTen.major_minor = "9.10";
-            nineDotTen.installers.Add(serverInstaller);
-            nineDotTen.installers.Add(centricityInstaller);
-            nineDotTen.installers.Add(webAppsInstaller);
-            nineDotTen.installers.Add(wmWrapperServiceInstaller);
-            nineDotTen.installers.Add(dbMigrationInstaller);
-
-            InstallerSuite tenDotZero = new InstallerSuite();
-            tenDotZero.major_minor = "10.0";
-            tenDotZero.installers.Add(serverInstaller);
-            tenDotZero.installers.Add(centricityInstaller);
-            tenDotZero.installers.Add(webAppsInstaller);
-            tenDotZero.installers.Add(wmWrapperServiceInstaller);
-            tenDotZero.installers.Add(dbMigrationInstaller);
-
-            InstallerSuite tenDotOne = new InstallerSuite();
-            tenDotOne.major_minor = "10.1";
-            tenDotOne.installers.Add(serverSuiteInstaller);
-            tenDotOne.installers.Add(channelManagerInstaller);
-            tenDotOne.installers.Add(webAppsInstaller);
-            tenDotOne.installers.Add(wmWrapperServiceInstaller);
-            tenDotOne.installers.Add(toolsInstaller);
-
-
-            // Do I really need a Dictionary here?  So far I'm not seeing it.
-            IDictionary<string, string> allInstallers = new Dictionary<string, string>();
-            allInstallers.Add("Server", "Envision Server");
-            allInstallers.Add("ServerSuite", "Envision Server Suite");
-            allInstallers.Add("ChannelManager", "Envision Channel Manager");
-            allInstallers.Add("Centricity", "Envision Centricity");
-            allInstallers.Add("WebApps", "Envision Web Apps");
-            allInstallers.Add("WMWrapperService", "Envision Windows Media Wrapper Service");
-            allInstallers.Add("DBMigration", "Envision Database Migration");
-            allInstallers.Add("Tools", "Envision Tools Suite");
-
-            List<Installer> installedAppsInfo = new List<Installer>();
+            // Installer suites by major.minor version seems like the wrong
+            // way to go.  We need to update mixed product versions, and that
+            // may be too constraining.
+            InstallerSuite all = new InstallerSuite();
+            all.installers.Add(serverInstaller);
+            all.installers.Add(centricityInstaller);
+            all.installers.Add(webAppsInstaller);
+            all.installers.Add(wmWrapperServiceInstaller);
+            all.installers.Add(dbMigrationInstaller);
+            all.installers.Add(serverSuiteInstaller);
+            all.installers.Add(channelManagerInstaller);
+            all.installers.Add(toolsInstaller);
 
             // get details about installed applications
-            foreach (KeyValuePair<string, string> pair in allInstallers)
+            foreach (Installer i in all.installers)
             {
-                Installer data = e.GetInstallInfo(pair.Key, pair.Value);
-                if ((data.abbr != null) &&
-                    (data.displayName != null) &&
-                    (data.displayVersion != null) &&
-                    (data.installLocation != null))
+                e.GetInstallInfo(i);
+                if ((i.displayVersion != null) && (i.installLocation != null))
                 {
-                    installedAppsInfo.Add(data);
+                    i.isInstalled = true;
                 }
 
                 // debug
-                Console.WriteLine("installer.abbr: {0}", data.abbr);
-                Console.WriteLine("installer.displayName: {0}", data.displayName);
-                Console.WriteLine("installer.installLocation: {0}", data.installLocation);
-                Console.WriteLine("installer.displayVersion: {0}", data.displayVersion);
-                Console.WriteLine();
+                if (i.isInstalled)
+                {
+                    Console.WriteLine("installers.abbr: {0}", i.abbr);
+                    Console.WriteLine("installers.displayName: {0}", i.displayName);
+                    Console.WriteLine("installers.installLocation: {0}", i.installLocation);
+                    Console.WriteLine("installers.displayVersion: {0}", i.displayVersion);
+                    Console.WriteLine();
+                }
             }
+
+            // debug
+            Console.WriteLine("number of installed applications: {0}", all.count);
+
 
             // patch installed applications
-            foreach (Installer data in installedAppsInfo)
-            {
+            //foreach (Installer data in installedAppsInfo)
+            //{
 
-            }
+            //}
 
                 // hopefully we've now got a bunch of Installer
                 // objects with names, install locations and versions
@@ -135,9 +111,6 @@ namespace PatchTool
                 //        throw;
                 //    }
                 //}
-
-            // debug
-            Console.WriteLine("installedAppsInfo.Count: {0}", installedAppsInfo.Count);
 
             // TC: for testing
             Console.Write("Press any key to continue");

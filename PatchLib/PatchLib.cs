@@ -671,7 +671,39 @@ namespace PatchTool
             this.installers = new List<Installer>();
         }
 
-        public string major_minor { get; set; }
+        //// maybe later
+        //public InstallerSuite(string name)
+        //{
+        //    this.name = name;
+        //    this.installers = new List<Installer>();
+        //}
+
+        //// maybe later
+        //public InstallerSuite(string name, List<Installer> installers)
+        //{
+        //    this.name = name;
+        //    this.installers = installers;
+        //}
+
+        public string name { get; set; }
+
+        private int _count = 0;
+        public int count
+        {
+            get {
+                // there's got to be a nice LINQ'y way to do this...
+                foreach (Installer i in this.installers)
+                {
+                    if (i.isInstalled)
+                    {
+                        _count++;
+                    }
+                }
+                return _count;
+            }
+            set { _count = value; }
+        }
+
         public List<Installer> installers { get; set; }
     }
 
@@ -682,28 +714,38 @@ namespace PatchTool
             this.applications = new List<ETApplication>();
         }
 
-        // e.g., ChannelManager
+        public Installer(string abbr, string displayName)
+        {
+            this.abbr = abbr;
+            this.displayName = displayName;
+            this.applications = new List<ETApplication>();
+        }
+
+        //// maybe later
+        //public Installer(string abbr, string displayName, List<ETApplication> applications)
+        //{
+        //    this.abbr = abbr;
+        //    this.displayName = displayName;
+        //    this.applications = applications;
+        //}
+
         public string abbr { get; set; }
-
-        // e.g., Envision Channel Manager
         public string displayName { get; set; }
-
-        // e.g., C:\Program Files\Envision Telephony\Envision Channel Manager
         public string installLocation { get; set; }
-
-        // e.g., 10.1.0000.394
         public string displayVersion { get; set; }
-
-        // the applications that are included in this Installer
         public List<ETApplication> applications { get; set; }
+        public bool isInstalled { get; set; }
     }
 
     public class ETApplication
     {
-        // e.g., ChannelManager
-        public string abbr { get; set; }
+        public ETApplication(string abbr, string displayName)
+        {
+            this.abbr = abbr;
+            this.displayName = displayName;
+        }
 
-        // e.g., Envision Channel Manager
+        public string abbr { get; set; }
         public string displayName { get; set; }
     }
 
@@ -926,26 +968,23 @@ namespace PatchTool
             Console.WriteLine();
         }
 
-        public Installer GetInstallInfo(string appName, string displayName)
+        public void GetInstallInfo(Installer installer)
         {
-            Installer reg = new Installer();
             string keyName;
             RegistryKey key;
 
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.CurrentUser.OpenSubKey(keyName);
-            GetRegistryValues(displayName, appName, reg, key);
+            GetRegistryValues(installer, key);
             keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            GetRegistryValues(displayName, appName, reg, key);
+            GetRegistryValues(installer, key);
             keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(keyName);
-            GetRegistryValues(displayName, appName, reg, key);
-
-            return reg;
+            GetRegistryValues(installer, key);
         }
 
-        private void GetRegistryValues(string displayName, string appName, Installer installer, RegistryKey key)
+        private void GetRegistryValues(Installer installer, RegistryKey key)
         {
             try
             {
@@ -954,10 +993,8 @@ namespace PatchTool
                     RegistryKey subkey = key.OpenSubKey(a);
                     try
                     {
-                        if (subkey.GetValue("DisplayName").ToString() == displayName)
+                        if (subkey.GetValue("DisplayName").ToString() == installer.displayName)
                         {
-                            installer.displayName = displayName;
-                            installer.abbr = appName;  // not actually a registry value
                             installer.installLocation = subkey.GetValue("InstallLocation").ToString();
                             installer.displayVersion = subkey.GetValue("DisplayVersion").ToString();
                         }
