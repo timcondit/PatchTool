@@ -690,7 +690,8 @@ namespace PatchTool
         private int _count = 0;
         public int count
         {
-            get {
+            get
+            {
                 // there's got to be a nice LINQ'y way to do this...
                 foreach (Installer i in this.installers)
                 {

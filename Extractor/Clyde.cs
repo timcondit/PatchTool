@@ -23,6 +23,7 @@ namespace PatchTool
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
             ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
+
             // 9.10 and 10.0 installers
             Installer serverInstaller = new Installer("Server", "Envision Server");
             serverInstaller.applications.Add(server);
@@ -51,9 +52,7 @@ namespace PatchTool
             Installer toolsInstaller = new Installer("Tools", "Envision Tools Suite");
             toolsInstaller.applications.Add(dbMigration);
 
-            // Installer suites by major.minor version seems like the wrong
-            // way to go.  We need to update mixed product versions, and that
-            // may be too constraining.
+
             InstallerSuite all = new InstallerSuite();
             all.installers.Add(serverInstaller);
             all.installers.Add(centricityInstaller);
@@ -73,44 +72,28 @@ namespace PatchTool
                     i.isInstalled = true;
                 }
 
-                // debug
                 if (i.isInstalled)
                 {
-                    Console.WriteLine("installers.abbr: {0}", i.abbr);
-                    Console.WriteLine("installers.displayName: {0}", i.displayName);
-                    Console.WriteLine("installers.installLocation: {0}", i.installLocation);
-                    Console.WriteLine("installers.displayVersion: {0}", i.displayVersion);
+                    // debug
+                    Console.WriteLine("i.abbr: {0}", i.abbr);
+                    Console.WriteLine("i.displayName: {0}", i.displayName);
+                    Console.WriteLine("i.installLocation: {0}", i.installLocation);
+                    Console.WriteLine("i.displayVersion: {0}", i.displayVersion);
+
+                    // patch each application in the given installation separately
+                    for (int j = 0; j < i.applications.Count; j++)
+                    {
+                        // origin is    e.ExtractDir                + e.SourceDir   + toPatch.abbr
+                        // e.g.         C:\patch_staging\10.1.14.9\ + patchFiles    + Server
+                        string tmp = Path.Combine(e.ExtractDir, e.SourceDir);
+                        string origin = Path.Combine(tmp, i.applications[j].abbr);
+                        string target = i.installLocation;
+                        Console.WriteLine("e.run(origin, target)\n\torigin={0}\n\ttarget={1}", origin, target);
+                        e.run(origin, target);
+                    }
                     Console.WriteLine();
                 }
             }
-
-            // debug
-            Console.WriteLine("number of installed applications: {0}", all.count);
-
-
-            // patch installed applications
-            //foreach (Installer data in installedAppsInfo)
-            //{
-
-            //}
-
-                // hopefully we've now got a bunch of Installer
-                // objects with names, install locations and versions
-                //if (target != null)
-                //{
-                //    //Console.WriteLine("target: {0}", target);
-                //    try
-                //    {
-                //        string srcDirRoot = Path.Combine(e.ExtractDir, e.SourceDir);
-                //        string origin = Path.Combine(srcDirRoot, pair.Key);
-                //        e.run(origin, target);
-                //    }
-                //    catch (UnauthorizedAccessException)
-                //    {
-                //        MessageBox.Show("Clyde must be run as Administrator on this system", "sorry");
-                //        throw;
-                //    }
-                //}
 
             // TC: for testing
             Console.Write("Press any key to continue");
