@@ -491,9 +491,9 @@ namespace PatchTool
             wmws.Set("WMWrapperService.exe", @"${wmwsRoot}\WMWrapperService.exe");
 
 
-            IConfig tools = source.AddConfig("Tools");
-            tools.Set("toolsRoot", @".");
-            tools.Set("DBMigration_84SP9_To_10.sql", @"${toolsRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
+            IConfig dbmigration = source.AddConfig("DBMigration");
+            dbmigration.Set("dbmigrationRoot", @".");
+            dbmigration.Set("DBMigration_84SP9_To_10.sql", @"${dbmigrationRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
 
 
             IConfig webapps = source.AddConfig("WebApps");

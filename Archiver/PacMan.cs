@@ -150,7 +150,7 @@ namespace PatchTool
             };
 
             // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
-            IEnumerable<string> toolsKeys = new List<string> {
+            IEnumerable<string> dbmigrationKeys = new List<string> {
                 "DBMigration_84SP9_To_10.sql",
             };
 
@@ -167,8 +167,8 @@ namespace PatchTool
             logger.Info("Copying WMWrapperService patch files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);
 
-            logger.Info("Copying Tools patch files");
-            a.makePortablePatch("Tools", toolsKeys);
+            logger.Info("Copying DBMigration patch files");
+            a.makePortablePatch("DBMigration", dbmigrationKeys);
 
             // The extract dir is set before the archive is created.  As far as I know, there is nothing to be done at
             // extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.
