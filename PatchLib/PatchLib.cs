@@ -455,6 +455,7 @@ namespace PatchTool
             cm.Set("SIPWrapperLib.dll", @"${cmRoot}\SIPWrapperLib.dll");
             cm.Set("SIPWrapperLib.pdb", @"${cmRoot}\SIPWrapperLib.pdb");
             cm.Set("SIPWrapperLib.tlb", @"${cmRoot}\SIPWrapperLib.tlb");
+            cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
             cm.Set("SIP_events.properties", @"${cmRoot}\SIP_events.properties");
             cm.Set("states.BIB.xml", @"${cmRoot}\states.BIB.xml");
 
@@ -465,17 +466,9 @@ namespace PatchTool
             cm.Set("sleep.exe", @"${cmRoot}\EnvisionSR\sleep.exe");
             cm.Set("srvany.exe", @"${cmRoot}\EnvisionSR\srvany.exe");
             cm.Set("svcmgr.exe", @"${cmRoot}\EnvisionSR\svcmgr.exe");
-
-            // SIPGateway
-            cm.Set("InstallUtil.exe", @"${cmRoot}\SIPGateway\InstallUtil.exe");
-            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll|${cmRoot}\SIPGateway\LumiSoft.Net.dll");
-            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb|${cmRoot}\SIPGateway\LumiSoft.Net.pdb");
-            cm.Set("LumiSoft.Net.xml", @"${cmRoot}\LumiSoft.Net.xml|${cmRoot}\SIPGateway\LumiSoft.Net.xml");
-            cm.Set("log4net.dll", @"${cmRoot}\SIPGateway\log4net.dll");
-            cm.Set("sc.exe", @"${cmRoot}\SIPGateway\sc.exe");
-            cm.Set("server.dll_1", @"${cmRoot}\SIPGateway\server.dll");
-            cm.Set("server.pdb_1", @"${cmRoot}\SIPGateway\server.pdb");
-            cm.Set("SIPWrapperLogging.xml", @"${cmRoot}\SIPWrapperLogging.xml");
+            cm.Set("LumiSoft.Net.dll", @"${cmRoot}\LumiSoft.Net.dll");
+            cm.Set("LumiSoft.Net.pdb", @"${cmRoot}\LumiSoft.Net.pdb");
+            cm.Set("LumiSoft.Net.xml", @"${cmRoot}\LumiSoft.Net.xml");
 
             // AlvasAudio
             cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");

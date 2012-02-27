@@ -111,11 +111,6 @@ namespace PatchTool
                 "sleep.exe", "srvany.exe", "svcmgr.exe",
                 
                 // SIP Gateway
-                "InstallUtil.exe",
-                "log4net.dll",
-                "sc.exe",
-                // change the names to copy the same file to a second place on the target
-                "server.dll_1", "server.pdb_1",
                 "SIPWrapperLib.tlb", "SIPWrapperLogging.xml",
 
                 // for registering AlvasAudio.dll
