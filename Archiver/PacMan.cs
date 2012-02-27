@@ -122,6 +122,12 @@ namespace PatchTool
                 "gacutil.exe", "regasm.exe",
             };
 
+            // This is where we specify which files go into the patch (Centricity). It will be manually updated for
+            // now.
+            IEnumerable<string> ctKeys = new List<string> {
+                // empty
+            };
+
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
             // for now.
             IEnumerable<string> wmwsKeys = new List<string> {
@@ -155,19 +161,22 @@ namespace PatchTool
             };
 
             // NB: the app names (WebApps, Server, ...) must match the names of the IConfigs in PatchLib
-            logger.Info("Copying ServerSuite patch files");
+            logger.Info("Copying Envision Server files");
             a.makePortablePatch("Server", serverKeys);
 
-            logger.Info("Copying ChannelManager patch files");
+            logger.Info("Copying Channel Manager files");
             a.makePortablePatch("ChannelManager", cmKeys);
 
-            logger.Info("Copying CentricityWebApps patch files");
+            logger.Info("Copying Centricity files");
+            a.makePortablePatch("Centricity", ctKeys);
+
+            logger.Info("Copying Web Apps files");
             a.makePortablePatch("WebApps", webappsKeys);
 
-            logger.Info("Copying WMWrapperService patch files");
+            logger.Info("Copying Windows Media Wrapper Service files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);
 
-            logger.Info("Copying DBMigration patch files");
+            logger.Info("Copying Database Migration files");
             a.makePortablePatch("DBMigration", dbmigrationKeys);
 
             // The extract dir is set before the archive is created.  As far as I know, there is nothing to be done at
