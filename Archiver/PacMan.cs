@@ -119,7 +119,8 @@ namespace PatchTool
 
             // This is where we specify which files go into the patch (Centricity). It will be manually updated for
             // now.
-            IEnumerable<string> ctKeys = new List<string> {
+            IEnumerable<string> ctKeys = new List<string>
+            {
                 // empty
             };
 
