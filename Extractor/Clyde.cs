@@ -89,7 +89,17 @@ namespace PatchTool
                         string origin = Path.Combine(tmp, i.applications[j].abbr);
                         string target = i.installLocation;
                         Console.WriteLine("e.run(origin, target)\n\torigin={0}\n\ttarget={1}", origin, target);
-                        e.run(origin, target);
+
+                        // Catch System.IO.DirectoryNotFoundException here?
+                        // Or send to e.run() and let it figure it out?
+                        if (Directory.Exists(origin))
+                        {
+                            e.run(origin, target);
+                        }
+                        else
+                        {
+                            logger.Info("Directory {0} not found.  Skipping", origin);
+                        }
                     }
                     Console.WriteLine();
                 }
