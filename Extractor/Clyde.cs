@@ -75,10 +75,10 @@ namespace PatchTool
                 if (i.isInstalled)
                 {
                     // debug
-                    Console.WriteLine("i.abbr: {0}", i.abbr);
-                    Console.WriteLine("i.displayName: {0}", i.displayName);
-                    Console.WriteLine("i.installLocation: {0}", i.installLocation);
-                    Console.WriteLine("i.displayVersion: {0}", i.displayVersion);
+                    logger.Info("i.abbr: {0}", i.abbr);
+                    logger.Info("i.displayName: {0}", i.displayName);
+                    logger.Info("i.installLocation: {0}", i.installLocation);
+                    logger.Info("i.displayVersion: {0}", i.displayVersion);
 
                     // patch each application in the given installation separately
                     for (int j = 0; j < i.applications.Count; j++)
