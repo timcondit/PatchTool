@@ -106,7 +106,7 @@ namespace PatchTool
             }
 
             // TC: for testing
-            Console.Write("Press any key to continue");
+            Console.Write("Press ENTER to continue");
             Console.ReadLine();
         }
     }
