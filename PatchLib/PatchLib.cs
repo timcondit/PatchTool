@@ -108,6 +108,7 @@ namespace PatchTool
             config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
             config.Set("ContactSourceRunner.bat", @"${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
             config.Set("ContactSources.properties", @"${srcRoot}\config\sourcerunnerservice\ContactSources.properties");
+            config.Set("Create_Centricity_WFM_SPROCS.sql", @"${srcRoot}\config\server\Create_Centricity_WFM_SPROCS.sql");
 
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
             config.Set("cstaLoader.dll", @"${srcRoot}\workdir\ContactSourceRunner\cstaLoader.dll");
@@ -333,6 +334,7 @@ namespace PatchTool
             server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
             server.Set("ContactSourceRunner.bat", @"${serverRoot}\ContactSourceRunner\ContactSourceRunner.bat");
             server.Set("ContactSources.properties", @"${serverRoot}\ContactSourceRunner\ContactSources.properties");
+            server.Set("Create_Centricity_WFM_SPROCS.sql", @"${serverRoot}\Create_Centricity_WFM_SPROCS.sql");
             server.Set("cstaLoader.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader.dll");
             server.Set("cstaLoader.pdb", @"${serverRoot}\ContactSourceRunner\cstaLoader.pdb");
             server.Set("cstaLoader_1_2.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_1_2.dll");
