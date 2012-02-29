@@ -787,30 +787,14 @@ namespace PatchTool
             DirectoryInfo backupDirNew = new DirectoryInfo(Path.Combine(dstDir.ToString(), newPathStr));
             if (!Directory.Exists(backupDirNew.ToString()))
             {
-                try
-                {
-                    Directory.CreateDirectory(backupDirNew.ToString());
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
-                    throw;
-                }
+                CreateDir(backupDirNew);
             }
-            //
+
             string oldPathStr = CombinePaths("patches", PatchVersion, "old");
             DirectoryInfo backupDirOld = new DirectoryInfo(Path.Combine(dstDir.ToString(), oldPathStr));
             if (!Directory.Exists(backupDirOld.ToString()))
             {
-                try
-                {
-                    Directory.CreateDirectory(backupDirOld.ToString());
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
-                    throw;
-                }
+                CreateDir(backupDirOld);
             }
 
             FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
@@ -962,6 +946,20 @@ namespace PatchTool
                 FileCompare(orig, copied, tail);
             }
             Console.WriteLine();
+        }
+
+        public bool CreateDir(DirectoryInfo target)
+        {
+            try
+            {
+                Directory.CreateDirectory(target.ToString());
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
+                return false;
+            }
         }
 
         public void GetInstallInfo(Installer installer)
