@@ -1054,13 +1054,43 @@ namespace PatchTool
             }
         }
 
-        // http://stackoverflow.com/questions/968935/c-binary-file-compare
+        // based on http://stackoverflow.com/questions/968935/c-binary-file-compare
         static bool FileEquals(string fileName1, string fileName2)
         {
-            // Check the file size and CRC equality here.. if they are equal...
-            using (var file1 = new FileStream(fileName1, FileMode.Open))
-            using (var file2 = new FileStream(fileName2, FileMode.Open))
-                return StreamsContentsAreEqual(file1, file2);
+            try
+            {
+                // Check the file size and CRC equality here.. if they are equal...
+                using (var file1 = new FileStream(fileName1, FileMode.Open))
+                using (var file2 = new FileStream(fileName2, FileMode.Open))
+                    return StreamsContentsAreEqual(file1, file2);
+            }
+            catch (IOException ex)
+            {
+                // details to the log, summary to the user
+                string caption = "Caught IOException";
+                string summary;
+                summary = "It looks like an Envision server process is still running.";
+                summary += " Clyde's command window or the log will have more details.";
+                summary += " You can leave this dialog open, go take care of it, then continue.";
+                summary += " Or you can cancel.\n\nContinue?";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
+
+                logger.Error(ex.ToString());
+                result = MessageBox.Show(summary, caption, buttons);
+
+                // is this asking for trouble? ;)
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    FileEquals(fileName1, fileName2);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            // this smells
+            return false;
         }
 
         private static bool StreamsContentsAreEqual(Stream stream1, Stream stream2)
