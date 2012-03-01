@@ -19,7 +19,7 @@ namespace PatchTool
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
-            ETApplication webApps = new ETApplication("WebApps", "Envision Web Apps");
+            ETApplication webApps = new ETApplication("WebApps", "Envision Web Apps", true);
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
             ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
@@ -88,11 +88,12 @@ namespace PatchTool
                         string tmp = Path.Combine(e.ExtractDir, e.SourceDir);
                         string origin = Path.Combine(tmp, i.applications[j].abbr);
                         string target = i.installLocation;
-                        Console.WriteLine("e.run(origin, target)\n\torigin={0}\n\ttarget={1}", origin, target);
+                        bool replaceAll = i.applications[j].replaceAll;
+                        logger.Info("[debug] e.run(origin, target, replaceAll)\n\torigin={0}\n\ttarget={1}\n\treplaceAll={2}", origin, target, replaceAll);
 
                         if (Directory.Exists(origin))
                         {
-                            e.run(origin, target);
+                            e.run(origin, target, replaceAll);
                         }
                         else
                         {

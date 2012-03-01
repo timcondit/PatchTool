@@ -735,14 +735,16 @@ namespace PatchTool
 
     public class ETApplication
     {
-        public ETApplication(string abbr, string displayName)
+        public ETApplication(string abbr, string displayName, bool replaceAll = false)
         {
             this.abbr = abbr;
             this.displayName = displayName;
+            this.replaceAll = replaceAll;
         }
 
         public string abbr { get; set; }
         public string displayName { get; set; }
+        public bool replaceAll { get; set; }
     }
 
     public class Extractor
@@ -784,7 +786,7 @@ namespace PatchTool
             }
 
             string oldPatchDir = CombinePaths("patches", PatchVersion, "old");
-            string oldBackupDir = CombinePaths(origin, oldPatchDir);
+            string oldBackupDir = CombinePaths(target, oldPatchDir);
             if (!Directory.Exists(oldBackupDir))
             {
                 CreateDir(oldBackupDir);
@@ -802,8 +804,9 @@ namespace PatchTool
             {
                 try
                 {
-                    logger.Info("moving {0} to {1}", target, oldPatchDir);
+                    logger.Info("moving AVPlayer: ", CombinePaths(target, "AVPlayer"), " ", CombinePaths(oldBackupDir, "AVPlayer"));
                     Directory.Move(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
+                    logger.Info("moving RecordingDownloadTool: ", CombinePaths(target, "RecordingDownloadTool"), " ", CombinePaths(oldBackupDir, "RecordingDownloadTool"));
                     Directory.Move(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
 
                     logger.Info("copying {0} to {1}", origin, newPatchDir);
