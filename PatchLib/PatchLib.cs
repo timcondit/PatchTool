@@ -491,43 +491,44 @@ namespace PatchTool
             dbmigration.Set("DBMigration_84SP9_To_10.sql", @"${dbmigrationRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
 
 
-            IConfig webapps = source.AddConfig("WebApps");
-            webapps.Set("webappsRoot", @".");
-            webapps.Set("webapps_version", webapps_version);
+            IConfig avplayer = source.AddConfig("AVPlayer");
+            avplayer.Set("avplayerRoot", @".");
+            avplayer.Set("webapps_version", webapps_version);
+            avplayer.Set("AVPlayer.application", @"${avplayerRoot}\AVPlayer\AVPlayer.application");
+            avplayer.Set("AgentSupport.exe.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+            avplayer.Set("AVPlayer.exe.config.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
+            avplayer.Set("AVPlayer.exe.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
+            avplayer.Set("AVPlayer.exe.manifest", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
+            avplayer.Set("CentricityApp.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
+            avplayer.Set("hasp_windows.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+            avplayer.Set("Interop.WMPLib.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            avplayer.Set("log4net.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            avplayer.Set("nativeServiceWin32.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+            avplayer.Set("server.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            avplayer.Set("SharedResources.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+            avplayer.Set("ISource.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+            avplayer.Set("AVPlayer.resources.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
+            avplayer.Set("AVPlayer.resources.dll.deploy_1", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+            avplayer.Set("CentricityApp.resources.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            avplayer.Set("CentricityApp.resources.dll.deploy_1", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            avplayer.Set("AVPlayerIcon.ico.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
 
-            // AVPlayer
-            webapps.Set("AVPlayer.application", @"${webappsRoot}\AVPlayer\AVPlayer.application");
-            webapps.Set("AgentSupport.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
-            webapps.Set("AVPlayer.exe.config.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
-            webapps.Set("AVPlayer.exe.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
-            webapps.Set("AVPlayer.exe.manifest", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
-            webapps.Set("CentricityApp.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
-            webapps.Set("hasp_windows.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
-            webapps.Set("Interop.WMPLib.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
-            webapps.Set("log4net.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
-            webapps.Set("nativeServiceWin32.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
-            webapps.Set("server.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
-            webapps.Set("SharedResources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
-            webapps.Set("ISource.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
-            webapps.Set("AVPlayer.resources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
-            webapps.Set("AVPlayer.resources.dll.deploy_1", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
-            webapps.Set("CentricityApp.resources.dll.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
-            webapps.Set("CentricityApp.resources.dll.deploy_1", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            webapps.Set("AVPlayerIcon.ico.deploy", @"${webappsRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
 
-            // RecordingDownloadTool
-            webapps.Set("RecordingDownloadTool.application", @"${webappsRoot}\RecordingDownloadTool\RecordingDownloadTool.application");
-            webapps.Set("CentricityApp.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
-            webapps.Set("log4net.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
-            webapps.Set("RecordingDownloadTool.exe.config.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
-            webapps.Set("RecordingDownloadTool.exe.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
-            webapps.Set("RecordingDownloadTool.exe.manifest", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
-            webapps.Set("server.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
-            webapps.Set("sox.exe.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
-            webapps.Set("CentricityApp.resources.dll.deploy_2", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
-            webapps.Set("CentricityApp.resources.dll.deploy_3", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            webapps.Set("RecordingDownloadTool.resources.dll.deploy", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
-            webapps.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${webappsRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
+            IConfig rdtool = source.AddConfig("RecordingDownloadTool");
+            rdtool.Set("rdtoolRoot", @".");
+            rdtool.Set("webapps_version", webapps_version);
+            rdtool.Set("RecordingDownloadTool.application", @"${rdtoolRoot}\RecordingDownloadTool\RecordingDownloadTool.application");
+            rdtool.Set("CentricityApp.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+            rdtool.Set("log4net.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.exe.config.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
+            rdtool.Set("RecordingDownloadTool.exe.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
+            rdtool.Set("RecordingDownloadTool.exe.manifest", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
+            rdtool.Set("server.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
+            rdtool.Set("sox.exe.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+            rdtool.Set("CentricityApp.resources.dll.deploy_2", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            rdtool.Set("CentricityApp.resources.dll.deploy_3", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.resources.dll.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
 
             source.ExpandKeyValues();
             source.Save("Aristotle_targets.config");
@@ -804,10 +805,26 @@ namespace PatchTool
             {
                 try
                 {
-                    logger.Info("moving AVPlayer: ", CombinePaths(target, "AVPlayer"), " ", CombinePaths(oldBackupDir, "AVPlayer"));
-                    Directory.Move(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
-                    logger.Info("moving RecordingDownloadTool: ", CombinePaths(target, "RecordingDownloadTool"), " ", CombinePaths(oldBackupDir, "RecordingDownloadTool"));
-                    Directory.Move(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
+
+
+                    // TODO Copy subdirectories into the backup folders, then delete them from their original location
+                    // TODO Moving them (copy+delete) in a single step triggers the IOException below, possibly because of the overwrite flag.
+                    // TODO Maybe I can just remove the overwrite flag?
+
+
+                    // target looks like "C:\Program Files\Envision Telephony\Envision Web Apps"
+                    // 
+                    logger.Info("copying AVPlayer: " + CombinePaths(target, "AVPlayer") + " " + CombinePaths(oldBackupDir, "AVPlayer"));
+                    //Directory.Move(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
+                    CopyFolder(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
+                    logger.Info("deleting AVPlayer: " + CombinePaths(target, "AVPlayer"));
+                    Directory.Delete(CombinePaths(target, "AVPlayer"), true);
+
+                    logger.Info("copying RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool") + " " + CombinePaths(oldBackupDir, "RecordingDownloadTool"));
+                    //Directory.Move(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
+                    CopyFolder(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
+                    logger.Info("deleting RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool"));
+                    Directory.Delete(CombinePaths(target, "RecordingDownloadTool"));
 
                     logger.Info("copying {0} to {1}", origin, newPatchDir);
                     CopyFolder(origin, newBackupDir);
@@ -815,13 +832,14 @@ namespace PatchTool
                     logger.Info("copying {0} to {1}", origin, target);
                     CopyFolder(origin, target);
                 }
-                catch (IOException)
+                catch (IOException e)
                 {
                     logger.Error(@"Clyde won't overwrite existing patch files");
                     logger.Error(@"Move or remove these directories and try again");
-                    logger.Error(@"{0}", oldBackupDir);
-                    logger.Error(@"{0}", newBackupDir);
+                    logger.Error(@"{0}", CombinePaths(target, "AVPlayer"));
+                    logger.Error(@"{0}", CombinePaths(target, "RecordingDownloadTool"));
                     logger.Fatal("Exiting");
+                    logger.Error(e.StackTrace);
                 }
                 return;
             }

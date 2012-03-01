@@ -19,7 +19,8 @@ namespace PatchTool
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
-            ETApplication webApps = new ETApplication("WebApps", "Envision Web Apps", true);
+            ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", true);
+            ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", true);
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
             ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
@@ -33,7 +34,8 @@ namespace PatchTool
             centricityInstaller.applications.Add(centricity);
 
             Installer webAppsInstaller = new Installer("WebApps", "Envision Web Apps");
-            webAppsInstaller.applications.Add(webApps);
+            webAppsInstaller.applications.Add(avPlayer);
+            webAppsInstaller.applications.Add(recordingDownloadTool);
 
             Installer wmWrapperServiceInstaller = new Installer("WMWrapperService", "Envision Windows Media Wrapper Service");
             wmWrapperServiceInstaller.applications.Add(wmWrapperService);

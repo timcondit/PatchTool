@@ -133,8 +133,8 @@ namespace PatchTool
 
             // This is where we specify which files go into the patch (CentricityWebApplications). It will be manually
             // updated for now.
-            IEnumerable<string> webappsKeys = new List<string> {
-                // AVPlayer
+            IEnumerable<string> avplayerKeys = new List<string>
+            {
                 "AVPlayer.application", "AgentSupport.exe.deploy",
                 "AVPlayer.exe.config.deploy", "AVPlayer.exe.deploy", "AVPlayer.exe.manifest",
                 "CentricityApp.dll.deploy", "hasp_windows.dll.deploy", "Interop.WMPLib.dll.deploy",
@@ -143,8 +143,10 @@ namespace PatchTool
                 "AVPlayer.resources.dll.deploy", "AVPlayer.resources.dll.deploy_1",
                 "CentricityApp.resources.dll.deploy", "CentricityApp.resources.dll.deploy_1",
                 "AVPlayerIcon.ico.deploy",
+            };
 
-                // RecordingDownloadTool
+            IEnumerable<string> rdtoolKeys = new List<string>
+            {
                 "RecordingDownloadTool.application", "CentricityApp.dll.deploy_1", "log4net.dll.deploy_1",
                 "RecordingDownloadTool.exe.config.deploy", "RecordingDownloadTool.exe.deploy",
                 "RecordingDownloadTool.exe.manifest", "server.dll.deploy_1", "sox.exe.deploy",
@@ -167,8 +169,11 @@ namespace PatchTool
             logger.Info("Copying Centricity files");
             a.makePortablePatch("Centricity", ctKeys);
 
-            logger.Info("Copying Web Apps files");
-            a.makePortablePatch("WebApps", webappsKeys);
+            logger.Info("Copying AV Player files");
+            a.makePortablePatch("AVPlayer", avplayerKeys);
+
+            logger.Info("Copying Recording Download Tool files");
+            a.makePortablePatch("RecordingDownloadTool", rdtoolKeys);
 
             logger.Info("Copying Windows Media Wrapper Service files");
             a.makePortablePatch("WMWrapperService", wmwsKeys);
