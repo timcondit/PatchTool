@@ -649,7 +649,7 @@ namespace PatchTool
                 options.ProductVersion = VersionInfo.PRODUCT_VERSION;
                 options.DefaultExtractDirectory = ExtractDir;
                 options.Copyright = VersionInfo.COPYRIGHT;
-                options.PostExtractCommandLine = "Clyde.exe";
+                //options.PostExtractCommandLine = "Clyde.exe";
                 // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
 
@@ -736,16 +736,19 @@ namespace PatchTool
 
     public class ETApplication
     {
-        public ETApplication(string abbr, string displayName, bool replaceAll = false)
+        public ETApplication(string abbr, string displayName, bool replaceAll = false, string replaceRoot = null)
         {
             this.abbr = abbr;
             this.displayName = displayName;
             this.replaceAll = replaceAll;
+            this.replaceRoot = replaceRoot;
         }
 
         public string abbr { get; set; }
         public string displayName { get; set; }
         public bool replaceAll { get; set; }
+        // maybe use this.abbr as the default replaceRoot
+        public string replaceRoot { get; set; }
     }
 
     public class Extractor
@@ -754,7 +757,7 @@ namespace PatchTool
 
         public Extractor()
         {
-            Console.SetWindowSize(100, 50);
+            Console.SetWindowSize(160, 50);
         }
 
         // need to keep in sync with Archiver (it's a little ugly)
@@ -777,179 +780,224 @@ namespace PatchTool
             get { return _extractDir; }
         }
 
-        public void run(string origin, string target, bool replaceAll = false)
+        public void run(string origin, Installer i)
         {
-            string newPatchDir = CombinePaths("patches", PatchVersion, "new");
-            string newBackupDir = CombinePaths(target, newPatchDir);
+            string newBackupDir = CombinePaths(i.installLocation, "patches", PatchVersion, "new");
             if (!Directory.Exists(newBackupDir))
             {
                 CreateDir(newBackupDir);
             }
 
-            string oldPatchDir = CombinePaths("patches", PatchVersion, "old");
-            string oldBackupDir = CombinePaths(target, oldPatchDir);
+            logger.Info("mark .. alpha");
+
+            string oldBackupDir = CombinePaths(i.installLocation, "patches", PatchVersion, "old");
             if (!Directory.Exists(oldBackupDir))
             {
                 CreateDir(oldBackupDir);
             }
 
-
             DirectoryInfo srcDir = new DirectoryInfo(origin);
             FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
 
+            logger.Info("mark .. beta");
 
-            // TODO private method
-            
-            // Sometimes (like with Centricity Web Apps) we replace all files.  Keep it simple.
-            if (replaceAll == true)
+            foreach (ETApplication app in i.applications)
             {
-                try
+
+                // Sometimes (like with Centricity Web Apps) we replace all files.  Keep it simple.
+                if (app.replaceAll == true)
                 {
+                    //try
+                    //{
+
+                    // dup dup
+                    logger.Info("mark .. gamma 1");
+                    logger.Info(i.installLocation);
+                    logger.Info(app.replaceRoot);
+                    string old = CombinePaths(i.installLocation, app.replaceRoot);
+
+                    logger.Info("mark .. gamma 2");
+                    string old_bak = CombinePaths(oldBackupDir, app.replaceRoot);
+
+                    logger.Info("mark .. gamma 3");
+                    string nu = CombinePaths(origin, app.replaceRoot);
+
+                    logger.Info("mark .. gamma 4");
+                    string nu_bak = CombinePaths(newBackupDir, app.replaceRoot);
+
+                    //string old = CombinePaths(target, "AVPlayer");
+                    //string old_bak = CombinePaths(oldBackupDir, "AVPlayer");
+                    //string nu = CombinePaths(origin, "AVPlayer");
+                    //string nu_bak = CombinePaths(newBackupDir, "AVPlayer");
+
+                    CopyFolder(old, old_bak);
+                    Directory.Delete(old, true);
+                    CopyFolder(nu, nu_bak);
+                    CreateDir(old);
+                    logger.Info("mark .. alpha");
+                    logger.Info("nu: " + nu);
+                    logger.Info("old: " + old);
+                    CopyFolder(nu, old);
+
+                    //// copy original AVPlayer files to old/
+                    //logger.Info("copying AVPlayer: " + CombinePaths(target, "AVPlayer") + " " + CombinePaths(oldBackupDir, "AVPlayer"));
+                    //CopyFolder(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
+
+                    //// delete original AVPlayer files
+                    //logger.Info("deleting AVPlayer: " + CombinePaths(target, "AVPlayer"));
+                    //Directory.Delete(CombinePaths(target, "AVPlayer"), true);
+
+                    //// copy new AVPlayer files to new/
+                    //logger.Info("copying {0} to {1}", origin, newPatchDir);
+                    //CopyFolder(origin, newBackupDir);
+
+                    //// copy new AVPlayer files to target
+                    //logger.Info("copying {0} to {1}", origin, newPatchDir);
+                    //CopyFolder(origin, newBackupDir);
 
 
-                    // TODO Copy subdirectories into the backup folders, then delete them from their original location
-                    // TODO Moving them (copy+delete) in a single step triggers the IOException below, possibly because of the overwrite flag.
-                    // TODO Maybe I can just remove the overwrite flag?
+                    //// copy original RecordingDownloadTool files to old/
+                    //logger.Info("copying RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool") + " " + CombinePaths(oldBackupDir, "RecordingDownloadTool"));
+                    //CopyFolder(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
+
+                    //// copy new RecordingDownloadTool files to new/
+                    //logger.Info("copying {0} to {1}", origin, newPatchDir);
+                    //CopyFolder(origin, newBackupDir);
+
+                    //// delete original RecordingDownloadTool files
+                    //logger.Info("deleting RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool"));
+                    //Directory.Delete(CombinePaths(target, "RecordingDownloadTool"));
 
 
-                    // target looks like "C:\Program Files\Envision Telephony\Envision Web Apps"
-                    // 
-                    logger.Info("copying AVPlayer: " + CombinePaths(target, "AVPlayer") + " " + CombinePaths(oldBackupDir, "AVPlayer"));
-                    //Directory.Move(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
-                    CopyFolder(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
-                    logger.Info("deleting AVPlayer: " + CombinePaths(target, "AVPlayer"));
-                    Directory.Delete(CombinePaths(target, "AVPlayer"), true);
+                    //logger.Info("copying {0} to {1}", origin, target);
+                    //CopyFolder(origin, target);
+                    //}
+                    //catch (IOException e)
+                    //{
+                    //    logger.Error(@"Clyde won't overwrite existing patch files");
+                    //    logger.Error(@"Move or remove these directories and try again");
+                    //    logger.Error(@"{0}", CombinePaths(target, "AVPlayer"));
+                    //    logger.Error(@"{0}", CombinePaths(target, "RecordingDownloadTool"));
+                    //    logger.Fatal("Exiting");
+                    //    logger.Error(e.StackTrace);
+                    //}
 
-                    logger.Info("copying RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool") + " " + CombinePaths(oldBackupDir, "RecordingDownloadTool"));
-                    //Directory.Move(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
-                    CopyFolder(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
-                    logger.Info("deleting RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool"));
-                    Directory.Delete(CombinePaths(target, "RecordingDownloadTool"));
+                    //return;
+                }
+                else
+                {
+                    // relative paths to each file in the patch; base paths are the heads
+                    string tail;
+                    // full path to each file to patch
+                    string fileToPatch;
+                    // each file bound for the old/ directory
+                    string bakFileOld;
 
-                    logger.Info("copying {0} to {1}", origin, newPatchDir);
+                    // TODO private method
+
+                    // 1: copy origin to backupDirNew
                     CopyFolder(origin, newBackupDir);
-
-                    logger.Info("copying {0} to {1}", origin, target);
-                    CopyFolder(origin, target);
-                }
-                catch (IOException e)
-                {
-                    logger.Error(@"Clyde won't overwrite existing patch files");
-                    logger.Error(@"Move or remove these directories and try again");
-                    logger.Error(@"{0}", CombinePaths(target, "AVPlayer"));
-                    logger.Error(@"{0}", CombinePaths(target, "RecordingDownloadTool"));
-                    logger.Fatal("Exiting");
-                    logger.Error(e.StackTrace);
-                }
-                return;
-            }
-
-            // relative paths to each file in the patch; base paths are the heads
-            string tail;
-            // full path to each file to patch
-            string fileToPatch;
-            // each file bound for the old/ directory
-            string bakFileOld;
-
-            // TODO private method
-
-            // 1: copy origin to backupDirNew
-            CopyFolder(origin, newBackupDir);
-            Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
-            Console.WriteLine("      should match the files in the extract dir [2]:");
-            Console.WriteLine("\t[1] {0}", newBackupDir);
-            Console.WriteLine("\t[2] {0}", ExtractDir);
-            foreach (FileInfo f in srcFiles)
-            {
-                tail = RelativePath(origin, f.FullName);
-                string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
-                string orig = CombinePaths(origTmp, f.ToString());
-                string copiedTmp = CombinePaths(newBackupDir, Path.GetDirectoryName(tail));
-                string copied = CombinePaths(copiedTmp, f.ToString());
-                FileCompare(orig, copied, tail);
-            }
-            Console.WriteLine();
-
-            // TODO private method
-
-            // 2: copy the same files from targetDir to backupDirOld
-            foreach (FileInfo f in srcFiles)
-            {
-                tail = RelativePath(origin, f.FullName);
-                bakFileOld = Path.GetFullPath(CombinePaths(oldBackupDir, tail));
-
-                // Get and check original location; eventually this will be a milestone: if the file is missing, user
-                // may want to cancel
-                fileToPatch = Path.GetFullPath(CombinePaths(target, tail));
-
-                // Create any nested subdirectories included in the patch.  Note, this will loop over the same
-                // location multiple times; it's a little big ugly
-                DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
-                if (!Directory.Exists(backupSubdirOld.ToString()))
-                {
-                    Directory.CreateDirectory(backupSubdirOld.ToString());
-                }
-
-                try
-                {
-                    File.Copy(fileToPatch, bakFileOld, true);
-                }
-                catch (Exception e)
-                {
-                    // DirectoryNotFoundException occurs when the patch includes a new directory that is not on the
-                    // machine being patched.  As a result, the directory is also not in patches/VERSION/old, which
-                    // causes this exception.  Log it but don't rethrow.
-                    if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                    Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
+                    Console.WriteLine("      should match the files in the extract dir [2]:");
+                    Console.WriteLine("\t[1] {0}", newBackupDir);
+                    Console.WriteLine("\t[2] {0}", ExtractDir);
+                    foreach (FileInfo f in srcFiles)
                     {
-                        logger.Warn("a file to backup was not found: {0}", bakFileOld);
+                        tail = RelativePath(origin, f.FullName);
+                        logger.Info("mark .. epsilon");
+                        string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
+                        string orig = CombinePaths(origTmp, f.ToString());
+                        string copiedTmp = CombinePaths(newBackupDir, Path.GetDirectoryName(tail));
+                        string copied = CombinePaths(copiedTmp, f.ToString());
+                        FileCompare(orig, copied, tail);
                     }
+                    Console.WriteLine();
+
+                    // TODO private method
+
+                    // 2: copy the same files from targetDir to backupDirOld
+                    foreach (FileInfo f in srcFiles)
+                    {
+                        tail = RelativePath(origin, f.FullName);
+                        bakFileOld = Path.GetFullPath(CombinePaths(oldBackupDir, tail));
+
+                        // Get and check original location; eventually this will be a milestone: if the file is missing, user
+                        // may want to cancel
+                        //fileToPatch = Path.GetFullPath(CombinePaths(target, tail));
+                        fileToPatch = Path.GetFullPath(CombinePaths(i.installLocation, tail));
+
+                        // Create any nested subdirectories included in the patch.  Note, this will loop over the same
+                        // location multiple times; it's a little big ugly
+                        DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
+                        if (!Directory.Exists(backupSubdirOld.ToString()))
+                        {
+                            Directory.CreateDirectory(backupSubdirOld.ToString());
+                        }
+
+                        try
+                        {
+                            File.Copy(fileToPatch, bakFileOld, true);
+                        }
+                        catch (Exception e)
+                        {
+                            // DirectoryNotFoundException occurs when the patch includes a new directory that is not on the
+                            // machine being patched.  As a result, the directory is also not in patches/VERSION/old, which
+                            // causes this exception.  Log it but don't rethrow.
+                            if (e is FileNotFoundException || e is DirectoryNotFoundException)
+                            {
+                                logger.Warn("a file to backup was not found: {0}", bakFileOld);
+                            }
+                        }
+                    }
+
+                    // TODO private method
+
+                    Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");
+                    Console.WriteLine("      should match the files in the old backup location [2]:");
+                    //Console.WriteLine("\t[1] {0}", target);
+                    Console.WriteLine("\t[1] {0}", i.installLocation);
+                    Console.WriteLine("\t[2] {0}", oldBackupDir);
+                    foreach (FileInfo f in srcFiles)
+                    {
+                        tail = RelativePath(origin, f.FullName);
+                        bakFileOld = Path.GetFullPath(CombinePaths(oldBackupDir, tail));
+                        fileToPatch = Path.GetFullPath(CombinePaths(i.installLocation, tail));
+
+                        // Compare each file in old/ with the original in APPDIR.
+                        string orig = fileToPatch;
+                        string copied = bakFileOld;
+                        // TC: explain this
+                        FileCompare(orig, copied, tail);
+                    }
+                    Console.WriteLine();
+
+                    // TODO private method
+
+                    // 3: apply the patch.
+                    logger.Info("patching {0}", i.installLocation);
+                    Console.WriteLine();
+
+                    CopyFolder(origin, i.installLocation);
+
+                    Console.WriteLine("INFO: Did the patch succeed?  The files in APPDIR [1] should match");
+                    Console.WriteLine("      the files in the new backup location [2]:");
+                    Console.WriteLine("\t[1] {0}", i.installLocation);
+                    Console.WriteLine("\t[2] {0}", newBackupDir);
+                    foreach (FileInfo f in srcFiles)
+                    {
+                        tail = RelativePath(origin, f.FullName);
+                        string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
+                        string orig = CombinePaths(origTmp, f.ToString());
+                        string copiedTmp = CombinePaths(i.installLocation, Path.GetDirectoryName(tail));
+                        string copied = CombinePaths(copiedTmp, f.ToString());
+                        // TC: explain this
+                        FileCompare(orig, copied, tail);
+                    }
+                    Console.WriteLine();
                 }
             }
-
-            // TODO private method
-
-            Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");
-            Console.WriteLine("      should match the files in the old backup location [2]:");
-            Console.WriteLine("\t[1] {0}", target);
-            Console.WriteLine("\t[2] {0}", oldBackupDir);
-            foreach (FileInfo f in srcFiles)
-            {
-                tail = RelativePath(origin, f.FullName);
-                bakFileOld = Path.GetFullPath(CombinePaths(oldBackupDir, tail));
-                fileToPatch = Path.GetFullPath(CombinePaths(target, tail));
-
-                // Compare each file in old/ with the original in APPDIR.
-                string orig = fileToPatch;
-                string copied = bakFileOld;
-                // TC: explain this
-                FileCompare(orig, copied, tail);
-            }
-            Console.WriteLine();
-
-            // TODO private method
-
-            // 3: apply the patch.
-            logger.Info("patching {0}", target);
-            Console.WriteLine();
-
-            CopyFolder(origin, target);
-
-            Console.WriteLine("INFO: Did the patch succeed?  The files in APPDIR [1] should match");
-            Console.WriteLine("      the files in the new backup location [2]:");
-            Console.WriteLine("\t[1] {0}", target);
-            Console.WriteLine("\t[2] {0}", newBackupDir);
-            foreach (FileInfo f in srcFiles)
-            {
-                tail = RelativePath(origin, f.FullName);
-                string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
-                string orig = CombinePaths(origTmp, f.ToString());
-                string copiedTmp = CombinePaths(target, Path.GetDirectoryName(tail));
-                string copied = CombinePaths(copiedTmp, f.ToString());
-                // TC: explain this
-                FileCompare(orig, copied, tail);
-            }
-            Console.WriteLine();
         }
+
 
         public bool CreateDir(string target)
         {

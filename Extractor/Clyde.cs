@@ -13,14 +13,18 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
+            // TC: for testing
+            Console.Write("(attach to Clyde.exe then) press ENTER to continue");
+            Console.ReadLine();
+
             Extractor e = new Extractor();
 
             // applications
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
-            ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", true);
-            ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", true);
+            ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", true, "AVPlayer");
+            ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", true, "RecordingDownloadTool");
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
             ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
@@ -83,25 +87,34 @@ namespace PatchTool
                     logger.Info("i.displayVersion: {0}", i.displayVersion);
 
                     // patch each application in the given installation separately
-                    for (int j = 0; j < i.applications.Count; j++)
-                    {
-                        // origin is    e.ExtractDir                + e.SourceDir   + toPatch.abbr
-                        // e.g.         C:\patch_staging\10.1.14.9\ + patchFiles    + Server
-                        string tmp = Path.Combine(e.ExtractDir, e.SourceDir);
-                        string origin = Path.Combine(tmp, i.applications[j].abbr);
-                        string target = i.installLocation;
-                        bool replaceAll = i.applications[j].replaceAll;
-                        logger.Info("[debug] e.run(origin, target, replaceAll)\n\torigin={0}\n\ttarget={1}\n\treplaceAll={2}", origin, target, replaceAll);
+                    //for (int j = 0; j < i.applications.Count; j++)
+                    //{
+                    // origin is    e.ExtractDir                + e.SourceDir   + toPatch.abbr
+                    // e.g.         C:\patch_staging\10.1.14.9\ + patchFiles    + Server
 
-                        if (Directory.Exists(origin))
-                        {
-                            e.run(origin, target, replaceAll);
-                        }
-                        else
-                        {
-                            logger.Info("Directory {0} not found.  Skipping", origin);
-                        }
-                    }
+                    // origin is    e.ExtractDir                + e.SourceDir   + toPatch.abbr
+                    // e.g.         C:\patch_staging\10.1.14.9\ + patchFiles
+
+                    logger.Info(e.ExtractDir);
+                    logger.Info(e.SourceDir);
+                    string origin = Path.Combine(e.ExtractDir, e.SourceDir);
+                    //string tmp = Path.Combine(e.ExtractDir, e.SourceDir);
+                    //string origin = Path.Combine(tmp, i.applications[j].abbr);
+                    //string target = i.installLocation;
+                    //bool replaceAll = i.applications[j].replaceAll;
+                    //logger.Info("[debug] e.run(origin, target, replaceAll)\n\torigin={0}\n\ttarget={1}\n\treplaceAll={2}", origin, target, replaceAll);
+
+                    //if (Directory.Exists(origin))
+                    //{
+                    // why not pass in the Installer object?
+                    //e.run(origin, target, replaceAll, i.applications[j].replaceRoot);
+                    e.run(origin, i);
+                    //}
+                    //else
+                    //{
+                    //    logger.Info("Directory {0} not found.  Skipping", origin);
+                    //}
+                    //}
                     Console.WriteLine();
                 }
             }
