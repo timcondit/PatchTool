@@ -667,20 +667,6 @@ namespace PatchTool
             this.installers = new List<Installer>();
         }
 
-        //// maybe later
-        //public InstallerSuite(string name)
-        //{
-        //    this.name = name;
-        //    this.installers = new List<Installer>();
-        //}
-
-        //// maybe later
-        //public InstallerSuite(string name, List<Installer> installers)
-        //{
-        //    this.name = name;
-        //    this.installers = installers;
-        //}
-
         public string name { get; set; }
 
         private int _count = 0;
@@ -718,14 +704,6 @@ namespace PatchTool
             this.applications = new List<ETApplication>();
         }
 
-        //// maybe later
-        //public Installer(string abbr, string displayName, List<ETApplication> applications)
-        //{
-        //    this.abbr = abbr;
-        //    this.displayName = displayName;
-        //    this.applications = applications;
-        //}
-
         public string abbr { get; set; }
         public string displayName { get; set; }
         public string installLocation { get; set; }
@@ -747,7 +725,7 @@ namespace PatchTool
         public string abbr { get; set; }
         public string displayName { get; set; }
         public bool replaceAll { get; set; }
-        // maybe use this.abbr as the default replaceRoot
+        // use this.abbr as the default replaceRoot?
         public string replaceRoot { get; set; }
     }
 
@@ -788,8 +766,6 @@ namespace PatchTool
                 CreateDir(newBackupDir);
             }
 
-            logger.Info("mark .. alpha");
-
             string oldBackupDir = CombinePaths(i.installLocation, "patches", PatchVersion, "old");
             if (!Directory.Exists(oldBackupDir))
             {
@@ -799,90 +775,20 @@ namespace PatchTool
             DirectoryInfo srcDir = new DirectoryInfo(origin);
             FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
 
-            logger.Info("mark .. beta");
-
             foreach (ETApplication app in i.applications)
             {
-
-                // Sometimes (like with Centricity Web Apps) we replace all files.  Keep it simple.
                 if (app.replaceAll == true)
                 {
-                    //try
-                    //{
-
-                    // dup dup
-                    logger.Info("mark .. gamma 1");
-                    logger.Info(i.installLocation);
-                    logger.Info(app.replaceRoot);
                     string old = CombinePaths(i.installLocation, app.replaceRoot);
-
-                    logger.Info("mark .. gamma 2");
                     string old_bak = CombinePaths(oldBackupDir, app.replaceRoot);
-
-                    logger.Info("mark .. gamma 3");
                     string nu = CombinePaths(origin, app.replaceRoot);
-
-                    logger.Info("mark .. gamma 4");
                     string nu_bak = CombinePaths(newBackupDir, app.replaceRoot);
-
-                    //string old = CombinePaths(target, "AVPlayer");
-                    //string old_bak = CombinePaths(oldBackupDir, "AVPlayer");
-                    //string nu = CombinePaths(origin, "AVPlayer");
-                    //string nu_bak = CombinePaths(newBackupDir, "AVPlayer");
 
                     CopyFolder(old, old_bak);
                     Directory.Delete(old, true);
                     CopyFolder(nu, nu_bak);
                     CreateDir(old);
-                    logger.Info("mark .. alpha");
-                    logger.Info("nu: " + nu);
-                    logger.Info("old: " + old);
                     CopyFolder(nu, old);
-
-                    //// copy original AVPlayer files to old/
-                    //logger.Info("copying AVPlayer: " + CombinePaths(target, "AVPlayer") + " " + CombinePaths(oldBackupDir, "AVPlayer"));
-                    //CopyFolder(CombinePaths(target, "AVPlayer"), CombinePaths(oldBackupDir, "AVPlayer"));
-
-                    //// delete original AVPlayer files
-                    //logger.Info("deleting AVPlayer: " + CombinePaths(target, "AVPlayer"));
-                    //Directory.Delete(CombinePaths(target, "AVPlayer"), true);
-
-                    //// copy new AVPlayer files to new/
-                    //logger.Info("copying {0} to {1}", origin, newPatchDir);
-                    //CopyFolder(origin, newBackupDir);
-
-                    //// copy new AVPlayer files to target
-                    //logger.Info("copying {0} to {1}", origin, newPatchDir);
-                    //CopyFolder(origin, newBackupDir);
-
-
-                    //// copy original RecordingDownloadTool files to old/
-                    //logger.Info("copying RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool") + " " + CombinePaths(oldBackupDir, "RecordingDownloadTool"));
-                    //CopyFolder(CombinePaths(target, "RecordingDownloadTool"), CombinePaths(oldBackupDir, "RecordingDownloadTool"));
-
-                    //// copy new RecordingDownloadTool files to new/
-                    //logger.Info("copying {0} to {1}", origin, newPatchDir);
-                    //CopyFolder(origin, newBackupDir);
-
-                    //// delete original RecordingDownloadTool files
-                    //logger.Info("deleting RecordingDownloadTool: " + CombinePaths(target, "RecordingDownloadTool"));
-                    //Directory.Delete(CombinePaths(target, "RecordingDownloadTool"));
-
-
-                    //logger.Info("copying {0} to {1}", origin, target);
-                    //CopyFolder(origin, target);
-                    //}
-                    //catch (IOException e)
-                    //{
-                    //    logger.Error(@"Clyde won't overwrite existing patch files");
-                    //    logger.Error(@"Move or remove these directories and try again");
-                    //    logger.Error(@"{0}", CombinePaths(target, "AVPlayer"));
-                    //    logger.Error(@"{0}", CombinePaths(target, "RecordingDownloadTool"));
-                    //    logger.Fatal("Exiting");
-                    //    logger.Error(e.StackTrace);
-                    //}
-
-                    //return;
                 }
                 else
                 {
@@ -904,7 +810,6 @@ namespace PatchTool
                     foreach (FileInfo f in srcFiles)
                     {
                         tail = RelativePath(origin, f.FullName);
-                        logger.Info("mark .. epsilon");
                         string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
                         string orig = CombinePaths(origTmp, f.ToString());
                         string copiedTmp = CombinePaths(newBackupDir, Path.GetDirectoryName(tail));
@@ -950,8 +855,6 @@ namespace PatchTool
                         }
                     }
 
-                    // TODO private method
-
                     Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");
                     Console.WriteLine("      should match the files in the old backup location [2]:");
                     //Console.WriteLine("\t[1] {0}", target);
@@ -970,8 +873,6 @@ namespace PatchTool
                         FileCompare(orig, copied, tail);
                     }
                     Console.WriteLine();
-
-                    // TODO private method
 
                     // 3: apply the patch.
                     logger.Info("patching {0}", i.installLocation);

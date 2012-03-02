@@ -86,36 +86,8 @@ namespace PatchTool
                     logger.Info("i.installLocation: {0}", i.installLocation);
                     logger.Info("i.displayVersion: {0}", i.displayVersion);
 
-                    // patch each application in the given installation separately
-                    //for (int j = 0; j < i.applications.Count; j++)
-                    //{
-                    // origin is    e.ExtractDir                + e.SourceDir   + toPatch.abbr
-                    // e.g.         C:\patch_staging\10.1.14.9\ + patchFiles    + Server
-
-                    // origin is    e.ExtractDir                + e.SourceDir   + toPatch.abbr
-                    // e.g.         C:\patch_staging\10.1.14.9\ + patchFiles
-
-                    logger.Info(e.ExtractDir);
-                    logger.Info(e.SourceDir);
                     string origin = Path.Combine(e.ExtractDir, e.SourceDir);
-                    //string tmp = Path.Combine(e.ExtractDir, e.SourceDir);
-                    //string origin = Path.Combine(tmp, i.applications[j].abbr);
-                    //string target = i.installLocation;
-                    //bool replaceAll = i.applications[j].replaceAll;
-                    //logger.Info("[debug] e.run(origin, target, replaceAll)\n\torigin={0}\n\ttarget={1}\n\treplaceAll={2}", origin, target, replaceAll);
-
-                    //if (Directory.Exists(origin))
-                    //{
-                    // why not pass in the Installer object?
-                    //e.run(origin, target, replaceAll, i.applications[j].replaceRoot);
                     e.run(origin, i);
-                    //}
-                    //else
-                    //{
-                    //    logger.Info("Directory {0} not found.  Skipping", origin);
-                    //}
-                    //}
-                    Console.WriteLine();
                 }
             }
 
