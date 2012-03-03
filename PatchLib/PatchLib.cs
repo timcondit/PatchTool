@@ -494,6 +494,9 @@ namespace PatchTool
             IConfig avplayer = source.AddConfig("AVPlayer");
             avplayer.Set("avplayerRoot", @".");
             avplayer.Set("webapps_version", webapps_version);
+            // shows up in patchFiles as "...\patchFiles\AVPlayer\AVPlayer"
+            // where the first AVPlayer is the application name, and the
+            // second AVPlayer is the subdir on disk
             avplayer.Set("AVPlayer.application", @"${avplayerRoot}\AVPlayer\AVPlayer.application");
             avplayer.Set("AgentSupport.exe.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
             avplayer.Set("AVPlayer.exe.config.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
@@ -779,16 +782,19 @@ namespace PatchTool
             {
                 if (app.replaceAll == true)
                 {
+                    // back up original directory
                     string old = CombinePaths(i.installLocation, app.replaceRoot);
-                    string old_bak = CombinePaths(oldBackupDir, app.replaceRoot);
-                    string nu = CombinePaths(origin, app.replaceRoot);
-                    string nu_bak = CombinePaths(newBackupDir, app.replaceRoot);
-
+                    string old_bak = CombinePaths(oldBackupDir, app.replaceRoot); 
                     CopyFolder(old, old_bak);
                     Directory.Delete(old, true);
-                    CopyFolder(nu, nu_bak);
                     CreateDir(old);
-                    CopyFolder(nu, old);
+
+                    // back up new directory
+                    string neu = CombinePaths(origin, app.replaceRoot);
+                    CopyFolder(neu, newBackupDir);
+
+                    // patch new files to original directory
+                    CopyFolder(CombinePaths(origin, app.replaceRoot, app.replaceRoot), old);
                 }
                 else
                 {
@@ -898,7 +904,6 @@ namespace PatchTool
                 }
             }
         }
-
 
         public bool CreateDir(string target)
         {
