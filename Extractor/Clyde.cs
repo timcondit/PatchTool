@@ -35,8 +35,8 @@ namespace PatchTool
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
-            ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", true, "AVPlayer");
-            ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", true, "RecordingDownloadTool");
+            ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", "AVPlayer");
+            ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", "RecordingDownloadTool");
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
             ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
@@ -88,8 +88,6 @@ namespace PatchTool
             string patchBasePath = Path.Combine(e.ExtractDir, e.SourceDir);
             string[] cache = Directory.GetDirectories(patchBasePath, "*", SearchOption.TopDirectoryOnly);
 
-            Dictionary<Patch, ETApplication> patchDict = new Dictionary<Patch, ETApplication>();
-
             // get details about installed applications
             foreach (Installer i in all.installers)
             {
@@ -113,13 +111,14 @@ namespace PatchTool
                         // 2: if we're patching this app ...
                         for (int j = 0; j < cache.Length; j++)
                         {
-                            if (cache[j] /* name */ == installedApp.name)
+                            // hotness
+                            string cacheBaseDir = new DirectoryInfo(cache[j]).Name;
+
+                            if (cacheBaseDir /* name */ == installedApp.name)
                             {
-                                // 3: add it to the dictionary
-                                string sharedName = cache[j];
-                                Patch p = new Patch(patchBasePath, sharedName);
-                                ETApplication a = new ETApplication(sharedName, installedApp.displayName);
-                                patchDict[p] = a;
+                                // 3: add the application's cacheLocation
+                                installedApp.cacheLocation = cache[j];
+                                logger.Info("app: " + installedApp.name + " cache: " + installedApp.cacheLocation);
                             }
                             else
                             {

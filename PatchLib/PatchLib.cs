@@ -663,27 +663,6 @@ namespace PatchTool
         }
     }
 
-    public class Patch
-    {
-        // Dictionary<ETApplication, Patch> patchDict = new Dictionary<T,T>();
-        // foreach(app in list of installed apps) {
-        //   if (patch.name == app.name) {              // "Server" == "Server"
-        //     patchDict[serverPatch] = server;         // serverPatch is in the cache, server is the ETApplication
-        // foreach(keyValuePair k,v in patchDict) {
-        //   logger.Info("applying patch files from " + CombinePaths(basePath, name) + " to ETApplication " + v.displayName;
-        //   == or ==
-        //   logger.Info("patching " + v.displayName + " with files from " + CombinePaths(basePath, name);
-        public Patch(string basePath, string name = null)
-        {
-            this.basePath = basePath;
-            this.name = name;
-        }
-
-        // basePath should be static (shared by all Patch objects)
-        public string basePath { get; set; }
-        public string name { get; set; }
-    }
-
     public class InstallerSuite
     {
         public InstallerSuite()
@@ -753,6 +732,7 @@ namespace PatchTool
         public string name { get; set; }
         public string displayName { get; set; }
         public string localHome { get; set; }
+        public string cacheLocation { get; set; }
     }
 
     public class Extractor
