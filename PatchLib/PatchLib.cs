@@ -663,6 +663,27 @@ namespace PatchTool
         }
     }
 
+    public class Patch
+    {
+        // Dictionary<ETApplication, Patch> patchDict = new Dictionary<T,T>();
+        // foreach(app in list of installed apps) {
+        //   if (patch.name == app.name) {              // "Server" == "Server"
+        //     patchDict[serverPatch] = server;         // serverPatch is in the cache, server is the ETApplication
+        // foreach(keyValuePair k,v in patchDict) {
+        //   logger.Info("applying patch files from " + CombinePaths(basePath, name) + " to ETApplication " + v.displayName;
+        //   == or ==
+        //   logger.Info("patching " + v.displayName + " with files from " + CombinePaths(basePath, name);
+        public Patch(string basePath, string name = null)
+        {
+            this.basePath = basePath;
+            this.name = name;
+        }
+
+        // basePath should be static (shared by all Patch objects)
+        public string basePath { get; set; }
+        public string name { get; set; }
+    }
+
     public class InstallerSuite
     {
         public InstallerSuite()
@@ -695,19 +716,22 @@ namespace PatchTool
 
     public class Installer
     {
+        // Should ETApplication be the main class?  The applications could hold
+        // references to their installer and use that to figure out their
+        // installLocations.  If it's worth a try, do it in a separate branch.
         public Installer()
         {
             this.applications = new List<ETApplication>();
         }
 
-        public Installer(string abbr, string displayName)
+        public Installer(string name, string displayName)
         {
-            this.abbr = abbr;
+            this.name = name;
             this.displayName = displayName;
             this.applications = new List<ETApplication>();
         }
 
-        public string abbr { get; set; }
+        public string name { get; set; }
         public string displayName { get; set; }
         public string installLocation { get; set; }
         public string displayVersion { get; set; }
@@ -717,19 +741,18 @@ namespace PatchTool
 
     public class ETApplication
     {
-        public ETApplication(string abbr, string displayName, bool replaceAll = false, string replaceRoot = null)
+        // replaceAll is going away
+        //public ETApplication(string name, string displayName, bool replaceAll = true, string localHome = null)
+        public ETApplication(string name, string displayName, string localHome = ".")
         {
-            this.abbr = abbr;
+            this.name = name;
             this.displayName = displayName;
-            this.replaceAll = replaceAll;
-            this.replaceRoot = replaceRoot;
+            this.localHome = localHome;
         }
 
-        public string abbr { get; set; }
+        public string name { get; set; }
         public string displayName { get; set; }
-        public bool replaceAll { get; set; }
-        // use this.abbr as the default replaceRoot?
-        public string replaceRoot { get; set; }
+        public string localHome { get; set; }
     }
 
     public class Extractor
@@ -761,8 +784,21 @@ namespace PatchTool
             get { return _extractDir; }
         }
 
+        // Should run() accept an Extractor and an ETApplication as it's
+        // arguments?  The Extractor would be the origin side, and the
+        // ETApplication would be the target side.
+        //
+        // This also implies that the logic in Clyde is updated to truly make
+        // the ETApplication the center of attention (which is correct, IMO).
         public void run(string origin, Installer i)
         {
+            // These will change in scope from the Installer level to the
+            // ETApplication level.  So whereas before the files for, say,
+            // AVPlayer and RecordingDownloadTool would each go into a top-
+            // level patches directory, now they'll have their own.  Or (maybe
+            // better) I can store the backups in the staging folder instead.
+            // Passing in an Extractor makes more sense in that case.
+            //
             string newBackupDir = CombinePaths(i.installLocation, "patches", PatchVersion, "new");
             if (!Directory.Exists(newBackupDir))
             {
@@ -780,24 +816,57 @@ namespace PatchTool
 
             foreach (ETApplication app in i.applications)
             {
-                if (app.replaceAll == true)
-                {
-                    // back up original directory
-                    string old = CombinePaths(i.installLocation, app.replaceRoot);
-                    string old_bak = CombinePaths(oldBackupDir, app.replaceRoot); 
-                    CopyFolder(old, old_bak);
-                    Directory.Delete(old, true);
-                    CreateDir(old);
+                // for each application:
+                //   create a backup directory
+                //   for each folder and file to be patched:
+                //     
 
-                    // back up new directory
-                    string neu = CombinePaths(origin, app.replaceRoot);
-                    CopyFolder(neu, newBackupDir);
+                // Why is this a special case?  Everything can be handled this
+                // way.  Just move the existing stuff, and move the new stuff
+                // in.
+                //if (app.replaceAll == true)
+                //if (true)
+                //{
+                // change to
+                //
+                // back up original directory
+                //string from = CombinePaths(i.installLocation, app.localHome);
+                //string to = CombinePaths(oldBackupDir, app.localHome);
+                //CopyFolder(from, to);
+                //Directory.Delete(from, true);
+                //CreateDir(from);
+                //
+                // back up new directory
+                //string neu = CombinePaths(origin, app.localHome);
+                //CopyFolder(neu, newBackupDir);
+                //
+                // patch new files to original directory
+                //  these are the installer (patch-side) and the
+                //  application (patch-side) ------\--------------\
+                //                                vvvvvvvvvvvvv  vvvvvvvvvvvvv
+                //CopyFolder(CombinePaths(origin, app.localHome, app.localHome), from);
+                //  they need their own attributes set during archiving [HOW?]
 
-                    // patch new files to original directory
-                    CopyFolder(CombinePaths(origin, app.replaceRoot, app.replaceRoot), old);
+                // back up original directory
+                string old = CombinePaths(i.installLocation, app.localHome);
+                string old_bak = CombinePaths(oldBackupDir, app.localHome);
+                CopyFolder(old, old_bak);
+                Directory.Delete(old, true);
+                CreateDir(old);
+
+                // back up new directory
+                string neu = CombinePaths(origin, app.localHome);
+                CopyFolder(neu, newBackupDir);
+
+                // patch new files to original directory
+                CopyFolder(CombinePaths(origin, app.localHome, app.localHome), old);
+                /*
                 }
                 else
                 {
+                    logger.Info("shouldn't get here: " + app.displayName);
+                    Environment.Exit(0);
+
                     // relative paths to each file in the patch; base paths are the heads
                     string tail;
                     // full path to each file to patch
@@ -808,14 +877,14 @@ namespace PatchTool
                     // TODO private method
 
                     // 1: copy origin to backupDirNew
-                    CopyFolder(origin, newBackupDir);
+                    CopyFolder(CombinePaths(origin, app.name), newBackupDir);
                     Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
                     Console.WriteLine("      should match the files in the extract dir [2]:");
                     Console.WriteLine("\t[1] {0}", newBackupDir);
                     Console.WriteLine("\t[2] {0}", ExtractDir);
                     foreach (FileInfo f in srcFiles)
                     {
-                        tail = RelativePath(origin, f.FullName);
+                        tail = RelativePath(CombinePaths(origin, app.name), f.FullName);
                         string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
                         string orig = CombinePaths(origTmp, f.ToString());
                         string copiedTmp = CombinePaths(newBackupDir, Path.GetDirectoryName(tail));
@@ -902,6 +971,7 @@ namespace PatchTool
                     }
                     Console.WriteLine();
                 }
+                 */
             }
         }
 

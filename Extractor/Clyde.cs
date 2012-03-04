@@ -14,10 +14,22 @@ namespace PatchTool
         static void Main(string[] args)
         {
             // TC: for testing
-            Console.Write("(attach to Clyde.exe then) press ENTER to continue");
+            Console.Write("(attach to Clyde.exe then) press ENTER to continue: ");
             Console.ReadLine();
 
-            Extractor e = new Extractor();
+            // Clyde's prime directive is to patch the ET applications on this
+            // host.  The recipe:
+            //
+            // == Get everything ready ==
+            // 1: [done] Create ETApplication and Installer objects for all applications and installers
+            // 2: Create Patch objects from the contents of the patch
+            // 3: Create a Dictionary of Patches and their corresponding ETApplications
+            //    (Unused ETApplications are not included.)
+            //
+            // == The real work begins ==
+            // 1: Inspect each (key, value) pair in the patch Dictionary
+            // 2: Create backup folders; copy the new and original files
+            // 3: Copy the new files to the original location
 
             // applications
             ETApplication server = new ETApplication("Server", "Envision Server");
@@ -69,6 +81,15 @@ namespace PatchTool
             all.installers.Add(channelManagerInstaller);
             all.installers.Add(toolsInstaller);
 
+
+            Extractor e = new Extractor();
+
+            // get the shallow list of directories under patch_staging\<version>\patchFiles
+            string patchBasePath = Path.Combine(e.ExtractDir, e.SourceDir);
+            string[] cache = Directory.GetDirectories(patchBasePath, "*", SearchOption.TopDirectoryOnly);
+
+            Dictionary<Patch, ETApplication> patchDict = new Dictionary<Patch, ETApplication>();
+
             // get details about installed applications
             foreach (Installer i in all.installers)
             {
@@ -81,10 +102,31 @@ namespace PatchTool
                 if (i.isInstalled)
                 {
                     // debug
-                    logger.Info("i.abbr: {0}", i.abbr);
+                    logger.Info("i.name: {0}", i.name);
                     logger.Info("i.displayName: {0}", i.displayName);
                     logger.Info("i.installLocation: {0}", i.installLocation);
                     logger.Info("i.displayVersion: {0}", i.displayVersion);
+
+                    // 1: for each installed app ...
+                    foreach (ETApplication installedApp in i.applications)
+                    {
+                        // 2: if we're patching this app ...
+                        for (int j = 0; j < cache.Length; j++)
+                        {
+                            if (cache[j] /* name */ == installedApp.name)
+                            {
+                                // 3: add it to the dictionary
+                                string sharedName = cache[j];
+                                Patch p = new Patch(patchBasePath, sharedName);
+                                ETApplication a = new ETApplication(sharedName, installedApp.displayName);
+                                patchDict[p] = a;
+                            }
+                            else
+                            {
+                                logger.Info("rejected " + cache[j]);
+                            }
+                        }
+                    }
 
                     string origin = Path.Combine(e.ExtractDir, e.SourceDir);
                     e.run(origin, i);
