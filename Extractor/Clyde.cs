@@ -17,20 +17,6 @@ namespace PatchTool
             Console.Write("(attach to Clyde.exe then) press ENTER to continue: ");
             Console.ReadLine();
 
-            // Clyde's prime directive is to patch the ET applications on this
-            // host.  The recipe:
-            //
-            // == Get everything ready ==
-            // 1: [done] Create ETApplication and Installer objects for all applications and installers
-            // 2: Create Patch objects from the contents of the patch
-            // 3: Create a Dictionary of Patches and their corresponding ETApplications
-            //    (Unused ETApplications are not included.)
-            //
-            // == The real work begins ==
-            // 1: Inspect each (key, value) pair in the patch Dictionary
-            // 2: Create backup folders; copy the new and original files
-            // 3: Copy the new files to the original location
-
             // applications
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
@@ -81,14 +67,19 @@ namespace PatchTool
             all.installers.Add(channelManagerInstaller);
             all.installers.Add(toolsInstaller);
 
-
             Extractor e = new Extractor();
+            List<ETApplication> appsToPatch = new List<ETApplication>();
 
-            // get the shallow list of directories under patch_staging\<version>\patchFiles
-            string patchBasePath = Path.Combine(e.ExtractDir, e.SourceDir);
-            string[] cache = Directory.GetDirectories(patchBasePath, "*", SearchOption.TopDirectoryOnly);
+            // get the shallow list of applications to patch from patch_staging\<version>\patchFiles
+            //string patchBasePath = Path.Combine(e.ExtractDir, e.PatchFiles);
+            string[] cache = Directory.GetDirectories(e.PatchDir, "*", SearchOption.TopDirectoryOnly);
 
-            // get details about installed applications
+            //for (int jx = 0; jx < cache.Length; jx++)
+            //{
+            //    logger.Info("cache[jx]: " + cache[jx]);
+            //    logger.Info("cache[jx] baseName: " + new DirectoryInfo(cache[jx]).Name);
+            //}
+
             foreach (Installer i in all.installers)
             {
                 e.GetInstallInfo(i);
@@ -99,12 +90,6 @@ namespace PatchTool
 
                 if (i.isInstalled)
                 {
-                    // debug
-                    logger.Info("i.name: {0}", i.name);
-                    logger.Info("i.displayName: {0}", i.displayName);
-                    logger.Info("i.installLocation: {0}", i.installLocation);
-                    logger.Info("i.displayVersion: {0}", i.displayVersion);
-
                     // 1: for each installed app ...
                     foreach (ETApplication installedApp in i.applications)
                     {
@@ -112,24 +97,32 @@ namespace PatchTool
                         for (int j = 0; j < cache.Length; j++)
                         {
                             // hotness
-                            string cacheBaseDir = new DirectoryInfo(cache[j]).Name;
+                            //string cacheBaseDir = new DirectoryInfo(cache[j]).Name;
+                            //
+                            // store backups in patch_staging instead (avoid problems with patches folder)
+                            //string cacheDir = Path.Combine(e.PatchFiles, cache[j]);
+                            //string cacheBaseDir = new DirectoryInfo(cache[j]).Name;
 
-                            if (cacheBaseDir /* name */ == installedApp.name)
+                            //if (cacheBaseDir /* name */ == installedApp.name)
+                            if (new DirectoryInfo(cache[j]).Name == installedApp.name)
                             {
                                 // 3: add the application's cacheLocation
-                                installedApp.cacheLocation = cache[j];
-                                logger.Info("app: " + installedApp.name + " cache: " + installedApp.cacheLocation);
-                            }
-                            else
-                            {
-                                logger.Info("rejected " + cache[j]);
+                                // this seems redundant, or at least not very useful
+                                installedApp.installLocation = i.installLocation;
+                                installedApp.patchFrom = cache[j];
+                                installedApp.patchTo = Path.Combine(installedApp.installLocation, installedApp.name);
+                                appsToPatch.Add(installedApp);
+                                //logger.Info("app: " + installedApp.name + "; cache: " + cache[j]);
                             }
                         }
                     }
-
-                    string origin = Path.Combine(e.ExtractDir, e.SourceDir);
-                    e.run(origin, i);
                 }
+            }
+
+            foreach (ETApplication atp in appsToPatch)
+            {
+                logger.Info("patching: " + atp.displayName);
+                e.run(atp);
             }
 
             // TC: for testing

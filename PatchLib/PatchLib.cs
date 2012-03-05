@@ -695,9 +695,6 @@ namespace PatchTool
 
     public class Installer
     {
-        // Should ETApplication be the main class?  The applications could hold
-        // references to their installer and use that to figure out their
-        // installLocations.  If it's worth a try, do it in a separate branch.
         public Installer()
         {
             this.applications = new List<ETApplication>();
@@ -720,41 +717,40 @@ namespace PatchTool
 
     public class ETApplication
     {
-        // replaceAll is going away
-        //public ETApplication(string name, string displayName, bool replaceAll = true, string localHome = null)
-        public ETApplication(string name, string displayName, string localHome = ".")
+        public ETApplication(string name, string displayName, string patchTo = ".")
         {
             this.name = name;
             this.displayName = displayName;
-            this.localHome = localHome;
+            this.installLocation = null;
+            // basically it's CombinePaths(e.ExtractDir, e.SourceDir, this.name)
+            this.patchFrom = null;
+            this.patchTo = patchTo;
         }
 
         public string name { get; set; }
         public string displayName { get; set; }
-        public string localHome { get; set; }
-        public string cacheLocation { get; set; }
+        public string installLocation { get; set; }
+
+        // localHome should be called target, and should be a full path.
+        // Rather than try and force it to be a full path, we should be able
+        // to normalize it.
+        public string patchTo { get; set; }
+
+        // cacheLocation should be called origin, and should be a full path.
+        // Rather than try and force it to be a full path, we should be able
+        // to normalize it.
+        public string patchFrom { get; set; }
     }
 
     public class Extractor
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public Extractor()
+        public Extractor(string backupFiles = "backupFiles", string patchFiles = "patchFiles")
         {
             Console.SetWindowSize(160, 50);
-        }
-
-        // need to keep in sync with Archiver (it's a little ugly)
-        private string _sourceDir = "patchFiles";
-        public string SourceDir
-        {
-            get { return _sourceDir; }
-        }
-
-        private string _patchVersion = VersionInfo.PRODUCT_VERSION;
-        public string PatchVersion
-        {
-            get { return _patchVersion; }
+            this.BackupDir = Path.Combine(ExtractDir, backupFiles);
+            this.PatchDir = Path.Combine(ExtractDir, patchFiles);
         }
 
         // This should be equivalent to ExtractDir in Archiver.  I should probably find a better solution.
@@ -764,195 +760,71 @@ namespace PatchTool
             get { return _extractDir; }
         }
 
-        // Should run() accept an Extractor and an ETApplication as it's
-        // arguments?  The Extractor would be the origin side, and the
-        // ETApplication would be the target side.
-        //
-        // This also implies that the logic in Clyde is updated to truly make
-        // the ETApplication the center of attention (which is correct, IMO).
-        public void run(string origin, Installer i)
+        private string _patchDir;
+        public string PatchDir
         {
-            // These will change in scope from the Installer level to the
-            // ETApplication level.  So whereas before the files for, say,
-            // AVPlayer and RecordingDownloadTool would each go into a top-
-            // level patches directory, now they'll have their own.  Or (maybe
-            // better) I can store the backups in the staging folder instead.
-            // Passing in an Extractor makes more sense in that case.
-            //
-            string newBackupDir = CombinePaths(i.installLocation, "patches", PatchVersion, "new");
-            if (!Directory.Exists(newBackupDir))
+            get { return _patchDir; }
+            set { _patchDir = value; }
+        }
+
+        private string _backupDir;
+        public string BackupDir
+        {
+            get { return _backupDir; }
+            set { _backupDir = value; }
+        }
+
+        private string _patchVersion = VersionInfo.PRODUCT_VERSION;
+        public string PatchVersion
+        {
+            get { return _patchVersion; }
+        }
+
+        // finally: do the actual work
+        public void run(ETApplication app)
+        {
+            //string oldBackupDir = Path.GetFullPath(CombinePaths(app.installLocation, "patches", PatchVersion, "old"));
+            //string newBackupDir = Path.GetFullPath(CombinePaths(app.installLocation, "patches", PatchVersion, "new"));
+            //string localHome = Path.GetFullPath(CombinePaths(app.installLocation, app.localHome));
+            //logger.Info("localHome: " + localHome);
+
+            // wrap in try-catch block?
+            //CopyFolder(localHome, Path.GetFullPath(CombinePaths(oldBackupDir, app.localHome)), "patches");
+            //CopyFolder(localHome, Path.GetFullPath(CombinePaths(oldBackupDir, app.patchTo)), CombinePaths(app.installLocation + "patches"));
+
+            // backup files to patch
+            string backupFrom = app.patchTo;
+            string backupTo = CombinePaths(this.BackupDir, app.name);
+            CopyFolder(backupFrom, backupTo);
+            logger.Info("got here? (backed up old)");
+            Directory.Delete(backupFrom, true);
+            logger.Info("got here? (deleted backupFrom (AKA patchTo))");
+            CreateDir(app.patchTo);
+
+            // NO-OP copy new files to backup location
+
+            // copy new files to patch location
+
+            // this makes me throw up a little
+            if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)
             {
-                CreateDir(newBackupDir);
+                app.patchTo = Directory.GetParent(app.patchTo).ToString();
             }
+            CopyFolder(app.patchFrom, app.patchTo);
+            logger.Info("got here? (copied new to patchTo)");
 
-            string oldBackupDir = CombinePaths(i.installLocation, "patches", PatchVersion, "old");
-            if (!Directory.Exists(oldBackupDir))
-            {
-                CreateDir(oldBackupDir);
-            }
+            // back up new directory
+            //logger.Info("cache location: " + app.patchFrom);
+            //CopyFolder(app.patchFrom, newBackupDir, null);
+            //logger.Info("got here? (backed up new)");
 
-            DirectoryInfo srcDir = new DirectoryInfo(origin);
-            FileInfo[] srcFiles = srcDir.GetFiles("*", SearchOption.AllDirectories);
-
-            foreach (ETApplication app in i.applications)
-            {
-                // for each application:
-                //   create a backup directory
-                //   for each folder and file to be patched:
-                //     
-
-                // Why is this a special case?  Everything can be handled this
-                // way.  Just move the existing stuff, and move the new stuff
-                // in.
-                //if (app.replaceAll == true)
-                //if (true)
-                //{
-                // change to
-                //
-                // back up original directory
-                //string from = CombinePaths(i.installLocation, app.localHome);
-                //string to = CombinePaths(oldBackupDir, app.localHome);
-                //CopyFolder(from, to);
-                //Directory.Delete(from, true);
-                //CreateDir(from);
-                //
-                // back up new directory
-                //string neu = CombinePaths(origin, app.localHome);
-                //CopyFolder(neu, newBackupDir);
-                //
-                // patch new files to original directory
-                //  these are the installer (patch-side) and the
-                //  application (patch-side) ------\--------------\
-                //                                vvvvvvvvvvvvv  vvvvvvvvvvvvv
-                //CopyFolder(CombinePaths(origin, app.localHome, app.localHome), from);
-                //  they need their own attributes set during archiving [HOW?]
-
-                // back up original directory
-                string old = CombinePaths(i.installLocation, app.localHome);
-                string old_bak = CombinePaths(oldBackupDir, app.localHome);
-                CopyFolder(old, old_bak);
-                Directory.Delete(old, true);
-                CreateDir(old);
-
-                // back up new directory
-                string neu = CombinePaths(origin, app.localHome);
-                CopyFolder(neu, newBackupDir);
-
-                // patch new files to original directory
-                CopyFolder(CombinePaths(origin, app.localHome, app.localHome), old);
-                /*
-                }
-                else
-                {
-                    logger.Info("shouldn't get here: " + app.displayName);
-                    Environment.Exit(0);
-
-                    // relative paths to each file in the patch; base paths are the heads
-                    string tail;
-                    // full path to each file to patch
-                    string fileToPatch;
-                    // each file bound for the old/ directory
-                    string bakFileOld;
-
-                    // TODO private method
-
-                    // 1: copy origin to backupDirNew
-                    CopyFolder(CombinePaths(origin, app.name), newBackupDir);
-                    Console.WriteLine("INFO: Did everything unzip okay?  The files in the new backup location [1]");
-                    Console.WriteLine("      should match the files in the extract dir [2]:");
-                    Console.WriteLine("\t[1] {0}", newBackupDir);
-                    Console.WriteLine("\t[2] {0}", ExtractDir);
-                    foreach (FileInfo f in srcFiles)
-                    {
-                        tail = RelativePath(CombinePaths(origin, app.name), f.FullName);
-                        string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
-                        string orig = CombinePaths(origTmp, f.ToString());
-                        string copiedTmp = CombinePaths(newBackupDir, Path.GetDirectoryName(tail));
-                        string copied = CombinePaths(copiedTmp, f.ToString());
-                        FileCompare(orig, copied, tail);
-                    }
-                    Console.WriteLine();
-
-                    // TODO private method
-
-                    // 2: copy the same files from targetDir to backupDirOld
-                    foreach (FileInfo f in srcFiles)
-                    {
-                        tail = RelativePath(origin, f.FullName);
-                        bakFileOld = Path.GetFullPath(CombinePaths(oldBackupDir, tail));
-
-                        // Get and check original location; eventually this will be a milestone: if the file is missing, user
-                        // may want to cancel
-                        //fileToPatch = Path.GetFullPath(CombinePaths(target, tail));
-                        fileToPatch = Path.GetFullPath(CombinePaths(i.installLocation, tail));
-
-                        // Create any nested subdirectories included in the patch.  Note, this will loop over the same
-                        // location multiple times; it's a little big ugly
-                        DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
-                        if (!Directory.Exists(backupSubdirOld.ToString()))
-                        {
-                            Directory.CreateDirectory(backupSubdirOld.ToString());
-                        }
-
-                        try
-                        {
-                            File.Copy(fileToPatch, bakFileOld, true);
-                        }
-                        catch (Exception e)
-                        {
-                            // DirectoryNotFoundException occurs when the patch includes a new directory that is not on the
-                            // machine being patched.  As a result, the directory is also not in patches/VERSION/old, which
-                            // causes this exception.  Log it but don't rethrow.
-                            if (e is FileNotFoundException || e is DirectoryNotFoundException)
-                            {
-                                logger.Warn("a file to backup was not found: {0}", bakFileOld);
-                            }
-                        }
-                    }
-
-                    Console.WriteLine("INFO: Did the backup succeed?  The files to replace in APPDIR [1]");
-                    Console.WriteLine("      should match the files in the old backup location [2]:");
-                    //Console.WriteLine("\t[1] {0}", target);
-                    Console.WriteLine("\t[1] {0}", i.installLocation);
-                    Console.WriteLine("\t[2] {0}", oldBackupDir);
-                    foreach (FileInfo f in srcFiles)
-                    {
-                        tail = RelativePath(origin, f.FullName);
-                        bakFileOld = Path.GetFullPath(CombinePaths(oldBackupDir, tail));
-                        fileToPatch = Path.GetFullPath(CombinePaths(i.installLocation, tail));
-
-                        // Compare each file in old/ with the original in APPDIR.
-                        string orig = fileToPatch;
-                        string copied = bakFileOld;
-                        // TC: explain this
-                        FileCompare(orig, copied, tail);
-                    }
-                    Console.WriteLine();
-
-                    // 3: apply the patch.
-                    logger.Info("patching {0}", i.installLocation);
-                    Console.WriteLine();
-
-                    CopyFolder(origin, i.installLocation);
-
-                    Console.WriteLine("INFO: Did the patch succeed?  The files in APPDIR [1] should match");
-                    Console.WriteLine("      the files in the new backup location [2]:");
-                    Console.WriteLine("\t[1] {0}", i.installLocation);
-                    Console.WriteLine("\t[2] {0}", newBackupDir);
-                    foreach (FileInfo f in srcFiles)
-                    {
-                        tail = RelativePath(origin, f.FullName);
-                        string origTmp = CombinePaths(origin, Path.GetDirectoryName(tail));
-                        string orig = CombinePaths(origTmp, f.ToString());
-                        string copiedTmp = CombinePaths(i.installLocation, Path.GetDirectoryName(tail));
-                        string copied = CombinePaths(copiedTmp, f.ToString());
-                        // TC: explain this
-                        FileCompare(orig, copied, tail);
-                    }
-                    Console.WriteLine();
-                }
-                 */
-            }
+            // this makes me throw up a little
+            //if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(localHome).Name)
+            //{
+            //    localHome = Directory.GetParent(localHome).ToString();
+            //}
+            //CopyFolder(app.patchFrom, localHome, null);
+            //logger.Info("got here? (copied new to patchTo)");
         }
 
         public bool CreateDir(string target)
@@ -1130,8 +1002,8 @@ namespace PatchTool
             }
         }
 
-        // http://www.csharp411.com/c-copy-folder-recursively/
         public static void CopyFolder(string sourceFolder, string destFolder)
+        //public static void CopyFolder(string sourceFolder, string destFolder, string skipDir)
         {
             if (!Directory.Exists(destFolder))
             {
