@@ -878,8 +878,9 @@ namespace PatchTool
                 //
                 // patch the application
                 //
-                foreach (FileInfo f in srcFiles)
-                {
+                //foreach (FileInfo f in srcFiles)
+                //{
+                    // this looks like a huge number of redundant copies!
                     CopyFolder(app.patchFrom, app.patchTo);
 
                     //tail = RelativePath(app.patchFrom, f.FullName);
@@ -896,7 +897,7 @@ namespace PatchTool
 
                     // TC: explain this
                     //FileCompare(orig, copied, tail);
-                }
+                //}
             }
         }
 
@@ -1094,6 +1095,41 @@ namespace PatchTool
                 catch (FileNotFoundException)
                 {
                     logger.Warn("a file to replace was not found: {0}", file);
+                }
+                catch (IOException ex)
+                {
+                    // details to the log, summary to the user
+                    string caption = "Caught IOException";
+                    string summary;
+                    summary = "It looks like an Envision server process is still running.";
+                    summary += " Clyde's command window or the log will have more details.";
+                    summary += " You can leave this dialog open, go take care of it, then continue.";
+                    summary += " Or you can cancel.\n\nContinue?";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result;
+
+                    logger.Error(ex.ToString());
+                    result = MessageBox.Show(summary, caption, buttons);
+
+                    // is this asking for trouble? ;)
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        // can't call FileCopy(file, dest) because we've got a file, not a directory.
+                        try
+                        {
+                            File.Copy(file, dest, true);
+                        }
+                        catch (IOException ex2)
+                        {
+                            throw;
+                            // what now?
+                        }
+                    }
+                    else
+                    {
+                        throw;
+                    }
+
                 }
             }
             string[] folders = Directory.GetDirectories(sourceFolder);
