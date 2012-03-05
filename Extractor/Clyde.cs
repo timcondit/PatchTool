@@ -22,7 +22,9 @@ namespace PatchTool
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
             ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", "AVPlayer");
+            avPlayer.replaceAll = true;
             ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", "RecordingDownloadTool");
+            recordingDownloadTool.replaceAll = true;
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
 
 
@@ -97,15 +99,20 @@ namespace PatchTool
 
                                 if (installedApp.patchTo != null)
                                 {
-                                    //logger.Info("(before) installedApp.patchTo: " + installedApp.patchTo);
+                                    logger.Info("(before) installedApp.patchTo: " + installedApp.patchTo);
                                     installedApp.patchTo = Path.Combine(installedApp.installLocation, installedApp.name);
-                                    //logger.Info("(after)  installedApp.patchTo: " + installedApp.patchTo);
+                                    logger.Info("(after)  installedApp.patchTo: " + installedApp.patchTo);
                                 }
                                 else
                                 {
                                     installedApp.patchTo = installedApp.installLocation;
+                                    logger.Info("installedApp.patchTo: " + installedApp.patchTo);
                                 }
                                 //installedApp.patchTo = installedApp.installLocation;
+                                logger.Info("i.name: {0}", i.name);
+                                logger.Info("i.displayName: {0}", i.displayName);
+                                logger.Info("i.installLocation: {0}", i.installLocation);
+                                logger.Info("i.displayVersion: {0}", i.displayVersion);
                                 appsToPatch.Add(installedApp);
                             }
                         }

@@ -488,7 +488,7 @@ namespace PatchTool
 
             IConfig dbmigration = source.AddConfig("DBMigration");
             dbmigration.Set("dbmigrationRoot", @".");
-            dbmigration.Set("DBMigration_84SP9_To_10.sql", @"${dbmigrationRoot}\DBMigration\DBMigration_84SP9_To_10.sql");
+            dbmigration.Set("DBMigration_84SP9_To_10.sql", @"${dbmigrationRoot}\DBMigration_84SP9_To_10.sql");
 
 
             IConfig avplayer = source.AddConfig("AVPlayer");
@@ -730,8 +730,9 @@ namespace PatchTool
         public string name { get; set; }
         public string displayName { get; set; }
         public string installLocation { get; set; }
-        public string patchTo { get; set; }
         public string patchFrom { get; set; }
+        public string patchTo { get; set; }
+        public bool replaceAll { get; set; }
     }
 
     public class Extractor
@@ -784,21 +785,119 @@ namespace PatchTool
             // backup files to patch
             string backupFrom = app.patchTo;
             string backupTo = CombinePaths(this.BackupDir, app.name);
-            CopyFolder(backupFrom, backupTo);
-            logger.Info("got here? (backed up old)");
-            Directory.Delete(backupFrom, true);
-            logger.Info("got here? (deleted backupFrom (AKA patchTo))");
-            CreateDir(app.patchTo);
 
-            // NO-OP copy new files to backup location
-
-            // this makes me throw up a little
-            if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)
+            if (app.replaceAll == true)
             {
-                app.patchTo = Directory.GetParent(app.patchTo).ToString();
+                CopyFolder(backupFrom, backupTo);
+                logger.Info("got here? (backed up old)");
+                Directory.Delete(backupFrom, true);
+                logger.Info("got here? (deleted backupFrom (AKA patchTo))");
+                CreateDir(app.patchTo);
+
+                // NO-OP copy new files to backup location
+
+                // this makes me throw up a little
+                if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)
+                {
+                    app.patchTo = Directory.GetParent(app.patchTo).ToString();
+                }
+                CopyFolder(app.patchFrom, app.patchTo);
+                logger.Info("got here? (copied new to patchTo)");
             }
-            CopyFolder(app.patchFrom, app.patchTo);
-            logger.Info("got here? (copied new to patchTo)");
+            else
+            {
+                DirectoryInfo di = new DirectoryInfo(app.patchFrom);
+                FileInfo[] srcFiles = di.GetFiles("*", SearchOption.AllDirectories);
+
+                // each file in the patch, with relative directories; base paths are the heads
+                string tail;
+                // each file to patch, full path
+                string fileToPatch;
+                // each file bound for the old/ directory
+                string bakFileOld;
+
+                //
+                // backup original files
+                //
+                foreach (FileInfo f in srcFiles)
+                {
+                    // looks like:
+                    //tail = RelativePath(srcDir.ToString(), f.FullName);
+                    tail = RelativePath(backupTo, f.FullName);
+
+                    //// this makes me throw up a little
+                    //if (new DirectoryInfo(tail).Name == new DirectoryInfo(app.patchTo).Name)
+                    //{
+                    //    tail = Directory.GetParent(app.patchTo).ToString();
+                    //}
+
+                    // looks like:
+                    //bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
+                    //bakFileOld = Path.GetFullPath(Path.Combine(backupTo, tail));
+                    bakFileOld = Path.GetFullPath(Path.Combine(backupFrom, tail));
+
+                    // see a problem here?
+                    //bakFileOld =  Path.GetFullPath(Path.Combine(backupFrom, tail));
+                    //fileToPatch = Path.GetFullPath(Path.Combine(backupFrom, tail));
+
+                    // Get and check original location; eventually this will be a milestone: if the
+                    // file is missing, user may want to cancel
+
+                    // looks like:
+                    //fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
+                    fileToPatch = Path.GetFullPath(Path.Combine(backupFrom, tail));
+                    // TC: commented out for now -- too noisy
+                    //FileStat(fileToPatch);
+
+                    // Create any nested subdirectories included in the patch.  Note, this will loop
+                    // over the same location multiple times; it's a little big ugly
+                    DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
+                    if (!Directory.Exists(backupSubdirOld.ToString()))
+                    {
+                        Directory.CreateDirectory(backupSubdirOld.ToString());
+                    }
+
+                    try
+                    {
+                        //File.Copy(fileToPatch, bakFileOld, true);
+                        //File.Copy(fileToPatch, bakFileOld);
+                        File.Copy(fileToPatch, backupFrom);
+                    }
+                    catch (System.IO.FileNotFoundException)
+                    {
+                        Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
+                    }
+                    catch (System.IO.DirectoryNotFoundException)
+                    {
+                        // This exception occurs when the patch includes a new directory that is not
+                        // on the machine being patched.  As a result, the directory is also not in
+                        // patches/VERSION/old, which causes this exception.  Ignore it.
+                    }
+                }
+
+                //
+                // patch the application
+                //
+                foreach (FileInfo f in srcFiles)
+                {
+                    CopyFolder(app.patchFrom, app.patchTo);
+
+                    //tail = RelativePath(app.patchFrom, f.FullName);
+                    //string origTmp = Path.Combine(app.patchFrom, Path.GetDirectoryName(tail));
+                    //string orig = Path.Combine(origTmp, f.ToString());
+                    //string copiedTmp = Path.Combine(app.patchTo, Path.GetDirectoryName(tail));
+                    //string copied = Path.Combine(copiedTmp, f.ToString());
+
+                    //tail = RelativePath(srcDir.ToString(), f.FullName);
+                    //string origTmp = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail));
+                    //string orig = Path.Combine(origTmp, f.ToString());
+                    //string copiedTmp = Path.Combine(dstDir.ToString(), Path.GetDirectoryName(tail));
+                    //string copied = Path.Combine(copiedTmp, f.ToString());
+
+                    // TC: explain this
+                    //FileCompare(orig, copied, tail);
+                }
+            }
         }
 
         public bool CreateDir(string target)
