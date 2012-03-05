@@ -717,7 +717,7 @@ namespace PatchTool
 
     public class ETApplication
     {
-        public ETApplication(string name, string displayName, string patchTo = ".")
+        public ETApplication(string name, string displayName, string patchTo = null)
         {
             this.name = name;
             this.displayName = displayName;
@@ -775,6 +775,12 @@ namespace PatchTool
         // finally: do the actual work
         public void run(ETApplication app)
         {
+
+            // next actions:
+            //
+            // It looks like I need another replaceAll or similar.  AVPlayer and RDTool are exceptions to the rule.
+            // DBMigration will have the same issues.  It seems like app.patchTo should cover this case...
+
             // backup files to patch
             string backupFrom = app.patchTo;
             string backupTo = CombinePaths(this.BackupDir, app.name);
@@ -785,8 +791,6 @@ namespace PatchTool
             CreateDir(app.patchTo);
 
             // NO-OP copy new files to backup location
-
-            // copy new files to patch location
 
             // this makes me throw up a little
             if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)

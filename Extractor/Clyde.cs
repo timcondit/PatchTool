@@ -24,7 +24,6 @@ namespace PatchTool
             ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", "AVPlayer");
             ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", "RecordingDownloadTool");
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
-            ETApplication dbMigration = new ETApplication("DBMigration", "Envision Database Migration");
 
 
             // 9.10 and 10.0 installers
@@ -43,7 +42,7 @@ namespace PatchTool
             wmWrapperServiceInstaller.applications.Add(wmWrapperService);
 
             Installer dbMigrationInstaller = new Installer("DBMigration", "Envision Database Migration");
-            dbMigrationInstaller.applications.Add(dbMigration);
+            dbMigrationInstaller.applications.Add(new ETApplication("DBMigration", "Envision Database Migration"));
 
             // 10.1 installers
             Installer serverSuiteInstaller = new Installer("ServerSuite", "Envision Server Suite");
@@ -54,7 +53,7 @@ namespace PatchTool
             channelManagerInstaller.applications.Add(channelManager);
 
             Installer toolsInstaller = new Installer("Tools", "Envision Tools Suite");
-            toolsInstaller.applications.Add(dbMigration);
+            toolsInstaller.applications.Add(new ETApplication("DBMigration", "Envision Database Migration", "DBMigration"));
 
 
             InstallerSuite all = new InstallerSuite();
@@ -95,7 +94,18 @@ namespace PatchTool
                                 // this seems redundant, or at least not very useful
                                 installedApp.installLocation = i.installLocation;
                                 installedApp.patchFrom = cache[j];
-                                installedApp.patchTo = Path.Combine(installedApp.installLocation, installedApp.name);
+
+                                if (installedApp.patchTo != null)
+                                {
+                                    //logger.Info("(before) installedApp.patchTo: " + installedApp.patchTo);
+                                    installedApp.patchTo = Path.Combine(installedApp.installLocation, installedApp.name);
+                                    //logger.Info("(after)  installedApp.patchTo: " + installedApp.patchTo);
+                                }
+                                else
+                                {
+                                    installedApp.patchTo = installedApp.installLocation;
+                                }
+                                //installedApp.patchTo = installedApp.installLocation;
                                 appsToPatch.Add(installedApp);
                             }
                         }
