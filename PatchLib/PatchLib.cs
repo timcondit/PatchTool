@@ -569,7 +569,6 @@ namespace PatchTool
                 else
                 {
                     string source = sourceConfig.Configs["Sources"].Get(key);
-                    //logger.Info(source);
                     string[] targets = targetConfig.Configs[appToPatch].Get(key).Split('|');
 
                     foreach (string t in targets)
@@ -635,8 +634,7 @@ namespace PatchTool
                 }
                 else
                 {
-                    // logger?
-                    Console.WriteLine("{0} is not a valid directory", SourceDir);
+                    logger.Fatal("{0} is not a valid directory", SourceDir);
                     Environment.Exit(1);
                 }
 
@@ -776,12 +774,6 @@ namespace PatchTool
         // finally: do the actual work
         public void run(ETApplication app)
         {
-
-            // next actions:
-            //
-            // It looks like I need another replaceAll or similar.  AVPlayer and RDTool are exceptions to the rule.
-            // DBMigration will have the same issues.  It seems like app.patchTo should cover this case...
-
             // backup files to patch
             string backupFrom = app.patchTo;
             string backupTo = CombinePaths(this.BackupDir, app.name);
@@ -811,8 +803,6 @@ namespace PatchTool
 
                 // each file in the patch, with relative directories; base paths are the heads
                 string tail;
-                // each file to patch, full path
-                string fileToPatch;
                 // each file bound for the old/ directory
                 string bakFileOld;
 
@@ -821,33 +811,8 @@ namespace PatchTool
                 //
                 foreach (FileInfo f in srcFiles)
                 {
-                    // looks like:
-                    //tail = RelativePath(srcDir.ToString(), f.FullName);
                     tail = RelativePath(backupTo, f.FullName);
-
-                    //// this makes me throw up a little
-                    //if (new DirectoryInfo(tail).Name == new DirectoryInfo(app.patchTo).Name)
-                    //{
-                    //    tail = Directory.GetParent(app.patchTo).ToString();
-                    //}
-
-                    // looks like:
-                    //bakFileOld = Path.GetFullPath(Path.Combine(backupDirOld.ToString(), tail));
-                    //bakFileOld = Path.GetFullPath(Path.Combine(backupTo, tail));
                     bakFileOld = Path.GetFullPath(Path.Combine(backupFrom, tail));
-
-                    // see a problem here?
-                    //bakFileOld =  Path.GetFullPath(Path.Combine(backupFrom, tail));
-                    //fileToPatch = Path.GetFullPath(Path.Combine(backupFrom, tail));
-
-                    // Get and check original location; eventually this will be a milestone: if the
-                    // file is missing, user may want to cancel
-
-                    // looks like:
-                    //fileToPatch = Path.GetFullPath(Path.Combine(dstDir.ToString(), tail));
-                    fileToPatch = Path.GetFullPath(Path.Combine(backupFrom, tail));
-                    // TC: commented out for now -- too noisy
-                    //FileStat(fileToPatch);
 
                     // Create any nested subdirectories included in the patch.  Note, this will loop
                     // over the same location multiple times; it's a little big ugly
@@ -859,9 +824,7 @@ namespace PatchTool
 
                     try
                     {
-                        //File.Copy(fileToPatch, bakFileOld, true);
-                        //File.Copy(fileToPatch, bakFileOld);
-                        File.Copy(fileToPatch, backupFrom);
+                        File.Copy(bakFileOld, backupFrom);
                     }
                     catch (System.IO.FileNotFoundException)
                     {
@@ -878,26 +841,7 @@ namespace PatchTool
                 //
                 // patch the application
                 //
-                //foreach (FileInfo f in srcFiles)
-                //{
-                    // this looks like a huge number of redundant copies!
-                    CopyFolder(app.patchFrom, app.patchTo);
-
-                    //tail = RelativePath(app.patchFrom, f.FullName);
-                    //string origTmp = Path.Combine(app.patchFrom, Path.GetDirectoryName(tail));
-                    //string orig = Path.Combine(origTmp, f.ToString());
-                    //string copiedTmp = Path.Combine(app.patchTo, Path.GetDirectoryName(tail));
-                    //string copied = Path.Combine(copiedTmp, f.ToString());
-
-                    //tail = RelativePath(srcDir.ToString(), f.FullName);
-                    //string origTmp = Path.Combine(srcDir.ToString(), Path.GetDirectoryName(tail));
-                    //string orig = Path.Combine(origTmp, f.ToString());
-                    //string copiedTmp = Path.Combine(dstDir.ToString(), Path.GetDirectoryName(tail));
-                    //string copied = Path.Combine(copiedTmp, f.ToString());
-
-                    // TC: explain this
-                    //FileCompare(orig, copied, tail);
-                //}
+                CopyFolder(app.patchFrom, app.patchTo);
             }
         }
 
@@ -1077,7 +1021,6 @@ namespace PatchTool
         }
 
         public static void CopyFolder(string sourceFolder, string destFolder)
-        //public static void CopyFolder(string sourceFolder, string destFolder, string skipDir)
         {
             if (!Directory.Exists(destFolder))
             {
@@ -1119,17 +1062,15 @@ namespace PatchTool
                         {
                             File.Copy(file, dest, true);
                         }
-                        catch (IOException ex2)
+                        catch (IOException)
                         {
                             throw;
-                            // what now?
                         }
                     }
                     else
                     {
                         throw;
                     }
-
                 }
             }
             string[] folders = Directory.GetDirectories(sourceFolder);
