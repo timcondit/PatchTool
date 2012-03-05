@@ -650,7 +650,7 @@ namespace PatchTool
                 options.ProductVersion = VersionInfo.PRODUCT_VERSION;
                 options.DefaultExtractDirectory = ExtractDir;
                 options.Copyright = VersionInfo.COPYRIGHT;
-                //options.PostExtractCommandLine = "Clyde.exe";
+                options.PostExtractCommandLine = "Clyde.exe";
                 // false for dev, (maybe) true for production
                 options.RemoveUnpackedFilesAfterExecute = false;
 

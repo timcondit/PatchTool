@@ -14,8 +14,8 @@ namespace PatchTool
         static void Main(string[] args)
         {
             // TC: for testing
-            Console.Write("(attach to Clyde.exe then) press ENTER to continue: ");
-            Console.ReadLine();
+            //Console.Write("(attach to Clyde.exe then) press ENTER to continue: ");
+            //Console.ReadLine();
 
             // applications
             ETApplication server = new ETApplication("Server", "Envision Server");
