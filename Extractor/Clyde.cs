@@ -71,14 +71,7 @@ namespace PatchTool
             List<ETApplication> appsToPatch = new List<ETApplication>();
 
             // get the shallow list of applications to patch from patch_staging\<version>\patchFiles
-            //string patchBasePath = Path.Combine(e.ExtractDir, e.PatchFiles);
             string[] cache = Directory.GetDirectories(e.PatchDir, "*", SearchOption.TopDirectoryOnly);
-
-            //for (int jx = 0; jx < cache.Length; jx++)
-            //{
-            //    logger.Info("cache[jx]: " + cache[jx]);
-            //    logger.Info("cache[jx] baseName: " + new DirectoryInfo(cache[jx]).Name);
-            //}
 
             foreach (Installer i in all.installers)
             {
@@ -96,14 +89,6 @@ namespace PatchTool
                         // 2: if we're patching this app ...
                         for (int j = 0; j < cache.Length; j++)
                         {
-                            // hotness
-                            //string cacheBaseDir = new DirectoryInfo(cache[j]).Name;
-                            //
-                            // store backups in patch_staging instead (avoid problems with patches folder)
-                            //string cacheDir = Path.Combine(e.PatchFiles, cache[j]);
-                            //string cacheBaseDir = new DirectoryInfo(cache[j]).Name;
-
-                            //if (cacheBaseDir /* name */ == installedApp.name)
                             if (new DirectoryInfo(cache[j]).Name == installedApp.name)
                             {
                                 // 3: add the application's cacheLocation
@@ -112,7 +97,6 @@ namespace PatchTool
                                 installedApp.patchFrom = cache[j];
                                 installedApp.patchTo = Path.Combine(installedApp.installLocation, installedApp.name);
                                 appsToPatch.Add(installedApp);
-                                //logger.Info("app: " + installedApp.name + "; cache: " + cache[j]);
                             }
                         }
                     }

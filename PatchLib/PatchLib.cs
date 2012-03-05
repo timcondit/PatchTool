@@ -730,15 +730,7 @@ namespace PatchTool
         public string name { get; set; }
         public string displayName { get; set; }
         public string installLocation { get; set; }
-
-        // localHome should be called target, and should be a full path.
-        // Rather than try and force it to be a full path, we should be able
-        // to normalize it.
         public string patchTo { get; set; }
-
-        // cacheLocation should be called origin, and should be a full path.
-        // Rather than try and force it to be a full path, we should be able
-        // to normalize it.
         public string patchFrom { get; set; }
     }
 
@@ -783,15 +775,6 @@ namespace PatchTool
         // finally: do the actual work
         public void run(ETApplication app)
         {
-            //string oldBackupDir = Path.GetFullPath(CombinePaths(app.installLocation, "patches", PatchVersion, "old"));
-            //string newBackupDir = Path.GetFullPath(CombinePaths(app.installLocation, "patches", PatchVersion, "new"));
-            //string localHome = Path.GetFullPath(CombinePaths(app.installLocation, app.localHome));
-            //logger.Info("localHome: " + localHome);
-
-            // wrap in try-catch block?
-            //CopyFolder(localHome, Path.GetFullPath(CombinePaths(oldBackupDir, app.localHome)), "patches");
-            //CopyFolder(localHome, Path.GetFullPath(CombinePaths(oldBackupDir, app.patchTo)), CombinePaths(app.installLocation + "patches"));
-
             // backup files to patch
             string backupFrom = app.patchTo;
             string backupTo = CombinePaths(this.BackupDir, app.name);
@@ -812,19 +795,6 @@ namespace PatchTool
             }
             CopyFolder(app.patchFrom, app.patchTo);
             logger.Info("got here? (copied new to patchTo)");
-
-            // back up new directory
-            //logger.Info("cache location: " + app.patchFrom);
-            //CopyFolder(app.patchFrom, newBackupDir, null);
-            //logger.Info("got here? (backed up new)");
-
-            // this makes me throw up a little
-            //if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(localHome).Name)
-            //{
-            //    localHome = Directory.GetParent(localHome).ToString();
-            //}
-            //CopyFolder(app.patchFrom, localHome, null);
-            //logger.Info("got here? (copied new to patchTo)");
         }
 
         public bool CreateDir(string target)
