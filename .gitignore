@@ -3,3 +3,6 @@
 */bin/
 */obj/
 *.swp
+
+munge/webApps.txt
+notes2.txt
