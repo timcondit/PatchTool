@@ -1057,7 +1057,7 @@ namespace PatchTool
                     // is this asking for trouble? ;)
                     if (result == System.Windows.Forms.DialogResult.Yes)
                     {
-                        // can't call FileCopy(file, dest) because we've got a file, not a directory.
+                        // can't call CopyFolder(file, dest) because we've got a file, not a directory.
                         try
                         {
                             File.Copy(file, dest, true);
