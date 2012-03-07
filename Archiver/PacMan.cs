@@ -24,7 +24,8 @@ namespace PatchTool
             // configuration out into a separate utility.
 
             // This is where we specify which files go into the patch (Server). It will be manually updated for now.
-            IEnumerable<string> serverKeys = new List<string> {
+            IEnumerable<string> serverKeys = new List<string>
+            {
                 "Administrator.exe", "AgentAutomation.dll",
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "ChannelBrokerService.xml", "CiscoICM.dll",
@@ -82,7 +83,8 @@ namespace PatchTool
 
             // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
             // for now.
-            IEnumerable<string> cmKeys = new List<string> {
+            IEnumerable<string> cmKeys = new List<string>
+            {
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
                 "audiocodesChannel.dll", "audiocodesChannel.pdb",
                 "AudioReader.dll", "AudioReader.pdb",
@@ -128,7 +130,8 @@ namespace PatchTool
 
             // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
             // for now.
-            IEnumerable<string> wmwsKeys = new List<string> {
+            IEnumerable<string> wmwsKeys = new List<string>
+            {
                 "DefaultEnvisionProfile.prx", "server.dll", "WMWrapperService.exe",
             };
 
@@ -156,7 +159,8 @@ namespace PatchTool
             };
 
             // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
-            IEnumerable<string> dbmigrationKeys = new List<string> {
+            IEnumerable<string> dbmigrationKeys = new List<string>
+            {
                 "DBMigration_84SP9_To_10.sql",
             };
 
