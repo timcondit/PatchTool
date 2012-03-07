@@ -537,6 +537,26 @@ namespace PatchTool
             source.Save("Aristotle_targets.config");
         }
 
+        // Each application passes in a list of keys that identifies a directory to patch.  Copy all files from the
+        // source directory into the patch cache.  The directory's name is configurable and may be different.
+        public void makePortablePatch(string appToPatch, string buildRoot)
+        {
+            // applicationCache is where the files are staged for creating the patch.  buildRoot is the original
+            // location from which the files are copied.  It takes the place of the Nini config.  The buildRoot
+            // includes directory name (e.g., RadControls).
+            string applicationCache = Path.Combine(this.SourceDir, appToPatch);
+
+            try
+            {
+                Microsoft.VisualBasic.FileIO.FileSystem.CopyDirectory(buildRoot, applicationCache);
+            }
+            catch (System.IO.DirectoryNotFoundException dex)
+            {
+                logger.Fatal("caught System.IO.DirectoryNotFoundException");
+                throw;
+            }
+        }
+
         // Each application passes in a list of keys that identifies files to patch.  Walk over the list and copy each
         // source file to it's destination.
         //

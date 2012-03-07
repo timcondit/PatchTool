@@ -44,6 +44,7 @@
     <Reference Include="log4net">
       <HintPath>$(ETSDK)\log4net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(ETSDK)\Nini\Nini-1.1.0\Nini\Bin\DotNet\2.0\Release\Nini.dll</HintPath>

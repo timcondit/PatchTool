@@ -13,6 +13,7 @@ namespace PatchTool
         static void Main(string[] args)
         {
             Archiver a = new Archiver();
+            a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
             a.SourceDir = "patchFiles";
 
             string webapps_version = Archiver.formatVersionString(a.PatchVersion);
@@ -166,6 +167,9 @@ namespace PatchTool
             logger.Info("Copying Channel Manager files");
             a.makePortablePatch("ChannelManager", cmKeys);
 
+            logger.Info("Copying RadControls files");
+            a.makePortablePatch("RadControls", @"..\..\..\..\..\..\workdir\centricity\ET\RadControls\2011_Q1");
+
             logger.Info("Copying Centricity files");
             a.makePortablePatch("Centricity", ctKeys);
 
@@ -183,7 +187,7 @@ namespace PatchTool
 
             // The extract dir is set before the archive is created.  As far as I know, there is nothing to be done at
             // extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.
-            a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
+            //a.ExtractDir = Path.Combine(@"C:\patch_staging", a.PatchVersion);
             a.run();
         }
     }
