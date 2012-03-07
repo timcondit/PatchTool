@@ -13,6 +13,9 @@ namespace PatchTool
 
         static void Main(string[] args)
         {
+            Extractor e = new Extractor();
+            e.CheckETServices();
+
             // TC: for testing
             //Console.Write("(attach to Clyde.exe then) press ENTER to continue: ");
             //Console.ReadLine();
@@ -72,11 +75,10 @@ namespace PatchTool
             all.installers.Add(channelManagerInstaller);
             all.installers.Add(toolsInstaller);
 
-            Extractor e = new Extractor();
-            List<ETApplication> appsToPatch = new List<ETApplication>();
 
             // get the shallow list of applications to patch from patch_staging\<version>\patchFiles
             string[] cache = Directory.GetDirectories(e.PatchDir, "*", SearchOption.TopDirectoryOnly);
+            List<ETApplication> appsToPatch = new List<ETApplication>();
 
             foreach (Installer i in all.installers)
             {

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using com.et.versioninfo;
 using Ionic.Zip;
 using Microsoft.Win32;
 using Nini.Config;
 using NLog;
-using com.et.versioninfo;
 
 // using DotNetZip library
 // http://dotnetzip.codeplex.com/
@@ -981,31 +982,13 @@ namespace PatchTool
             }
             catch (IOException ex)
             {
-                // details to the log, summary to the user
-                string caption = "Caught IOException";
-                string summary;
-                summary = "It looks like an Envision server process is still running.";
-                summary += " Clyde's command window or the log will have more details.";
-                summary += " You can leave this dialog open, go take care of it, then continue.";
-                summary += " Or you can cancel.\n\nContinue?";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result;
-
-                logger.Error(ex.ToString());
-                result = MessageBox.Show(summary, caption, buttons);
-
-                // is this asking for trouble? ;)
-                if (result == System.Windows.Forms.DialogResult.Yes)
-                {
-                    FileEquals(fileName1, fileName2);
-                }
-                else
-                {
-                    throw;
-                }
+                // If this exception was caught, the assumption was that an
+                // Envision service is running on the host.  Services are
+                // checked before starting, so if we get here, we should log
+                // the exception for Engineering to review.
+                logger.Fatal(ex);
+                throw;
             }
-            // this smells
-            return false;
         }
 
         private static bool StreamsContentsAreEqual(Stream stream1, Stream stream2)
@@ -1061,38 +1044,17 @@ namespace PatchTool
                 }
                 catch (IOException ex)
                 {
-                    // details to the log, summary to the user
-                    string caption = "Caught IOException";
-                    string summary;
-                    summary = "It looks like an Envision server process is still running.";
-                    summary += " Clyde's command window or the log will have more details.";
-                    summary += " You can leave this dialog open, go take care of it, then continue.";
-                    summary += " Or you can cancel.\n\nContinue?";
-                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                    DialogResult result;
-
-                    logger.Error(ex.ToString());
-                    result = MessageBox.Show(summary, caption, buttons);
-
-                    // is this asking for trouble? ;)
-                    if (result == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        // can't call CopyFolder(file, dest) because we've got a file, not a directory.
-                        try
-                        {
-                            File.Copy(file, dest, true);
-                        }
-                        catch (IOException)
-                        {
-                            throw;
-                        }
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    // dup dup
+                    //
+                    // If this exception was caught, the assumption was that an
+                    // Envision service is running on the host.  Services are
+                    // checked before starting, so if we get here, we should log
+                    // the exception for Engineering to review.
+                    logger.Fatal(ex);
+                    throw;
                 }
             }
+
             string[] folders = Directory.GetDirectories(sourceFolder);
             foreach (string folder in folders)
             {
@@ -1151,6 +1113,40 @@ namespace PatchTool
                 result = Path.Combine(result, s);
             }
             return result;
+        }
+
+        public void CheckETServices()
+        {
+            List<string> ETServices = new List<string>();
+            ETServices.Add("ChanMgrSvc");
+            ETServices.Add("EnvisionServer");
+            ETServices.Add("ETService");
+            ETServices.Add("SourceRunnerService");
+            ETServices.Add("tomcat6");
+            ETServices.Add("WMWrapperService");
+
+            foreach (string p in ETServices)
+            {
+                if (IsServiceRunning(p))
+                {
+                    logger.Fatal("An Envision service (" + p + ") is running.  Exiting.");
+                    Environment.Exit(1);
+                }
+            }
+        }
+
+        public static bool IsServiceRunning(string serviceName)
+        {
+            bool isRunning = false;
+
+            foreach (Process p in Process.GetProcesses())
+            {
+                if (p.ProcessName.StartsWith(serviceName))
+                {
+                    isRunning = true;
+                }
+            }
+            return isRunning;
         }
     }
 }
