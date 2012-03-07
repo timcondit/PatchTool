@@ -20,6 +20,8 @@ namespace PatchTool
             // applications
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
+            ETApplication radControls = new ETApplication("RadControls", "Envision Centricity");
+            radControls.replaceAll = true;
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
             ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", "AVPlayer");
             avPlayer.replaceAll = true;
@@ -35,6 +37,7 @@ namespace PatchTool
 
             Installer centricityInstaller = new Installer("Centricity", "Envision Centricity");
             centricityInstaller.applications.Add(centricity);
+            centricityInstaller.applications.Add(radControls);
 
             Installer webAppsInstaller = new Installer("WebApps", "Envision Web Apps");
             webAppsInstaller.applications.Add(avPlayer);
@@ -50,6 +53,7 @@ namespace PatchTool
             Installer serverSuiteInstaller = new Installer("ServerSuite", "Envision Server Suite");
             serverSuiteInstaller.applications.Add(server);
             serverSuiteInstaller.applications.Add(centricity);
+            serverSuiteInstaller.applications.Add(radControls);
 
             Installer channelManagerInstaller = new Installer("ChannelManager", "Envision Channel Manager");
             channelManagerInstaller.applications.Add(channelManager);
