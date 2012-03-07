@@ -497,41 +497,41 @@ namespace PatchTool
             // shows up in patchFiles as "...\patchFiles\AVPlayer\AVPlayer"
             // where the first AVPlayer is the application name, and the
             // second AVPlayer is the subdir on disk
-            avplayer.Set("AVPlayer.application", @"${avplayerRoot}\AVPlayer\AVPlayer.application");
-            avplayer.Set("AgentSupport.exe.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
-            avplayer.Set("AVPlayer.exe.config.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
-            avplayer.Set("AVPlayer.exe.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
-            avplayer.Set("AVPlayer.exe.manifest", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
-            avplayer.Set("CentricityApp.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
-            avplayer.Set("hasp_windows.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
-            avplayer.Set("Interop.WMPLib.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
-            avplayer.Set("log4net.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
-            avplayer.Set("nativeServiceWin32.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
-            avplayer.Set("server.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
-            avplayer.Set("SharedResources.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
-            avplayer.Set("ISource.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
-            avplayer.Set("AVPlayer.resources.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
-            avplayer.Set("AVPlayer.resources.dll.deploy_1", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
-            avplayer.Set("CentricityApp.resources.dll.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
-            avplayer.Set("CentricityApp.resources.dll.deploy_1", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            avplayer.Set("AVPlayerIcon.ico.deploy", @"${avplayerRoot}\AVPlayer\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
+            avplayer.Set("AVPlayer.application", @"${avplayerRoot}\AVPlayer.application");
+            avplayer.Set("AgentSupport.exe.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\AgentSupport.exe.deploy");
+            avplayer.Set("AVPlayer.exe.config.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.config.deploy");
+            avplayer.Set("AVPlayer.exe.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.deploy");
+            avplayer.Set("AVPlayer.exe.manifest", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\AVPlayer.exe.manifest");
+            avplayer.Set("CentricityApp.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\CentricityApp.dll.deploy");
+            avplayer.Set("hasp_windows.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\hasp_windows.dll.deploy");
+            avplayer.Set("Interop.WMPLib.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\Interop.WMPLib.dll.deploy");
+            avplayer.Set("log4net.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\log4net.dll.deploy");
+            avplayer.Set("nativeServiceWin32.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\nativeServiceWin32.dll.deploy");
+            avplayer.Set("server.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\server.dll.deploy");
+            avplayer.Set("SharedResources.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\SharedResources.dll.deploy");
+            avplayer.Set("ISource.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\_ISource.dll.deploy");
+            avplayer.Set("AVPlayer.resources.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\de\AVPlayer.resources.dll.deploy");
+            avplayer.Set("AVPlayer.resources.dll.deploy_1", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\es\AVPlayer.resources.dll.deploy");
+            avplayer.Set("CentricityApp.resources.dll.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            avplayer.Set("CentricityApp.resources.dll.deploy_1", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            avplayer.Set("AVPlayerIcon.ico.deploy", @"${avplayerRoot}\Application Files\AVPlayer_${webapps_version}\Resources\AVPlayerIcon.ico.deploy");
 
 
             IConfig rdtool = source.AddConfig("RecordingDownloadTool");
             rdtool.Set("rdtoolRoot", @".");
             rdtool.Set("webapps_version", webapps_version);
-            rdtool.Set("RecordingDownloadTool.application", @"${rdtoolRoot}\RecordingDownloadTool\RecordingDownloadTool.application");
-            rdtool.Set("CentricityApp.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
-            rdtool.Set("log4net.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
-            rdtool.Set("RecordingDownloadTool.exe.config.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
-            rdtool.Set("RecordingDownloadTool.exe.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
-            rdtool.Set("RecordingDownloadTool.exe.manifest", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
-            rdtool.Set("server.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
-            rdtool.Set("sox.exe.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
-            rdtool.Set("CentricityApp.resources.dll.deploy_2", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
-            rdtool.Set("CentricityApp.resources.dll.deploy_3", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
-            rdtool.Set("RecordingDownloadTool.resources.dll.deploy", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
-            rdtool.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${rdtoolRoot}\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.application", @"${rdtoolRoot}\RecordingDownloadTool.application");
+            rdtool.Set("CentricityApp.dll.deploy_1", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\CentricityApp.dll.deploy");
+            rdtool.Set("log4net.dll.deploy_1", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\log4net.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.exe.config.deploy", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.config.deploy");
+            rdtool.Set("RecordingDownloadTool.exe.deploy", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.deploy");
+            rdtool.Set("RecordingDownloadTool.exe.manifest", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\RecordingDownloadTool.exe.manifest");
+            rdtool.Set("server.dll.deploy_1", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\server.dll.deploy");
+            rdtool.Set("sox.exe.deploy", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\sox.exe.deploy");
+            rdtool.Set("CentricityApp.resources.dll.deploy_2", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\de\CentricityApp.resources.dll.deploy");
+            rdtool.Set("CentricityApp.resources.dll.deploy_3", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\es\CentricityApp.resources.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.resources.dll.deploy", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
+            rdtool.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${rdtoolRoot}\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
 
             source.ExpandKeyValues();
             source.Save("Aristotle_targets.config");
@@ -809,10 +809,10 @@ namespace PatchTool
                 // NO-OP copy new files to backup location
 
                 // this makes me throw up a little
-                if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)
-                {
-                    app.patchTo = Directory.GetParent(app.patchTo).ToString();
-                }
+                //if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)
+                //{
+                //    app.patchTo = Directory.GetParent(app.patchTo).ToString();
+                //}
                 CopyFolder(app.patchFrom, app.patchTo);
                 logger.Info("got here? (copied new to patchTo)");
             }
