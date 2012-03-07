@@ -20,7 +20,7 @@ namespace PatchTool
             // applications
             ETApplication server = new ETApplication("Server", "Envision Server");
             ETApplication channelManager = new ETApplication("ChannelManager", "Envision Channel Manager");
-            ETApplication radControls = new ETApplication("RadControls", "Envision Centricity");
+            ETApplication radControls = new ETApplication("RadControls", "Envision Centricity", "RadControls");
             radControls.replaceAll = true;
             ETApplication centricity = new ETApplication("Centricity", "Envision Centricity");
             ETApplication avPlayer = new ETApplication("AVPlayer", "Envision Web Apps", "AVPlayer");
