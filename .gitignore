@@ -1,3 +1,4 @@
+.gitignore
 *.suo
 *.user
 */bin/
@@ -6,3 +7,7 @@
 
 munge/webApps.txt
 notes2.txt
+IsServiceRunning.zip
+IsServiceRunning/
+
+NDepend/
