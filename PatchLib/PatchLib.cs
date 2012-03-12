@@ -215,9 +215,9 @@ namespace PatchTool
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
             config.Set("states.BIB.xml", @"${srcRoot}\config\chanmgr\states.BIB.xml");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
-            config.Set("Telerik.Web.Design.dll", @"C:\Source\builds\10.1base\workdir\centricity\ET\bin\Telerik.Web.Design.dll");
-            config.Set("Telerik.Web.UI.dll", @"C:\Source\builds\10.1base\workdir\centricity\ET\bin\Telerik.Web.UI.dll");
-            config.Set("Telerik.Web.UI.xml", @"C:\Source\builds\10.1base\workdir\centricity\ET\bin\Telerik.Web.UI.xml");
+            config.Set("Telerik.Web.Design.dll", @"${srcRoot}\workdir\centricity\ET\bin\Telerik.Web.Design.dll");
+            config.Set("Telerik.Web.UI.dll", @"${srcRoot}\workdir\centricity\ET\bin\Telerik.Web.UI.dll");
+            config.Set("Telerik.Web.UI.xml", @"${srcRoot}\workdir\centricity\ET\bin\Telerik.Web.UI.xml");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("TeliaCallGuide.pdb", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
             config.Set("TokenService.xml", @"${srcRoot}\config\server\ArchitectureServiceDescriptions\TokenService.xml");
