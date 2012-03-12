@@ -56,6 +56,7 @@ namespace PatchTool
                 "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
                 "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
                 "SourceRunnerService.exe", "SourceRunnerService.pdb",
+                "Telerik.Web.Design.dll", "Telerik.Web.UI.dll", "Telerik.Web.UI.xml",
                 "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
                 "TokenService.xml",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",

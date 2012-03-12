@@ -215,6 +215,9 @@ namespace PatchTool
             config.Set("srvany.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\srvany.exe");
             config.Set("states.BIB.xml", @"${srcRoot}\config\chanmgr\states.BIB.xml");
             config.Set("svcmgr.exe", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\svcmgr.exe");
+            config.Set("Telerik.Web.Design.dll", @"C:\Source\builds\10.1base\workdir\centricity\ET\bin\Telerik.Web.Design.dll");
+            config.Set("Telerik.Web.UI.dll", @"C:\Source\builds\10.1base\workdir\centricity\ET\bin\Telerik.Web.UI.dll");
+            config.Set("Telerik.Web.UI.xml", @"C:\Source\builds\10.1base\workdir\centricity\ET\bin\Telerik.Web.UI.xml");
             config.Set("TeliaCallGuide.dll", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.dll");
             config.Set("TeliaCallGuide.pdb", @"${srcRoot}\workdir\ContactSourceRunner\TeliaCallGuide.pdb");
             config.Set("TokenService.xml", @"${srcRoot}\config\server\ArchitectureServiceDescriptions\TokenService.xml");
@@ -389,6 +392,9 @@ namespace PatchTool
             server.Set("SiteToGroupAgentMover.ascx.es.resx", @"${serverRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.es.resx");
             server.Set("SourceRunnerService.exe", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.exe");
             server.Set("SourceRunnerService.pdb", @"${serverRoot}\ContactSourceRunner\SourceRunnerService.pdb");
+            server.Set("Telerik.Web.Design.dll", @"${serverRoot}\bin\Telerik.Web.Design.dll");
+            server.Set("Telerik.Web.UI.dll", @"${serverRoot}\bin\Telerik.Web.UI.dll");
+            server.Set("Telerik.Web.UI.xml", @"${serverRoot}\bin\Telerik.Web.UI.xml");
             server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
             server.Set("TeliaCallGuide.pdb", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.pdb");
             server.Set("TokenService.xml", @"${serverRoot}\ArchitectureServiceDescriptions\TokenService.xml");
