@@ -26,7 +26,9 @@ namespace PatchTool
             IEnumerable<string> serverKeys = new List<string>
             {
                 "Administrator.exe", "AgentAutomation.dll",
+                "AgentInboxGrid.ascx", "Agents.aspx",
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
+                "AttachedTrainingClipGrid.ascx",
                 "ChannelBrokerService.xml", "CiscoICM.dll",
                 "client.properties", "CommonUpdates.xml",
                 "ContactSourceRunner.bat", "ContactSources.properties",
@@ -44,6 +46,7 @@ namespace PatchTool
                 "EnvisionServer.bat", "EnvisionServer.exe_1",
                 "ETContactSource.exe", "ETContactSource.pdb",
                 "ETScheduleService.xml", "ETService.exe",
+                "EvaluationGrid.ascx",
                 "jtapi.jar", "JtapiItemService.xml", "jtracing.jar",
                 "log4j.properties.template",
                 "manifest.xml", "manifest.xml_2",
@@ -51,6 +54,7 @@ namespace PatchTool
                 "nativeServiceWin32.dll",
                 "NetMerge.dll", "NetMerge.pdb",
                 "NewEvaluation.aspx", "RadEditor.skin",
+                "RecognitionDashboardItem.ascx", "Recognitions.aspx",
                 "server.dll", "server.pdb",
                 "SIP_events.properties",
                 "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
@@ -58,7 +62,7 @@ namespace PatchTool
                 "SourceRunnerService.exe", "SourceRunnerService.pdb",
                 "Telerik.Web.Design.dll", "Telerik.Web.UI.dll", "Telerik.Web.UI.xml",
                 "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
-                "TokenService.xml",
+                "TokenService.xml", "TrainingClipGrid.ascx",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",
 
                 // Centricity

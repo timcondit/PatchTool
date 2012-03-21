@@ -67,6 +67,14 @@ namespace PatchTool
             // path to identify the file.
 
             // from the working copy
+            config.Set("Agents.aspx", @"${srcRoot}\src\clients\centricity\ET\Home\Agents\Agents.aspx");
+            config.Set("Recognitions.aspx", @"${srcRoot}\src\clients\centricity\ET\PerformanceManagement\Recognitions\Recognitions.aspx");
+            config.Set("RecognitionDashboardItem.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\DashboardControls\Recognition\RecognitionDashboardItem.ascx");
+            config.Set("AgentInboxGrid.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\Grids\AgentInboxGrid.ascx");
+            config.Set("AttachedTrainingClipGrid.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\Grids\AttachedTrainingClipGrid.ascx");
+            config.Set("EvaluationGrid.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\Grids\EvaluationGrid.ascx");
+            config.Set("TrainingClipGrid.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\Grids\TrainingClipGrid.ascx");
+
             config.Set("Administrator.exe", @"${srcRoot}\src\clients\admin\Administrator\Release\Administrator.exe");
             config.Set("AgentAutomation.dll", @"${srcRoot}\src\apis\automationapi\Release\AgentAutomation.dll");
             config.Set("AlvasAudio.dll", @"${srcRoot}\workdir\SharedResources\AlvasAudio.dll");
@@ -310,15 +318,17 @@ namespace PatchTool
             // Each patchableApp (see Clyde.cs) needs its own config section and appRoot.
             IConfig server = source.AddConfig("Server");
             server.Set("serverRoot", @".");
-
             server.Set("Administrator.exe", @"${serverRoot}\Administrator.exe");
             server.Set("AgentAutomation.dll", @"${serverRoot}\AgentAutomation.dll");
+            server.Set("AgentInboxGrid.ascx", @"${serverRoot}\UserControls\Grids\AgentInboxGrid.ascx");
+            server.Set("Agents.aspx", @"${serverRoot}\Home\Agents\Agents.aspx");
             server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio.dll");
             server.Set("AlvasAudio.pdb", @"${serverRoot}\AlvasAudio.pdb");
             server.Set("AlvasAudio.tlb", @"${serverRoot}\AlvasAudio.tlb");
             server.Set("App_Code.compiled", @"${serverRoot}\bin\App_Code.compiled");
             server.Set("App_global.asax.compiled", @"${serverRoot}\bin\App_global.asax.compiled");
             server.Set("App_GlobalResources.compiled", @"${serverRoot}\bin\App_GlobalResources.compiled");
+            server.Set("AttachedTrainingClipGrid.ascx", @"${serverRoot}\UserControls\Grids\AttachedTrainingClipGrid.ascx");
             server.Set("centricity.dll", @"${serverRoot}\bin\centricity.dll");
             server.Set("centricity.pdb", @"${serverRoot}\bin\centricity.pdb");
             server.Set("Centricity_BLL.dll", @"${serverRoot}\bin\Centricity_BLL.dll");
@@ -368,6 +378,7 @@ namespace PatchTool
             server.Set("ETContactSource.pdb", @"${serverRoot}\ContactSourceRunner\ETContactSource.pdb");
             server.Set("ETScheduleService.xml", @"${serverRoot}\C2CServiceDescriptions\ETScheduleService.xml");
             server.Set("ETService.exe", @"${serverRoot}\ETService.exe");
+            server.Set("EvaluationGrid.ascx", @"${serverRoot}\UserControls\Grids\EvaluationGrid.ascx");
             server.Set("jtapi.jar", @"${serverRoot}\JRE\lib\ext\jtapi.jar");
             server.Set("JtapiItemService.xml", @"${serverRoot}\C2CServiceDescriptions\JtapiItemService.xml");
             server.Set("jtracing.jar", @"${serverRoot}\JRE\lib\ext\jtracing.jar");
@@ -383,6 +394,8 @@ namespace PatchTool
             server.Set("RadEditor.skin", @"${serverRoot}\App_Themes\EnvisionTheme\RadEditor.skin");
             server.Set("RAL.dll", @"${serverRoot}\bin\RAL.dll");
             server.Set("RAL.pdb", @"${serverRoot}\bin\RAL.pdb");
+            server.Set("RecognitionDashboardItem.ascx", @"${serverRoot}\UserControls\DashboardControls\Recognition\RecognitionDashboardItem.ascx");
+            server.Set("Recognitions.aspx", @"${serverRoot}\PerformanceManagement\Recognitions\Recognitions.aspx");
             server.Set("server.dll", @"${serverRoot}\bin\server.dll");
             server.Set("server.pdb", @"${serverRoot}\bin\server.pdb");
             server.Set("SIP_events.properties", @"${serverRoot}\ChannelManager\SIP_events.properties");
@@ -398,6 +411,7 @@ namespace PatchTool
             server.Set("TeliaCallGuide.dll", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.dll");
             server.Set("TeliaCallGuide.pdb", @"${serverRoot}\ContactSourceRunner\TeliaCallGuide.pdb");
             server.Set("TokenService.xml", @"${serverRoot}\ArchitectureServiceDescriptions\TokenService.xml");
+            server.Set("TrainingClipGrid.ascx", @"${serverRoot}\UserControls\Grids\TrainingClipGrid.ascx");
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
             server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
             server.Set("updater.jar", @"${serverRoot}\JRE\lib\ext\updater.jar");
