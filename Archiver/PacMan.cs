@@ -107,6 +107,7 @@ namespace PatchTool
                 "LumiSoft.Net.dll", "LumiSoft.Net.pdb", "LumiSoft.Net.xml",
                 "RtpTransmitter.dll", "RtpTransmitter.pdb",
                 "server.dll", "server.pdb",
+                "Set_ChannelDeviceIds.sql",
                 "SIPChannel.dll", "SIPChannel.pdb",
                 "SIPConfigLib.dll", "SIPConfigLib.pdb",
                 "SIP_events.properties",

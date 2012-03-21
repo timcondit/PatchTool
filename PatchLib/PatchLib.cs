@@ -202,6 +202,7 @@ namespace PatchTool
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
             config.Set("server.dll", @"${srcRoot}\workdir\SharedResources\server.dll");
             config.Set("server.pdb", @"${srcRoot}\workdir\SharedResources\server.pdb");
+            config.Set("Set_ChannelDeviceIds.sql", @"${srcRoot}\config\chanmgr\SQLScripts\Set_ChannelDeviceIds.sql");
             config.Set("SIPChannel.dll", @"${srcRoot}\workdir\ChannelManager\SIPChannel.dll");
             config.Set("SIPChannel.pdb", @"${srcRoot}\workdir\ChannelManager\SIPChannel.pdb");
             config.Set("SIPConfigLib.dll", @"${srcRoot}\workdir\ChannelManager\SIPConfigLib.dll");
@@ -469,6 +470,7 @@ namespace PatchTool
             cm.Set("RtpTransmitter.pdb", @"${cmRoot}\RtpTransmitter.pdb");
             cm.Set("server.dll", @"${cmRoot}\server.dll");
             cm.Set("server.pdb", @"${cmRoot}\server.pdb");
+            cm.Set("Set_ChannelDeviceIds.sql", @"${cmRoot}\SQLScripts\Set_ChannelDeviceIds.sql");
             cm.Set("SIPChannel.dll", @"${cmRoot}\SIPChannel.dll");
             cm.Set("SIPChannel.pdb", @"${cmRoot}\SIPChannel.pdb");
             cm.Set("SIPConfigLib.dll", @"${cmRoot}\SIPConfigLib.dll");
