@@ -51,8 +51,8 @@ namespace PatchTool
             set { _extractDir = value; }
         }
 
-        // Source config is a list of where to find files on the Aristotle working copy.  It is independent of the
-        // apps to patch.  Every file in makeTargetConfig (identified by key) must be here.
+        // Source config is a list of where to find files in the working copy.  It is independent of the apps to
+        // patch.  Every file in makeTargetConfig (identified by key) must be here.
         public void makeSourceConfig(string webapps_version = "0_0_0_0")
         {
             IniConfigSource source = new IniConfigSource();
@@ -66,7 +66,6 @@ namespace PatchTool
             // "_1") to the end of the second file of the same name.  But we can't append a mangled file name to the
             // path to identify the file.
 
-            // from the working copy
             config.Set("Agents.aspx", @"${srcRoot}\src\clients\centricity\ET\Home\Agents\Agents.aspx");
             config.Set("Recognitions.aspx", @"${srcRoot}\src\clients\centricity\ET\PerformanceManagement\Recognitions\Recognitions.aspx");
             config.Set("RecognitionDashboardItem.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\DashboardControls\Recognition\RecognitionDashboardItem.ascx");
@@ -157,9 +156,11 @@ namespace PatchTool
             config.Set("DMCCWrapperLib.tlb", @"${srcRoot}\workdir\ChannelManager\DMCCWrapperLib.tlb");
             config.Set("EditEvaluation.aspx", @"${srcRoot}\workdir\centricity\ET\PerformanceManagement\Evaluations\EditEvaluation.aspx");
             config.Set("Envision.jar", @"${srcRoot}\Release\Envision.jar");
+
             // use EN by default, but this needs to be fixed properly
             // caution: don't use @"${srcRoot}\setup\Signature\EnvisionControls.cab"
             config.Set("EnvisionControls.cab", @"${srcRoot}\setup\Signature\EN\EnvisionControls.cab");
+
             config.Set("EnvisionServer.bat", @"${srcRoot}\config\server\EnvisionServer.bat");
             config.Set("EnvisionServer.exe_1", @"${srcRoot}\workdir\etservice\EnvisionServer.exe");
             config.Set("EnvisionSR.bat", @"${srcRoot}\src\tools\Scripts\ChannelManager\EnvisionSR\EnvisionSR.bat");
@@ -358,17 +359,22 @@ namespace PatchTool
             server.Set("cstaLoader_6_4_3.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_6_4_3.dll");
             server.Set("cstaLoader_9_1.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_1.dll");
             server.Set("cstaLoader_9_5.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader_9_5.dll");
+
             // FIXME the names of the files don't match (6.0, 6_0)
             server.Set("ctcLoader_6.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_6.0.dll");
             server.Set("ctcLoader_6_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_6_0.pdb");
+
             // FIXME the names of the files don't match (7.0, 7_0)
             server.Set("ctcLoader_7.0.dll", @"${serverRoot}\ContactSourceRunner\ctcLoader_7.0.dll");
             server.Set("ctcLoader_7_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_7_0.pdb");
+
             server.Set("client.properties", @"${serverRoot}\client.properties");
             server.Set("Default.aspx", @"${serverRoot}\Home\Send\Default.aspx");
             server.Set("EditEvaluation.aspx", @"${serverRoot}\PerformanceManagement\Evaluations\EditEvaluation.aspx");
+
             // Note how we configure multiple copies of the same file on the same app
             server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
+
             server.Set("envision_schema.xml", @"${serverRoot}\envision_schema.xml");
             server.Set("envision_schema_central.xml", @"${serverRoot}\envision_schema_central.xml");
             server.Set("EnvisionControls.cab", @"${serverRoot}\WebServer\webapps\ET\ETReporting\EnvisionControls.cab");
@@ -416,7 +422,6 @@ namespace PatchTool
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
             server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
             server.Set("updater.jar", @"${serverRoot}\JRE\lib\ext\updater.jar");
-            //server.Set("web.config", @"${serverRoot}\web.config");
 
             // LAA-BIN
             server.Set("dumpbin.exe", @"${serverRoot}\LAA-BIN\dumpbin.exe");
@@ -430,9 +435,9 @@ namespace PatchTool
             server.Set("gacutil.exe", @"${serverRoot}\AlvasAudio\gacutil.exe");
             server.Set("regasm.exe", @"${serverRoot}\AlvasAudio\regasm.exe");
 
+
             IConfig cm = source.AddConfig("ChannelManager");
             cm.Set("cmRoot", @".");
-
             cm.Set("AlvasAudio.bat", @"${cmRoot}\AlvasAudio\AlvasAudio.bat");
             cm.Set("AlvasAudio.dll", @"${cmRoot}\AlvasAudio\AlvasAudio.dll");
             cm.Set("AlvasAudio.pdb", @"${cmRoot}\AlvasAudio.pdb");
@@ -647,10 +652,7 @@ namespace PatchTool
             // e.g., 10.1.10.92 -> 10_1_10_92
             if (regex.IsMatch(toFormat))
             {
-                // probably better to (eventually) configure the logger to send to log only, not stdout too
-                //logger.Info("match: {0}", toFormat);
                 replaced = Archiver.dotToDash(regex.Match(toFormat));
-                //logger.Info("dotToDash: {0}", replaced);
             }
             else
             {
@@ -814,10 +816,8 @@ namespace PatchTool
             get { return _patchVersion; }
         }
 
-        // finally: do the actual work
         public void run(ETApplication app)
         {
-            // backup files to patch
             string backupFrom = app.patchTo;
             string backupTo = CombinePaths(this.BackupDir, app.name);
 
@@ -831,11 +831,6 @@ namespace PatchTool
 
                 // NO-OP copy new files to backup location
 
-                // this makes me throw up a little
-                //if (new DirectoryInfo(app.patchFrom).Name == new DirectoryInfo(app.patchTo).Name)
-                //{
-                //    app.patchTo = Directory.GetParent(app.patchTo).ToString();
-                //}
                 CopyFolder(app.patchFrom, app.patchTo);
                 logger.Info("got here? (copied new to patchTo)");
             }
@@ -849,16 +844,13 @@ namespace PatchTool
                 // each file bound for the old/ directory
                 string bakFileOld;
 
-                //
                 // backup original files
-                //
                 foreach (FileInfo f in srcFiles)
                 {
                     tail = RelativePath(backupTo, f.FullName);
                     bakFileOld = Path.GetFullPath(Path.Combine(backupFrom, tail));
 
-                    // Create any nested subdirectories included in the patch.  Note, this will loop
-                    // over the same location multiple times; it's a little big ugly
+                    // Create any nested subdirectories included in the patch.
                     DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
                     if (!Directory.Exists(backupSubdirOld.ToString()))
                     {
@@ -881,9 +873,7 @@ namespace PatchTool
                     }
                 }
 
-                //
                 // patch the application
-                //
                 CopyFolder(app.patchFrom, app.patchTo);
             }
         }

@@ -19,10 +19,8 @@ namespace PatchTool
             a.makeSourceConfig(webapps_version);
             a.makeTargetConfig(webapps_version);
 
-            // Should have the patchVersion before calling a.makePortablePatch().  Actually, should really break the
-            // configuration out into a separate utility.
-
-            // This is where we specify which files go into the patch (Server). It will be manually updated for now.
+            // This is where we specify which files go into the patch for each application. It will be manually
+            // updated for now.
             IEnumerable<string> serverKeys = new List<string>
             {
                 "Administrator.exe", "AgentAutomation.dll",
@@ -85,8 +83,6 @@ namespace PatchTool
 
             };
 
-            // This is where we specify which files go into the patch (ChannelManager). It will be manually updated
-            // for now.
             IEnumerable<string> cmKeys = new List<string>
             {
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
@@ -126,22 +122,16 @@ namespace PatchTool
                 "gacutil.exe", "regasm.exe",
             };
 
-            // This is where we specify which files go into the patch (Centricity). It will be manually updated for
-            // now.
             IEnumerable<string> ctKeys = new List<string>
             {
-                // empty
+                // Empty, but not for long.  See PATCH-383
             };
 
-            // This is where we specify which files go into the patch (WMWrapperService). It will be manually updated
-            // for now.
             IEnumerable<string> wmwsKeys = new List<string>
             {
                 "DefaultEnvisionProfile.prx", "server.dll", "WMWrapperService.exe",
             };
 
-            // This is where we specify which files go into the patch (CentricityWebApplications). It will be manually
-            // updated for now.
             IEnumerable<string> avplayerKeys = new List<string>
             {
                 "AVPlayer.application", "AgentSupport.exe.deploy",
@@ -163,7 +153,6 @@ namespace PatchTool
                 "RecordingDownloadTool.resources.dll.deploy", "RecordingDownloadTool.resources.dll.deploy_1",
             };
 
-            // This is where we specify which files go into the patch (Tools). It will be manually updated for now.
             IEnumerable<string> dbmigrationKeys = new List<string>
             {
                 "DBMigration_84SP9_To_10.sql",

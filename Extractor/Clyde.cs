@@ -105,16 +105,12 @@ namespace PatchTool
 
                                 if (installedApp.patchTo != null)
                                 {
-                                    //logger.Info("(before) installedApp.patchTo: " + installedApp.patchTo);
                                     installedApp.patchTo = Path.Combine(installedApp.installLocation, installedApp.name);
-                                    //logger.Info("(after)  installedApp.patchTo: " + installedApp.patchTo);
                                 }
                                 else
                                 {
                                     installedApp.patchTo = installedApp.installLocation;
-                                    //logger.Info("installedApp.patchTo: " + installedApp.patchTo);
                                 }
-                                //installedApp.patchTo = installedApp.installLocation;
                                 logger.Info("i.name: {0}", i.name);
                                 logger.Info("i.displayName: {0}", i.displayName);
                                 logger.Info("i.installLocation: {0}", i.installLocation);
