@@ -824,15 +824,12 @@ namespace PatchTool
             if (app.replaceAll == true)
             {
                 CopyFolder(backupFrom, backupTo);
-                logger.Info("got here? (backed up old)");
                 Directory.Delete(backupFrom, true);
-                logger.Info("got here? (deleted backupFrom (AKA patchTo))");
                 CreateDir(app.patchTo);
 
                 // NO-OP copy new files to backup location
 
                 CopyFolder(app.patchFrom, app.patchTo);
-                logger.Info("got here? (copied new to patchTo)");
             }
             else
             {
