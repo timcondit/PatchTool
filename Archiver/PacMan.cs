@@ -24,63 +24,40 @@ namespace PatchTool
             IEnumerable<string> serverKeys = new List<string>
             {
                 "Administrator.exe", "AgentAutomation.dll",
-                "AgentInboxGrid.ascx", "Agents.aspx",
                 "AlvasAudio.bat", "AlvasAudio.dll", "AlvasAudio.pdb", "AlvasAudio.tlb",
-                "AttachedTrainingClipGrid.ascx",
                 "ChannelBrokerService.xml", "CiscoICM.dll",
                 "client.properties", "CommonUpdates.xml",
                 "ContactSourceRunner.bat", "ContactSources.properties",
-                "Create_Centricity_WFM_SPROCS.sql",
                 "cstaLoader.dll", "cstaLoader.pdb",
                 "cstaLoader_1_2.dll", "cstaLoader_1_3_3.dll",
                 "cstaLoader_3_33.dll", "cstaLoader_6_4_3.dll",
                 "cstaLoader_9_1.dll", "cstaLoader_9_5.dll",
                 "ctcLoader_6.0.dll", "ctcLoader_6_0.pdb",
                 "ctcLoader_7.0.dll", "ctcLoader_7_0.pdb",
-                "Default.aspx", "Envision.jar",
-                "EditEvaluation.aspx", "EnvisionTheme.css",
+                "Envision.jar",
                 "envision_schema.xml", "envision_schema_central.xml",
                 "EnvisionControls.cab",
                 "EnvisionServer.bat", "EnvisionServer.exe_1",
                 "ETContactSource.exe", "ETContactSource.pdb",
                 "ETScheduleService.xml", "ETService.exe",
-                "EvaluationGrid.ascx",
                 "jtapi.jar", "JtapiItemService.xml", "jtracing.jar",
                 "log4j.properties.template",
                 "manifest.xml", "manifest.xml_2",
                 "MSSQLUpdate_build_10.0.0303.1.xml", "MSSQLUpdate_build_10.1.2.0.xml",
                 "nativeServiceWin32.dll",
                 "NetMerge.dll", "NetMerge.pdb",
-                "NewEvaluation.aspx", "RadEditor.skin",
-                "RecognitionDashboardItem.ascx", "Recognitions.aspx",
                 "server.dll", "server.pdb",
                 "SIP_events.properties",
-                "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
-                "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
                 "SourceRunnerService.exe", "SourceRunnerService.pdb",
-                "Telerik.Web.Design.dll", "Telerik.Web.UI.dll", "Telerik.Web.UI.xml",
                 "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
-                "TokenService.xml", "TrainingClipGrid.ascx",
+                "TokenService.xml",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",
-
-                // Centricity
-                "App_Code.compiled", "App_global.asax.compiled", "App_GlobalResources.compiled",
-                "centricity.dll", "centricity.pdb",
-                "Centricity_BLL.dll", "Centricity_BLL.pdb",
-                "Centricity_BLL.XmlSerializers.dll",
-                "Centricity_DAL.dll", "Centricity_DAL.pdb",
-                "Centricity_deploy.resources.dll_DE", "Centricity_deploy.resources.dll_DE_1",
-                "Centricity_deploy.resources.dll_ES",
-                "Centricity_deploy.dll", "Centricity_SCA.dll",
-                "Centricity_Shared.dll", "Centricity_Shared.pdb",
-                "RAL.dll", "RAL.pdb",
 
                 // LAA-BIN
                 "dumpbin.exe", "EnvisionServer.exe", "java.exe", "javaw.exe",
                 
                 // for registering AlvasAudio.dll
                 "gacutil.exe", "regasm.exe",
-
             };
 
             IEnumerable<string> cmKeys = new List<string>
@@ -124,7 +101,27 @@ namespace PatchTool
 
             IEnumerable<string> ctKeys = new List<string>
             {
-                // Empty, but not for long.  See PATCH-383
+                "AgentInboxGrid.ascx", "Agents.aspx",
+                "App_Code.compiled", "App_global.asax.compiled", "App_GlobalResources.compiled",
+                "AttachedTrainingClipGrid.ascx",
+                "centricity.dll", "centricity.pdb",
+                "Centricity_BLL.dll", "Centricity_BLL.pdb", "Centricity_BLL.XmlSerializers.dll",
+                "Centricity_DAL.dll", "Centricity_DAL.pdb",
+                "Centricity_deploy.resources.dll_DE", "Centricity_deploy.resources.dll_DE_1",
+                "Centricity_deploy.resources.dll_ES",
+                "Centricity_deploy.dll", "Centricity_SCA.dll",
+                "Centricity_Shared.dll", "Centricity_Shared.pdb",
+                "Create_Centricity_WFM_SPROCS.sql",
+                "Default.aspx",
+                "EditEvaluation.aspx", "EnvisionTheme.css",
+                "EvaluationGrid.ascx",
+                "NewEvaluation.aspx", "RadEditor.skin",
+                "RAL.dll", "RAL.pdb",
+                "RecognitionDashboardItem.ascx", "Recognitions.aspx",
+                "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
+                "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
+                "Telerik.Web.Design.dll", "Telerik.Web.UI.dll", "Telerik.Web.UI.xml",
+                "TrainingClipGrid.ascx",
             };
 
             IEnumerable<string> wmwsKeys = new List<string>
