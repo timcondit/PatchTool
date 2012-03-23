@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using Microsoft.Win32;
 using NLog;
 
 namespace PatchTool
@@ -78,7 +76,9 @@ namespace PatchTool
 
             // get the shallow list of applications to patch from patch_staging\<version>\patchFiles
             string[] cache = Directory.GetDirectories(e.PatchDir, "*", SearchOption.TopDirectoryOnly);
+
             List<ETApplication> appsToPatch = new List<ETApplication>();
+            List<Installer> installsToBackup = new List<Installer>();
 
             foreach (Installer i in all.installers)
             {
@@ -86,6 +86,7 @@ namespace PatchTool
                 if ((i.displayVersion != null) && (i.installLocation != null))
                 {
                     i.isInstalled = true;
+                    installsToBackup.Add(i);
                 }
 
                 if (i.isInstalled)
@@ -111,10 +112,6 @@ namespace PatchTool
                                 {
                                     installedApp.patchTo = installedApp.installLocation;
                                 }
-                                logger.Info("i.name: {0}", i.name);
-                                logger.Info("i.displayName: {0}", i.displayName);
-                                logger.Info("i.installLocation: {0}", i.installLocation);
-                                logger.Info("i.displayVersion: {0}", i.displayVersion);
                                 appsToPatch.Add(installedApp);
                             }
                         }
@@ -122,11 +119,8 @@ namespace PatchTool
                 }
             }
 
-            foreach (ETApplication atp in appsToPatch)
-            {
-                logger.Info("patching: " + atp.displayName);
-                e.run(atp);
-            }
+            e.Backup(installsToBackup);
+            e.Patch(appsToPatch);
 
             // TC: for testing
             Console.Write("Press ENTER to continue");

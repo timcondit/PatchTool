@@ -784,7 +784,7 @@ namespace PatchTool
 
         public Extractor(string backupFiles = "backupFiles", string patchFiles = "patchFiles")
         {
-            Console.SetWindowSize(160, 50);
+            Console.SetWindowSize(120, 50);
             this.BackupDir = Path.Combine(ExtractDir, backupFiles);
             this.PatchDir = Path.Combine(ExtractDir, patchFiles);
         }
@@ -816,76 +816,32 @@ namespace PatchTool
             get { return _patchVersion; }
         }
 
-        public void run(ETApplication app)
+        public void Backup(List<Installer> installs)
         {
-            string backupFrom = app.patchTo;
-            string backupTo = CombinePaths(this.BackupDir, app.name);
-
-            if (app.replaceAll == true)
+            foreach (Installer i in installs)
             {
-                CopyFolder(backupFrom, backupTo);
-                Directory.Delete(backupFrom, true);
-                CreateDir(app.patchTo);
-
-                // NO-OP copy new files to backup location
-
-                CopyFolder(app.patchFrom, app.patchTo);
-            }
-            else
-            {
-                DirectoryInfo di = new DirectoryInfo(app.patchFrom);
-                FileInfo[] srcFiles = di.GetFiles("*", SearchOption.AllDirectories);
-
-                // each file in the patch, with relative directories; base paths are the heads
-                string tail;
-                // each file bound for the old/ directory
-                string bakFileOld;
-
-                // backup original files
-                foreach (FileInfo f in srcFiles)
-                {
-                    tail = RelativePath(backupTo, f.FullName);
-                    bakFileOld = Path.GetFullPath(Path.Combine(backupFrom, tail));
-
-                    // Create any nested subdirectories included in the patch.
-                    DirectoryInfo backupSubdirOld = new DirectoryInfo(Path.GetDirectoryName(bakFileOld.ToString()));
-                    if (!Directory.Exists(backupSubdirOld.ToString()))
-                    {
-                        Directory.CreateDirectory(backupSubdirOld.ToString());
-                    }
-
-                    try
-                    {
-                        File.Copy(bakFileOld, backupFrom);
-                    }
-                    catch (System.IO.FileNotFoundException)
-                    {
-                        Console.WriteLine("WARN: a file to backup was not found: {0}", bakFileOld);
-                    }
-                    catch (System.IO.DirectoryNotFoundException)
-                    {
-                        // This exception occurs when the patch includes a new directory that is not
-                        // on the machine being patched.  As a result, the directory is also not in
-                        // patches/VERSION/old, which causes this exception.  Ignore it.
-                    }
-                }
-
-                // patch the application
-                CopyFolder(app.patchFrom, app.patchTo);
+                string backupTo = Path.Combine(this.BackupDir, i.displayName);
+                logger.Info("Backing up install folder {0} to {1}", i.installLocation, backupTo);
+                CopyFolder(i.installLocation, backupTo);
             }
         }
 
-        public bool CreateDir(string target)
+        public void Patch(List<ETApplication> apps)
         {
-            try
+            foreach (ETApplication app in apps)
             {
-                Directory.CreateDirectory(target.ToString());
-                return true;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show("PatchTool must be run as Administrator on this system", "sorry Charlie");
-                return false;
+                logger.Info("Patching an application in {0}", app.displayName);
+
+                if (app.replaceAll == true)
+                {
+                    Directory.Delete(app.patchTo, true);
+                    Directory.CreateDirectory(app.patchTo);
+                    CopyFolder(app.patchFrom, app.patchTo);
+                }
+                else
+                {
+                    CopyFolder(app.patchFrom, app.patchTo);
+                }
             }
         }
 
@@ -924,112 +880,6 @@ namespace PatchTool
                 }
             }
             catch (NullReferenceException) { }
-        }
-
-        // TC: probably want to return bool and not write to STDOUT
-        private void FileCompare(string fileName1, string fileName2, string fileName3)
-        {
-            try
-            {
-                FileEquals(fileName1, fileName2);
-            }
-            catch (Exception e)
-            {
-                if (e is FileNotFoundException || e is DirectoryNotFoundException)
-                {
-                    logger.Warn("a file to compare was not found: {0}", fileName2);
-                    return;
-                }
-            }
-
-            if (FileEquals(fileName1, fileName2))
-            {
-                Console.Write("{0, -90}", "* " + fileName3, Console.WindowWidth, Console.WindowHeight);
-                //Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(String.Format("{0, 9}", "[matches]"), Console.WindowWidth, Console.WindowHeight);
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.Write("{0, -90}", "* " + fileName3, Console.WindowWidth, Console.WindowHeight);
-                //Console.Write("{0, -130}", fileName3, Console.WindowWidth, Console.WindowHeight);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(String.Format("{0, 9}", "[nomatch]"), Console.WindowWidth, Console.WindowHeight);
-                Console.ResetColor();
-            }
-        }
-
-        private void FileStat(string fileName)
-        {
-            FileInfo fileInfo = new FileInfo(fileName);
-            if (fileInfo.Exists)
-            {
-                Console.Write("{0, -130}", fileInfo, Console.WindowWidth, Console.WindowHeight);
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine(String.Format("{0, 9}", "[present]"), Console.WindowWidth, Console.WindowHeight);
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.Write("{0, -130}", fileInfo, Console.WindowWidth, Console.WindowHeight);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(String.Format("{0, 9}", "[missing]"), Console.WindowWidth, Console.WindowHeight);
-                Console.ResetColor();
-            }
-        }
-
-        // based on http://stackoverflow.com/questions/968935/c-binary-file-compare
-        static bool FileEquals(string fileName1, string fileName2)
-        {
-            try
-            {
-                // Check the file size and CRC equality here.. if they are equal...
-                using (var file1 = new FileStream(fileName1, FileMode.Open))
-                using (var file2 = new FileStream(fileName2, FileMode.Open))
-                    return StreamsContentsAreEqual(file1, file2);
-            }
-            catch (IOException ex)
-            {
-                // If this exception was caught, the assumption was that an
-                // Envision service is running on the host.  Services are
-                // checked before starting, so if we get here, we should log
-                // the exception for Engineering to review.
-                logger.Fatal(ex);
-                throw;
-            }
-        }
-
-        private static bool StreamsContentsAreEqual(Stream stream1, Stream stream2)
-        {
-            const int bufferSize = 2048 * 2;
-            var buffer1 = new byte[bufferSize];
-            var buffer2 = new byte[bufferSize];
-
-            while (true)
-            {
-                int count1 = stream1.Read(buffer1, 0, bufferSize);
-                int count2 = stream2.Read(buffer2, 0, bufferSize);
-
-                if (count1 != count2)
-                {
-                    return false;
-                }
-
-                if (count1 == 0)
-                {
-                    return true;
-                }
-
-                int iterations = (int)Math.Ceiling((double)count1 / sizeof(Int64));
-                for (int i = 0; i < iterations; i++)
-                {
-                    if (BitConverter.ToInt64(buffer1, i * sizeof(Int64)) != BitConverter.ToInt64(buffer2, i * sizeof(Int64)))
-                    {
-                        return false;
-                    }
-                }
-            }
         }
 
         public static void CopyFolder(string sourceFolder, string destFolder)
@@ -1071,57 +921,6 @@ namespace PatchTool
                 string dest = Path.Combine(destFolder, name);
                 CopyFolder(folder, dest);
             }
-        }
-
-        // http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html
-        private string RelativePath(string absolutePath, string relativeTo)
-        {
-            string[] absoluteDirectories = absolutePath.Split('\\');
-            string[] relativeDirectories = relativeTo.Split('\\');
-
-            //Get the shortest of the two paths
-            int length = absoluteDirectories.Length < relativeDirectories.Length ? absoluteDirectories.Length : relativeDirectories.Length;
-
-            //Use to determine where in the loop we exited
-            int lastCommonRoot = -1;
-            int index;
-
-            //Find common root
-            for (index = 0; index < length; index++)
-                if (absoluteDirectories[index] == relativeDirectories[index])
-                    lastCommonRoot = index;
-                else
-                    break;
-
-            //If we didn't find a common prefix then throw
-            if (lastCommonRoot == -1)
-                throw new ArgumentException("Paths do not have a common base");
-
-            //Build up the relative path
-            StringBuilder relativePath = new StringBuilder();
-
-            //Add on the ..
-            for (index = lastCommonRoot + 1; index < absoluteDirectories.Length; index++)
-                if (absoluteDirectories[index].Length > 0)
-                    relativePath.Append("..\\");
-
-            //Add on the folders
-            for (index = lastCommonRoot + 1; index < relativeDirectories.Length - 1; index++)
-                relativePath.Append(relativeDirectories[index] + "\\");
-            relativePath.Append(relativeDirectories[relativeDirectories.Length - 1]);
-
-            return relativePath.ToString();
-        }
-
-        // http://stackoverflow.com/questions/144439/building-a-directory-string-from-component-parts-in-c
-        string CombinePaths(params string[] parts)
-        {
-            string result = String.Empty;
-            foreach (string s in parts)
-            {
-                result = Path.Combine(result, s);
-            }
-            return result;
         }
 
         public void CheckETServices()
