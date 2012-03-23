@@ -952,6 +952,8 @@ namespace PatchTool
             ETServices.Add("EnvisionServer");
             ETServices.Add("ETService");
             ETServices.Add("SourceRunnerService");
+            // this is not a service, but a child process of SourceRunnerService
+            ETServices.Add("ETContactSource.exe");
             ETServices.Add("tomcat6");
             ETServices.Add("WMWrapperService");
 
