@@ -689,6 +689,10 @@ namespace PatchTool
                 zip.AddFile("Nini.dll");
                 zip.AddFile("NLog.dll");
                 zip.AddFile("NLog.config");
+                // for zipping up the backed up install folders (so now we're
+                // creating a zip file that extracts itself, does some stuff
+                // then creates another zip file)
+                zip.AddFile("Ionic.Zip.dll");
 
                 SelfExtractorSaveOptions options = new SelfExtractorSaveOptions();
                 options.Flavor = SelfExtractorFlavor.ConsoleApplication;
@@ -818,12 +822,26 @@ namespace PatchTool
 
         public void Backup(List<Installer> installs)
         {
-            foreach (Installer i in installs)
+            string zipFile = Path.Combine(this.BackupDir, BackupZipFileName());
+
+            using (ZipFile zip = new ZipFile())
             {
-                string backupTo = Path.Combine(this.BackupDir, i.displayName);
-                logger.Info("Backing up install folder {0} to {1}", i.installLocation, backupTo);
-                CopyFolder(i.installLocation, backupTo);
+                foreach (Installer i in installs)
+                {
+                    string backupTo = Path.Combine(this.BackupDir, i.displayName);
+                    logger.Info("Backing up install folder {0} to {1}", i.installLocation, backupTo);
+                    CopyFolder(i.installLocation, backupTo);
+                }
+                zip.AddDirectory(this.BackupDir);
+                logger.Info("Saving zip file to {0}", zipFile);
+                zip.Save(zipFile);
             }
+        }
+
+        private string BackupZipFileName()
+        {
+            string dateTime = String.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
+            return "pre-" + this.PatchVersion + "-" + dateTime + ".zip";
         }
 
         public void Patch(List<ETApplication> apps)
