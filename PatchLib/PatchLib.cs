@@ -113,7 +113,6 @@ namespace PatchTool
             config.Set("CiscoICM.dll", @"${srcRoot}\workdir\ContactSourceRunner\CiscoICM.dll");
             config.Set("cleanup-SIPGateway-dir.bat", @"${srcRoot}\config\chanmgr\cleanup-SIPGateway-dir.bat");
             config.Set("client.properties", @"${srcRoot}\config\clients\client.properties");
-            config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
             config.Set("ContactSourceRunner.bat", @"${srcRoot}\config\sourcerunnerservice\ContactSourceRunner.bat");
             config.Set("ContactSources.properties", @"${srcRoot}\config\sourcerunnerservice\ContactSources.properties");
             config.Set("Create_Centricity_WFM_SPROCS.sql", @"${srcRoot}\config\server\Create_Centricity_WFM_SPROCS.sql");
@@ -187,8 +186,37 @@ namespace PatchTool
             config.Set("manifest.xml_3", @"${srcRoot}\config\server\EWMServiceDescriptions\manifest.xml");
             config.Set("manifest.xml_4", @"${srcRoot}\config\server\IntegrationsServiceDescriptions\manifest.xml");
             config.Set("manifest.xml_5", @"${srcRoot}\config\server\LoggerServiceDescriptions\manifest.xml");
+
+            // DatabaseUpdates
+            config.Set("C2CUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\C2CUpdates.xml");
+            config.Set("CommonUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\CommonUpdates.xml");
+            config.Set("EWFMUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\EWFMUpdates.xml");
+            config.Set("manifest.xml_6", @"${srcRoot}\config\server\DatabaseUpdates\manifest.xml");
+            config.Set("SpeechUpdates.xml", @"${srcRoot}\config\server\DatabaseUpdates\SpeechUpdates.xml");
+            config.Set("MSSQLUpdate_build_10.0.1.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\C2C\10.0\MSSQLUpdate_build_10.0.1.1.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.65.xml", @"${srcRoot}\config\server\DatabaseUpdates\C2C\10.1\MSSQLUpdate_build_10.1.0.65.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.201.xml", @"${srcRoot}\config\server\DatabaseUpdates\C2C\10.1\MSSQLUpdate_build_10.1.0.201.xml");
+            config.Set("MSSQLUpdate_build_9.12.0.28.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\9.12\MSSQLUpdate_build_9.12.0.28.xml");
+            config.Set("MSSQLUpdate_build_9.12.0.37.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\9.12\MSSQLUpdate_build_9.12.0.37.xml");
+            config.Set("MSSQLUpdate_build_9.12.0.38.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\9.12\MSSQLUpdate_build_9.12.0.38.xml");
+            config.Set("MSSQLUpdate_build_10.0.0.22.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0.22.xml");
+            config.Set("MSSQLUpdate_build_10.0.0.31.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0.31.xml");
             config.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            config.Set("MSSQLUpdate_build_10.0.1.1.xml_1", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.1.1.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.140.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.140.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.151.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.151.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.172.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.172.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.236a.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.236a.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.236b.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.236b.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.242.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.242.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.333.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.333.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.47.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.47.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.61.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.61.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.62.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.62.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.65.xml_1", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.65.xml");
+            config.Set("MSSQLUpdate_build_10.1.0.99.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.99.xml");
             config.Set("MSSQLUpdate_build_10.1.2.0.xml", @"${srcRoot}\config\server\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml");
+
             config.Set("nativeServiceWin32.dll", @"${srcRoot}\workdir\server\nativeServiceWin32.dll");
 
             // FIXME these should come from the same place.  Installer and the patch tool should be updated.
@@ -327,7 +355,6 @@ namespace PatchTool
             server.Set("AlvasAudio.tlb", @"${serverRoot}\AlvasAudio.tlb");
             server.Set("ChannelBrokerService.xml", @"${serverRoot}\C2CServiceDescriptions\ChannelBrokerService.xml");
             server.Set("CiscoICM.dll", @"${serverRoot}\ContactSourceRunner\CiscoICM.dll");
-            server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
             server.Set("ContactSourceRunner.bat", @"${serverRoot}\ContactSourceRunner\ContactSourceRunner.bat");
             server.Set("ContactSources.properties", @"${serverRoot}\ContactSourceRunner\ContactSources.properties");
             server.Set("cstaLoader.dll", @"${serverRoot}\ContactSourceRunner\cstaLoader.dll");
@@ -367,8 +394,37 @@ namespace PatchTool
             server.Set("log4j.properties.template", @"${serverRoot}\ContactSourceRunner\log4j.properties.template");
             server.Set("manifest.xml", @"${serverRoot}\ArchitectureServiceDescriptions\manifest.xml");
             server.Set("manifest.xml_2", @"${serverRoot}\C2CServiceDescriptions\manifest.xml");
+
+            // DatabaseUpdates
+            server.Set("C2CUpdates.xml", @"${serverRoot}\DatabaseUpdates\C2CUpdates.xml");
+            server.Set("CommonUpdates.xml", @"${serverRoot}\DatabaseUpdates\CommonUpdates.xml");
+            server.Set("EWFMUpdates.xml", @"${serverRoot}\DatabaseUpdates\EWFMUpdates.xml");
+            server.Set("manifest.xml_6", @"${serverRoot}\DatabaseUpdates\manifest.xml");
+            server.Set("SpeechUpdates.xml", @"${serverRoot}\DatabaseUpdates\SpeechUpdates.xml");
+            server.Set("MSSQLUpdate_build_10.0.1.1.xml", @"${serverRoot}\DatabaseUpdates\C2C\10.0\MSSQLUpdate_build_10.0.1.1.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.201.xml", @"${serverRoot}\DatabaseUpdates\C2C\10.1\MSSQLUpdate_build_10.1.0.201.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.65.xml", @"${serverRoot}\DatabaseUpdates\C2C\10.1\MSSQLUpdate_build_10.1.0.65.xml");
+            server.Set("MSSQLUpdate_build_9.12.0.28.xml", @"${serverRoot}\DatabaseUpdates\Common\9.12\MSSQLUpdate_build_9.12.0.28.xml");
+            server.Set("MSSQLUpdate_build_9.12.0.37.xml", @"${serverRoot}\DatabaseUpdates\Common\9.12\MSSQLUpdate_build_9.12.0.37.xml");
+            server.Set("MSSQLUpdate_build_9.12.0.38.xml", @"${serverRoot}\DatabaseUpdates\Common\9.12\MSSQLUpdate_build_9.12.0.38.xml");
+            server.Set("MSSQLUpdate_build_10.0.0.22.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0.22.xml");
+            server.Set("MSSQLUpdate_build_10.0.0.31.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0.31.xml");
             server.Set("MSSQLUpdate_build_10.0.0303.1.xml", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.0303.1.xml");
+            server.Set("MSSQLUpdate_build_10.0.1.1.xml_1", @"${serverRoot}\DatabaseUpdates\Common\10.0\MSSQLUpdate_build_10.0.1.1.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.140.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.140.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.151.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.151.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.172.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.172.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.236a.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.236a.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.236b.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.236b.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.242.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.242.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.333.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.333.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.47.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.47.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.61.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.61.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.62.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.62.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.65.xml_1", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.65.xml");
+            server.Set("MSSQLUpdate_build_10.1.0.99.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.0.99.xml");
             server.Set("MSSQLUpdate_build_10.1.2.0.xml", @"${serverRoot}\DatabaseUpdates\Common\10.1\MSSQLUpdate_build_10.1.2.0.xml");
+
             server.Set("nativeServiceWin32.dll", @"${serverRoot}\nativeServiceWin32.dll|${serverRoot}\ContactSourceRunner\nativeServiceWin32.dll");
             server.Set("NetMerge.dll", @"${serverRoot}\ContactSourceRunner\NetMerge.dll");
             server.Set("NetMerge.pdb", @"${serverRoot}\ContactSourceRunner\NetMerge.pdb");

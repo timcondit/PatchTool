@@ -53,6 +53,30 @@ namespace PatchTool
                 "TokenService.xml",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",
 
+                // DatabaseUpdates
+                "C2CUpdates.xml", "CommonUpdates.xml", "EWFMUpdates.xml",
+                "manifest.xml_6", "SpeechUpdates.xml",
+                "MSSQLUpdate_build_9.12.0.28.xml",
+                "MSSQLUpdate_build_9.12.0.37.xml",
+                "MSSQLUpdate_build_9.12.0.38.xml",
+                "MSSQLUpdate_build_10.0.0.22.xml",
+                "MSSQLUpdate_build_10.0.0.31.xml",
+                "MSSQLUpdate_build_10.0.0303.1.xml",
+                "MSSQLUpdate_build_10.0.1.1.xml", "MSSQLUpdate_build_10.0.1.1.xml_1",
+                "MSSQLUpdate_build_10.1.0.47.xml",
+                "MSSQLUpdate_build_10.1.0.61.xml",
+                "MSSQLUpdate_build_10.1.0.62.xml",
+                "MSSQLUpdate_build_10.1.0.65.xml", "MSSQLUpdate_build_10.1.0.65.xml_1",
+                "MSSQLUpdate_build_10.1.0.99.xml",
+                "MSSQLUpdate_build_10.1.0.140.xml",
+                "MSSQLUpdate_build_10.1.0.151.xml",
+                "MSSQLUpdate_build_10.1.0.172.xml",
+                "MSSQLUpdate_build_10.1.0.201.xml",
+                "MSSQLUpdate_build_10.1.0.236a.xml", "MSSQLUpdate_build_10.1.0.236b.xml",
+                "MSSQLUpdate_build_10.1.0.242.xml",
+                "MSSQLUpdate_build_10.1.0.333.xml",
+                "MSSQLUpdate_build_10.1.2.0.xml",
+
                 // LAA-BIN
                 "dumpbin.exe", "EnvisionServer.exe", "java.exe", "javaw.exe",
                 
