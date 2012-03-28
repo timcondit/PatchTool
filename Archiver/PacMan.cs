@@ -125,7 +125,8 @@ namespace PatchTool
 
             IEnumerable<string> ctKeys = new List<string>
             {
-                "AgentInboxGrid.ascx", "Agents.aspx",
+                "AgentInboxGrid.ascx",
+                "Agents.aspx", "Agents.aspx.resx", "Agents.aspx.de.resx", "Agents.aspx.es.resx",
                 "App_Code.compiled", "App_global.asax.compiled", "App_GlobalResources.compiled",
                 "AttachedTrainingClipGrid.ascx",
                 "centricity.dll", "centricity.pdb",
@@ -142,8 +143,8 @@ namespace PatchTool
                 "NewEvaluation.aspx", "RadEditor.skin",
                 "RAL.dll", "RAL.pdb",
                 "RecognitionDashboardItem.ascx", "Recognitions.aspx",
-                "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx",
-                "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
+                "RecordingGridToolbar.ascx", "RecordingGridToolbar.ascx.resx", "RecordingGridToolbar.ascx.de.resx", "RecordingGridToolbar.ascx.es.resx",
+                "SiteToGroupAgentMover.ascx", "SiteToGroupAgentMover.ascx.resx", "SiteToGroupAgentMover.ascx.de.resx", "SiteToGroupAgentMover.ascx.es.resx",
                 "Telerik.Web.Design.dll", "Telerik.Web.UI.dll", "Telerik.Web.UI.xml",
                 "TrainingClipGrid.ascx",
             };

@@ -66,7 +66,10 @@ namespace PatchTool
             // "_1") to the end of the second file of the same name.  But we can't append a mangled file name to the
             // path to identify the file.
 
-            config.Set("Agents.aspx", @"${srcRoot}\src\clients\centricity\ET\Home\Agents\Agents.aspx");
+            config.Set("Agents.aspx", @"${srcRoot}\workdir\centricity\ET\Home\Agents\Agents.aspx");
+            config.Set("Agents.aspx.resx", @"${srcRoot}\workdir\centricity\ET\Home\Agents\App_LocalResources\Agents.aspx.resx");
+            config.Set("Agents.aspx.de.resx", @"${srcRoot}\workdir\centricity\ET\Home\Agents\App_LocalResources\Agents.aspx.de.resx");
+            config.Set("Agents.aspx.es.resx", @"${srcRoot}\workdir\centricity\ET\Home\Agents\App_LocalResources\Agents.aspx.es.resx");
             config.Set("Recognitions.aspx", @"${srcRoot}\src\clients\centricity\ET\PerformanceManagement\Recognitions\Recognitions.aspx");
             config.Set("RecognitionDashboardItem.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\DashboardControls\Recognition\RecognitionDashboardItem.ascx");
             config.Set("AgentInboxGrid.ascx", @"${srcRoot}\src\clients\centricity\ET\UserControls\Grids\AgentInboxGrid.ascx");
@@ -227,6 +230,10 @@ namespace PatchTool
             config.Set("RadEditor.skin", @"${srcRoot}\workdir\centricity\ET\App_Themes\EnvisionTheme\RadEditor.skin");
             config.Set("RAL.dll", @"${srcRoot}\workdir\centricity\ET\bin\RAL.dll");
             config.Set("RAL.pdb", @"${srcRoot}\workdir\centricity\ET\bin\RAL.pdb");
+            config.Set("RecordingGridToolbar.ascx", @"${srcRoot}\workdir\centricity\ET\UserControls\GridToolbar\RecordingGridToolbar.ascx");
+            config.Set("RecordingGridToolbar.ascx.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\GridToolbar\App_LocalResources\RecordingGridToolbar.ascx.resx");
+            config.Set("RecordingGridToolbar.ascx.de.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\GridToolbar\App_LocalResources\RecordingGridToolbar.ascx.de.resx");
+            config.Set("RecordingGridToolbar.ascx.es.resx", @"${srcRoot}\workdir\centricity\ET\UserControls\GridToolbar\App_LocalResources\RecordingGridToolbar.ascx.es.resx");
             config.Set("RtpTransmitter.dll", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.dll");
             config.Set("RtpTransmitter.pdb", @"${srcRoot}\workdir\ChannelManager\RtpTransmitter.pdb");
             config.Set("server.dll", @"${srcRoot}\workdir\SharedResources\server.dll");
@@ -528,6 +535,9 @@ namespace PatchTool
             ct.Set("ctRoot", @".");
             ct.Set("AgentInboxGrid.ascx", @"${ctRoot}\UserControls\Grids\AgentInboxGrid.ascx");
             ct.Set("Agents.aspx", @"${ctRoot}\Home\Agents\Agents.aspx");
+            ct.Set("Agents.aspx.resx", @"${ctRoot}\Home\Agents\App_LocalResources\Agents.aspx.resx");
+            ct.Set("Agents.aspx.de.resx", @"${ctRoot}\Home\Agents\App_LocalResources\Agents.aspx.de.resx");
+            ct.Set("Agents.aspx.es.resx", @"${ctRoot}\Home\Agents\App_LocalResources\Agents.aspx.es.resx");
             ct.Set("App_Code.compiled", @"${ctRoot}\bin\App_Code.compiled");
             ct.Set("App_global.asax.compiled", @"${ctRoot}\bin\App_global.asax.compiled");
             ct.Set("App_GlobalResources.compiled", @"${ctRoot}\bin\App_GlobalResources.compiled");
@@ -557,6 +567,10 @@ namespace PatchTool
             ct.Set("RAL.pdb", @"${ctRoot}\bin\RAL.pdb");
             ct.Set("RecognitionDashboardItem.ascx", @"${ctRoot}\UserControls\DashboardControls\Recognition\RecognitionDashboardItem.ascx");
             ct.Set("Recognitions.aspx", @"${ctRoot}\PerformanceManagement\Recognitions\Recognitions.aspx");
+            ct.Set("RecordingGridToolbar.ascx", @"${ctRoot}\UserControls\GridToolbar\RecordingGridToolbar.ascx");
+            ct.Set("RecordingGridToolbar.ascx.resx", @"${ctRoot}\UserControls\GridToolbar\App_LocalResources\RecordingGridToolbar.ascx.resx");
+            ct.Set("RecordingGridToolbar.ascx.de.resx", @"${ctRoot}\UserControls\GridToolbar\App_LocalResources\RecordingGridToolbar.ascx.de.resx");
+            ct.Set("RecordingGridToolbar.ascx.es.resx", @"${ctRoot}\UserControls\GridToolbar\App_LocalResources\RecordingGridToolbar.ascx.es.resx");
             ct.Set("SiteToGroupAgentMover.ascx", @"${ctRoot}\UserControls\Movers\SiteToGroupAgentMover.ascx");
             ct.Set("SiteToGroupAgentMover.ascx.resx", @"${ctRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.resx");
             ct.Set("SiteToGroupAgentMover.ascx.de.resx", @"${ctRoot}\UserControls\Movers\App_LocalResources\SiteToGroupAgentMover.ascx.de.resx");
