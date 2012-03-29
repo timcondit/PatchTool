@@ -142,6 +142,7 @@ namespace PatchTool
             config.Set("ctcLoader_7_0.pdb", @"${srcRoot}\src\contactsources\netmerge\ctcLoader_7_0\Release\ctcLoader_7_0.pdb");
 
             config.Set("DBMigration_84SP9_To_10.sql", @"${srcRoot}\src\tools\DBMigration\v2\DBMigration_84SP9_To_10.sql");
+            config.Set("DBServiceCentricityWfm.xml", @"${srcRoot}\config\server\ArchitectureServiceDescriptions\DBServiceCentricityWfm.xml");
             config.Set("Default.aspx", @"${srcRoot}\workdir\centricity\ET\Home\Send\Default.aspx");
             config.Set("DefaultEnvisionProfile.prx", @"${srcRoot}\src\winservices\WMWrapperService\DefaultEnvisionProfile.prx");
             config.Set("DemoModeChannel.dll", @"${srcRoot}\workdir\ChannelManager\DemoModeChannel.dll");
@@ -273,6 +274,7 @@ namespace PatchTool
 
             //config.Set("web.config", @"${srcRoot}\src\clients\centricity\ET\web.config");
             config.Set("WMWrapperService.exe", @"${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe");
+            config.Set("WMWrapperService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\WMWrapperService.xml");
 
             // AVPlayer
             config.Set("AVPlayer.application", @"${srcRoot}\workdir\AVPlayer\AVPlayer.application");
@@ -382,6 +384,7 @@ namespace PatchTool
             server.Set("ctcLoader_7_0.pdb", @"${serverRoot}\ContactSourceRunner\ctcLoader_7_0.pdb");
 
             server.Set("client.properties", @"${serverRoot}\client.properties");
+            server.Set("DBServiceCentricityWfm.xml", @"${serverRoot}\ArchitectureServiceDescriptions\DBServiceCentricityWfm.xml");
 
             // Note how we configure multiple copies of the same file on the same app
             server.Set("Envision.jar", @"${serverRoot}\Envision.jar|${serverRoot}\WebServer\webapps\ET\WEB-INF\lib\Envision.jar|${serverRoot}\wwwroot\EnvisionComponents\Envision.jar");
@@ -446,6 +449,7 @@ namespace PatchTool
             server.Set("Tsapi.dll", @"${serverRoot}\ContactSourceRunner\Tsapi.dll");
             server.Set("Tsapi.pdb", @"${serverRoot}\ContactSourceRunner\Tsapi.pdb");
             server.Set("updater.jar", @"${serverRoot}\JRE\lib\ext\updater.jar");
+            server.Set("WMWrapperService.xml", @"${serverRoot}\C2CServiceDescriptions\WMWrapperService.xml");
 
             // LAA-BIN
             server.Set("dumpbin.exe", @"${serverRoot}\LAA-BIN\dumpbin.exe");

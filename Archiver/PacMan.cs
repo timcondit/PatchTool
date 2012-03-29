@@ -34,6 +34,7 @@ namespace PatchTool
                 "cstaLoader_9_1.dll", "cstaLoader_9_5.dll",
                 "ctcLoader_6.0.dll", "ctcLoader_6_0.pdb",
                 "ctcLoader_7.0.dll", "ctcLoader_7_0.pdb",
+                "DBServiceCentricityWfm.xml",
                 "Envision.jar",
                 "envision_schema.xml", "envision_schema_central.xml",
                 "EnvisionControls.cab",
@@ -52,6 +53,7 @@ namespace PatchTool
                 "TeliaCallGuide.dll", "TeliaCallGuide.pdb",
                 "TokenService.xml",
                 "Tsapi.dll", "Tsapi.pdb", "updater.jar",
+                "WMWrapperService.xml",
 
                 // DatabaseUpdates
                 "C2CUpdates.xml", "CommonUpdates.xml", "EWFMUpdates.xml",
