@@ -137,6 +137,7 @@ namespace PatchTool
                 "Centricity_deploy.resources.dll_DE", "Centricity_deploy.resources.dll_DE_1",
                 "Centricity_deploy.resources.dll_ES",
                 "Centricity_deploy.dll", "Centricity_SCA.dll",
+                "CentricityMaster.master.resx", "CentricityMaster.master.de.resx", "CentricityMaster.master.es.resx",
                 "Centricity_Shared.dll", "Centricity_Shared.pdb",
                 "Create_Centricity_WFM_SPROCS.sql",
                 "Default.aspx",

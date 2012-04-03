@@ -104,6 +104,9 @@ namespace PatchTool
             config.Set("Centricity_deploy.resources.dll_DE", @"${srcRoot}\workdir\centricity\ET\bin\de\Centricity_deploy.resources.dll");
             config.Set("Centricity_deploy.resources.dll_DE_1", @"${srcRoot}\workdir\centricity\ET\bin\de-DE\Centricity_deploy.resources.dll");
             config.Set("Centricity_deploy.resources.dll_ES", @"${srcRoot}\workdir\centricity\ET\bin\es\Centricity_deploy.resources.dll");
+            config.Set("CentricityMaster.master.resx", @"${srcRoot}\workdir\centricity\ET\App_LocalResources\CentricityMaster.master.resx");
+            config.Set("CentricityMaster.master.de.resx", @"${srcRoot}\workdir\centricity\ET\App_LocalResources\CentricityMaster.master.de.resx");
+            config.Set("CentricityMaster.master.es.resx", @"${srcRoot}\workdir\centricity\ET\App_LocalResources\CentricityMaster.master.es.resx");
             config.Set("Centricity_Shared.dll", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.dll");
             config.Set("Centricity_Shared.pdb", @"${srcRoot}\workdir\centricity\ET\bin\Centricity_Shared.pdb");
             config.Set("Chanmgr_common.xsd", @"${srcRoot}\config\chanmgr\Chanmgr_common.xsd");
@@ -557,6 +560,9 @@ namespace PatchTool
             ct.Set("Centricity_deploy.resources.dll_DE_1", @"${ctRoot}\bin\de-DE\Centricity_deploy.resources.dll");
             ct.Set("Centricity_deploy.resources.dll_ES", @"${ctRoot}\bin\es\Centricity_deploy.resources.dll");
             ct.Set("Centricity_deploy.dll", @"${ctRoot}\bin\Centricity_deploy.dll");
+            ct.Set("CentricityMaster.master.resx", @"${ctRoot}\App_LocalResources\CentricityMaster.master.resx");
+            ct.Set("CentricityMaster.master.de.resx", @"${ctRoot}\App_LocalResources\CentricityMaster.master.de.resx");
+            ct.Set("CentricityMaster.master.es.resx", @"${ctRoot}\App_LocalResources\CentricityMaster.master.es.resx");
             ct.Set("Centricity_SCA.dll", @"${ctRoot}\bin\Centricity_SCA.dll");
             ct.Set("Centricity_Shared.dll", @"${ctRoot}\bin\Centricity_Shared.dll");
             ct.Set("Centricity_Shared.pdb", @"${ctRoot}\bin\Centricity_Shared.pdb");
