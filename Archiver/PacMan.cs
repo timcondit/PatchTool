@@ -154,8 +154,7 @@ namespace PatchTool
 
             IEnumerable<string> wmwsKeys = new List<string>
             {
-                "DefaultEnvisionProfile.prx", "server.dll",
-                "WMWrapperService.exe", "WMWrapperService.exe.config"
+                "DefaultEnvisionProfile.prx", "server.dll", "WMWrapperService.exe",
             };
 
             IEnumerable<string> avplayerKeys = new List<string>

@@ -277,7 +277,6 @@ namespace PatchTool
 
             //config.Set("web.config", @"${srcRoot}\src\clients\centricity\ET\web.config");
             config.Set("WMWrapperService.exe", @"${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe");
-            config.Set("WMWrapperService.exe.config", @"${srcRoot}\src\winservices\WMWrapperService\bin\Release\WMWrapperService.exe.config");
             config.Set("WMWrapperService.xml", @"${srcRoot}\config\server\C2CServiceDescriptions\WMWrapperService.xml");
 
             // AVPlayer
@@ -597,8 +596,6 @@ namespace PatchTool
             wmws.Set("DefaultEnvisionProfile.prx", @"${wmwsRoot}\DefaultEnvisionProfile.prx");
             wmws.Set("server.dll", @"${wmwsRoot}\server.dll");
             wmws.Set("WMWrapperService.exe", @"${wmwsRoot}\WMWrapperService.exe");
-            // config files need special handling (need a more maintainable solution, maybe in the next release)
-            wmws.Set("WMWrapperService.exe.config", @"${wmwsRoot}\configs\WMWrapperService.exe-" + DateTimeForPatch() + @".config");
 
 
             IConfig dbmigration = source.AddConfig("DBMigration");
@@ -650,12 +647,6 @@ namespace PatchTool
 
             source.ExpandKeyValues();
             source.Save("Aristotle_targets.config");
-        }
-
-
-        private string DateTimeForPatch()
-        {
-            return String.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
         }
 
         // Each application passes in a list of keys that identifies a directory to patch.  Copy all files from the
