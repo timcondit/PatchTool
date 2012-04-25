@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using com.et.versioninfo;
 using Ionic.Zip;
 using Microsoft.Win32;
@@ -914,7 +912,7 @@ namespace PatchTool
             get { return _patchVersion; }
         }
 
-        public void Backup(List<Installer> installs)
+        public void Backup(List<Installer> installs, List<string> skipList)
         {
             string zipFile = Path.Combine(this.BackupDir, BackupZipFileName());
 
@@ -924,7 +922,7 @@ namespace PatchTool
                 {
                     string backupTo = Path.Combine(this.BackupDir, i.displayName);
                     logger.Info("Backing up install folder {0} to {1}", i.installLocation, backupTo);
-                    CopyFolder(i.installLocation, backupTo);
+                    CopyFolder(i.installLocation, backupTo, skipList);
                 }
                 zip.AddDirectory(this.BackupDir);
                 logger.Info("Saving zip file to {0}", zipFile);
@@ -994,17 +992,38 @@ namespace PatchTool
             catch (NullReferenceException) { }
         }
 
-        public static void CopyFolder(string sourceFolder, string destFolder)
+        public static void CopyFolder(string sourceFolder, string destFolder, List<string> skipList = null)
         {
             if (!Directory.Exists(destFolder))
             {
                 Directory.CreateDirectory(destFolder);
             }
             string[] files = Directory.GetFiles(sourceFolder);
+            bool skipThis = false;
             foreach (string file in files)
             {
                 string name = Path.GetFileName(file);
                 string dest = Path.Combine(destFolder, name);
+
+                if (skipList != null)
+                {
+                    foreach (string s in skipList)
+                    {
+                        if (name.StartsWith(s, true, null))
+                        {
+                            logger.Info("not backing up {0} (reason: startswith '{1}')", name, s);
+                            skipThis = true;
+                            break;
+                        }
+                    }
+                }
+                // I'm not a big fan of this indirection, but it should get the job done.  There are other ways to
+                // break out of an inner loop with LINQ, but not in .NET 2.0.
+                if (skipThis == true)
+                {
+                    break;
+                }
+
                 try
                 {
                     File.Copy(file, dest, true);
@@ -1015,12 +1034,6 @@ namespace PatchTool
                 }
                 catch (IOException ex)
                 {
-                    // dup dup
-                    //
-                    // If this exception was caught, the assumption was that an
-                    // Envision service is running on the host.  Services are
-                    // checked before starting, so if we get here, we should log
-                    // the exception for Engineering to review.
                     logger.Fatal(ex);
                     throw;
                 }
@@ -1031,7 +1044,7 @@ namespace PatchTool
             {
                 string name = Path.GetFileName(folder);
                 string dest = Path.Combine(destFolder, name);
-                CopyFolder(folder, dest);
+                CopyFolder(folder, dest, skipList);
             }
         }
 

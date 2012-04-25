@@ -121,7 +121,9 @@ namespace PatchTool
 
             if (installsToBackup.Count > 0)
             {
-                e.Backup(installsToBackup);
+                List<string> skipList = new List<string>();
+                skipList.Add("etDailyLog");
+                e.Backup(installsToBackup, skipList);
             }
             if (appsToPatch.Count > 0)
             {
