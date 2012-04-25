@@ -946,11 +946,11 @@ namespace PatchTool
                 {
                     Directory.Delete(app.patchTo, true);
                     Directory.CreateDirectory(app.patchTo);
-                    CopyFolder(app.patchFrom, app.patchTo);
+                    CopyFolder(app.patchFrom, app.patchTo, null, true);
                 }
                 else
                 {
-                    CopyFolder(app.patchFrom, app.patchTo);
+                    CopyFolder(app.patchFrom, app.patchTo, null, true);
                 }
             }
         }
@@ -992,7 +992,7 @@ namespace PatchTool
             catch (NullReferenceException) { }
         }
 
-        public static void CopyFolder(string sourceFolder, string destFolder, List<string> skipList = null)
+        public static void CopyFolder(string sourceFolder, string destFolder, List<string> skipList = null, bool patching = false)
         {
             if (!Directory.Exists(destFolder))
             {
@@ -1011,9 +1011,13 @@ namespace PatchTool
                     {
                         if (name.StartsWith(s, true, null))
                         {
-                            logger.Info("not backing up {0} (reason: startswith '{1}')", name, s);
+                            logger.Info("NOT backing up {0} (full path: {1}); startswith:{2}", name, file, s);
                             skipThis = true;
                             break;
+                        }
+                        else
+                        {
+                            logger.Info("    backing up {0} (full path: {1})", name, file);
                         }
                     }
                 }
@@ -1026,6 +1030,10 @@ namespace PatchTool
 
                 try
                 {
+                    if (patching == true)
+                    {
+                        logger.Info("patching {0}; source: {1}, destination: {2}", name, file, dest);
+                    }
                     File.Copy(file, dest, true);
                 }
                 catch (FileNotFoundException)
@@ -1044,7 +1052,7 @@ namespace PatchTool
             {
                 string name = Path.GetFileName(folder);
                 string dest = Path.Combine(destFolder, name);
-                CopyFolder(folder, dest, skipList);
+                CopyFolder(folder, dest, skipList, patching);
             }
         }
 
