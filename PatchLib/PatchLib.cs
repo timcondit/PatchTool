@@ -313,6 +313,11 @@ namespace PatchTool
             config.Set("RecordingDownloadTool.resources.dll.deploy", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\de\RecordingDownloadTool.resources.dll.deploy");
             config.Set("RecordingDownloadTool.resources.dll.deploy_1", @"${srcRoot}\workdir\RecordingDownloadTool\Application Files\RecordingDownloadTool_${webapps_version}\es\RecordingDownloadTool.resources.dll.deploy");
 
+            // documentation
+            config.Set("Centricity_Webhelp_DE", @"${srcRoot}\documentation\WebHelp\DE\Centricity_Webhelp.zip");
+            config.Set("Centricity_Webhelp_EN", @"${srcRoot}\documentation\WebHelp\EN\Centricity_Webhelp.zip");
+            config.Set("Centricity_Webhelp_ES", @"${srcRoot}\documentation\WebHelp\ES\Centricity_Webhelp.zip");
+
             // from %ETSDK%
             try
             {
@@ -465,6 +470,11 @@ namespace PatchTool
             server.Set("AlvasAudio.dll", @"${serverRoot}\AlvasAudio\AlvasAudio.dll");
             server.Set("gacutil.exe", @"${serverRoot}\AlvasAudio\gacutil.exe");
             server.Set("regasm.exe", @"${serverRoot}\AlvasAudio\regasm.exe");
+
+            // documentation
+            server.Set("Centricity_Webhelp_DE", @"${serverRoot}\Help\_HelpSupervisorGerman\Centricity_Webhelp.zip");
+            server.Set("Centricity_Webhelp_EN", @"${serverRoot}\Help\_HelpSupervisorEnglish\Centricity_Webhelp.zip");
+            server.Set("Centricity_Webhelp_ES", @"${serverRoot}\Help\_HelpSupervisorSpanish\Centricity_Webhelp.zip");
 
 
             IConfig cm = source.AddConfig("ChannelManager");

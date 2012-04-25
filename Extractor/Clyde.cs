@@ -119,8 +119,14 @@ namespace PatchTool
                 }
             }
 
-            e.Backup(installsToBackup);
-            e.Patch(appsToPatch);
+            if (installsToBackup.Count > 0)
+            {
+                e.Backup(installsToBackup);
+            }
+            if (appsToPatch.Count > 0)
+            {
+                e.Patch(appsToPatch);
+            }
 
             // TC: for testing
             Console.Write("Press ENTER to continue");

@@ -84,6 +84,9 @@ namespace PatchTool
                 
                 // for registering AlvasAudio.dll
                 "gacutil.exe", "regasm.exe",
+
+                // documentation
+                "Centricity_Webhelp_DE", "Centricity_Webhelp_EN", "Centricity_Webhelp_ES",
             };
 
             IEnumerable<string> cmKeys = new List<string>
