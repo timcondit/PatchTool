@@ -25,6 +25,19 @@ using NLog;
 
 namespace PatchTool
 {
+    public static class ExitEarly
+    {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        public static void exit(string msg)
+        {
+            logger.Fatal(msg);
+            Console.Write("Press ENTER to continue");
+            Console.ReadLine();
+            Environment.Exit(1);
+        }
+    }
+
     public class Archiver
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -352,7 +365,7 @@ namespace PatchTool
             }
             catch (ArgumentNullException)
             {
-                logger.Fatal("Please set %ETSDK% and try again");
+                ExitEarly.exit("Please set %ETSDK% and try again");
             }
 
             source.ExpandKeyValues();
@@ -682,8 +695,7 @@ namespace PatchTool
             }
             catch (System.IO.DirectoryNotFoundException)
             {
-                logger.Fatal("caught System.IO.DirectoryNotFoundException");
-                throw;
+                ExitEarly.exit("caught System.IO.DirectoryNotFoundException");
             }
         }
 
@@ -781,8 +793,7 @@ namespace PatchTool
                 }
                 else
                 {
-                    logger.Fatal("{0} is not a valid directory", SourceDir);
-                    Environment.Exit(1);
+                    ExitEarly.exit(SourceDir + " is not a valid directory");
                 }
 
                 // these files install and log the patch
@@ -1052,8 +1063,7 @@ namespace PatchTool
                 }
                 catch (IOException ex)
                 {
-                    logger.Fatal(ex);
-                    throw;
+                    ExitEarly.exit(ex.ToString());
                 }
             }
 
@@ -1082,8 +1092,7 @@ namespace PatchTool
             {
                 if (IsServiceRunning(p))
                 {
-                    logger.Fatal("An Envision service (" + p + ") is running.  Exiting.");
-                    Environment.Exit(1);
+                    ExitEarly.exit("An Envision service (" + p + ") is running.  Exiting.");
                 }
             }
         }
