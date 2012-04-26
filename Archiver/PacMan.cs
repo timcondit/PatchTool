@@ -160,6 +160,11 @@ namespace PatchTool
                 "DefaultEnvisionProfile.prx", "server.dll", "WMWrapperService.exe",
             };
 
+            IEnumerable<string> wfmsgusKeys = new List<string>
+            {
+                "WFMSGUserSync.exe", "WFM_SyncUser.sql",
+            };
+
             IEnumerable<string> avplayerKeys = new List<string>
             {
                 "AVPlayer.application", "AgentSupport.exe.deploy",
@@ -210,6 +215,9 @@ namespace PatchTool
 
             logger.Info("Copying Database Migration files");
             a.makePortablePatch("DBMigration", dbmigrationKeys);
+
+            logger.Info("Copying WFMSG User Sync files");
+            a.makePortablePatch("WFMSGUserSync", wfmsgusKeys);
 
             // The extract dir is set before the archive is created.  As far as I know, there is nothing to be done at
             // extraction time to change that.  Bottom line is, the extractDir cannot be APPDIR.

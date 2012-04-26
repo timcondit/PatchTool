@@ -28,6 +28,7 @@ namespace PatchTool
             avPlayer.replaceAll = true;
             ETApplication recordingDownloadTool = new ETApplication("RecordingDownloadTool", "Envision Web Apps", "RecordingDownloadTool");
             recordingDownloadTool.replaceAll = true;
+            ETApplication wfmsgUserSync = new ETApplication("WFMSGUserSync", "Envision WFMSG User Sync Tool");
             ETApplication wmWrapperService = new ETApplication("WMWrapperService", "Envision Windows Media Wrapper Service");
 
 
@@ -61,6 +62,7 @@ namespace PatchTool
 
             Installer toolsInstaller = new Installer("Tools", "Envision Tools Suite");
             toolsInstaller.applications.Add(new ETApplication("DBMigration", "Envision Database Migration", "DBMigration"));
+            toolsInstaller.applications.Add(new ETApplication("WFMSGUserSync", "Envision WFMSG User Sync Tool", "WFMSGUserSync"));
 
 
             InstallerSuite all = new InstallerSuite();

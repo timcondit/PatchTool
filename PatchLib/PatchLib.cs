@@ -316,6 +316,10 @@ namespace PatchTool
             config.Set("Centricity_Webhelp_EN", @"${srcRoot}\documentation\WebHelp\EN\Centricity_Webhelp.zip");
             config.Set("Centricity_Webhelp_ES", @"${srcRoot}\documentation\WebHelp\ES\Centricity_Webhelp.zip");
 
+            // WFMSG user sync tool
+            config.Set("WFMSGUserSync.exe", @"${srcRoot}\src\tools\WFMSGUserSync\WFMSGUserSync\bin\Release\WFMSGUserSync.exe");
+            config.Set("WFM_SyncUser.sql", @"${srcRoot}\src\tools\WFMSGUserSync\Sproc\WFM_SyncUser.sql");
+
             // from %ETSDK%
             try
             {
@@ -611,6 +615,12 @@ namespace PatchTool
             dbmigration.Set("DBMigration_84SP9_To_10.sql", @"${dbmigrationRoot}\DBMigration_84SP9_To_10.sql");
 
 
+            IConfig wfmsgusersync = source.AddConfig("WFMSGUserSync");
+            wfmsgusersync.Set("wfmsgusersyncRoot", @".");
+            wfmsgusersync.Set("WFMSGUserSync.exe", @"${wfmsgusersyncRoot}\WFMSGUserSync.exe");
+            wfmsgusersync.Set("WFM_SyncUser.sql", @"${wfmsgusersyncRoot}\WFM_SyncUser.sql");
+
+
             IConfig avplayer = source.AddConfig("AVPlayer");
             avplayer.Set("avplayerRoot", @".");
             avplayer.Set("webapps_version", webapps_version);
@@ -670,7 +680,7 @@ namespace PatchTool
             {
                 Microsoft.VisualBasic.FileIO.FileSystem.CopyDirectory(buildRoot, applicationCache);
             }
-            catch (System.IO.DirectoryNotFoundException dex)
+            catch (System.IO.DirectoryNotFoundException)
             {
                 logger.Fatal("caught System.IO.DirectoryNotFoundException");
                 throw;
