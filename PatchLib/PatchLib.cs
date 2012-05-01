@@ -1028,11 +1028,11 @@ namespace PatchTool
 
                 if (skipList != null)
                 {
-                    foreach (string s in skipList)
+                    foreach (string skipItem in skipList)
                     {
-                        if (name.StartsWith(s, true, null))
+                        if (name.StartsWith(skipItem, true, null))
                         {
-                            logger.Info("NOT backing up {0} (full path: {1}); startswith:{2}", name, file, s);
+                            logger.Info("NOT backing up {0} (full path: {1}); startswith:{2}", name, file, skipItem);
                             skipThis = true;
                             break;
                         }
